@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept A: Storytelling – PROTOTYPE</title>
+    <style>
+        /* === PROTOTYPE STYLING === */
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-light: #dbeafe;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        /* Prototype banner */
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong { color: #d97706; }
+
+        /* Sketch-style container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Wireframe box */
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Annotations */
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before {
+            content: '💡 ';
+        }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before {
+            content: '❓ ';
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            border: 3px solid var(--sketch-blue);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .hero-number {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+            line-height: 1;
+        }
+
+        .hero-unit {
+            font-size: 2rem;
+            color: var(--sketch-gray);
+        }
+
+        .hero-context {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #475569;
+        }
+
+        .hero-human {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #fef3c7;
+            border-radius: 2rem;
+            display: inline-block;
+        }
+
+        /* Story cards */
+        .story-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .story-card {
+            border: 2px solid var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: white;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .story-card:hover {
+            border-color: var(--sketch-blue);
+            transform: translateX(4px);
+        }
+
+        .story-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+            text-align: center;
+        }
+
+        .story-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-content p {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Placeholder elements */
+        .placeholder {
+            background: repeating-linear-gradient(
+                45deg,
+                #f1f5f9,
+                #f1f5f9 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+        }
+
+        .placeholder-chart {
+            height: 200px;
+        }
+
+        .placeholder-image {
+            height: 150px;
+        }
+
+        /* Artist spotlight */
+        .artist-spotlight {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .artist-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px dashed var(--wireframe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            background: #f1f5f9;
+        }
+
+        .artist-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .artist-stat {
+            text-align: center;
+        }
+
+        .artist-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .artist-stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* CTA section */
+        .cta-section {
+            text-align: center;
+            padding: 2rem;
+            border: 2px solid var(--sketch-blue);
+            border-radius: 8px;
+            background: #eff6ff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--sketch-blue);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Comparison */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .compare-item {
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .compare-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        /* Notes section */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Arrow connector */
+        .arrow-down {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--sketch-gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept A: Storytelling-fokus – Ikkje ferdig design, berre idéutforsking
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            📖 Konsept A: «Forteljinga om norsk radio»
+        </h1>
+
+        <p class="annotation">Hypotese: Folk engasjerer seg meir av historier enn av tal. Start med eit menneskeleg faktum.</p>
+
+        <!-- HERO: The hook -->
+        <div class="wireframe-box" data-label="Hero / Hook">
+            <div class="hero">
+                <div class="hero-eyebrow">Gramo Statistikken 2024</div>
+                <div class="hero-number">654</div>
+                <div class="hero-unit">timer</div>
+                <div class="hero-context">Så lenge spelte norsk radio «Josefin» av Delara i 2024</div>
+                <div class="hero-human">= 27 dagar non-stop 🎵</div>
+            </div>
+            <p class="annotation">Konverterer tal til noko menneskeleg. «27 dagar» er lettare å forstå enn «654 timer».</p>
+            <p class="annotation question">Kva er den beste «hook»? Josefin? 206 000 timer? Kygo?</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- ARTIST SPOTLIGHT -->
+        <div class="wireframe-box" data-label="Artistspotlight">
+            <div class="artist-spotlight">
+                <div class="artist-avatar">[Artistbilde]</div>
+                <div class="artist-info">
+                    <h2>Delara</h2>
+                    <p style="color: var(--sketch-gray);">Debuterte i 2023 – gjekk rett til topps</p>
+                    <div class="artist-stats">
+                        <div class="artist-stat">
+                            <div class="artist-stat-value">#1</div>
+                            <div class="artist-stat-label">mest spilt</div>
+                        </div>
+                        <div class="artist-stat">
+                            <div class="artist-stat-value">654t</div>
+                            <div class="artist-stat-label">spilletid</div>
+                        </div>
+                        <div class="artist-stat">
+                            <div class="artist-stat-value">2024</div>
+                            <div class="artist-stat-label">debut</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="annotation">Klikk på artist → drilldown til artistprofil med metadata</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- STORY FLOW -->
+        <div class="wireframe-box" data-label="Historieflyt">
+            <h2 style="margin-bottom: 1rem;">Kva meir skjedde i 2024?</h2>
+            <div class="story-flow">
+                <div class="story-card">
+                    <div class="story-number">39%</div>
+                    <div class="story-content">
+                        <h3>Norsk musikk på frammarsj</h3>
+                        <p>Nesten 4 av 10 låtar på norsk radio er norske. Opp frå 32% i 2015.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-number">5/10</div>
+                    <div class="story-content">
+                        <h3>Kvinner tek over</h3>
+                        <p>For første gong er halvparten av topp 10 norske hovudartister kvinner.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-number">+63</div>
+                    <div class="story-content">
+                        <h3>Avicii-comeback</h3>
+                        <p>Seks år etter sin død klatrar Avicii 63 plassar. Nostalgi-effekten.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="annotation">Scrollar nedover = nye historier. Kan bli scrollytelling.</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- COMPARISON -->
+        <div class="wireframe-box" data-label="Samanlikning">
+            <h2 style="margin-bottom: 1rem;">Norge vs. Verda</h2>
+            <div class="compare-grid">
+                <div class="compare-item">
+                    <div class="compare-value">35%</div>
+                    <div>Norge</div>
+                </div>
+                <div class="compare-item">
+                    <div class="compare-value">35%</div>
+                    <div>USA</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--sketch-gray);">
+                Like mykje norsk som amerikansk musikk på norsk radio!
+            </p>
+            <div class="placeholder placeholder-chart" style="margin-top: 1rem;">
+                [Donut-diagram: Nasjonsfordeling]
+            </div>
+            <p class="annotation question">Er dette overraskande? Kva forventar folk?</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- CTA -->
+        <div class="wireframe-box" data-label="Call to Action">
+            <div class="cta-section">
+                <h2>Utforsk sjølv</h2>
+                <p style="color: var(--sketch-gray); margin-top: 0.5rem;">
+                    Bygg din eigen toppliste med filter for land, kjønn, kanal og meir
+                </p>
+                <a href="#" class="cta-button">Bygg toppliste →</a>
+            </div>
+            <p class="annotation">Leier vidare til interaktiv utforskar</p>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept A</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Menneskeleg, engasjerande, delbart («visste du at...»)</li>
+                <li><strong>Svakheit:</strong> Kan bli for lang, mistar folk undervegs?</li>
+                <li><strong>Best for:</strong> Nettside, nyheitsbrev, presse</li>
+                <li><strong>Dårleg for:</strong> Folk som berre vil ha tal raskt</li>
+                <li><strong>Spørsmål:</strong> Kva historie vil Kim fortelje? Kva engasjerer medlemmar?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                Prototype laga 4. desember 2025 – Kjernekaren for Gramo<br>
+                <a href="konsept-b-samanlikning.html">→ Sjå Konsept B: Samanlikning</a> |
+                <a href="konsept-c-kanal.html">→ Sjå Konsept C: Kanal</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

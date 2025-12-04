@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept C: Kanal-fokus – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --nrk: #1e3a8a;
+            --p4: #dc2626;
+            --bauer: #7c3aed;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+
+        .question::before { content: '❓ '; }
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+
+        /* Channel selector */
+        .channel-hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .channel-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .channel-card {
+            border: 3px solid var(--wireframe);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .channel-card.selected {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .channel-card.nrk { border-color: var(--nrk); }
+        .channel-card.nrk.selected { background: #1e3a8a20; }
+
+        .channel-card.p4 { border-color: var(--p4); }
+        .channel-card.p4.selected { background: #dc262620; }
+
+        .channel-card.bauer { border-color: var(--bauer); }
+        .channel-card.bauer.selected { background: #7c3aed20; }
+
+        .channel-logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-norsk {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .channel-desc {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .profile-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 8px;
+        }
+
+        .profile-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-tagline {
+            color: var(--sketch-gray);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .profile-stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Playlist */
+        .mini-playlist {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mini-playlist-header {
+            background: #f1f5f9;
+            padding: 0.75rem 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .mini-playlist-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.85rem;
+        }
+
+        .mini-playlist-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Placeholder */
+        .placeholder {
+            background: repeating-linear-gradient(
+                45deg,
+                #f1f5f9,
+                #f1f5f9 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+            height: 180px;
+        }
+
+        /* Compare mode */
+        .compare-header {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .compare-tab {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .compare-tab.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .compare-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .compare-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept C: Kanal-fokus – «Kva spelar din kanal?»
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            📻 Konsept C: «Kva spelar din kanal?»
+        </h1>
+
+        <p class="annotation">Hypotese: Folk har favorittkanal og vil vite kva den spelar. Personleg inngang.</p>
+
+        <!-- CHANNEL SELECTOR -->
+        <div class="wireframe-box" data-label="Kanalveljar">
+            <div class="channel-hero">
+                <h1>Kva spelar din kanal?</h1>
+                <p style="color: var(--sketch-gray);">Vel favorittkanalen din og sjå kva som vart spelt i 2024</p>
+            </div>
+
+            <div class="channel-grid">
+                <div class="channel-card nrk">
+                    <div class="channel-logo">📻</div>
+                    <div class="channel-name">NRK P1</div>
+                    <div class="channel-norsk">52%</div>
+                    <div class="channel-desc">norsk musikk</div>
+                </div>
+                <div class="channel-card nrk selected">
+                    <div class="channel-logo">🎵</div>
+                    <div class="channel-name">NRK P3</div>
+                    <div class="channel-norsk">52%</div>
+                    <div class="channel-desc">norsk musikk</div>
+                </div>
+                <div class="channel-card p4">
+                    <div class="channel-logo">🔊</div>
+                    <div class="channel-name">P4</div>
+                    <div class="channel-norsk">22%</div>
+                    <div class="channel-desc">norsk musikk</div>
+                </div>
+                <div class="channel-card bauer">
+                    <div class="channel-logo">📼</div>
+                    <div class="channel-name">Radio Norge</div>
+                    <div class="channel-norsk">6%</div>
+                    <div class="channel-desc">80-talls nostalgi</div>
+                </div>
+                <div class="channel-card nrk">
+                    <div class="channel-logo">🎷</div>
+                    <div class="channel-name">NRK Jazz</div>
+                    <div class="channel-norsk">~40%</div>
+                    <div class="channel-desc">instrumental</div>
+                </div>
+                <div class="channel-card nrk">
+                    <div class="channel-logo">🌌</div>
+                    <div class="channel-name">NRK Sápmi</div>
+                    <div class="channel-norsk">~70%</div>
+                    <div class="channel-desc">samisk musikk</div>
+                </div>
+            </div>
+
+            <p class="annotation">Klikk på kanal → drilldown til kanalprofil</p>
+        </div>
+
+        <!-- CHANNEL PROFILE -->
+        <div class="wireframe-box" data-label="Kanalprofil: NRK P3">
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-title">🎵 NRK P3</div>
+                    <div class="profile-tagline">«Ny norsk musikk for unge lyttarar»</div>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">52,4%</div>
+                            <div class="profile-stat-label">norsk musikk</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">18 500</div>
+                            <div class="profile-stat-label">timer totalt</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">2 340</div>
+                            <div class="profile-stat-label">unike låtar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Topp 5 på P3</h3>
+                    <div class="mini-playlist">
+                        <div class="mini-playlist-item">
+                            <span>1. Josefin – Delara</span>
+                            <span style="color: var(--sketch-gray);">142t</span>
+                        </div>
+                        <div class="mini-playlist-item">
+                            <span>2. Houdini – Eminem</span>
+                            <span style="color: var(--sketch-gray);">98t</span>
+                        </div>
+                        <div class="mini-playlist-item">
+                            <span>3. Kristoffer Robin – Randi Oline</span>
+                            <span style="color: var(--sketch-gray);">87t</span>
+                        </div>
+                        <div class="mini-playlist-item">
+                            <span>4. Danser videre – Hkeem</span>
+                            <span style="color: var(--sketch-gray);">76t</span>
+                        </div>
+                        <div class="mini-playlist-item">
+                            <span>5. Strangers – Kenya Grace</span>
+                            <span style="color: var(--sketch-gray);">72t</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Sjangermiks</h3>
+                    <div class="placeholder">[Kakediagram: Pop 45%, Hip-hop 25%, ...]</div>
+                </div>
+            </div>
+
+            <p class="annotation">Kvar kanal har eigen «personlegdom» – P3 = ung, NRK P1 = breitt, Radio Norge = 80-tal</p>
+        </div>
+
+        <!-- COMPARE MODE -->
+        <div class="wireframe-box" data-label="Samanlikn kanalar">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Samanlikn kanalar</h2>
+
+            <div class="compare-header">
+                <button class="compare-tab active">Norskandel</button>
+                <button class="compare-tab">Sjanger</button>
+                <button class="compare-tab">Ny musikk</button>
+            </div>
+
+            <div class="compare-grid">
+                <div class="compare-card" style="border-color: var(--nrk);">
+                    <div class="channel-name">NRK P3</div>
+                    <div class="compare-value" style="color: var(--nrk);">52%</div>
+                    <div style="font-size: 0.8rem; color: var(--sketch-gray);">norsk</div>
+                </div>
+                <div class="compare-card" style="border-color: var(--p4);">
+                    <div class="channel-name">P4</div>
+                    <div class="compare-value" style="color: var(--p4);">22%</div>
+                    <div style="font-size: 0.8rem; color: var(--sketch-gray);">norsk</div>
+                </div>
+            </div>
+
+            <div class="placeholder" style="margin-top: 1rem;">[Linjediagram: P3 vs P4 norskandel 2020-2024]</div>
+
+            <p class="annotation question">Interessant å samanlikne NRK vs. kommersielle kanalar?</p>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept C</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Personleg inngang («mi kanal»), lett å engasjere</li>
+                <li><strong>Styrke:</strong> Viser ulike musikkprofilar – interessant for media</li>
+                <li><strong>Svakheit:</strong> Kan bli nisje – ikkje alle har ein favorittkanal</li>
+                <li><strong>Best for:</strong> Radio-entusiastar, media som vil skrive om kanalforskjellar</li>
+                <li><strong>Spørsmål:</strong> Kva kanalar er interessante? Alle 35 NRK-kanalar?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                <a href="konsept-a-storytelling.html">Konsept A</a> |
+                <a href="konsept-b-samanlikning.html">Konsept B</a> |
+                <a href="konsept-d-long-tail-cta.html">Konsept D</a> |
+                <a href="konsept-e-geografi-tid.html">Konsept E: Geografi</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
