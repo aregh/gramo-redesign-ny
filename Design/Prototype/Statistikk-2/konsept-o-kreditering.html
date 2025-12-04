@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept O: Kreditering – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --gold: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Role tabs */
+        .role-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-tab {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .role-tab:hover {
+            border-color: var(--sketch-blue);
+        }
+
+        .role-tab.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        /* Creator card */
+        .creator-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .creator-card {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .creator-card:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .creator-rank {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .creator-rank.gold { color: var(--gold); }
+        .creator-rank.silver { color: #94a3b8; }
+        .creator-rank.bronze { color: #b45309; }
+
+        .creator-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #ea580c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .creator-info {
+            flex: 1;
+        }
+
+        .creator-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .creator-role {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .creator-hits {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hit-chip {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: #f1f5f9;
+            border-radius: 4px;
+            color: var(--sketch-gray);
+        }
+
+        .creator-stats {
+            text-align: right;
+        }
+
+        .creator-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .creator-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Spotlight */
+        .spotlight-card {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+        }
+
+        .spotlight-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #ea580c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .spotlight-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .spotlight-bio {
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .spotlight-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .spotlight-stat {
+            text-align: center;
+        }
+
+        .spotlight-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #92400e;
+        }
+
+        .spotlight-stat-label {
+            font-size: 0.75rem;
+            color: #78350f;
+        }
+
+        /* Track credits */
+        .track-credits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .track-credit-card {
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .track-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-artist {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .credit-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .credit-row:last-child {
+            border-bottom: none;
+        }
+
+        .credit-role {
+            color: var(--sketch-gray);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 200px;
+            position: relative;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept O: Kreditering – «Bak låtane»
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>✍️ Bak låtane</h1>
+            <p style="color: var(--sketch-gray);">Løft fram produsentar og låtskrivarar</p>
+        </div>
+
+        <p class="annotation">Synleggjer dei «usynlege» bak hitsa – produsentar, låtskrivarar, musikarar</p>
+
+        <div class="wireframe-box" data-label="Toppliste etter rolle">
+            <div class="role-tabs">
+                <button class="role-tab active">🎹 Produsentar</button>
+                <button class="role-tab">✍️ Låtskrivarar</button>
+                <button class="role-tab">🎸 Musikarar</button>
+                <button class="role-tab">🎚️ Teknikarar</button>
+            </div>
+
+            <div class="creator-list">
+                <div class="creator-card">
+                    <div class="creator-rank gold">1</div>
+                    <div class="creator-avatar">🎹</div>
+                    <div class="creator-info">
+                        <div class="creator-name">Stargate</div>
+                        <div class="creator-role">Produsent-duo · Mikkel S. Eriksen & Tor Erik Hermansen</div>
+                        <div class="creator-hits">
+                            <span class="hit-chip">Rude Boy</span>
+                            <span class="hit-chip">Firework</span>
+                            <span class="hit-chip">+10 andre</span>
+                        </div>
+                    </div>
+                    <div class="creator-stats">
+                        <div class="creator-count">12</div>
+                        <div class="creator-label">låtar i topp 100</div>
+                    </div>
+                </div>
+
+                <div class="creator-card">
+                    <div class="creator-rank silver">2</div>
+                    <div class="creator-avatar">🎧</div>
+                    <div class="creator-info">
+                        <div class="creator-name">Kygo</div>
+                        <div class="creator-role">Produsent · Artist · Bergen</div>
+                        <div class="creator-hits">
+                            <span class="hit-chip">Higher Love</span>
+                            <span class="hit-chip">Firestone</span>
+                            <span class="hit-chip">+8 andre</span>
+                        </div>
+                    </div>
+                    <div class="creator-stats">
+                        <div class="creator-count">10</div>
+                        <div class="creator-label">låtar i topp 100</div>
+                    </div>
+                </div>
+
+                <div class="creator-card">
+                    <div class="creator-rank bronze">3</div>
+                    <div class="creator-avatar">🎛️</div>
+                    <div class="creator-info">
+                        <div class="creator-name">Max Martin</div>
+                        <div class="creator-role">Produsent · Låtskrivar · Sverige</div>
+                        <div class="creator-hits">
+                            <span class="hit-chip">Shake It Off</span>
+                            <span class="hit-chip">Blinding Lights</span>
+                            <span class="hit-chip">+6 andre</span>
+                        </div>
+                    </div>
+                    <div class="creator-stats">
+                        <div class="creator-count">8</div>
+                        <div class="creator-label">låtar i topp 100</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Spotlight: Stargate">
+            <div class="spotlight-card">
+                <div class="spotlight-avatar">🎹</div>
+                <div class="spotlight-info">
+                    <h3>Stargate</h3>
+                    <div class="spotlight-bio">
+                        Norsk produsent-duo frå Trondheim. Bak over 200 hitlåtar globalt.
+                        Grammy-vinnarar. Arbeidd med Rihanna, Beyoncé, Katy Perry, Coldplay.
+                    </div>
+                    <div class="spotlight-stats">
+                        <div class="spotlight-stat">
+                            <div class="spotlight-stat-value">12</div>
+                            <div class="spotlight-stat-label">i topp 100</div>
+                        </div>
+                        <div class="spotlight-stat">
+                            <div class="spotlight-stat-value">2 340t</div>
+                            <div class="spotlight-stat-label">total spilletid</div>
+                        </div>
+                        <div class="spotlight-stat">
+                            <div class="spotlight-stat-value">1998</div>
+                            <div class="spotlight-stat-label">aktive sidan</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Kreditering per låt">
+            <h2 style="margin-bottom: 1rem;">📋 Kven laga topp 5?</h2>
+            <div class="track-credits">
+                <div class="track-credit-card">
+                    <div class="track-title">1. Josefin</div>
+                    <div class="track-artist">Delara · 654 timar</div>
+                    <div class="credit-row">
+                        <span class="credit-role">Produsent</span>
+                        <span>Mathias Wang</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Låtskrivar</span>
+                        <span>Delara, Thomas Eriksen</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Mastering</span>
+                        <span>Jan Erik Kongshaug</span>
+                    </div>
+                </div>
+
+                <div class="track-credit-card">
+                    <div class="track-title">2. Too Sweet</div>
+                    <div class="track-artist">Hozier · 593 timar</div>
+                    <div class="credit-row">
+                        <span class="credit-role">Produsent</span>
+                        <span>Hozier, Rob Kirwan</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Låtskrivar</span>
+                        <span>Andrew Hozier-Byrne</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Miks</span>
+                        <span>Alex Delicata</span>
+                    </div>
+                </div>
+
+                <div class="track-credit-card">
+                    <div class="track-title">3. Lose Control</div>
+                    <div class="track-artist">Teddy Swims · 587 timar</div>
+                    <div class="credit-row">
+                        <span class="credit-role">Produsent</span>
+                        <span>Teddy Swims, LosPollosSonidos</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Låtskrivar</span>
+                        <span>4 personar</span>
+                    </div>
+                </div>
+
+                <div class="track-credit-card">
+                    <div class="track-title">4. Higher Love</div>
+                    <div class="track-artist">Kygo & Whitney Houston · 521 timar</div>
+                    <div class="credit-row">
+                        <span class="credit-role">Produsent</span>
+                        <span>Kygo</span>
+                    </div>
+                    <div class="credit-row">
+                        <span class="credit-role">Låtskrivar</span>
+                        <span>Steve Winwood, Will Jennings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept O: Kreditering</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Synleggjer dei «usynlege» – viktig for bransjen</li>
+                <li><strong>Styrke:</strong> Unik vinkling – ingen andre gjer dette</li>
+                <li><strong>Styrke:</strong> Interessant for presse og musikkmedia</li>
+                <li><strong>Teknisk:</strong> MusicBrainz (works/recordings) + TONO (ISWC)</li>
+                <li><strong>Best for:</strong> Bransjepresse, produsentar, låtskrivarar</li>
+                <li><strong>Utviding:</strong> «Norske produsentar bak globale hits»</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept I: Djupdykk låt – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --spotify: #1db954;
+            --apple: #fc3c44;
+            --tidal: #000;
+            --youtube: #ff0000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Track hero */
+        .track-hero {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .track-cover {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .track-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .track-artist {
+            font-size: 1.2rem;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .track-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .track-stat {
+            text-align: center;
+        }
+
+        .track-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .track-stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Streaming links */
+        .stream-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .stream-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border: 2px solid;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .stream-btn.spotify {
+            border-color: var(--spotify);
+            color: var(--spotify);
+        }
+        .stream-btn.spotify:hover {
+            background: var(--spotify);
+            color: white;
+        }
+
+        .stream-btn.apple {
+            border-color: var(--apple);
+            color: var(--apple);
+        }
+        .stream-btn.apple:hover {
+            background: var(--apple);
+            color: white;
+        }
+
+        .stream-btn.tidal {
+            border-color: var(--tidal);
+            color: var(--tidal);
+        }
+        .stream-btn.tidal:hover {
+            background: var(--tidal);
+            color: white;
+        }
+
+        .stream-btn.youtube {
+            border-color: var(--youtube);
+            color: var(--youtube);
+        }
+        .stream-btn.youtube:hover {
+            background: var(--youtube);
+            color: white;
+        }
+
+        .stream-btn.deezer {
+            border-color: #feaa2d;
+            color: #a238ff;
+        }
+
+        /* Metadata grid */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .meta-item {
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .meta-label {
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-weight: bold;
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 200px;
+            position: relative;
+        }
+
+        /* Credits */
+        .credits-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .credit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .credit-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--wireframe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .credit-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .credit-role {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* More from artist */
+        .more-tracks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .more-track {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .more-track:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .more-track-cover {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 0.5rem;
+            background: var(--wireframe);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .more-track-title {
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .more-track-hours {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept I: Djupdykk – «Alt om denne låta»
+    </div>
+
+    <div class="container">
+        <p class="annotation">Klikk på ein låt i topplista → ekspanderer til full profil med alle detaljar</p>
+
+        <div class="wireframe-box" data-label="Låt-hero">
+            <div class="track-hero">
+                <div class="track-cover">🎵</div>
+                <div class="track-info">
+                    <h1>Josefin</h1>
+                    <div class="track-artist">Delara</div>
+                    <div class="track-stats">
+                        <div class="track-stat">
+                            <div class="track-stat-value">654t</div>
+                            <div class="track-stat-label">spilletid 2024</div>
+                        </div>
+                        <div class="track-stat">
+                            <div class="track-stat-value">#1</div>
+                            <div class="track-stat-label">på topplista</div>
+                        </div>
+                        <div class="track-stat">
+                            <div class="track-stat-value">27 dagar</div>
+                            <div class="track-stat-label">non-stop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Lytt no">
+            <h2 style="margin-bottom: 1rem;">🎧 Lytt på din teneste</h2>
+            <div class="stream-links">
+                <a href="#" class="stream-btn spotify">
+                    <span>●</span> Spotify
+                </a>
+                <a href="#" class="stream-btn apple">
+                    <span>♪</span> Apple Music
+                </a>
+                <a href="#" class="stream-btn tidal">
+                    <span>≋</span> Tidal
+                </a>
+                <a href="#" class="stream-btn youtube">
+                    <span>▶</span> YouTube
+                </a>
+                <a href="#" class="stream-btn deezer">
+                    <span>♫</span> Deezer
+                </a>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--sketch-gray); margin-top: 0.75rem;">
+                ISRC: NOAOJ2400123
+            </p>
+        </div>
+
+        <div class="wireframe-box" data-label="Metadata">
+            <h2 style="margin-bottom: 1rem;">📋 Om låta</h2>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Utgjeve</div>
+                    <div class="meta-value">15. mars 2024</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Plateselskap</div>
+                    <div class="meta-value">Universal Music Norway</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Lengde</div>
+                    <div class="meta-value">3:24</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Språk</div>
+                    <div class="meta-value">🇳🇴 Norsk</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Sjanger</div>
+                    <div class="meta-value">Pop</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Første radiospeling</div>
+                    <div class="meta-value">NRK P3, 18. mars 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Radiospeling over tid">
+            <h2 style="margin-bottom: 1rem;">📈 Radiospeling 2024</h2>
+            <div class="chart-container">
+                <canvas id="playChart"></canvas>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Kreditering">
+            <h2 style="margin-bottom: 1rem;">👥 Bak låta</h2>
+            <div class="credits-list">
+                <div class="credit-item">
+                    <div class="credit-avatar">🎤</div>
+                    <div>
+                        <div class="credit-name">Delara Føll</div>
+                        <div class="credit-role">Artist, låtskrivar</div>
+                    </div>
+                </div>
+                <div class="credit-item">
+                    <div class="credit-avatar">🎹</div>
+                    <div>
+                        <div class="credit-name">Mathias Wang</div>
+                        <div class="credit-role">Produsent</div>
+                    </div>
+                </div>
+                <div class="credit-item">
+                    <div class="credit-avatar">✍️</div>
+                    <div>
+                        <div class="credit-name">Thomas Eriksen</div>
+                        <div class="credit-role">Låtskrivar</div>
+                    </div>
+                </div>
+                <div class="credit-item">
+                    <div class="credit-avatar">🎚️</div>
+                    <div>
+                        <div class="credit-name">Jan Erik Kongshaug</div>
+                        <div class="credit-role">Mastering</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Meir frå Delara">
+            <h2 style="margin-bottom: 1rem;">🎵 Meir frå Delara på radio</h2>
+            <div class="more-tracks">
+                <div class="more-track">
+                    <div class="more-track-cover">🎵</div>
+                    <div class="more-track-title">Aldri igjen</div>
+                    <div class="more-track-hours">234t spilletid</div>
+                </div>
+                <div class="more-track">
+                    <div class="more-track-cover">🎵</div>
+                    <div class="more-track-title">Sommer</div>
+                    <div class="more-track-hours">156t spilletid</div>
+                </div>
+                <div class="more-track">
+                    <div class="more-track-cover">🎵</div>
+                    <div class="more-track-title">Natt</div>
+                    <div class="more-track-hours">89t spilletid</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept I: Djupdykk låt</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Gir full kontekst – frå statistikk til lytting på 1 klikk</li>
+                <li><strong>Styrke:</strong> Viser verdien av Gramo-metadata</li>
+                <li><strong>Styrke:</strong> Strøymelenkene aukar brukarverdi</li>
+                <li><strong>Teknisk:</strong> ISRC → Musicfetch API → alle strøymelenker</li>
+                <li><strong>Best for:</strong> Detaljsida for låtar, SEO, artistar som vil dele</li>
+                <li><strong>Utviding:</strong> Kan legge til lyrics (Genius), anbefalingar</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('playChart'), {
+            type: 'line',
+            data: {
+                labels: ['Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+                datasets: [{
+                    label: 'Spilletid (timar)',
+                    data: [12, 45, 89, 120, 98, 76, 65, 58, 52, 39],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

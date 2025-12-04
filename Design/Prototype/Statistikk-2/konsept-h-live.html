@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept H: Livestatistikk – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --live-red: #dc2626;
+            --nrk: #1e3a8a;
+            --p4: #dc2626;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+        .question::before { content: '❓ '; }
+
+        /* Live header */
+        .live-header {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--live-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .live-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Now playing ticker */
+        .ticker-container {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .ticker {
+            display: flex;
+            gap: 3rem;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            white-space: nowrap;
+            color: white;
+        }
+
+        .ticker-channel {
+            background: var(--nrk);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .ticker-channel.p4 { background: var(--p4); }
+
+        .ticker-song {
+            font-weight: bold;
+        }
+
+        .ticker-artist {
+            color: #94a3b8;
+        }
+
+        /* Channel grid */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .channel-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+        }
+
+        .channel-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .channel-live {
+            width: 8px;
+            height: 8px;
+            background: var(--live-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .now-playing {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .now-artist {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .play-btn {
+            margin-top: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+            background: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* Timeline */
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .time-btn {
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+            background: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .time-btn.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        .timeline-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            width: 50px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-song {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-meta {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Stats summary */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept H: Livestatistikk – «Akkurat no på radio»
+    </div>
+
+    <div class="container">
+        <div class="wireframe-box" data-label="Live-header">
+            <div class="live-header">
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    LIVE
+                </div>
+                <h1>Akkurat no på norsk radio</h1>
+                <p style="color: var(--sketch-gray);">Sanntidsoppdatering kvart 3. minutt</p>
+            </div>
+        </div>
+
+        <p class="annotation">Ticker som viser kva som spelar akkurat no på alle kanalar</p>
+
+        <div class="wireframe-box" data-label="Ticker">
+            <div class="ticker-container">
+                <div class="ticker">
+                    <div class="ticker-item">
+                        <span class="ticker-channel">NRK P3</span>
+                        <span class="ticker-song">Josefin</span>
+                        <span class="ticker-artist">Delara</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-channel">NRK P1</span>
+                        <span class="ticker-song">Higher Love</span>
+                        <span class="ticker-artist">Kygo & Whitney Houston</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-channel p4">P4</span>
+                        <span class="ticker-song">Too Sweet</span>
+                        <span class="ticker-artist">Hozier</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-channel">NRK P3</span>
+                        <span class="ticker-song">Josefin</span>
+                        <span class="ticker-artist">Delara</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-channel">NRK P1</span>
+                        <span class="ticker-song">Higher Love</span>
+                        <span class="ticker-artist">Kygo & Whitney Houston</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-channel p4">P4</span>
+                        <span class="ticker-song">Too Sweet</span>
+                        <span class="ticker-artist">Hozier</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Kanaloversikt">
+            <h2 style="margin-bottom: 1rem;">📻 Kva spelar no?</h2>
+            <div class="channel-grid">
+                <div class="channel-card">
+                    <div class="channel-card-header">
+                        <span class="channel-name"><span class="channel-live"></span> NRK P1</span>
+                        <span style="font-size: 0.7rem; color: var(--sketch-gray);">14:23</span>
+                    </div>
+                    <div class="now-playing">Higher Love</div>
+                    <div class="now-artist">Kygo & Whitney Houston</div>
+                    <button class="play-btn">▶ Lytt på NRK</button>
+                </div>
+                <div class="channel-card">
+                    <div class="channel-card-header">
+                        <span class="channel-name"><span class="channel-live"></span> NRK P3</span>
+                        <span style="font-size: 0.7rem; color: var(--sketch-gray);">14:21</span>
+                    </div>
+                    <div class="now-playing">Josefin</div>
+                    <div class="now-artist">Delara</div>
+                    <button class="play-btn">▶ Lytt på NRK</button>
+                </div>
+                <div class="channel-card">
+                    <div class="channel-card-header">
+                        <span class="channel-name"><span class="channel-live"></span> P4</span>
+                        <span style="font-size: 0.7rem; color: var(--sketch-gray);">14:20</span>
+                    </div>
+                    <div class="now-playing">Too Sweet</div>
+                    <div class="now-artist">Hozier</div>
+                    <button class="play-btn">▶ Lytt på P4</button>
+                </div>
+                <div class="channel-card">
+                    <div class="channel-card-header">
+                        <span class="channel-name"><span class="channel-live"></span> Radio Norge</span>
+                        <span style="font-size: 0.7rem; color: var(--sketch-gray);">14:19</span>
+                    </div>
+                    <div class="now-playing">Take On Me</div>
+                    <div class="now-artist">a-ha</div>
+                    <button class="play-btn">▶ Lytt</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="annotation question">Teknisk: Krev ACRCloud eller NRK-API for sanntidsdata</p>
+
+        <div class="wireframe-box" data-label="Siste 24 timar">
+            <div class="timeline-header">
+                <h2>📅 Siste spelar</h2>
+                <div class="time-filter">
+                    <button class="time-btn active">1 time</button>
+                    <button class="time-btn">6 timar</button>
+                    <button class="time-btn">24 timar</button>
+                </div>
+            </div>
+
+            <div class="timeline-list">
+                <div class="timeline-item">
+                    <span class="timeline-time">14:21</span>
+                    <div class="timeline-content">
+                        <div class="timeline-song">Josefin – Delara</div>
+                        <div class="timeline-meta">
+                            <span>NRK P3</span>
+                            <span>🇳🇴 Norsk</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">14:18</span>
+                    <div class="timeline-content">
+                        <div class="timeline-song">Too Sweet – Hozier</div>
+                        <div class="timeline-meta">
+                            <span>P4</span>
+                            <span>🇮🇪 Irland</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">14:15</span>
+                    <div class="timeline-content">
+                        <div class="timeline-song">Fireworks – Kygo</div>
+                        <div class="timeline-meta">
+                            <span>NRK P1</span>
+                            <span>🇳🇴 Norsk</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">14:12</span>
+                    <div class="timeline-content">
+                        <div class="timeline-song">Strangers – Kenya Grace</div>
+                        <div class="timeline-meta">
+                            <span>NRK P3</span>
+                            <span>🇬🇧 UK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">14:08</span>
+                    <div class="timeline-content">
+                        <div class="timeline-song">Danser videre – Hkeem</div>
+                        <div class="timeline-meta">
+                            <span>NRK P3</span>
+                            <span>🇳🇴 Norsk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Dagsstatistikk">
+            <h2 style="margin-bottom: 1rem;">📊 I dag så langt</h2>
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">847</div>
+                    <div class="stat-label">låtar spelt</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">38%</div>
+                    <div class="stat-label">norsk</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">Josefin</div>
+                    <div class="stat-label">mest spelt</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">NRK P3</div>
+                    <div class="stat-label">mest norsk</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept H: Livestatistikk</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Engasjerande, "kva skjer akkurat no"-faktor</li>
+                <li><strong>Styrke:</strong> Perfekt for dashboard på skjerm i Gramo-kontoret</li>
+                <li><strong>Svakheit:</strong> Krev sanntids-API (ACRCloud, NRK, eller liknande)</li>
+                <li><strong>Svakheit:</strong> Høg teknisk kompleksitet</li>
+                <li><strong>Best for:</strong> Internt dashboard, event-skjermar, presse-demo</li>
+                <li><strong>Spørsmål:</strong> Har vi tilgang til sanntidsdata frå NRK?</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+</body>
+</html>

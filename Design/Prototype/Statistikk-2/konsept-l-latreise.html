@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept L: Låtreisa – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Journey header */
+        .journey-header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .journey-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .journey-subtitle {
+            color: var(--sketch-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Timeline visualization */
+        .journey-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--wireframe);
+            transform: translateY(-50%);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 85%;
+            height: 4px;
+            background: linear-gradient(90deg, #22c55e, #2563eb, #dc2626);
+            transform: translateY(-50%);
+        }
+
+        .timeline-points {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .point-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--sketch-blue);
+            z-index: 1;
+        }
+
+        .point-dot.release { border-color: #22c55e; background: #22c55e; }
+        .point-dot.first { border-color: #f59e0b; background: #f59e0b; }
+        .point-dot.peak { border-color: #dc2626; background: #dc2626; }
+        .point-dot.now { border-color: var(--sketch-blue); }
+
+        .point-label {
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+
+        .point-date {
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .point-event {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+
+        /* Milestones */
+        .milestones {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .milestones::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #22c55e, #f59e0b, #dc2626, var(--sketch-blue));
+        }
+
+        .milestone {
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 1.25rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--sketch-blue);
+        }
+
+        .milestone.release::before { background: #22c55e; }
+        .milestone.first::before { background: #f59e0b; }
+        .milestone.peak::before { background: #dc2626; }
+
+        .milestone-date {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .milestone-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .milestone-desc {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Channel breakdown */
+        .channel-first {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .channel-card {
+            text-align: center;
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .channel-rank {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .channel-name {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .channel-date {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept L: Låtreisa – «Josefin frå utgiving til #1»
+    </div>
+
+    <div class="container">
+        <div class="journey-header">
+            <h1>🚀 Reisa til «Josefin»</h1>
+            <div class="journey-subtitle">Delara · Frå utgiving til #1 på radio</div>
+        </div>
+
+        <p class="annotation">Tidslinje som viser korleis ei låt byggjer seg opp på radio</p>
+
+        <div class="wireframe-box" data-label="Tidslinje">
+            <div class="journey-timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-progress"></div>
+                <div class="timeline-points">
+                    <div class="timeline-point">
+                        <div class="point-dot release"></div>
+                        <div class="point-label">
+                            <div class="point-date">15. mar</div>
+                            <div class="point-event">Utgiving</div>
+                        </div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="point-dot first"></div>
+                        <div class="point-label">
+                            <div class="point-date">18. mar</div>
+                            <div class="point-event">Første radio</div>
+                        </div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="point-dot"></div>
+                        <div class="point-label">
+                            <div class="point-date">12. apr</div>
+                            <div class="point-event">Topp 10</div>
+                        </div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="point-dot peak"></div>
+                        <div class="point-label">
+                            <div class="point-date">3. mai</div>
+                            <div class="point-event">🏆 #1</div>
+                        </div>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="point-dot now"></div>
+                        <div class="point-label">
+                            <div class="point-date">No</div>
+                            <div class="point-event">654 timar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Nøkkeltal">
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">3 dagar</div>
+                    <div class="stat-label">til første speling</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">28 dagar</div>
+                    <div class="stat-label">til topp 10</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">49 dagar</div>
+                    <div class="stat-label">til #1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">12 veker</div>
+                    <div class="stat-label">på toppen</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Spelekurve">
+            <h2 style="margin-bottom: 1rem;">📈 Dagleg speling</h2>
+            <div class="chart-container">
+                <canvas id="journeyChart"></canvas>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Kven spelte først?">
+            <h2 style="margin-bottom: 1rem;">📻 Kven spelte først?</h2>
+            <div class="channel-first">
+                <div class="channel-card">
+                    <div class="channel-rank">🥇</div>
+                    <div class="channel-name">NRK P3</div>
+                    <div class="channel-date">18. mars 14:23</div>
+                </div>
+                <div class="channel-card">
+                    <div class="channel-rank">🥈</div>
+                    <div class="channel-name">NRK P1</div>
+                    <div class="channel-date">19. mars 08:45</div>
+                </div>
+                <div class="channel-card">
+                    <div class="channel-rank">🥉</div>
+                    <div class="channel-name">P4</div>
+                    <div class="channel-date">22. mars 16:12</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Milepælar">
+            <h2 style="margin-bottom: 1rem;">🎯 Milepælar</h2>
+            <div class="milestones">
+                <div class="milestone release">
+                    <div class="milestone-date">15. mars 2024</div>
+                    <div class="milestone-title">🎵 Utgiving</div>
+                    <div class="milestone-desc">«Josefin» sleppast på alle strøymeplattformer</div>
+                </div>
+                <div class="milestone first">
+                    <div class="milestone-date">18. mars 2024</div>
+                    <div class="milestone-title">📻 Første radiospeling</div>
+                    <div class="milestone-desc">NRK P3 spelar låta kl. 14:23 – berre 3 dagar etter utgiving</div>
+                </div>
+                <div class="milestone">
+                    <div class="milestone-date">12. april 2024</div>
+                    <div class="milestone-title">⬆️ Inn i topp 10</div>
+                    <div class="milestone-desc">Passerer etablerte artistar på veg opp</div>
+                </div>
+                <div class="milestone peak">
+                    <div class="milestone-date">3. mai 2024</div>
+                    <div class="milestone-title">🏆 #1 på topplista</div>
+                    <div class="milestone-desc">Tek førsteplassen – blir verande i 12 veker</div>
+                </div>
+                <div class="milestone">
+                    <div class="milestone-date">Oktober 2024</div>
+                    <div class="milestone-title">📊 Passerer 600 timar</div>
+                    <div class="milestone-desc">= 25 dagar non-stop speling</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept L: Låtreisa</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Fortel ei historie – narrativt engasjerande</li>
+                <li><strong>Styrke:</strong> Viser «behind the scenes» av ein hit</li>
+                <li><strong>Styrke:</strong> Interessant for artistar og plateselskap</li>
+                <li><strong>Teknisk:</strong> Krev detaljert historikk per låt</li>
+                <li><strong>Best for:</strong> Årets låtar, artistar som vil dele eigen suksess</li>
+                <li><strong>Utviding:</strong> Samanlikn med andre låtar («raskare enn...»)</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('journeyChart'), {
+            type: 'line',
+            data: {
+                labels: ['Mar', '', '', 'Apr', '', '', 'Mai', '', '', 'Jun', '', '', 'Jul', '', '', 'Aug'],
+                datasets: [{
+                    label: 'Dagleg speling',
+                    data: [0, 2, 5, 12, 28, 45, 67, 78, 82, 75, 68, 62, 55, 48, 42, 38],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    annotation: {
+                        annotations: {
+                            peak: {
+                                type: 'point',
+                                xValue: 7,
+                                yValue: 82,
+                                backgroundColor: '#dc2626',
+                                radius: 8
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Spelar per dag' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

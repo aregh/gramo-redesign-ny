@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept J: Artistprofil 2.0 – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Artist hero */
+        .artist-hero {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .artist-photo {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .artist-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .artist-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .artist-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--wireframe);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--sketch-blue);
+            border-radius: 50%;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .timeline-event {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Discography */
+        .disco-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .disco-item {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .disco-item:hover {
+            border-color: var(--sketch-blue);
+            transform: translateY(-4px);
+        }
+
+        .disco-cover {
+            height: 120px;
+            background: var(--wireframe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .disco-info {
+            padding: 0.75rem;
+        }
+
+        .disco-title {
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .disco-year {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        .disco-hours {
+            font-size: 0.75rem;
+            color: var(--sketch-blue);
+            margin-top: 0.25rem;
+        }
+
+        /* Channel distribution */
+        .channel-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .channel-name {
+            width: 100px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .channel-bar-bg {
+            flex: 1;
+            height: 20px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .channel-bar {
+            height: 100%;
+            background: var(--sketch-blue);
+            border-radius: 4px;
+        }
+
+        .channel-hours {
+            width: 80px;
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept J: Artistprofil 2.0 – «Kygo på ein stad»
+    </div>
+
+    <div class="container">
+        <div class="wireframe-box" data-label="Artist hero">
+            <div class="artist-hero">
+                <div class="artist-photo">🎧</div>
+                <div class="artist-info">
+                    <h1>Kygo</h1>
+                    <div class="artist-tagline">Kyrre Gørvell-Dahll · Bergen · Tropical house-pionér</div>
+                    <div class="artist-meta">
+                        <span class="artist-meta-item">🇳🇴 Noreg</span>
+                        <span class="artist-meta-item">📍 Bergen</span>
+                        <span class="artist-meta-item">🎂 Aktiv sidan 2013</span>
+                        <span class="artist-meta-item">👤 Mann</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-btn">● Spotify</a>
+                        <a href="#" class="social-btn">📷 Instagram</a>
+                        <a href="#" class="social-btn">🎵 TikTok</a>
+                        <a href="#" class="social-btn">🌐 kygomusic.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Nøkkeltal">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1 690</div>
+                    <div class="stat-label">timar på radio 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">#1</div>
+                    <div class="stat-label">norsk artist</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">59</div>
+                    <div class="stat-label">låtar på radio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">70 dagar</div>
+                    <div class="stat-label">non-stop spilletid</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="annotation">Tidslinje viser karrierereisa på norsk radio</p>
+
+        <div class="wireframe-box" data-label="Radiokarriere">
+            <h2 style="margin-bottom: 1.5rem;">📈 Kygo si radiokarriere</h2>
+            <div class="chart-container">
+                <canvas id="careerChart"></canvas>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Tidslinje">
+            <h2 style="margin-bottom: 1.5rem;">🗓️ Milepælar</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-event">Mest spilte norske artist på radio – 1 690 timar</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-event">«Lost Without You» blir årets mest spelte norske låt</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-event">«Higher Love» med Whitney Houston tek av globalt</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-event">Gjennombrot med «Firestone» – første hit på norsk radio</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2013</div>
+                    <div class="timeline-event">Debuterer med remiksar på SoundCloud</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Kanalfordeling">
+            <h2 style="margin-bottom: 1rem;">📻 Kvar vert Kygo spelt?</h2>
+            <div class="channel-row">
+                <span class="channel-name">NRK P1</span>
+                <div class="channel-bar-bg">
+                    <div class="channel-bar" style="width: 45%;"></div>
+                </div>
+                <span class="channel-hours">760t</span>
+            </div>
+            <div class="channel-row">
+                <span class="channel-name">NRK P3</span>
+                <div class="channel-bar-bg">
+                    <div class="channel-bar" style="width: 30%;"></div>
+                </div>
+                <span class="channel-hours">507t</span>
+            </div>
+            <div class="channel-row">
+                <span class="channel-name">P4</span>
+                <div class="channel-bar-bg">
+                    <div class="channel-bar" style="width: 18%;"></div>
+                </div>
+                <span class="channel-hours">304t</span>
+            </div>
+            <div class="channel-row">
+                <span class="channel-name">Radio Norge</span>
+                <div class="channel-bar-bg">
+                    <div class="channel-bar" style="width: 7%;"></div>
+                </div>
+                <span class="channel-hours">119t</span>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Diskografi">
+            <h2 style="margin-bottom: 1rem;">💿 Diskografi på radio</h2>
+            <div class="disco-grid">
+                <div class="disco-item">
+                    <div class="disco-cover">🌴</div>
+                    <div class="disco-info">
+                        <div class="disco-title">Golden Hour</div>
+                        <div class="disco-year">2020</div>
+                        <div class="disco-hours">456t spilletid</div>
+                    </div>
+                </div>
+                <div class="disco-item">
+                    <div class="disco-cover">☁️</div>
+                    <div class="disco-info">
+                        <div class="disco-title">Cloud Nine</div>
+                        <div class="disco-year">2016</div>
+                        <div class="disco-hours">389t spilletid</div>
+                    </div>
+                </div>
+                <div class="disco-item">
+                    <div class="disco-cover">🎵</div>
+                    <div class="disco-info">
+                        <div class="disco-title">Kids in Love</div>
+                        <div class="disco-year">2017</div>
+                        <div class="disco-hours">234t spilletid</div>
+                    </div>
+                </div>
+                <div class="disco-item">
+                    <div class="disco-cover">🌊</div>
+                    <div class="disco-info">
+                        <div class="disco-title">Thrill of the Chase</div>
+                        <div class="disco-year">2022</div>
+                        <div class="disco-hours">198t spilletid</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept J: Artistprofil 2.0</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Alt om artisten på ein stad – komplett oversikt</li>
+                <li><strong>Styrke:</strong> Perfekt for artistar som vil dele eiga statistikk</li>
+                <li><strong>Styrke:</strong> God for SEO – «Kygo radio statistikk»</li>
+                <li><strong>Metadata:</strong> Discogs (diskografi) + Spotify (lenker) + Gramo (speletal)</li>
+                <li><strong>Best for:</strong> Dedikerte artistsider, press kit, artistar</li>
+                <li><strong>Utviding:</strong> Samanlikning med andre artistar</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('careerChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Spilletid (timar)',
+                    data: [120, 456, 389, 312, 445, 890, 756, 623, 1245, 1690],
+                    backgroundColor: '#2563eb',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

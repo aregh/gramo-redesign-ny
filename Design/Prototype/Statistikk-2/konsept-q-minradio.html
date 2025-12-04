@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept Q: Min radiosmak – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --gramo-blue: #1e3a8a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+        .question::before { content: '❓ '; }
+
+        /* Login prompt */
+        .login-prompt {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 8px;
+        }
+
+        .login-prompt h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-prompt p {
+            color: var(--sketch-gray);
+            margin-bottom: 2rem;
+        }
+
+        .login-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--gramo-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* User header */
+        .user-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--gramo-blue), #3b82f6);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .user-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-member {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Stats grid */
+        .stats-hero {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .hero-stat {
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .hero-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+        }
+
+        .hero-context {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 200px;
+            position: relative;
+        }
+
+        /* Track list */
+        .my-tracks {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .my-track {
+            display: grid;
+            grid-template-columns: 40px 50px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .my-track-rank {
+            font-weight: bold;
+            color: var(--sketch-gray);
+            text-align: center;
+        }
+
+        .my-track-cover {
+            width: 50px;
+            height: 50px;
+            background: var(--wireframe);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .my-track-title {
+            font-weight: bold;
+        }
+
+        .my-track-album {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .my-track-hours {
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        /* Comparison */
+        .compare-box {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .compare-side {
+            text-align: center;
+        }
+
+        .compare-label {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .compare-value.you { color: var(--sketch-blue); }
+        .compare-value.avg { color: var(--sketch-gray); }
+
+        .compare-vs {
+            font-weight: bold;
+            color: var(--sketch-gray);
+        }
+
+        /* Share card */
+        .share-card {
+            background: linear-gradient(135deg, var(--gramo-blue), #3b82f6);
+            border-radius: 12px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .share-brand {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .share-stat {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .share-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .share-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .share-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid white;
+            border-radius: 2rem;
+            background: transparent;
+            color: white;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background: white;
+            color: var(--gramo-blue);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept Q: Min radiosmak – Personleg statistikk for artistar
+    </div>
+
+    <div class="container">
+
+        <!-- LOGIN STATE -->
+        <div class="wireframe-box" data-label="Innlogging">
+            <div class="login-prompt">
+                <h1>📊 Din radiostatistikk</h1>
+                <p>Logg inn for å sjå korleis musikken din gjorde det på norsk radio i 2024</p>
+                <button class="login-btn">
+                    🔐 Logg inn med Gramo
+                </button>
+            </div>
+        </div>
+
+        <p class="annotation">Etter innlogging ser artisten sin eigen statistikk</p>
+
+        <!-- LOGGED IN STATE -->
+        <div class="wireframe-box" data-label="Innlogga brukar">
+            <div class="user-header">
+                <div class="user-avatar">🎤</div>
+                <div class="user-info">
+                    <h2>Delara</h2>
+                    <div class="user-member">Gramo-medlem sidan 2022</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Dine nøkkeltal">
+            <h2 style="margin-bottom: 1rem;">🎉 2024 var eit godt år!</h2>
+            <div class="stats-hero">
+                <div class="hero-stat">
+                    <div class="hero-value">1 045</div>
+                    <div class="hero-label">timar på radio</div>
+                    <div class="hero-context">= 43 dagar non-stop</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-value">#4</div>
+                    <div class="hero-label">norsk artist</div>
+                    <div class="hero-context">av 45 000 artistar</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-value">+340%</div>
+                    <div class="hero-label">frå 2023</div>
+                    <div class="hero-context">307t → 1 045t</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Spelekurve">
+            <h2 style="margin-bottom: 1rem;">📈 Din speling gjennom året</h2>
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Dine låtar">
+            <h2 style="margin-bottom: 1rem;">🎵 Dine mest spelte</h2>
+            <div class="my-tracks">
+                <div class="my-track">
+                    <div class="my-track-rank">1</div>
+                    <div class="my-track-cover">🎵</div>
+                    <div>
+                        <div class="my-track-title">Josefin</div>
+                        <div class="my-track-album">Single · 2024</div>
+                    </div>
+                    <div class="my-track-hours">654t</div>
+                </div>
+                <div class="my-track">
+                    <div class="my-track-rank">2</div>
+                    <div class="my-track-cover">🎵</div>
+                    <div>
+                        <div class="my-track-title">Aldri igjen</div>
+                        <div class="my-track-album">Single · 2024</div>
+                    </div>
+                    <div class="my-track-hours">234t</div>
+                </div>
+                <div class="my-track">
+                    <div class="my-track-rank">3</div>
+                    <div class="my-track-cover">🎵</div>
+                    <div>
+                        <div class="my-track-title">Sommer</div>
+                        <div class="my-track-album">Single · 2023</div>
+                    </div>
+                    <div class="my-track-hours">98t</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Samanlikning">
+            <h2 style="margin-bottom: 1rem;">📊 Du vs. gjennomsnittet</h2>
+            <div class="compare-box">
+                <div class="compare-side">
+                    <div class="compare-label">Du</div>
+                    <div class="compare-value you">1 045t</div>
+                </div>
+                <div class="compare-vs">vs.</div>
+                <div class="compare-side">
+                    <div class="compare-label">Gjennomsnitt norsk artist</div>
+                    <div class="compare-value avg">23t</div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--sketch-gray); margin-top: 1rem;">
+                Du har <strong>45x meir</strong> spilletid enn gjennomsnittet!
+            </p>
+        </div>
+
+        <div class="wireframe-box" data-label="Del på SoMe">
+            <div class="share-card">
+                <div class="share-brand">Gramo Wrapped 2024</div>
+                <div class="share-stat">1 045 timar</div>
+                <div class="share-text">Så mykje vart musikken min spelt på norsk radio i 2024</div>
+                <div class="share-btns">
+                    <button class="share-btn">📷 Instagram</button>
+                    <button class="share-btn">🐦 Twitter</button>
+                    <button class="share-btn">📥 Last ned</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="annotation question">Teknisk: Krev innlogging + kopling til Apollon/medlemsdata</p>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept Q: Min radiosmak</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Personleg engasjement – «min statistikk»</li>
+                <li><strong>Styrke:</strong> Naturleg SoMe-deling – artistar deler gjerne</li>
+                <li><strong>Styrke:</strong> Aukar Gramo-medlemsverdi</li>
+                <li><strong>Svakheit:</strong> Høg teknisk kompleksitet</li>
+                <li><strong>Teknisk:</strong> Krev innlogging + kopling til Apollon</li>
+                <li><strong>Inspirasjon:</strong> Spotify Wrapped – men for radio</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('myChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+                datasets: [{
+                    label: 'Spilletid (timar)',
+                    data: [45, 52, 89, 156, 178, 142, 98, 76, 68, 58, 48, 35],
+                    backgroundColor: '#2563eb',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
