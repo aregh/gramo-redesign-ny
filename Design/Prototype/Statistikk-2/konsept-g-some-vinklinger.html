@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept G: SoMe-vinklingar – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-green: #16a34a;
+            --sketch-red: #dc2626;
+            --sketch-purple: #7c3aed;
+            --sketch-pink: #db2777;
+            --sketch-orange: #ea580c;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--sketch-gray);
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 1rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+
+        /* Vinkling grid */
+        .vinkling-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Vinkling card */
+        .vinkling-card {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .vinkling-header {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-bottom: 2px dashed var(--wireframe);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vinkling-title {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vinkling-tag {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 2rem;
+            background: var(--sketch-blue);
+            color: white;
+        }
+
+        .vinkling-tag.gender { background: var(--sketch-pink); }
+        .vinkling-tag.geo { background: var(--sketch-green); }
+        .vinkling-tag.trend { background: var(--sketch-orange); }
+        .vinkling-tag.compare { background: var(--sketch-purple); }
+
+        .vinkling-body {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        /* Chart area */
+        .chart-area {
+            min-height: 200px;
+        }
+
+        .chart-container {
+            height: 180px;
+            position: relative;
+        }
+
+        .stat-highlight {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--sketch-gray);
+            margin-top: 0.5rem;
+        }
+
+        .stat-context {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-top: 0.25rem;
+            opacity: 0.7;
+        }
+
+        /* SoMe preview */
+        .some-preview {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 8px;
+            padding: 1.25rem;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 240px;
+        }
+
+        .some-preview.pink { background: linear-gradient(135deg, #be185d, #ec4899); }
+        .some-preview.green { background: linear-gradient(135deg, #166534, #22c55e); }
+        .some-preview.orange { background: linear-gradient(135deg, #c2410c, #f97316); }
+        .some-preview.purple { background: linear-gradient(135deg, #5b21b6, #8b5cf6); }
+        .some-preview.red { background: linear-gradient(135deg, #991b1b, #ef4444); }
+        .some-preview.teal { background: linear-gradient(135deg, #115e59, #14b8a6); }
+        .some-preview.dark { background: linear-gradient(135deg, #0f172a, #334155); }
+
+        .some-brand {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .some-stat {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .some-title {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: auto;
+        }
+
+        .some-source {
+            font-size: 0.6rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+        }
+
+        .some-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .some-logo {
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .some-year {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* Actions */
+        .vinkling-actions {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-top: 2px dashed var(--wireframe);
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+            background: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .action-btn.primary {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        /* Quick data */
+        .quick-data {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .quick-data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .vinkling-grid {
+                grid-template-columns: 1fr;
+            }
+            .vinkling-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept G: SoMe-vinklingar – Ferdigbygde statistikk-bitar for sosiale media
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📱 Finn din vinkling</h1>
+            <p>Ferdigbygde statistikk-historier klare for sosiale media</p>
+        </div>
+
+        <p class="annotation">Kvar «vinkling» = ein graf + ein SoMe-post-preview. Klikk for å laste ned eller kopiere.</p>
+
+        <div class="vinkling-grid">
+
+            <!-- 1. KJØNNSFORDELING -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">👩 Kjønnsfordeling i topp 10</span>
+                    <span class="vinkling-tag gender">Kjønn</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-pink);">5/10</div>
+                            <div class="stat-label">kvinner i topp 10 norsk</div>
+                            <div class="stat-context">Historisk høgt!</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview pink">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">5 av 10</div>
+                        <div class="some-title">For første gong er halvparten av topp 10 norske artistar kvinner</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 2. NORGE VS USA -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">🇳🇴 Norge vs. USA</span>
+                    <span class="vinkling-tag compare">Samanlikning</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-blue);">35%</div>
+                            <div class="stat-label">norsk = like mykje som USA</div>
+                            <div class="stat-context">35,3% NO vs 34,9% US</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">35% vs 35%</div>
+                        <div class="some-title">Like mykje norsk som amerikansk musikk på norsk radio</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 3. JOSEFIN-REKORDAN -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">🏆 Årets mest spilte</span>
+                    <span class="vinkling-tag trend">Trend</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-orange);">654t</div>
+                            <div class="stat-label">«Josefin» av Delara</div>
+                            <div class="stat-context">= 27 dagar non-stop</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart3"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview orange">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">27 dagar</div>
+                        <div class="some-title">Så lenge spelte norsk radio «Josefin» av Delara i 2024</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 4. BERGENSARTISTAR -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">🏔️ Bergen på radio</span>
+                    <span class="vinkling-tag geo">Geografi</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-green);">28%</div>
+                            <div class="stat-label">av norsk musikk frå Bergen</div>
+                            <div class="stat-context">Kygo, Aurora, Röyksopp...</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart4"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview green">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">28%</div>
+                        <div class="some-title">Nesten ein tredel av norsk musikk på radio kjem frå Bergen</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 5. AVICII COMEBACK -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">⬆️ Største klatrar</span>
+                    <span class="vinkling-tag trend">Trend</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-purple);">+63</div>
+                            <div class="stat-label">Avicii klatrar 63 plassar</div>
+                            <div class="stat-context">6 år etter sin død</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart5"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview purple">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">+63 plassar</div>
+                        <div class="some-title">Avicii klatrar mest på radiolista – 6 år etter sin død</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 6. NRK VS KOMMERSIELL -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">📻 NRK vs. kommersiell</span>
+                    <span class="vinkling-tag compare">Samanlikning</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-red);">52% vs 22%</div>
+                            <div class="stat-label">NRK P1 vs P4 norskandel</div>
+                            <div class="stat-context">2x så mykje norsk på NRK</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart6"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview red">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">52% vs 22%</div>
+                        <div class="some-title">NRK spelar dobbelt så mykje norsk musikk som P4</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 7. NORSK VEKST -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">📈 10 år med vekst</span>
+                    <span class="vinkling-tag trend">Trend</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-green);">+7%</div>
+                            <div class="stat-label">norsk musikk sidan 2015</div>
+                            <div class="stat-context">32% → 39%</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart7"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview teal">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">32% → 39%</div>
+                        <div class="some-title">Norsk musikk har vakse kvart år dei siste 10 åra</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 8. KYGO DOMINANS -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">👑 Norges radiokonge</span>
+                    <span class="vinkling-tag">Artist</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-blue);">1 690t</div>
+                            <div class="stat-label">Kygo – mest spilte norske</div>
+                            <div class="stat-context">= 70 dagar non-stop</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart8"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview dark">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">70 dagar</div>
+                        <div class="some-title">Kygo er Noregs mest spilte artist – 70 dagar non-stop spilletid</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 9. RADIO NORGE 80-TAL -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">📼 80-talsnostalgi</span>
+                    <span class="vinkling-tag compare">Kanal</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-purple);">6%</div>
+                            <div class="stat-label">norsk på Radio Norge</div>
+                            <div class="stat-context">Whitney, Madonna, Queen...</div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart9"></canvas>
+                        </div>
+                    </div>
+                    <div class="some-preview purple">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">94% retro</div>
+                        <div class="some-title">Radio Norge spelar nesten berre internasjonal 80- og 90-talsmusikk</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+            <!-- 10. ORKESTER PÅ RADIO -->
+            <div class="vinkling-card">
+                <div class="vinkling-header">
+                    <span class="vinkling-title">🎻 Klassisk på radio</span>
+                    <span class="vinkling-tag">Overraskande</span>
+                </div>
+                <div class="vinkling-body">
+                    <div class="chart-area">
+                        <div class="stat-highlight">
+                            <div class="stat-number" style="color: var(--sketch-orange);">3</div>
+                            <div class="stat-label">orkester i topp 50 norske</div>
+                            <div class="stat-context">Bergen Fil., KORK, Oslo Fil.</div>
+                        </div>
+                        <div class="quick-data">
+                            <div class="quick-data-row">
+                                <span>#22 Bergen Filharmoniske</span>
+                                <span>234t</span>
+                            </div>
+                            <div class="quick-data-row">
+                                <span>#25 KORK</span>
+                                <span>198t</span>
+                            </div>
+                            <div class="quick-data-row">
+                                <span>#31 Oslo Filharmoniske</span>
+                                <span>156t</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="some-preview orange">
+                        <div class="some-brand">Gramo Statistikken 2024</div>
+                        <div class="some-stat">3 orkester</div>
+                        <div class="some-title">Bergen Fil., KORK og Oslo Fil. er alle blant topp 50 norske artistar på radio</div>
+                        <div class="some-footer">
+                            <span class="some-logo">GRAMO</span>
+                            <span class="some-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="vinkling-actions">
+                    <button class="action-btn primary">📥 Last ned bilde</button>
+                    <button class="action-btn">📋 Kopier tekst</button>
+                    <button class="action-btn">📊 Sjå data</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Design notes -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept G: SoMe-vinklingar</h3>
+            <ul>
+                <li><strong>Formål:</strong> Gjer det enkelt for kommunikasjonsavdelinga å finne og dele statistikk</li>
+                <li><strong>Kvar vinkling:</strong> Graf + SoMe-preview + last ned-knapp</li>
+                <li><strong>Fargekodar:</strong> Rosa=kjønn, Grøn=geo, Oransje=trend, Lilla=samanlikning</li>
+                <li><strong>Output:</strong> Bilete i rett format for Instagram/LinkedIn/Twitter</li>
+                <li><strong>Utviding:</strong> Kan legge til «Lag din eigen» for custom-vinklingar</li>
+                <li><strong>Spørsmål:</strong> Kva vinklingar vil presse ha? Kva engasjerer på SoMe?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                <a href="konsept-a-storytelling.html">A</a> |
+                <a href="konsept-b-samanlikning.html">B</a> |
+                <a href="konsept-c-kanal.html">C</a> |
+                <a href="konsept-d-long-tail-cta.html">D</a> |
+                <a href="konsept-e-geografi-tid.html">E</a> |
+                <a href="konsept-f-bygg-toppliste.html">F</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.borderColor = '#e2e8f0';
+
+        // 1. Kjønnsfordeling
+        new Chart(document.getElementById('chart1'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Kvinner', 'Menn'],
+                datasets: [{
+                    data: [5, 5],
+                    backgroundColor: ['#ec4899', '#3b82f6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 8, font: { size: 10 } } } }
+            }
+        });
+
+        // 2. Norge vs USA
+        new Chart(document.getElementById('chart2'), {
+            type: 'bar',
+            data: {
+                labels: ['Norge', 'USA', 'UK', 'Andre'],
+                datasets: [{
+                    data: [35.3, 34.9, 17.8, 12],
+                    backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6', '#94a3b8'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { display: false }, x: { grid: { display: false } } }
+            }
+        });
+
+        // 3. Topp 5 spilletid
+        new Chart(document.getElementById('chart3'), {
+            type: 'bar',
+            data: {
+                labels: ['Josefin', 'Too Sweet', 'Lose Control', 'Whatever', 'Beautiful'],
+                datasets: [{
+                    data: [654, 593, 587, 521, 515],
+                    backgroundColor: ['#f97316', '#94a3b8', '#94a3b8', '#94a3b8', '#94a3b8'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 9 } } } }
+            }
+        });
+
+        // 4. Geografi
+        new Chart(document.getElementById('chart4'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Bergen', 'Oslo', 'Trondheim', 'Andre'],
+                datasets: [{
+                    data: [28, 45, 12, 15],
+                    backgroundColor: ['#22c55e', '#3b82f6', '#f59e0b', '#94a3b8'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 8, font: { size: 10 } } } }
+            }
+        });
+
+        // 5. Avicii klatring
+        new Chart(document.getElementById('chart5'), {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    data: [45, 67, 89, 95, 100, 37],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { reverse: true, display: false },
+                    x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+                }
+            }
+        });
+
+        // 6. NRK vs P4
+        new Chart(document.getElementById('chart6'), {
+            type: 'bar',
+            data: {
+                labels: ['NRK P1', 'NRK P3', 'P4', 'Radio Norge'],
+                datasets: [{
+                    data: [51.8, 52.4, 22.3, 6.0],
+                    backgroundColor: ['#1e3a8a', '#1e3a8a', '#dc2626', '#7c3aed'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { display: false }, x: { grid: { display: false }, ticks: { font: { size: 9 } } } }
+            }
+        });
+
+        // 7. Norsk vekst
+        new Chart(document.getElementById('chart7'), {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    data: [32, 33, 34, 35, 36, 37, 38, 38.5, 38.1, 39.3],
+                    borderColor: '#14b8a6',
+                    backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 30, max: 42, display: false },
+                    x: { grid: { display: false }, ticks: { font: { size: 8 } } }
+                }
+            }
+        });
+
+        // 8. Kygo topp
+        new Chart(document.getElementById('chart8'), {
+            type: 'bar',
+            data: {
+                labels: ['Kygo', 'Chris H.', 'Dagny', 'Matoma', 'Astrid S'],
+                datasets: [{
+                    data: [1690, 1239, 1176, 890, 756],
+                    backgroundColor: ['#1e3a8a', '#64748b', '#64748b', '#64748b', '#64748b'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 9 } } } }
+            }
+        });
+
+        // 9. Radio Norge
+        new Chart(document.getElementById('chart9'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Internasjonal', 'Norsk'],
+                datasets: [{
+                    data: [94, 6],
+                    backgroundColor: ['#8b5cf6', '#22c55e'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 8, font: { size: 10 } } } }
+            }
+        });
+    </script>
+</body>
+</html>

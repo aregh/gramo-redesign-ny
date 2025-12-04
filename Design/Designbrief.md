@@ -206,7 +206,45 @@ Gramo sit på **verifisert metadata** frå fleire kjelder, matcha mot spilledata
 
 ---
 
-## 11. Opne spørsmål
+## 11. Prototypar og konseptutforsking
+
+### Formål med prototypane
+Prototypane er **utforskingsverktøy**, ikkje ferdige løysingar. Målet er å:
+- Utforske ulike konsept og innfallsvinklar
+- Slå saman, justere og vidareutvikle idear
+- Teste hypotesar om brukarengasjement
+- Gi konkret grunnlag for diskusjon i teamet
+
+### Prototypar (Statistikk-2)
+Wireframe-stil prototypar som utforskar ulike inngangar til statistikkdata:
+
+| Konsept | Fil | Vinkling | Status |
+|---------|-----|----------|--------|
+| **A: Storytelling** | `konsept-a-storytelling.html` | Narrativ hook: "654 timer med Josefin" | ✅ Klar |
+| **B: Samanlikning** | `konsept-b-samanlikning.html` | VS-format: Norge vs. verden | ✅ Klar |
+| **C: Kanal** | `konsept-c-kanal.html` | "Kva spelar din kanal?" | ✅ Klar |
+| **D: Long tail + CTA** | `konsept-d-long-tail-cta.html` | 45 000 artistar + medlemsverving | ✅ Klar |
+| **E: Geografi + tid** | `konsept-e-geografi-tid.html` | Kart, byar, klatrarar/nedgang | ✅ Klar |
+| **F: Bygg toppliste** | `konsept-f-bygg-toppliste.html` | Interaktiv toppliste-byggar | ✅ Klar |
+| **G: SoMe-vinklingar** | `konsept-g-some-vinklingar.html` | 10 ferdigbygde delingsbitar | ✅ Klar |
+
+→ **Live demo:** https://aregh.github.io/gramo-redesign-ny/Design/Prototype/Statistikk-2/
+
+### Korleis bruke prototypane
+1. **Utforsk individuelt** - Klikk gjennom alle konsept
+2. **Noter:** Kva fungerer? Kva manglar? Kva triggar nye idear?
+3. **Kombiner:** Kanskje A+C? Eller E+F?
+4. **Diskuter i team:** Kva konsept går vidare til neste fase?
+
+### Neste steg
+- [ ] Intern gjennomgang (Are + Inge)
+- [ ] Velge 2-3 konsept for vidareutvikling
+- [ ] Eventuell brukartest på utvalte konsept
+- [ ] Produksjonsdesign i Figma
+
+---
+
+## 12. Opne spørsmål
 
 1. **Merkevare:** Komplett redesign eller evolusjon?
 2. **Bildebank:** Kva har Gramo? Kva treng vi?
