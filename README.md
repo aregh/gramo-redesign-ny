@@ -18,11 +18,29 @@ Gramo skal gjennomføre et innholdsdrevet redesign av sine nettsider for å:
 
 ---
 
+## Kom i gang
+
+### For Are og Bastian
+
+Se [CONTRIBUTING.md](CONTRIBUTING.md) for retningslinjer for samarbeid via GitHub.
+
+**Hurtigstart:**
+```bash
+git pull origin main              # Hent siste endringer
+# ... gjør endringer ...
+git add -A
+git commit -m "Beskrivelse"
+git push origin main
+```
+
+---
+
 ## Katalogstruktur
 
 ```
 Gramo_kontekstarkitektur/
 ├── README.md              # ← DU ER HER
+├── CONTRIBUTING.md        # Retningslinjer for samarbeid
 ├── KONTEKST.md            # Hub - les denne først
 ├── 2DOS.md                # Aktive oppgaver
 ├── LOGG.md                # Kronologisk logg
@@ -62,8 +80,9 @@ Gramo_kontekstarkitektur/
 | Dokument | Beskrivelse |
 |----------|-------------|
 | [KONTEKST.md](KONTEKST.md) | **Start her** - Hub med lenker til alt |
+| [2DOS.md](2DOS.md) | Aktive oppgaver og neste steg |
+| [LOGG.md](LOGG.md) | Kronologisk logg |
 | [Dokumenter/Prosjektmandat.md](Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
-| [Analyse/Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md) | Brukerreise for toppoppgave #1 |
 
 ---
 
@@ -80,13 +99,13 @@ Basert på brukerinnsikt har vi identifisert disse kjerneoppgavene:
 
 ## Team
 
-| Rolle | Person |
-|-------|--------|
-| Prosjekteier | Kim Skarning Andersen |
-| Kommunikasjonssjef | Rita H. Mamelund |
-| Webredaktør | Bastian Daae |
-| Prosjektleder | Are Halland |
-| Design | Inge Fossland |
+| Rolle | Person | Ansvar i repo |
+|-------|--------|---------------|
+| Prosjekteier | Kim Skarning Andersen | - |
+| Kommunikasjonssjef | Rita H. Mamelund | - |
+| Webredaktør | **Bastian Daae** | Innhold, møtereferat |
+| Prosjektleder | **Are Halland** | Strategi, analyse, koordinering |
+| Design | Inge Fossland | - |
 
 ---
 
@@ -94,6 +113,7 @@ Basert på brukerinnsikt har vi identifisert disse kjerneoppgavene:
 
 | Verktøy | Status | Formål |
 |---------|--------|--------|
+| GitHub | ✅ Aktiv | Dokumentasjon og samarbeid |
 | Notion | ✅ Aktiv | Prosjektstyring |
 | Airtable | ✅ Aktiv | Innholdskartlegging |
 | Sanity | ⏳ Planlagt | CMS |
