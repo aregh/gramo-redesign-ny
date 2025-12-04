@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistprofil – Gramo Statistikken 2024</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --gramo-dark: #0a1628;
+            --gramo-blue: #1e3a8a;
+            --gramo-accent: #60a5fa;
+            --gramo-light: #93c5fd;
+            --gramo-red: #ef4444;
+            --gramo-green: #22c55e;
+            --gramo-purple: #a78bfa;
+            --gramo-gold: #fbbf24;
+            --gramo-pink: #f472b6;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--gramo-dark) 0%, var(--gramo-blue) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            font-size: 1.2rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .nav-back:hover { opacity: 1; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero section */
+        .artist-hero {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.1));
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artist-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gramo-accent), var(--gramo-purple), var(--gramo-pink));
+        }
+
+        .artist-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gramo-accent), var(--gramo-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .artist-info h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, var(--gramo-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .artist-tagline {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .artist-badges {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            padding: 0.4rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .badge-country { background: rgba(239, 68, 68, 0.3); color: #fca5a5; }
+        .badge-gender { background: rgba(236, 72, 153, 0.3); color: #f9a8d4; }
+        .badge-debut { background: rgba(251, 191, 36, 0.3); color: #fde68a; }
+        .badge-status { background: rgba(34, 197, 94, 0.3); color: #86efac; }
+        .badge-deceased { background: rgba(107, 114, 128, 0.4); color: #d1d5db; }
+
+        .artist-rank {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            background: var(--glass);
+            border-radius: 0.5rem;
+        }
+
+        .artist-rank strong {
+            color: var(--gramo-gold);
+            font-size: 1.3rem;
+        }
+
+        /* Stats grid */
+        .stats-hero {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gramo-accent);
+        }
+
+        .stat-card.highlight::before {
+            background: linear-gradient(90deg, var(--gramo-gold), var(--gramo-pink));
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gramo-accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card.highlight .stat-value {
+            background: linear-gradient(135deg, var(--gramo-gold), var(--gramo-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .stat-context {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            margin-top: 0.5rem;
+        }
+
+        /* Metadata section */
+        .metadata-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--gramo-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metadata-item {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.75rem;
+        }
+
+        .metadata-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .metadata-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .metadata-source {
+            font-size: 0.7rem;
+            opacity: 0.4;
+            margin-top: 0.3rem;
+        }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Chart containers */
+        .chart-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+
+        /* Top tracks list */
+        .tracks-list {
+            list-style: none;
+        }
+
+        .track-item {
+            display: grid;
+            grid-template-columns: 40px 1fr 80px;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin: 0 -0.5rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .track-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+        .track-rank {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gramo-light);
+            text-align: center;
+        }
+
+        .track-rank.gold { color: var(--gramo-gold); }
+
+        .track-info h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .track-meta {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .track-hours {
+            text-align: right;
+            font-weight: 500;
+            color: var(--gramo-accent);
+        }
+
+        .track-hours span {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.5;
+            font-weight: 400;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gramo-accent);
+            transform: translateX(-4px);
+        }
+
+        .timeline-year {
+            font-size: 0.8rem;
+            color: var(--gramo-accent);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-event {
+            font-size: 0.95rem;
+        }
+
+        /* Similar artists */
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .similar-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .similar-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .similar-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass);
+            margin: 0 auto 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .similar-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .similar-hours {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Channel breakdown */
+        .channel-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .channel-bar {
+            display: grid;
+            grid-template-columns: 100px 1fr 60px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .channel-name {
+            font-size: 0.85rem;
+        }
+
+        .channel-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .channel-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gramo-accent), var(--gramo-purple));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .channel-value {
+            font-size: 0.85rem;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* Insight cards */
+        .insight-highlight {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(244, 114, 182, 0.15));
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .insight-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .insight-content h3 {
+            font-size: 1.1rem;
+            color: var(--gramo-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-content p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Share section */
+        .share-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .share-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-btn-primary {
+            background: var(--gramo-accent);
+            color: white;
+        }
+
+        .share-btn-primary:hover { background: #3b82f6; }
+
+        .share-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: white;
+        }
+
+        .share-btn-secondary:hover { background: var(--glass); }
+
+        /* Artist selector */
+        .artist-selector {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .artist-selector-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .artist-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .artist-pill {
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .artist-pill:hover { background: var(--glass); }
+        .artist-pill.active { background: var(--gramo-accent); border-color: var(--gramo-accent); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.5;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .artist-hero { grid-template-columns: 1fr; text-align: center; }
+            .artist-avatar { margin: 0 auto 1.5rem; width: 150px; height: 150px; font-size: 4rem; }
+            .artist-badges { justify-content: center; }
+            .stats-hero { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .artist-info h1 { font-size: 2rem; }
+            .stats-hero { grid-template-columns: 1fr; }
+            .metadata-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="interaktiv-utforsker-v2.html" class="nav-back">← Tilbake til oversikt</a>
+        <div class="nav-logo">GRAMO</div>
+    </nav>
+
+    <div class="container">
+        <!-- Artist selector -->
+        <div class="artist-selector">
+            <div class="artist-selector-title">Vel artist</div>
+            <div class="artist-pills">
+                <button class="artist-pill active" onclick="loadArtist('delara')">Delara</button>
+                <button class="artist-pill" onclick="loadArtist('kygo')">Kygo</button>
+                <button class="artist-pill" onclick="loadArtist('dagny')">Dagny</button>
+                <button class="artist-pill" onclick="loadArtist('chrisholsten')">Chris Holsten</button>
+                <button class="artist-pill" onclick="loadArtist('emmasteinbakken')">Emma Steinbakken</button>
+                <button class="artist-pill" onclick="loadArtist('avicii')">Avicii</button>
+                <button class="artist-pill" onclick="loadArtist('mariamena')">Maria Mena</button>
+            </div>
+        </div>
+
+        <!-- Hero section -->
+        <div class="artist-hero">
+            <div class="artist-avatar" id="artistAvatar">✨</div>
+            <div class="artist-info">
+                <h1 id="artistName">Delara</h1>
+                <p class="artist-tagline" id="artistTagline">Årets mest spilte låt – «Josefin»</p>
+
+                <div class="artist-badges" id="artistBadges">
+                    <span class="badge badge-country">🇳🇴 Noreg</span>
+                    <span class="badge badge-gender">👩 Kvinne</span>
+                    <span class="badge badge-debut">✨ Debut 2023</span>
+                    <span class="badge badge-status">🎤 Aktiv</span>
+                </div>
+
+                <div class="artist-rank">
+                    Rangert som <strong id="artistRankValue">#10</strong> norsk hovudartist i 2024
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero stats -->
+        <div class="stats-hero">
+            <div class="stat-card highlight">
+                <div class="stat-value" id="statHours">791</div>
+                <div class="stat-label">timer spilletid</div>
+                <div class="stat-context" id="statHoursContext">= 33 dagar non-stop</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statTracks">17</div>
+                <div class="stat-label">låtar på radio</div>
+                <div class="stat-context">i 2024</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statChannels">4</div>
+                <div class="stat-label">kanalar</div>
+                <div class="stat-context">speler musikken</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statTopSong">#1</div>
+                <div class="stat-label">høgaste plassering</div>
+                <div class="stat-context" id="statTopSongTitle">«Josefin»</div>
+            </div>
+        </div>
+
+        <!-- Insight highlight -->
+        <div class="insight-highlight" id="insightHighlight">
+            <div class="insight-icon">🏆</div>
+            <div class="insight-content">
+                <h3>Årets gjennombrot</h3>
+                <p>Delara debuterte i 2023 og gjekk rett til topps med «Josefin» – den mest spilte låten på norsk radio i 2024 med 654 timer spilletid. Det tilsvarar 27 dagar non-stop.</p>
+            </div>
+        </div>
+
+        <!-- Metadata section -->
+        <div class="metadata-section">
+            <h2 class="section-title">📋 Verifisert metadata</h2>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Land</div>
+                    <div class="metadata-value" id="metaCountry">Noreg</div>
+                    <div class="metadata-source">Gramo registrering</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">By/region</div>
+                    <div class="metadata-value" id="metaCity">Oslo</div>
+                    <div class="metadata-source">Folkeregisteret</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Kjønn</div>
+                    <div class="metadata-value" id="metaGender">Kvinne</div>
+                    <div class="metadata-source">Verifisert</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Språk i låtar</div>
+                    <div class="metadata-value" id="metaLanguage">Norsk/Engelsk</div>
+                    <div class="metadata-source">Tekst-analyse</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Debut</div>
+                    <div class="metadata-value" id="metaDebut">2023</div>
+                    <div class="metadata-source">Første utgivelse</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Status</div>
+                    <div class="metadata-value" id="metaStatus">Aktiv</div>
+                    <div class="metadata-source">Oppdatert 2024</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Plateselskap</div>
+                    <div class="metadata-value" id="metaLabel">Sony Music</div>
+                    <div class="metadata-source">Gramo registrering</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">ISRC-prefiks</div>
+                    <div class="metadata-value" id="metaISRC">NOSEY*</div>
+                    <div class="metadata-source">ISRC-registeret</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two column: Tracks & Channel breakdown -->
+        <div class="two-col">
+            <div class="chart-section">
+                <h2 class="section-title">🎵 Topp låtar på radio</h2>
+                <ul class="tracks-list" id="tracksList">
+                    <li class="track-item">
+                        <span class="track-rank gold">1</span>
+                        <div class="track-info">
+                            <h4>Josefin</h4>
+                            <div class="track-meta">Norsk tekst • 2024</div>
+                        </div>
+                        <div class="track-hours">654 t <span>27 dagar</span></div>
+                    </li>
+                    <li class="track-item">
+                        <span class="track-rank">2</span>
+                        <div class="track-info">
+                            <h4>Våren</h4>
+                            <div class="track-meta">Norsk tekst • 2023</div>
+                        </div>
+                        <div class="track-hours">89 t <span>3,7 dagar</span></div>
+                    </li>
+                    <li class="track-item">
+                        <span class="track-rank">3</span>
+                        <div class="track-info">
+                            <h4>Helt alene</h4>
+                            <div class="track-meta">Norsk tekst • 2023</div>
+                        </div>
+                        <div class="track-hours">48 t <span>2 dagar</span></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="chart-section">
+                <h2 class="section-title">📻 Kanalfordeling</h2>
+                <div class="channel-bars" id="channelBars">
+                    <div class="channel-bar">
+                        <span class="channel-name">P4</span>
+                        <div class="channel-progress">
+                            <div class="channel-progress-fill" style="width: 45%"></div>
+                        </div>
+                        <span class="channel-value">356 t</span>
+                    </div>
+                    <div class="channel-bar">
+                        <span class="channel-name">NRK P1</span>
+                        <div class="channel-progress">
+                            <div class="channel-progress-fill" style="width: 30%"></div>
+                        </div>
+                        <span class="channel-value">237 t</span>
+                    </div>
+                    <div class="channel-bar">
+                        <span class="channel-name">NRK P3</span>
+                        <div class="channel-progress">
+                            <div class="channel-progress-fill" style="width: 20%"></div>
+                        </div>
+                        <span class="channel-value">158 t</span>
+                    </div>
+                    <div class="channel-bar">
+                        <span class="channel-name">Andre</span>
+                        <div class="channel-progress">
+                            <div class="channel-progress-fill" style="width: 5%"></div>
+                        </div>
+                        <span class="channel-value">40 t</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two column: Trends & Similar -->
+        <div class="two-col">
+            <div class="chart-section">
+                <h2 class="section-title">📈 Spilletid over tid</h2>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h2 class="section-title">🎤 Liknande artistar</h2>
+                <div class="similar-grid">
+                    <div class="similar-card" onclick="loadArtist('emmasteinbakken')">
+                        <div class="similar-avatar">🌟</div>
+                        <div class="similar-name">Emma Steinbakken</div>
+                        <div class="similar-hours">535 t</div>
+                    </div>
+                    <div class="similar-card" onclick="loadArtist('dagny')">
+                        <div class="similar-avatar">🎵</div>
+                        <div class="similar-name">Dagny</div>
+                        <div class="similar-hours">1 176 t</div>
+                    </div>
+                    <div class="similar-card">
+                        <div class="similar-avatar">🎤</div>
+                        <div class="similar-name">Synne Vo</div>
+                        <div class="similar-hours">219 t</div>
+                    </div>
+                    <div class="similar-card">
+                        <div class="similar-avatar">🎶</div>
+                        <div class="similar-name">Randi Oline</div>
+                        <div class="similar-hours">389 t</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career timeline -->
+        <div class="chart-section">
+            <h2 class="section-title">📅 Karrieretidslinje</h2>
+            <div class="timeline" id="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-event">«Josefin» blir årets mest spilte låt på norsk radio</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-event">17 låtar på radio totalt</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-event">Debut med første singel</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share section -->
+        <div class="share-section">
+            <h3>Del artistprofilen</h3>
+            <div class="share-buttons">
+                <button class="share-btn share-btn-primary" onclick="shareProfile()">
+                    📤 Kopier lenke
+                </button>
+                <button class="share-btn share-btn-secondary">
+                    📊 Last ned som bilde
+                </button>
+                <button class="share-btn share-btn-secondary">
+                    📄 Eksporter data (JSON)
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Data frå Gramo Statistikken 2024 • Verifisert metadata</p>
+            <p>Prototype – Kjernekaren for Gramo</p>
+        </div>
+    </div>
+
+    <script>
+        // Artist data with full metadata
+        const artistsData = {
+            delara: {
+                name: "Delara",
+                avatar: "✨",
+                tagline: "Årets mest spilte låt – «Josefin»",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Oslo",
+                gender: "Kvinne",
+                genderIcon: "👩",
+                debut: "2023",
+                status: "Aktiv",
+                deceased: false,
+                hours: 791,
+                tracks: 17,
+                channels: 4,
+                rank: 10,
+                topSong: "#1",
+                topSongTitle: "«Josefin»",
+                language: "Norsk/Engelsk",
+                label: "Sony Music",
+                isrc: "NOSEY*",
+                insight: {
+                    icon: "🏆",
+                    title: "Årets gjennombrot",
+                    text: "Delara debuterte i 2023 og gjekk rett til topps med «Josefin» – den mest spilte låten på norsk radio i 2024 med 654 timer spilletid. Det tilsvarar 27 dagar non-stop."
+                },
+                tracksList: [
+                    { title: "Josefin", meta: "Norsk tekst • 2024", hours: 654 },
+                    { title: "Våren", meta: "Norsk tekst • 2023", hours: 89 },
+                    { title: "Helt alene", meta: "Norsk tekst • 2023", hours: 48 }
+                ],
+                channelData: [
+                    { name: "P4", hours: 356, pct: 45 },
+                    { name: "NRK P1", hours: 237, pct: 30 },
+                    { name: "NRK P3", hours: 158, pct: 20 },
+                    { name: "Andre", hours: 40, pct: 5 }
+                ],
+                timeline: [
+                    { year: "2024", event: "«Josefin» blir årets mest spilte låt på norsk radio" },
+                    { year: "2024", event: "17 låtar på radio totalt" },
+                    { year: "2023", event: "Debut med første singel" }
+                ],
+                trendData: [0, 0, 0, 0, 89, 791]
+            },
+            kygo: {
+                name: "Kygo",
+                avatar: "🎧",
+                tagline: "Mest spilte norske artist 2024",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Bergen",
+                gender: "Mann",
+                genderIcon: "👨",
+                debut: "2014",
+                status: "Aktiv",
+                deceased: false,
+                hours: 1690,
+                tracks: 59,
+                channels: 5,
+                rank: 1,
+                topSong: "#4",
+                topSongTitle: "«Whatever»",
+                language: "Engelsk",
+                label: "Sony/Ultra",
+                isrc: "USRC1*",
+                insight: {
+                    icon: "👑",
+                    title: "Noregs radiokonge",
+                    text: "Med 1 690 timer spilletid er Kygo den mest spilte norske artisten på norsk radio i 2024. Det tilsvarar over 70 dagar non-stop med Kygo-musikk."
+                },
+                tracksList: [
+                    { title: "Whatever (feat. Ava Max)", meta: "Engelsk • 2024", hours: 521 },
+                    { title: "For Life", meta: "Engelsk • 2024", hours: 341 },
+                    { title: "It Ain't Me (feat. Selena Gomez)", meta: "Engelsk • 2017", hours: 289 }
+                ],
+                channelData: [
+                    { name: "P4", hours: 845, pct: 50 },
+                    { name: "NRK P3", hours: 507, pct: 30 },
+                    { name: "NRK P1", hours: 253, pct: 15 },
+                    { name: "Andre", hours: 85, pct: 5 }
+                ],
+                timeline: [
+                    { year: "2024", event: "«Whatever» i topp 5 mest spilte" },
+                    { year: "2023", event: "59 låtar på norsk radio" },
+                    { year: "2017", event: "«It Ain't Me» – internasjonal megahit" },
+                    { year: "2014", event: "Gjennombrot med «Firestone»" }
+                ],
+                trendData: [450, 890, 1240, 1380, 1520, 1690]
+            },
+            dagny: {
+                name: "Dagny",
+                avatar: "🎵",
+                tagline: "Tromsø sin pop-eksport",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Tromsø",
+                gender: "Kvinne",
+                genderIcon: "👩",
+                debut: "2015",
+                status: "Aktiv",
+                deceased: false,
+                hours: 1176,
+                tracks: 35,
+                channels: 4,
+                rank: 3,
+                topSong: "#10",
+                topSongTitle: "«Same Again»",
+                language: "Engelsk",
+                label: "Little Daggers/Universal",
+                isrc: "NODGR*",
+                insight: {
+                    icon: "🌟",
+                    title: "Konsistent hitmakar",
+                    text: "Dagny har levert hits kvart einaste år sidan 2016. Med tre låtar i topp 40 i 2024 viser ho at ho er ein av Noregs mest stabile popstjerner."
+                },
+                tracksList: [
+                    { title: "Same Again", meta: "Engelsk • 2024", hours: 380 },
+                    { title: "Heartbreak in the Making", meta: "Engelsk • 2024", hours: 228 },
+                    { title: "Strawberry Dream", meta: "Engelsk • 2024", hours: 228 }
+                ],
+                channelData: [
+                    { name: "P4", hours: 588, pct: 50 },
+                    { name: "NRK P3", hours: 353, pct: 30 },
+                    { name: "NRK P1", hours: 176, pct: 15 },
+                    { name: "Andre", hours: 59, pct: 5 }
+                ],
+                timeline: [
+                    { year: "2024", event: "Tre låtar i topp 40" },
+                    { year: "2020", event: "«Somebody» – TikTok-viral" },
+                    { year: "2016", event: "«Backbeat» – internasjonal debut" },
+                    { year: "2015", event: "Første singel" }
+                ],
+                trendData: [120, 340, 560, 890, 1020, 1176]
+            },
+            chrisholsten: {
+                name: "Chris Holsten",
+                avatar: "🎤",
+                tagline: "Noregs balladekonge",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Bærum",
+                gender: "Mann",
+                genderIcon: "👨",
+                debut: "2016",
+                status: "Aktiv",
+                deceased: false,
+                hours: 1239,
+                tracks: 23,
+                channels: 4,
+                rank: 2,
+                topSong: "#31",
+                topSongTitle: "«For evig»",
+                language: "Norsk/Engelsk",
+                label: "Warner Music",
+                isrc: "NOWRN*",
+                insight: {
+                    icon: "❤️",
+                    title: "Noregs mest elska stemme",
+                    text: "Chris Holsten er kjent for sine rørande balladar på norsk. Med tre låtar i topp 40 og 1 239 timer spilletid er han ein av dei mest spilte norske artistane."
+                },
+                tracksList: [
+                    { title: "For evig", meta: "Norsk tekst • 2024", hours: 254 },
+                    { title: "Slå hjerte, slå", meta: "Norsk tekst • 2023", hours: 224 },
+                    { title: "Smilet i ditt eget speil", meta: "Norsk tekst • 2023", hours: 210 }
+                ],
+                channelData: [
+                    { name: "NRK P1", hours: 496, pct: 40 },
+                    { name: "P4", hours: 372, pct: 30 },
+                    { name: "NRK P3", hours: 248, pct: 20 },
+                    { name: "Andre", hours: 123, pct: 10 }
+                ],
+                timeline: [
+                    { year: "2024", event: "«For evig» i topp 40" },
+                    { year: "2022", event: "«Mexico» feat. Alan Walker" },
+                    { year: "2019", event: "Spelemann-nominert" },
+                    { year: "2016", event: "Debut med «On My Way»" }
+                ],
+                trendData: [180, 420, 680, 890, 1050, 1239]
+            },
+            emmasteinbakken: {
+                name: "Emma Steinbakken",
+                avatar: "🌟",
+                tagline: "Ung norsk superstjerne",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Ski",
+                gender: "Kvinne",
+                genderIcon: "👩",
+                debut: "2019",
+                status: "Aktiv",
+                deceased: false,
+                hours: 535,
+                tracks: 18,
+                channels: 4,
+                rank: 8,
+                topSong: "#27",
+                topSongTitle: "«Floden»",
+                language: "Norsk/Engelsk",
+                label: "Sony Music",
+                isrc: "NOSEY*",
+                insight: {
+                    icon: "🚀",
+                    title: "Tidleg suksess",
+                    text: "Emma debuterte som 15-åring og har sidan blitt ein av Noregs mest populære unge artistar. «Floden» vart ein stor hit i 2024."
+                },
+                tracksList: [
+                    { title: "Floden", meta: "Norsk tekst • 2024", hours: 324 },
+                    { title: "Jeg glemmer deg aldri", meta: "Norsk tekst • 2024", hours: 211 }
+                ],
+                channelData: [
+                    { name: "P4", hours: 214, pct: 40 },
+                    { name: "NRK P1", hours: 161, pct: 30 },
+                    { name: "NRK P3", hours: 107, pct: 20 },
+                    { name: "Andre", hours: 53, pct: 10 }
+                ],
+                timeline: [
+                    { year: "2024", event: "«Floden» i topp 30" },
+                    { year: "2021", event: "«Ikke vært meg sjæl» viral" },
+                    { year: "2019", event: "Debut med «Not Gonna Cry» – 15 år gammal" }
+                ],
+                trendData: [0, 120, 280, 380, 450, 535]
+            },
+            avicii: {
+                name: "Avicii",
+                avatar: "🕯️",
+                tagline: "Legenda lever vidare",
+                country: "Sverige",
+                countryCode: "🇸🇪",
+                city: "Stockholm",
+                gender: "Mann",
+                genderIcon: "👨",
+                debut: "2011",
+                status: "Avdød (2018)",
+                deceased: true,
+                hours: 456,
+                tracks: 22,
+                channels: 3,
+                rank: 37,
+                topSong: "#37",
+                topSongTitle: "«Without You»",
+                language: "Engelsk",
+                label: "Universal",
+                isrc: "SEWDL*",
+                insight: {
+                    icon: "⬆️",
+                    title: "Største klatrar 2024",
+                    text: "Seks år etter sin død klatrar Avicii 63 plassar til #37. Nostalgi-bølga viser korleis musikken hans framleis rører folk."
+                },
+                tracksList: [
+                    { title: "Without You", meta: "Engelsk • 2017", hours: 215 },
+                    { title: "Wake Me Up", meta: "Engelsk • 2013", hours: 156 },
+                    { title: "Levels", meta: "Instrumental • 2011", hours: 85 }
+                ],
+                channelData: [
+                    { name: "P4", hours: 228, pct: 50 },
+                    { name: "NRK P3", hours: 137, pct: 30 },
+                    { name: "Radio Norge", hours: 91, pct: 20 }
+                ],
+                timeline: [
+                    { year: "2024", event: "+63 plassar – største klatrar" },
+                    { year: "2018", event: "Tragisk bortgang" },
+                    { year: "2013", event: "«Wake Me Up» – global megahit" },
+                    { year: "2011", event: "«Levels» – gjennombrot" }
+                ],
+                trendData: [890, 650, 420, 380, 320, 456]
+            },
+            mariamena: {
+                name: "Maria Mena",
+                avatar: "🎄",
+                tagline: "Julemusikkens dronning",
+                country: "Noreg",
+                countryCode: "🇳🇴",
+                city: "Oslo",
+                gender: "Kvinne",
+                genderIcon: "👩",
+                debut: "2002",
+                status: "Aktiv",
+                deceased: false,
+                hours: 262,
+                tracks: 28,
+                channels: 3,
+                rank: 15,
+                topSong: "#42",
+                topSongTitle: "«Home for Christmas»",
+                language: "Engelsk",
+                label: "Columbia/Sony",
+                isrc: "NOCOL*",
+                insight: {
+                    icon: "🎄",
+                    title: "Tidlaus juleklassikar",
+                    text: "«Home for Christmas» frå 2010 har framleis 92 timer spilletid kvart år. 14 år gammal og framleis på radiolister – eit bevis på julens magi."
+                },
+                tracksList: [
+                    { title: "Home for Christmas", meta: "Engelsk • 2010", hours: 92 },
+                    { title: "Den fineste Chevy'n (feat. Halva Priset)", meta: "Norsk tekst • 2023", hours: 170 }
+                ],
+                channelData: [
+                    { name: "NRK P1", hours: 131, pct: 50 },
+                    { name: "P4", hours: 79, pct: 30 },
+                    { name: "Andre", hours: 52, pct: 20 }
+                ],
+                timeline: [
+                    { year: "2024", event: "«Home for Christmas» framleis på listene" },
+                    { year: "2023", event: "«Den fineste Chevy'n» med Halva Priset" },
+                    { year: "2010", event: "«Home for Christmas» – juleklassikar" },
+                    { year: "2002", event: "Debut – 16 år gammal" }
+                ],
+                trendData: [220, 240, 230, 250, 255, 262]
+            }
+        };
+
+        let currentArtist = 'delara';
+        let trendChart = null;
+
+        function loadArtist(artistKey) {
+            const artist = artistsData[artistKey];
+            if (!artist) return;
+
+            currentArtist = artistKey;
+
+            // Update pills
+            document.querySelectorAll('.artist-pill').forEach(p => {
+                p.classList.toggle('active', p.textContent.toLowerCase().includes(artist.name.split(' ')[0].toLowerCase()));
+            });
+
+            // Hero
+            document.getElementById('artistAvatar').textContent = artist.avatar;
+            document.getElementById('artistName').textContent = artist.name;
+            document.getElementById('artistTagline').textContent = artist.tagline;
+
+            // Badges
+            const badgesHTML = `
+                <span class="badge badge-country">${artist.countryCode} ${artist.country}</span>
+                <span class="badge badge-gender">${artist.genderIcon} ${artist.gender}</span>
+                <span class="badge badge-debut">✨ Debut ${artist.debut}</span>
+                <span class="badge ${artist.deceased ? 'badge-deceased' : 'badge-status'}">
+                    ${artist.deceased ? '🕯️' : '🎤'} ${artist.status}
+                </span>
+            `;
+            document.getElementById('artistBadges').innerHTML = badgesHTML;
+
+            // Rank
+            document.getElementById('artistRankValue').textContent = `#${artist.rank}`;
+
+            // Stats
+            document.getElementById('statHours').textContent = artist.hours.toLocaleString('no-NO');
+            document.getElementById('statHoursContext').textContent = `= ${Math.round(artist.hours / 24)} dagar non-stop`;
+            document.getElementById('statTracks').textContent = artist.tracks;
+            document.getElementById('statChannels').textContent = artist.channels;
+            document.getElementById('statTopSong').textContent = artist.topSong;
+            document.getElementById('statTopSongTitle').textContent = artist.topSongTitle;
+
+            // Insight
+            document.getElementById('insightHighlight').innerHTML = `
+                <div class="insight-icon">${artist.insight.icon}</div>
+                <div class="insight-content">
+                    <h3>${artist.insight.title}</h3>
+                    <p>${artist.insight.text}</p>
+                </div>
+            `;
+
+            // Metadata
+            document.getElementById('metaCountry').textContent = artist.country;
+            document.getElementById('metaCity').textContent = artist.city;
+            document.getElementById('metaGender').textContent = artist.gender;
+            document.getElementById('metaLanguage').textContent = artist.language;
+            document.getElementById('metaDebut').textContent = artist.debut;
+            document.getElementById('metaStatus').textContent = artist.status;
+            document.getElementById('metaLabel').textContent = artist.label;
+            document.getElementById('metaISRC').textContent = artist.isrc;
+
+            // Tracks list
+            document.getElementById('tracksList').innerHTML = artist.tracksList.map((t, i) => `
+                <li class="track-item">
+                    <span class="track-rank ${i === 0 ? 'gold' : ''}">${i + 1}</span>
+                    <div class="track-info">
+                        <h4>${t.title}</h4>
+                        <div class="track-meta">${t.meta}</div>
+                    </div>
+                    <div class="track-hours">${t.hours} t <span>${(t.hours / 24).toFixed(1)} dagar</span></div>
+                </li>
+            `).join('');
+
+            // Channel bars
+            document.getElementById('channelBars').innerHTML = artist.channelData.map(c => `
+                <div class="channel-bar">
+                    <span class="channel-name">${c.name}</span>
+                    <div class="channel-progress">
+                        <div class="channel-progress-fill" style="width: ${c.pct}%"></div>
+                    </div>
+                    <span class="channel-value">${c.hours} t</span>
+                </div>
+            `).join('');
+
+            // Timeline
+            document.getElementById('timeline').innerHTML = artist.timeline.map(t => `
+                <div class="timeline-item">
+                    <div class="timeline-year">${t.year}</div>
+                    <div class="timeline-event">${t.event}</div>
+                </div>
+            `).join('');
+
+            // Update trend chart
+            updateTrendChart(artist.trendData);
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateTrendChart(data) {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+
+            if (trendChart) {
+                trendChart.destroy();
+            }
+
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Timer spilletid',
+                        data: data,
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function shareProfile() {
+            const artist = artistsData[currentArtist];
+            const text = `${artist.name} – ${artist.hours} timer spilletid på norsk radio i 2024. Sjekk profilen på Gramo Statistikken!`;
+
+            if (navigator.share) {
+                navigator.share({ title: `${artist.name} – Gramo`, text: text });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('Kopiert til utklippstavla!');
+            }
+        }
+
+        // Chart defaults
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Init
+        loadArtist('delara');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramo Statistikken 2024 – Utforsk musikken</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --gramo-dark: #0a1628;
+            --gramo-blue: #1e3a8a;
+            --gramo-accent: #60a5fa;
+            --gramo-light: #93c5fd;
+            --gramo-red: #ef4444;
+            --gramo-green: #22c55e;
+            --gramo-purple: #a78bfa;
+            --gramo-gold: #fbbf24;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--gramo-dark) 0%, var(--gramo-blue) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            font-size: 1.2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: white;
+            opacity: 0.6;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-tab:hover { opacity: 1; background: var(--glass); }
+        .nav-tab.active { opacity: 1; background: var(--gramo-accent); }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section */
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Hero with animated counter */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+
+        .hero-number {
+            font-size: 6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .hero-label {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        .hero-sub {
+            font-size: 0.95rem;
+            opacity: 0.5;
+            margin-top: 1rem;
+        }
+
+        .hero-context {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-context-item {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .hero-context-item strong {
+            color: var(--gramo-accent);
+        }
+
+        /* Featured story card */
+        .story-hero {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(167, 139, 250, 0.2));
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .story-hero:hover {
+            transform: scale(1.01);
+            border-color: var(--gramo-accent);
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .story-content p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .story-stat {
+            text-align: center;
+        }
+
+        .story-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gramo-accent);
+        }
+
+        .story-stat-label {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .story-visual {
+            position: relative;
+            height: 250px;
+        }
+
+        /* Cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gramo-accent), var(--gramo-purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.12); }
+        .card:hover::before { opacity: 1; }
+
+        .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .card-title { font-size: 0.9rem; font-weight: 500; opacity: 0.7; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .card-value { font-size: 2.2rem; font-weight: 700; color: var(--gramo-accent); }
+        .card-desc { font-size: 0.85rem; opacity: 0.6; margin-top: 0.5rem; }
+        .card-trend { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.8rem; }
+        .card-trend.up { color: var(--gramo-green); }
+        .card-trend.down { color: var(--gramo-red); }
+
+        /* Highlight quote */
+        .highlight-quote {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15));
+            border-left: 4px solid var(--gramo-accent);
+            border-radius: 0 1rem 1rem 0;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-quote blockquote {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-quote cite {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Filters panel */
+        .filters-panel {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .filters-title { font-size: 1rem; font-weight: 500; color: var(--gramo-light); }
+        .filters-reset { background: none; border: none; color: var(--gramo-accent); cursor: pointer; font-size: 0.85rem; }
+        .filters-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .filter-group { flex: 1; min-width: 140px; }
+        .filter-label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin-bottom: 0.5rem; }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .filter-select:focus { outline: none; border-color: var(--gramo-accent); }
+        .filter-select option { background: var(--gramo-blue); }
+
+        /* Toggle buttons */
+        .toggle-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            background: transparent;
+            color: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover { background: var(--glass); }
+        .toggle-btn.active { background: var(--gramo-accent); border-color: var(--gramo-accent); }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--glass);
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item { display: flex; flex-direction: column; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--gramo-accent); }
+        .stat-label { font-size: 0.75rem; opacity: 0.6; }
+
+        /* Playlist table */
+        .playlist {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .playlist-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 120px 60px;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.6;
+        }
+
+        .playlist-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 120px 60px;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .playlist-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+        .rank { font-size: 1.1rem; font-weight: 600; color: var(--gramo-light); }
+        .rank.gold { color: #fbbf24; }
+        .rank.silver { color: #d1d5db; }
+        .rank.bronze { color: #f59e0b; }
+
+        .track-info { display: flex; flex-direction: column; gap: 0.2rem; overflow: hidden; }
+        .track-title { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .track-artist { font-size: 0.85rem; opacity: 0.6; cursor: pointer; }
+        .track-artist:hover { color: var(--gramo-accent); opacity: 1; }
+        .track-hours { text-align: right; font-weight: 500; }
+        .track-time-visual { font-size: 0.75rem; opacity: 0.5; }
+        .track-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+        .tag {
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .tag-no { background: rgba(239, 68, 68, 0.3); color: #fca5a5; }
+        .tag-norsk { background: rgba(34, 197, 94, 0.3); color: #86efac; }
+        .tag-kvinne { background: rgba(236, 72, 153, 0.3); color: #f9a8d4; }
+        .tag-debut { background: rgba(251, 191, 36, 0.3); color: #fde68a; }
+        .tag-channel { background: rgba(96, 165, 250, 0.2); color: #93c5fd; }
+
+        .track-expand { text-align: center; opacity: 0.4; transition: opacity 0.2s; }
+        .playlist-item:hover .track-expand { opacity: 1; }
+
+        /* Progress bar for hours */
+        .hours-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .hours-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gramo-accent), var(--gramo-purple));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        /* Chart section */
+        .chart-section {
+            background: var(--glass);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-title { font-size: 1rem; font-weight: 500; margin-bottom: 1rem; color: var(--gramo-light); }
+        .chart-container { height: 300px; position: relative; }
+
+        /* Channels comparison */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .channel-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .channel-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.1); }
+        .channel-card.selected { border-color: var(--gramo-accent); box-shadow: 0 0 20px rgba(96, 165, 250, 0.3); }
+        .channel-name { font-weight: 600; margin-bottom: 0.5rem; }
+        .channel-stat { font-size: 0.85rem; opacity: 0.7; }
+        .channel-norsk { font-size: 1.5rem; font-weight: 700; color: var(--gramo-accent); }
+
+        /* Insight cards */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .insight-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .insight-card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -10px;
+            left: 1.5rem;
+            background: var(--gramo-accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .insight-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 0.5rem; }
+        .insight-value { font-size: 2rem; font-weight: 700; color: var(--gramo-gold); margin-bottom: 0.5rem; }
+        .insight-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.5; }
+
+        /* Modal / Artist detail */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+
+        .modal {
+            background: linear-gradient(135deg, var(--gramo-dark), var(--gramo-blue));
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 2rem;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; opacity: 0.6; }
+        .modal-close:hover { opacity: 1; }
+        .modal-body { padding: 2rem; }
+
+        .artist-hero {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .artist-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gramo-accent), var(--gramo-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            flex-shrink: 0;
+        }
+
+        .artist-info h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .artist-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.9rem; opacity: 0.7; }
+
+        .artist-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .artist-stat {
+            background: var(--glass);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .artist-stat-value { font-size: 1.8rem; font-weight: 700; color: var(--gramo-accent); }
+        .artist-stat-label { font-size: 0.75rem; opacity: 0.6; }
+
+        .artist-metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--glass);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metadata-item { text-align: center; }
+        .metadata-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin-bottom: 0.25rem; }
+        .metadata-value { font-size: 0.95rem; font-weight: 500; }
+
+        /* Time context (for "654 timer = 27 dagar") */
+        .time-context {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .time-context-icon { opacity: 0.6; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .story-hero { grid-template-columns: 1fr; }
+            .hero-number { font-size: 4rem; }
+            .artist-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-number { font-size: 3rem; }
+            .hero-label { font-size: 1rem; }
+
+            .playlist-header,
+            .playlist-item {
+                grid-template-columns: 40px 1fr 70px 50px;
+            }
+
+            .playlist-header > *:nth-child(4),
+            .playlist-item > *:nth-child(4) { display: none; }
+
+            .nav-tabs { display: none; }
+            .filters-row { flex-direction: column; }
+        }
+
+        /* CTA button */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--gramo-accent);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cta-btn:hover { background: #3b82f6; transform: translateY(-2px); }
+        .cta-btn-secondary { background: transparent; border: 1px solid var(--glass-border); }
+        .cta-btn-secondary:hover { background: var(--glass); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">GRAMO</div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-section="oversikt">Oversikt</button>
+            <button class="nav-tab" data-section="toppliste">Bygg toppliste</button>
+            <button class="nav-tab" data-section="kanaler">Kanaler</button>
+            <button class="nav-tab" data-section="innsikt">Innsikt</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- OVERSIKT SECTION -->
+        <section class="section active" id="oversikt">
+            <div class="hero">
+                <div class="hero-eyebrow">Gramo Statistikken 2024</div>
+                <div class="hero-number" id="heroNumber">206 428</div>
+                <div class="hero-label">timer musikk på norsk radio</div>
+                <div class="hero-sub">23,5 år med samanhengande musikkspeling</div>
+                <div class="hero-context">
+                    <span class="hero-context-item"><strong>85%</strong> av nordmenn lyttar på radio</span>
+                    <span class="hero-context-item"><strong>250 mill</strong> kravd inn av Gramo</span>
+                    <span class="hero-context-item"><strong>2,5 mill</strong> registrerte innspelingar</span>
+                </div>
+            </div>
+
+            <!-- Featured story: Josefin -->
+            <div class="story-hero" onclick="openArtistModal('delara')">
+                <div class="story-content">
+                    <h2>654 timer med Josefin</h2>
+                    <p>Delaras gjennombruddslåt «Josefin» var årets mest spilte på norsk radio. Det tilsvarar <strong>27 dagar non-stop</strong> – eller nesten ein heil månad med same låt.</p>
+                    <div class="story-stats">
+                        <div class="story-stat">
+                            <div class="story-stat-value">654</div>
+                            <div class="story-stat-label">timer spilletid</div>
+                        </div>
+                        <div class="story-stat">
+                            <div class="story-stat-value">#1</div>
+                            <div class="story-stat-label">mest spilte</div>
+                        </div>
+                        <div class="story-stat">
+                            <div class="story-stat-value">2024</div>
+                            <div class="story-stat-label">debut</div>
+                        </div>
+                    </div>
+                    <button class="cta-btn" style="margin-top: 1.5rem;">Utforsk Delara →</button>
+                </div>
+                <div class="story-visual">
+                    <canvas id="josefinChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Quick stats cards -->
+            <div class="cards-grid">
+                <div class="card" onclick="showSection('toppliste'); setFilter('country', 'NO')">
+                    <div class="card-title">Norsk musikk</div>
+                    <div class="card-value">39,3%</div>
+                    <div class="card-desc">72 856 timer spilletid</div>
+                    <div class="card-trend up">↑ 1,2% frå 2023</div>
+                </div>
+
+                <div class="card" onclick="showSection('toppliste'); setFilter('gender', 'F')">
+                    <div class="card-title">Kvinner i topp 10 norsk</div>
+                    <div class="card-value">5 av 10</div>
+                    <div class="card-desc">Delara, Dagny, Emma, Synne Vo, Randi Oline</div>
+                    <div class="card-trend up">↑ Historisk høgt</div>
+                </div>
+
+                <div class="card" onclick="openArtistModal('kygo')">
+                    <div class="card-title">Mest spilte norske artist</div>
+                    <div class="card-value">Kygo</div>
+                    <div class="card-desc">1 690 timer med 59 innspelingar</div>
+                    <div class="time-context">
+                        <span class="time-context-icon">⏱️</span>
+                        <span>70 dagar non-stop</span>
+                    </div>
+                </div>
+
+                <div class="card" onclick="showSection('kanaler')">
+                    <div class="card-title">NRK P1 norskandel</div>
+                    <div class="card-value">51,8%</div>
+                    <div class="card-desc">Over halvparten norsk musikk</div>
+                    <div class="card-trend down">↓ 0,1% frå 2023</div>
+                </div>
+
+                <div class="card" onclick="showSection('innsikt')">
+                    <div class="card-title">Største klatrar</div>
+                    <div class="card-value">Avicii</div>
+                    <div class="card-desc">+63 plassar frå #100 til #37</div>
+                    <div class="card-trend up">↑ Nostalgi-bølge</div>
+                </div>
+
+                <div class="card" onclick="showSection('toppliste'); setFilter('language', 'NO')">
+                    <div class="card-title">Norsk tekst</div>
+                    <div class="card-value">28%</div>
+                    <div class="card-desc">Av norske artistar</div>
+                    <div class="card-trend up">↑ Dialektbølge held fram</div>
+                </div>
+            </div>
+
+            <!-- Nation distribution -->
+            <div class="chart-section">
+                <div class="chart-title">Kor kjem musikken frå?</div>
+                <div class="chart-container">
+                    <canvas id="nationChartOverview"></canvas>
+                </div>
+            </div>
+
+            <div class="highlight-quote">
+                <blockquote>
+                    «Vi har verifisert metadata frå fleire kjelder, matcha mot spilledata. Dette gir oss unike moglegheiter til å fortelje historier om norsk musikk.»
+                </blockquote>
+                <cite>— Inge, Gramo</cite>
+            </div>
+        </section>
+
+        <!-- TOPPLISTE SECTION -->
+        <section class="section" id="toppliste">
+            <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Bygg din eigen toppliste</h1>
+            <p style="opacity: 0.6; margin-bottom: 1.5rem;">Filtrer etter land, språk, kjønn og kanal for å finne din musikk</p>
+
+            <div class="filters-panel">
+                <div class="filters-header">
+                    <span class="filters-title">Filter</span>
+                    <button class="filters-reset" onclick="resetFilters()">Nullstill alle</button>
+                </div>
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Opphav</label>
+                        <select class="filter-select" id="filterCountry" onchange="applyFilters()">
+                            <option value="all">Alle land</option>
+                            <option value="NO">Norske artistar</option>
+                            <option value="INT">Internasjonale</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Språk i tekst</label>
+                        <select class="filter-select" id="filterLanguage" onchange="applyFilters()">
+                            <option value="all">Alle språk</option>
+                            <option value="NO">Norsk tekst</option>
+                            <option value="EN">Engelsk tekst</option>
+                            <option value="SAMI">Samisk</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Kjønn (hovudartist)</label>
+                        <select class="filter-select" id="filterGender" onchange="applyFilters()">
+                            <option value="all">Alle</option>
+                            <option value="F">Kvinner</option>
+                            <option value="M">Menn</option>
+                            <option value="G">Grupper/samarbeid</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Kanal</label>
+                        <select class="filter-select" id="filterChannel" onchange="applyFilters()">
+                            <option value="all">Alle kanalar</option>
+                            <option value="P4">P4</option>
+                            <option value="RadioNorge">Radio Norge</option>
+                            <option value="NRKP1">NRK P1</option>
+                            <option value="NRKP3">NRK P3</option>
+                            <option value="NRKJazz">NRK Jazz</option>
+                            <option value="NRKSapmi">NRK Sápmi</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label class="filter-label">Hurtigfilter</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn" onclick="toggleQuickFilter(this, 'norsk')">🇳🇴 Norsk</button>
+                        <button class="toggle-btn" onclick="toggleQuickFilter(this, 'norskTekst')">📝 Norsk tekst</button>
+                        <button class="toggle-btn" onclick="toggleQuickFilter(this, 'kvinner')">👩 Kvinner</button>
+                        <button class="toggle-btn" onclick="toggleQuickFilter(this, 'debut')">✨ Debutantar</button>
+                        <button class="toggle-btn" onclick="toggleQuickFilter(this, 'avdod')">🕯️ Avdøde artistar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-value" id="statTracks">100</span>
+                    <span class="stat-label">låtar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statHours">5 821</span>
+                    <span class="stat-label">timer totalt</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statNorsk">39%</span>
+                    <span class="stat-label">norske</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statKvinner">30%</span>
+                    <span class="stat-label">kvinner</span>
+                </div>
+            </div>
+
+            <div class="playlist">
+                <div class="playlist-header">
+                    <span>#</span>
+                    <span>Låt / Artist</span>
+                    <span style="text-align: right;">Spilletid</span>
+                    <span>Tags</span>
+                    <span></span>
+                </div>
+                <div id="playlistContainer"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                <button class="cta-btn cta-btn-secondary" onclick="loadMore()" id="loadMoreBtn">Vis fleire</button>
+                <button class="cta-btn" onclick="sharePlaylist()">Del topplista</button>
+            </div>
+        </section>
+
+        <!-- KANALER SECTION -->
+        <section class="section" id="kanaler">
+            <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Kanalprofilar</h1>
+            <p style="opacity: 0.6; margin-bottom: 2rem;">Kvar kanal har sin eigen musikkprofil – frå 80-tallsnostalgi på Radio Norge til samisk musikk på NRK Sápmi</p>
+
+            <div class="channels-grid">
+                <div class="channel-card" onclick="selectChannel(this, 'NRKP1')">
+                    <div class="channel-name">NRK P1</div>
+                    <div class="channel-norsk">51,8%</div>
+                    <div class="channel-stat">norsk musikk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">Breidt repertoar, alle aldrar</div>
+                </div>
+                <div class="channel-card" onclick="selectChannel(this, 'NRKP3')">
+                    <div class="channel-name">NRK P3</div>
+                    <div class="channel-norsk">52,4%</div>
+                    <div class="channel-stat">norsk musikk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">Ung norsk musikk</div>
+                </div>
+                <div class="channel-card" onclick="selectChannel(this, 'P4')">
+                    <div class="channel-name">P4</div>
+                    <div class="channel-norsk">22,3%</div>
+                    <div class="channel-stat">norsk musikk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">Hits og pop</div>
+                </div>
+                <div class="channel-card" onclick="selectChannel(this, 'RadioNorge')">
+                    <div class="channel-name">Radio Norge</div>
+                    <div class="channel-norsk">6,0%</div>
+                    <div class="channel-stat">norsk musikk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">80-talls nostalgi</div>
+                </div>
+                <div class="channel-card" onclick="selectChannel(this, 'NRKJazz')">
+                    <div class="channel-name">NRK Jazz</div>
+                    <div class="channel-norsk">~40%</div>
+                    <div class="channel-stat">norsk musikk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">Instrumental, akustisk</div>
+                </div>
+                <div class="channel-card" onclick="selectChannel(this, 'NRKSapmi')">
+                    <div class="channel-name">NRK Sápmi</div>
+                    <div class="channel-norsk">~70%</div>
+                    <div class="channel-stat">samisk/norsk</div>
+                    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 0.5rem;">Samisk identitet</div>
+                </div>
+            </div>
+
+            <div class="chart-section" style="margin-top: 2rem;">
+                <div class="chart-title">Norskandel over tid (2020–2024)</div>
+                <div class="chart-container">
+                    <canvas id="channelTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div id="channelToplist" style="margin-top: 2rem; display: none;">
+                <h2 style="margin-bottom: 1rem;" id="channelToplistTitle">Topp 10 på NRK P1</h2>
+                <div class="playlist">
+                    <div class="playlist-header">
+                        <span>#</span>
+                        <span>Låt / Artist</span>
+                        <span style="text-align: right;">Spilletid</span>
+                        <span>Tags</span>
+                        <span></span>
+                    </div>
+                    <div id="channelPlaylist"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INNSIKT SECTION -->
+        <section class="section" id="innsikt">
+            <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Innsikt og trendar</h1>
+            <p style="opacity: 0.6; margin-bottom: 2rem;">Kva kan vi lære av 206 428 timer med musikkdata?</p>
+
+            <div class="insight-grid">
+                <div class="insight-card" data-number="1">
+                    <div class="insight-title">Avicii-bølga</div>
+                    <div class="insight-value">+63 plassar</div>
+                    <div class="insight-desc">Seks år etter sin død er Avicii tilbake på radiolister. «Without You» og «Wake Me Up» får ny interesse – ein nostalgi-effekt som viser korleis publikum gjenoppdagar musikk.</div>
+                </div>
+                <div class="insight-card" data-number="2">
+                    <div class="insight-title">Julemusikk lever</div>
+                    <div class="insight-value">14 år gammal</div>
+                    <div class="insight-desc">Maria Menas «Home for Christmas» frå 2010 har framleis 92 timar spilletid kvart år. Julemusikk er ein eigen kategori der alder ikkje spelar rolle.</div>
+                </div>
+                <div class="insight-card" data-number="3">
+                    <div class="insight-title">Orkester på radio</div>
+                    <div class="insight-value">3 i topp 50</div>
+                    <div class="insight-desc">Bergen Filharmoniske (#22), KORK (#25) og Oslo Filharmoniske (#31) viser at klassisk musikk har sin plass – spesielt på NRK.</div>
+                </div>
+                <div class="insight-card" data-number="4">
+                    <div class="insight-title">Kvinner i framgang</div>
+                    <div class="insight-value">5 av 10</div>
+                    <div class="insight-desc">For første gong er halvparten av topp 10 norske hovudartister kvinner. Delara, Dagny, Emma Steinbakken, Synne Vo og Randi Oline leier an.</div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">Topp 10 mest spilte låtar siste 10 år (2015–2024)</div>
+                <div class="chart-container">
+                    <canvas id="decadeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">Kjønnsbalanse blant norske hovudartister (topp 100)</div>
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">Norsk vs. internasjonal – trend 2015–2024</div>
+                <div class="chart-container">
+                    <canvas id="norskTrendChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Artist Modal -->
+    <div class="modal-overlay" id="artistModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalArtistName" style="font-size: 1.5rem;">Artist</h2>
+                    <p style="opacity: 0.6; font-size: 0.9rem;" id="modalArtistMeta">Metadata</p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="artist-hero">
+                    <div class="artist-avatar" id="modalAvatar">🎤</div>
+                    <div class="artist-info">
+                        <h2 id="modalArtistNameLarge">Artist</h2>
+                        <div class="artist-meta" id="modalMetaItems"></div>
+                    </div>
+                </div>
+
+                <div class="artist-stats">
+                    <div class="artist-stat">
+                        <div class="artist-stat-value" id="modalHours">0</div>
+                        <div class="artist-stat-label">timer spilletid</div>
+                    </div>
+                    <div class="artist-stat">
+                        <div class="artist-stat-value" id="modalTracks">0</div>
+                        <div class="artist-stat-label">låtar på radio</div>
+                    </div>
+                    <div class="artist-stat">
+                        <div class="artist-stat-value" id="modalRank">#0</div>
+                        <div class="artist-stat-label">norsk artist</div>
+                    </div>
+                    <div class="artist-stat">
+                        <div class="artist-stat-value" id="modalDays">0</div>
+                        <div class="artist-stat-label">dagar non-stop</div>
+                    </div>
+                </div>
+
+                <!-- Metadata frå Inge-samtalen -->
+                <div class="artist-metadata" id="modalMetadata">
+                    <div class="metadata-item">
+                        <div class="metadata-label">Land</div>
+                        <div class="metadata-value" id="metaCountry">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">By</div>
+                        <div class="metadata-value" id="metaCity">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Kjønn</div>
+                        <div class="metadata-value" id="metaGender">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Språk</div>
+                        <div class="metadata-value" id="metaLanguage">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Debut</div>
+                        <div class="metadata-value" id="metaDebut">-</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Status</div>
+                        <div class="metadata-value" id="metaStatus">-</div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-title">Topp låtar</div>
+                    <div id="artistTopTracks"></div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="cta-btn" onclick="closeModal(); showSection('toppliste');">Sjå i toppliste</button>
+                    <button class="cta-btn cta-btn-secondary">Del artistprofil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === DATA ===
+        const tracks = [
+            { rank: 1, title: "Josefin", artist: "Delara", hours: 654, country: "NO", language: "NO", gender: "F", channels: ["all", "P4", "NRKP1", "NRKP3"], debut: true, deceased: false },
+            { rank: 2, title: "Too Sweet", artist: "Hozier", hours: 593, country: "IE", language: "EN", gender: "M", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 3, title: "Lose Control", artist: "Teddy Swims", hours: 587, country: "US", language: "EN", gender: "M", channels: ["all", "NRKP1", "NRKP3"], debut: false, deceased: false },
+            { rank: 4, title: "Whatever", artist: "Kygo & Ava Max", hours: 521, country: "NO", language: "EN", gender: "G", channels: ["all", "P4", "NRKP3"], debut: false, deceased: false },
+            { rank: 5, title: "Beautiful Things", artist: "Benson Boone", hours: 515, country: "US", language: "EN", gender: "M", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 6, title: "A Bar Song (Tipsy)", artist: "Shaboozey", hours: 460, country: "US", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 7, title: "Kristoffer Robin", artist: "Randi Oline", hours: 389, country: "NO", language: "NO", gender: "F", channels: ["all", "NRKP1", "NRKP3"], debut: true, deceased: false },
+            { rank: 8, title: "Can't Tame Her", artist: "Zara Larsson", hours: 389, country: "SE", language: "EN", gender: "F", channels: ["all", "P4", "NRKP3"], debut: false, deceased: false },
+            { rank: 9, title: "Barn som deg", artist: "Matoma & Gabrielle", hours: 387, country: "NO", language: "NO", gender: "G", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 10, title: "Same Again", artist: "Dagny", hours: 380, country: "NO", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 11, title: "Stargazing", artist: "Myles Smith", hours: 377, country: "UK", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 12, title: "Houdini", artist: "Eminem", hours: 376, country: "US", language: "EN", gender: "M", channels: ["all", "NRKP3"], debut: false, deceased: false },
+            { rank: 13, title: "Austin", artist: "Dasha", hours: 371, country: "US", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 14, title: "Daylight", artist: "David Kushner", hours: 369, country: "US", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 15, title: "Wow", artist: "Ramón", hours: 366, country: "NO", language: "NO", gender: "M", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 16, title: "I Don't Wanna Wait", artist: "David Guetta", hours: 365, country: "FR", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 17, title: "Texas Hold 'Em", artist: "Beyoncé", hours: 365, country: "US", language: "EN", gender: "F", channels: ["all", "P4", "NRKP3"], debut: false, deceased: false },
+            { rank: 18, title: "The Ballet Girl", artist: "Aden Foyer", hours: 357, country: "NO", language: "EN", gender: "M", channels: ["all", "P4"], debut: true, deceased: false },
+            { rank: 19, title: "Tattoo", artist: "Loreen", hours: 350, country: "SE", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 20, title: "I Had Some Help", artist: "Post Malone", hours: 350, country: "US", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 21, title: "A Million Dreams", artist: "P!nk", hours: 349, country: "US", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 22, title: "Samurai Swords", artist: "Matoma", hours: 344, country: "NO", language: "EN", gender: "M", channels: ["all", "P4", "NRKP3"], debut: false, deceased: false },
+            { rank: 23, title: "Espresso", artist: "Sabrina Carpenter", hours: 344, country: "US", language: "EN", gender: "F", channels: ["all", "P4", "NRKP3"], debut: false, deceased: false },
+            { rank: 24, title: "For Life", artist: "Kygo", hours: 341, country: "NO", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 25, title: "Before You Leave Me", artist: "Alex Warren", hours: 329, country: "US", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 26, title: "Belong Together", artist: "Mark Ambor", hours: 328, country: "US", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 27, title: "Floden", artist: "Emma Steinbakken", hours: 324, country: "NO", language: "NO", gender: "F", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 28, title: "Feelslikeimfallinginlove", artist: "Coldplay", hours: 306, country: "UK", language: "EN", gender: "G", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 29, title: "Forget Me", artist: "Lewis Capaldi", hours: 294, country: "UK", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 30, title: "Strangers", artist: "Kenya Grace", hours: 290, country: "UK", language: "EN", gender: "F", channels: ["all", "NRKP3"], debut: false, deceased: false },
+            { rank: 31, title: "For evig", artist: "Chris Holsten", hours: 254, country: "NO", language: "NO", gender: "M", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 32, title: "Danser videre i livet", artist: "Hkeem & Makosir", hours: 234, country: "NO", language: "NO", gender: "G", channels: ["all", "NRKP3"], debut: false, deceased: false },
+            { rank: 33, title: "Heartbreak in the Making", artist: "Dagny", hours: 228, country: "NO", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 34, title: "Strawberry Dream", artist: "Dagny", hours: 228, country: "NO", language: "EN", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 35, title: "Slå hjerte, slå", artist: "Chris Holsten", hours: 224, country: "NO", language: "NO", gender: "M", channels: ["all", "NRKP1"], debut: false, deceased: false },
+            { rank: 36, title: "Ok", artist: "Synne Vo", hours: 219, country: "NO", language: "NO", gender: "F", channels: ["all", "NRKP1"], debut: false, deceased: false },
+            { rank: 37, title: "Without You", artist: "Avicii", hours: 215, country: "SE", language: "EN", gender: "M", channels: ["all", "P4"], debut: false, deceased: true },
+            { rank: 38, title: "Jeg glemmer deg aldri", artist: "Emma Steinbakken", hours: 211, country: "NO", language: "NO", gender: "F", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 39, title: "Ok jeg lover", artist: "Ramón", hours: 210, country: "NO", language: "NO", gender: "M", channels: ["all", "P4"], debut: false, deceased: false },
+            { rank: 40, title: "Smilet i ditt eget speil", artist: "Chris Holsten", hours: 210, country: "NO", language: "NO", gender: "M", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 41, title: "Den fineste Chevy'n", artist: "Halva Priset & Maria Mena", hours: 170, country: "NO", language: "NO", gender: "G", channels: ["all", "P4", "NRKP1"], debut: false, deceased: false },
+            { rank: 42, title: "Home for Christmas", artist: "Maria Mena", hours: 92, country: "NO", language: "EN", gender: "F", channels: ["all", "NRKP1"], debut: false, deceased: false },
+            // Radio Norge 80-tall
+            { rank: 43, title: "I Wanna Dance with Somebody", artist: "Whitney Houston", hours: 47, country: "US", language: "EN", gender: "F", channels: ["RadioNorge"], debut: false, deceased: true },
+            { rank: 44, title: "Bad Romance", artist: "Lady Gaga", hours: 42, country: "US", language: "EN", gender: "F", channels: ["all", "RadioNorge"], debut: false, deceased: false },
+            { rank: 45, title: "Like a Prayer", artist: "Madonna", hours: 42, country: "US", language: "EN", gender: "F", channels: ["RadioNorge"], debut: false, deceased: false },
+            { rank: 46, title: "Bohemian Rhapsody", artist: "Queen", hours: 38, country: "UK", language: "EN", gender: "G", channels: ["all", "RadioNorge"], debut: false, deceased: true },
+            // NRK Jazz
+            { rank: 47, title: "Piano", artist: "Frode Kjekstad", hours: 13, country: "NO", language: "NO", gender: "M", channels: ["NRKJazz"], debut: false, deceased: false },
+            { rank: 48, title: "Vintermørke", artist: "Espen Berg Trio", hours: 12, country: "NO", language: "NO", gender: "M", channels: ["NRKJazz"], debut: false, deceased: false },
+            // NRK Sápmi
+            { rank: 49, title: "Anárjoh'gáttis", artist: "Mari Boine", hours: 19, country: "NO", language: "SAMI", gender: "F", channels: ["NRKSapmi"], debut: false, deceased: false },
+            { rank: 50, title: "Vizardit", artist: "Hildá Länsman", hours: 17, country: "NO", language: "SAMI", gender: "F", channels: ["NRKSapmi"], debut: false, deceased: false },
+        ];
+
+        const artists = {
+            kygo: {
+                name: "Kygo",
+                country: "NO",
+                city: "Bergen",
+                hours: 1690,
+                tracks: 59,
+                rank: 1,
+                gender: "Mann",
+                language: "Engelsk",
+                debut: 2014,
+                status: "Aktiv",
+                avatar: "🎧"
+            },
+            chrisholsten: {
+                name: "Chris Holsten",
+                country: "NO",
+                city: "Bærum",
+                hours: 1239,
+                tracks: 23,
+                rank: 2,
+                gender: "Mann",
+                language: "Norsk/Engelsk",
+                debut: 2016,
+                status: "Aktiv",
+                avatar: "🎤"
+            },
+            dagny: {
+                name: "Dagny",
+                country: "NO",
+                city: "Tromsø",
+                hours: 1176,
+                tracks: 35,
+                rank: 3,
+                gender: "Kvinne",
+                language: "Engelsk",
+                debut: 2015,
+                status: "Aktiv",
+                avatar: "🎵"
+            },
+            delara: {
+                name: "Delara",
+                country: "NO",
+                city: "Oslo",
+                hours: 791,
+                tracks: 17,
+                rank: 10,
+                gender: "Kvinne",
+                language: "Norsk/Engelsk",
+                debut: 2023,
+                status: "Aktiv",
+                avatar: "✨"
+            },
+            avicii: {
+                name: "Avicii",
+                country: "SE",
+                city: "Stockholm",
+                hours: 456,
+                tracks: 22,
+                rank: 37,
+                gender: "Mann",
+                language: "Engelsk",
+                debut: 2011,
+                status: "Avdød (2018)",
+                avatar: "🕯️"
+            },
+            emmasteinbakken: {
+                name: "Emma Steinbakken",
+                country: "NO",
+                city: "Ski",
+                hours: 535,
+                tracks: 18,
+                rank: 8,
+                gender: "Kvinne",
+                language: "Norsk/Engelsk",
+                debut: 2019,
+                status: "Aktiv",
+                avatar: "🌟"
+            },
+            mariamena: {
+                name: "Maria Mena",
+                country: "NO",
+                city: "Oslo",
+                hours: 262,
+                tracks: 28,
+                rank: 15,
+                gender: "Kvinne",
+                language: "Engelsk",
+                debut: 2002,
+                status: "Aktiv",
+                avatar: "🎄"
+            }
+        };
+
+        // === STATE ===
+        let currentFilters = { country: 'all', language: 'all', gender: 'all', channel: 'all' };
+        let displayCount = 20;
+        let maxHours = Math.max(...tracks.map(t => t.hours));
+
+        // === NAVIGATION ===
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => showSection(tab.dataset.section));
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`[data-section="${sectionId}"]`)?.classList.add('active');
+            if (sectionId === 'toppliste') renderPlaylist();
+        }
+
+        // === FILTERS ===
+        function setFilter(key, value) {
+            const el = document.getElementById('filter' + key.charAt(0).toUpperCase() + key.slice(1));
+            if (el) el.value = value;
+            currentFilters[key] = value;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            currentFilters = {
+                country: document.getElementById('filterCountry').value,
+                language: document.getElementById('filterLanguage').value,
+                gender: document.getElementById('filterGender').value,
+                channel: document.getElementById('filterChannel').value
+            };
+            displayCount = 20;
+            renderPlaylist();
+        }
+
+        function resetFilters() {
+            document.getElementById('filterCountry').value = 'all';
+            document.getElementById('filterLanguage').value = 'all';
+            document.getElementById('filterGender').value = 'all';
+            document.getElementById('filterChannel').value = 'all';
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            currentFilters = { country: 'all', language: 'all', gender: 'all', channel: 'all' };
+            displayCount = 20;
+            renderPlaylist();
+        }
+
+        function toggleQuickFilter(btn, type) {
+            btn.classList.toggle('active');
+            const isActive = btn.classList.contains('active');
+
+            if (type === 'norsk') setFilter('country', isActive ? 'NO' : 'all');
+            else if (type === 'norskTekst') setFilter('language', isActive ? 'NO' : 'all');
+            else if (type === 'kvinner') setFilter('gender', isActive ? 'F' : 'all');
+            // Note: debut and avdod could filter the tracks array further
+        }
+
+        function filterTracks() {
+            return tracks.filter(track => {
+                if (currentFilters.country === 'NO' && track.country !== 'NO') return false;
+                if (currentFilters.country === 'INT' && track.country === 'NO') return false;
+                if (currentFilters.language !== 'all' && track.language !== currentFilters.language) return false;
+                if (currentFilters.gender !== 'all' && track.gender !== currentFilters.gender) return false;
+                if (currentFilters.channel !== 'all' && !track.channels.includes(currentFilters.channel)) return false;
+                return true;
+            }).sort((a, b) => b.hours - a.hours);
+        }
+
+        // === PLAYLIST RENDER ===
+        function renderPlaylist() {
+            const filtered = filterTracks();
+            const display = filtered.slice(0, displayCount);
+
+            const totalHours = filtered.reduce((sum, t) => sum + t.hours, 0);
+            const norskCount = filtered.filter(t => t.country === 'NO').length;
+            const kvinneCount = filtered.filter(t => t.gender === 'F').length;
+
+            document.getElementById('statTracks').textContent = filtered.length;
+            document.getElementById('statHours').textContent = totalHours.toLocaleString('no-NO');
+            document.getElementById('statNorsk').textContent = filtered.length ? Math.round(norskCount / filtered.length * 100) + '%' : '0%';
+            document.getElementById('statKvinner').textContent = filtered.length ? Math.round(kvinneCount / filtered.length * 100) + '%' : '0%';
+
+            const container = document.getElementById('playlistContainer');
+            container.innerHTML = display.map((track, i) => {
+                const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+                const barWidth = (track.hours / maxHours * 100).toFixed(1);
+                const days = (track.hours / 24).toFixed(1);
+
+                return `
+                    <div class="playlist-item" onclick="handleTrackClick('${track.artist}')">
+                        <span class="rank ${rankClass}">${i + 1}</span>
+                        <div class="track-info">
+                            <span class="track-title">${track.title}</span>
+                            <span class="track-artist" onclick="event.stopPropagation(); handleArtistClick('${track.artist}')">${track.artist}</span>
+                            <div class="hours-bar"><div class="hours-bar-fill" style="width: ${barWidth}%"></div></div>
+                        </div>
+                        <div class="track-hours">
+                            ${track.hours} t
+                            <div class="track-time-visual">${days} dagar</div>
+                        </div>
+                        <div class="track-tags">
+                            ${track.country === 'NO' ? '<span class="tag tag-no">NO</span>' : ''}
+                            ${track.language === 'NO' ? '<span class="tag tag-norsk">Norsk</span>' : ''}
+                            ${track.gender === 'F' ? '<span class="tag tag-kvinne">♀</span>' : ''}
+                            ${track.debut ? '<span class="tag tag-debut">Debut</span>' : ''}
+                            ${track.deceased ? '<span class="tag" style="background: rgba(107, 114, 128, 0.3); color: #9ca3af;">🕯️</span>' : ''}
+                        </div>
+                        <span class="track-expand">→</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('loadMoreBtn').style.display = displayCount < filtered.length ? 'inline-flex' : 'none';
+        }
+
+        function loadMore() {
+            displayCount += 20;
+            renderPlaylist();
+        }
+
+        function handleTrackClick(artistName) {
+            handleArtistClick(artistName);
+        }
+
+        function handleArtistClick(artistName) {
+            const key = Object.keys(artists).find(k =>
+                artists[k].name.toLowerCase() === artistName.toLowerCase() ||
+                artistName.toLowerCase().includes(artists[k].name.toLowerCase())
+            );
+            if (key) openArtistModal(key);
+        }
+
+        // === CHANNELS ===
+        function selectChannel(el, channel) {
+            document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+
+            const channelTracks = tracks.filter(t => t.channels.includes(channel)).slice(0, 10);
+            const channelNames = {
+                'NRKP1': 'NRK P1', 'NRKP3': 'NRK P3', 'P4': 'P4',
+                'RadioNorge': 'Radio Norge', 'NRKJazz': 'NRK Jazz', 'NRKSapmi': 'NRK Sápmi'
+            };
+
+            document.getElementById('channelToplistTitle').textContent = `Topp 10 på ${channelNames[channel] || channel}`;
+            document.getElementById('channelToplist').style.display = 'block';
+
+            document.getElementById('channelPlaylist').innerHTML = channelTracks.map((track, i) => `
+                <div class="playlist-item" onclick="handleTrackClick('${track.artist}')">
+                    <span class="rank ${i < 3 ? ['gold', 'silver', 'bronze'][i] : ''}">${i + 1}</span>
+                    <div class="track-info">
+                        <span class="track-title">${track.title}</span>
+                        <span class="track-artist">${track.artist}</span>
+                    </div>
+                    <span class="track-hours">${track.hours} t</span>
+                    <div class="track-tags">
+                        ${track.country === 'NO' ? '<span class="tag tag-no">NO</span>' : ''}
+                    </div>
+                    <span class="track-expand">→</span>
+                </div>
+            `).join('');
+        }
+
+        // === MODAL ===
+        function openArtistModal(artistKey) {
+            const artist = artists[artistKey];
+            if (!artist) return;
+
+            document.getElementById('modalArtistName').textContent = artist.name;
+            document.getElementById('modalArtistNameLarge').textContent = artist.name;
+            document.getElementById('modalArtistMeta').textContent = `${artist.country === 'NO' ? 'Norsk' : 'Internasjonal'} artist • ${artist.tracks} innspelingar`;
+            document.getElementById('modalAvatar').textContent = artist.avatar || '🎤';
+
+            document.getElementById('modalHours').textContent = artist.hours.toLocaleString('no-NO');
+            document.getElementById('modalTracks').textContent = artist.tracks;
+            document.getElementById('modalRank').textContent = `#${artist.rank}`;
+            document.getElementById('modalDays').textContent = Math.round(artist.hours / 24);
+
+            // Metadata
+            document.getElementById('metaCountry').textContent = artist.country === 'NO' ? 'Noreg' : artist.country;
+            document.getElementById('metaCity').textContent = artist.city || '-';
+            document.getElementById('metaGender').textContent = artist.gender || '-';
+            document.getElementById('metaLanguage').textContent = artist.language || '-';
+            document.getElementById('metaDebut').textContent = artist.debut || '-';
+            document.getElementById('metaStatus').textContent = artist.status || '-';
+
+            // Meta items
+            document.getElementById('modalMetaItems').innerHTML = `
+                <span class="meta-item">📍 ${artist.city || artist.country}</span>
+                <span class="meta-item">🎤 ${artist.gender}</span>
+                <span class="meta-item">📅 Debut ${artist.debut}</span>
+                ${artist.status.includes('Avdød') ? '<span class="meta-item">🕯️ ' + artist.status + '</span>' : ''}
+            `;
+
+            // Top tracks
+            const artistTracks = tracks.filter(t =>
+                t.artist.toLowerCase().includes(artist.name.toLowerCase())
+            ).slice(0, 5);
+
+            document.getElementById('artistTopTracks').innerHTML = artistTracks.length ? artistTracks.map((t, i) => `
+                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <span>${i + 1}. ${t.title}</span>
+                    <span style="opacity: 0.6;">${t.hours} t</span>
+                </div>
+            `).join('') : '<p style="opacity: 0.5;">Ingen låtar funne</p>';
+
+            document.getElementById('artistModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('artistModal').classList.remove('active');
+        }
+
+        function sharePlaylist() {
+            const filterDesc = [];
+            if (currentFilters.country === 'NO') filterDesc.push('norske artistar');
+            if (currentFilters.language === 'NO') filterDesc.push('norsk tekst');
+            if (currentFilters.gender === 'F') filterDesc.push('kvinner');
+
+            const title = filterDesc.length ? `Topp ${filterTracks().length} – ${filterDesc.join(', ')}` : 'Gramo Toppliste 2024';
+            alert(`Del: ${title}\n\n(Deling-funksjon kjem snart!)`);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('artistModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('artistModal')) closeModal();
+        });
+
+        // === CHARTS ===
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Josefin story chart
+        new Chart(document.getElementById('josefinChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Josefin', 'Too Sweet', 'Lose Control', 'Whatever', 'Beautiful Things'],
+                datasets: [{
+                    data: [654, 593, 587, 521, 515],
+                    backgroundColor: ['#ef4444', '#3b82f6', '#3b82f6', '#ef4444', '#3b82f6'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { display: false },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Nation chart
+        new Chart(document.getElementById('nationChartOverview'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Noreg (35%)', 'USA (35%)', 'Storbritannia (18%)', 'EU (5%)', 'Norden (5%)', 'Andre (2%)'],
+                datasets: [{
+                    data: [72856, 72094, 36636, 10987, 10649, 3206],
+                    backgroundColor: ['#ef4444', '#3b82f6', '#8b5cf6', '#22c55e', '#f59e0b', '#6b7280'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+
+        // Channel trend chart
+        new Chart(document.getElementById('channelTrendChart'), {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [
+                    { label: 'NRK P1', data: [52.6, 50.9, 50.9, 51.9, 51.8], borderColor: '#ef4444', tension: 0.3, fill: false },
+                    { label: 'NRK P3', data: [53.9, 51.5, 50.7, 54.0, 52.4], borderColor: '#f97316', tension: 0.3, fill: false },
+                    { label: 'P4', data: [28.7, 27.0, 27.4, 25.4, 22.3], borderColor: '#3b82f6', tension: 0.3, fill: false },
+                    { label: 'Radio Norge', data: [3.4, 3.4, 5.6, 5.4, 6.0], borderColor: '#8b5cf6', tension: 0.3, fill: false },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top' } },
+                scales: { y: { beginAtZero: true, max: 60, ticks: { callback: v => v + '%' } } }
+            }
+        });
+
+        // Decade chart
+        new Chart(document.getElementById('decadeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Shape of You', "It Ain't Me", 'Something Just Like This', 'Chained to the Rhythm', 'Skin', "There's Nothing Holdin' Me Back", 'Strongest', 'Hello', "Can't Stop the Feeling", 'Blinding Lights'],
+                datasets: [{
+                    data: [1645, 1382, 1324, 1187, 1127, 1069, 1063, 1062, 1021, 989],
+                    backgroundColor: '#60a5fa',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Gender chart
+        new Chart(document.getElementById('genderChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Menn (50%)', 'Kvinner (30%)', 'Grupper (20%)'],
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: ['#3b82f6', '#ec4899', '#8b5cf6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+
+        // Norsk trend chart
+        new Chart(document.getElementById('norskTrendChart'), {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Norsk musikk',
+                    data: [32, 33, 34, 35, 36, 37, 38, 38.5, 38.1, 39.3],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: false, min: 30, max: 45, ticks: { callback: v => v + '%' } } }
+            }
+        });
+
+        // Init
+        renderPlaylist();
+    </script>
+</body>
+</html>

@@ -6,6 +6,17 @@
 
 ## 4. desember 2025
 
+### Samtale med Inge om design og datavisualisering
+- **Hovudinnsikt:** Koble spilledata med verifisert metadata for dypare innsikt
+- **Interaktive filtre:** Norsk språk, kjønn, avdøde artistar, geografi (bergensere etc.)
+- **Metadata som styrke:** Gramo sit på verifisert, matcha data frå fleire kjelder
+- **Statistikken 2024:** Gjennomgått som utgangspunkt for konsept
+  - «Josefin» (Delara) = 654 timer spilletid
+  - 39,3% norsk musikk på radio
+  - 5 av 10 mest spilte norske hovudartister er kvinner
+- **30 visualiseringsidear** dokumentert i Analyse/Statistikk-visualisering.md
+- **Neste steg:** Prototype for interaktive lister, møte Kim+Inge+Ståle for API-avklaring
+
 ### Møte med Kim
 - Kim etablert som hovudkontakt for Apollon-avklaringar
 - Layoutfase = mapping med avgrensa designpåverknad (logo, fargar kan justerast)

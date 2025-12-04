@@ -3,7 +3,7 @@
 > 🚧 **UNDER UTVIKLING** - Denne briefen blir oppdatert gjennom forprosjektet
 
 **Status:** Utkast
-**Sist oppdatert:** 28. november 2025
+**Sist oppdatert:** 4. desember 2025
 **Ansvar:** Inge Fossland (design), Are Halland (innhald)
 
 ---
@@ -138,6 +138,7 @@ Frå brukarundersøking og GSC-analyse:
 - Ordliste/glossar
 - Nyheiter
 - Statistikk/repertoar-data
+- **Interaktive datavisualiseringar** (ny)
 
 ---
 
@@ -169,13 +170,50 @@ Frå brukarundersøking og GSC-analyse:
 
 ---
 
-## 10. Opne spørsmål
+## 10. Statistikk og datavisualisering (frå samtale med Inge 4. des)
+
+### Konseptretning
+Gramo sit på **verifisert metadata** frå fleire kjelder, matcha mot spilledata. Dette er ein unik styrke som kan brukast til:
+- Interaktive topplister med filtrering
+- Datadrypp for SoMe og presse
+- Omdømmebygging gjennom transparens
+
+### Filterlogikk
+| Filter | Eksempel |
+|--------|----------|
+| Språk | Norsk tekst, engelsk, samisk |
+| Kjønn | Kvinnelege/mannlege hovudartister |
+| Geografi | Bergensartister, Oslo, distrikt |
+| Status | Avdøde artistar, aktive |
+| Kanal | NRK P1, P3, Radio Norge, Jazz |
+| Tidsperiode | 2024, siste 10 år |
+
+### Prioriterte visualiseringar
+1. **«654 timer med Josefin»** - Spilletid som tidslinje
+2. **«Hvem får spilletid?»** - Kjønnsbalanse
+3. **«Norge vs. verden»** - 35% NO, 35% US, 18% UK
+4. **«Bygg din eigen toppliste»** - Interaktiv filtrering
+5. **Kanalprofiler** - Side-by-side samanlikning
+
+### Visualiseringsformat
+- Animerte tidslinjer (trender over tid)
+- Interaktive kart (geografisk fordeling)
+- Kakediagram/donut (andeler)
+- Søylediagram (topp 10-lister)
+- Scrollytelling (lange narrativ)
+
+→ Sjå [Analyse/Statistikk-visualisering.md](../Analyse/Statistikk-visualisering.md) for komplett idéliste
+
+---
+
+## 11. Opne spørsmål
 
 1. **Merkevare:** Komplett redesign eller evolusjon?
 2. **Bildebank:** Kva har Gramo? Kva treng vi?
 3. **Apollon:** Korleis integrere design med ferdig produkt?
-4. **Repertoar-data:** Kan vi bruke dette visuelt?
+4. ~~**Repertoar-data:** Kan vi bruke dette visuelt?~~ ✅ JA (bekrefta med Inge)
 5. **Min Side:** Kor mykje kontroll har vi på utsjånad?
+6. **API-tilgang:** Korleis hente data frå Apollon/Metabase/ACR Cloud?
 
 ---
 
@@ -188,7 +226,7 @@ Frå brukarundersøking og GSC-analyse:
 
 ### Arbeidsmøte design
 **Planlagt:** (TBD)
-**Deltakare:** Inge, Are, Rita, Kim?, Bastian
+**Deltakare:** Inge, Are, Rita, Kim, Bastian
 **Agenda:** Merkevare, konseptretning, visuell identitet
 
 ---

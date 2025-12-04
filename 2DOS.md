@@ -88,11 +88,32 @@
 
 ## Data og visualisering (nye moglegheiter)
 
-- Månedlege/ukentlege datadrypp
-- Kjønnsbalanse i musikk
-- Playlists og Spotify-integrasjon
-- Interaktive visualiseringar
-- Bruk data til innhald for SoMe og presse
+### Frå samtale med Inge (4. des)
+- **Koble spilledata + metadata** for dypare innsikt
+- **Interaktive filtre:** norsk språk, kjønn, avdøde artistar, geografi
+- **Verifisert metadata** som Gramo-styrke (matcha frå fleire kjelder)
+
+### Konkrete idear (prioritert)
+1. **«654 timer med Josefin»** - Tidslinje mest spilte låt
+2. **«Hvem får spilletid?»** - Kjønnsbalanse-visualisering
+3. **«Norge vs. verden»** - Nasjonsfordeling (35% NO, 35% US, 18% UK)
+4. **«Bygg din egen toppliste»** - Interaktiv filtrering
+5. **Kanalprofiler** - P1 vs P3 vs Radio Norge
+
+### Datakjelder (Statistikken 2024)
+- Mest spilte låt (topp 100)
+- Mest spilte norske låt (topp 100)
+- Mest spilte låt norsk på norsk (topp 50)
+- Mest spilte per kanal (NRK P1/P3/Jazz/Sápmi etc.)
+- Mest spilte hovudartist (topp 100)
+- Mest spilte norske utøvar (topp 100)
+- Norskandel per kanal (2020-2024)
+- Nasjonsfordeling
+
+### Nye oppgåver
+- [ ] **Prototype interaktive lister** - Vis spilledata med filterval
+- [ ] **Kartlegg metadata-kjelder** - Dokumenter verifiseringsprosess
+- [ ] **API-avklaring med Ståle** - Apollon, Metabase, Azure
 
 **Teknisk:** Azure, Power BI, Metabase - må avklarast med Kim/Ståle
 
@@ -114,7 +135,7 @@
 | H2 | Repertoar som omdømmebygger | ✅ Bekrefta |
 | H3 | Verdistrøm-analyse for org | ⏳ Ikkje starta |
 | H4 | Direkte sangregistrering | 🔄 Under utforsking |
-| H5 | Data som kontinuerleg innhaldskjelde | 🆕 Ny |
+| H5 | Data som kontinuerleg innhaldskjelde | ✅ Bekrefta (samtale Inge) |
 
 ---
 

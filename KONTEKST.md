@@ -2,12 +2,25 @@
 
 > **Hub-fil** - Les denne først. Lenker til alle relevante dokument.
 
-## Prosjektsamandrag
+## Språk
 
-| Eigenskap | Verdi |
-|-----------|-------|
-| Klient | Gramo (kollektiv forvaltning av nærstående rettigheiter) |
-| Prosjekt | Redesign av digitale kanalar |
+**All dokumentasjon i dette prosjektet skal skrives på bokmål.**
+
+Dette gjelder:
+- Møtereferater
+- Analyser
+- Designbrief
+- Logg og 2DOS
+- All kommunikasjon i kontekstarkitekturen
+
+---
+
+## Prosjektsammendrag
+
+| Egenskap | Verdi |
+|----------|-------|
+| Klient | Gramo (kollektiv forvaltning av nærstående rettigheter) |
+| Prosjekt | Redesign av digitale kanaler |
 | Fase | Forprosjekt (nov-des 2025) |
 | Omfang | 20 dagsverk (15 Are + 5 Inge) |
 | Team | Are, Bastian, Rita + Inge |
@@ -118,3 +131,7 @@ Verktøy og konfigurasjon.
 ---
 
 *Sist oppdatert: 4. desember 2025*
+
+---
+
+**Merk:** Eldre filer kan inneholde nynorsk. Ved oppdatering skal disse konverteres til bokmål.
