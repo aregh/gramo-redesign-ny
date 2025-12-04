@@ -1,0 +1,42 @@
+# OS-filer
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Sensitive filer
+.env
+.env.local
+credentials.json
+*-credentials.json
+*.secret
+
+# MCP secrets (behold eksempelfiler)
+mcp-config/*.json
+!mcp-config/mcp-servers.example.json
+
+# Store binærfiler
+*.pdf
+*.mp3
+*.m4a
+*.wav
+*.zip
+*.rar
+
+# Midlertidige filer
+*.tmp
+*.log
+*.bak
+*~
+
+# Node (om aktuelt senere)
+node_modules/
+.npm/
+
+# Cache
+.cache/
+__pycache__/

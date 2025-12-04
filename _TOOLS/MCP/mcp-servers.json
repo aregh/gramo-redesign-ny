@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "airtable": {
+      "command": "npx",
+      "args": ["-y", "@airtable/mcp-server"],
+      "env": {
+        "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"
+      },
+      "description": "Gramo Redesign base - analyse og kartlegging"
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      },
+      "description": "Målbildeprosjekt og Forprosjekt dokumentasjon"
+    },
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-google-drive"],
+      "env": {
+        "GOOGLE_CREDENTIALS": "${GOOGLE_CREDENTIALS}"
+      },
+      "description": "GSC-eksport, dokumentasjon"
+    }
+  },
+  "projectConfig": {
+    "airtable": {
+      "baseId": "appo0g1sGfgBc6mHg",
+      "tables": {
+        "Folk": "Personar og roller",
+        "Brukeroppgaver": "Toppoppgåver og prioritering",
+        "Innhold": "Innhaldskartlegging",
+        "Søkeord": "SEO/GEO-analyse",
+        "Henvendelsar": "Intercom-data"
+      }
+    },
+    "notion": {
+      "pages": {
+        "Målbildeprosjekt": "269e1430912280769685e0a02992635f",
+        "Forprosjekt": "2b5e14309122807086c1cc0c062689e8"
+      }
+    }
+  }
+}
