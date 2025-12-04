@@ -249,6 +249,207 @@ Prototypen er vellykket når:
 
 ---
 
+## Metadata og lenker som kan berike statistikken
+
+### Låt-nivå
+| Felt | Kjelde | Kommentar |
+|------|--------|-----------|
+| **ISRC** | Gramo (autoritativ) | Unik ID for opptak |
+| Tittel, lengde | Gramo/Spotify | |
+| Utgivingsdato | Spotify/MusicBrainz | |
+| Spotify-lenke | Spotify API | `open.spotify.com/track/{ID}` |
+| Apple Music-lenke | Apple Music API | `music.apple.com/no/...` |
+| Tidal-lenke | Tidal | `tidal.com/browse/track/{ID}` |
+| YouTube-lenke | YouTube/Musicfetch | Søkebasert |
+| Deezer-lenke | Deezer API | `deezer.com/track/{ID}` |
+| Tekst/lyrics | Genius | `genius.com/{artist}/{track}-lyrics` |
+| Låtskrivarar | MusicBrainz/TONO | ISWC-kopling |
+| Produsentar | MusicBrainz/Discogs | |
+| Plateselskap | Spotify/Discogs | |
+
+### Artist-nivå
+| Felt | Kjelde | Kommentar |
+|------|--------|-----------|
+| Namn (+ variasjonar) | Gramo/MusicBrainz | Norsk vs. internasjonal |
+| Kjønn | Gramo-metadata | For filter |
+| By/region | Gramo-metadata | Bergen, Oslo, etc. |
+| Land | Spotify/MusicBrainz | |
+| Aktiv/avdød | Wikipedia/MusicBrainz | |
+| Spotify-profil | Spotify API | Followers, popularitet |
+| Instagram | Manuell/API | |
+| TikTok | Manuell | |
+| Offisiell nettside | MusicBrainz/Discogs | |
+| Diskografi | Discogs | Komplett oversikt |
+
+### Sanntidsdata (livestatistikk)
+| Kjelde | Kva den gir | Tilgang |
+|--------|-------------|---------|
+| **ACRCloud** | Radio-monitoring 100+ stasjoner | Kommersiell |
+| **Chartmetric** | Sanntid på 1000+ radiostasjoner | Kommersiell |
+| **Soundcharts** | Strøymedata, playlister, SoMe | Kommersiell |
+| **AudD** | Musikkgjenkjenning i audiostraumar | Kommersiell |
+| **NRK API?** | Direkte speladata | Må undersøkast |
+
+### Lenke-mønster
+```
+Spotify:       https://open.spotify.com/track/{SPOTIFY_ID}
+Apple Music:   https://music.apple.com/no/album/{ALBUM}/{ID}
+Tidal:         https://tidal.com/browse/track/{TIDAL_ID}
+Deezer:        https://www.deezer.com/track/{DEEZER_ID}
+YouTube:       https://music.youtube.com/search?q={ARTIST}+{TRACK}
+Genius:        https://genius.com/{ARTIST}-{TRACK}-lyrics
+MusicBrainz:   https://musicbrainz.org/recording/{MBID}
+Discogs:       https://www.discogs.com/artist/{ID}
+```
+
+**Tips:** Musicfetch API kan gi alle lenker frå éin ISRC-spørring.
+
+---
+
+## 10 nye konseptidear (H-Q)
+
+### H: Livestatistikk – «Akkurat no på radio»
+**Konsept:** Sanntidsvisning av kva som spelar akkurat no på norske radiokanalar.
+- Ticker med «No på P3: [Låt] av [Artist]»
+- Live-oppdatering kvart 3. minutt
+- «Siste 24 timar»-visning
+- Klikk → fullstendig artistprofil
+
+**Teknisk:** Krev ACRCloud eller NRK-API for sanntid.
+
+---
+
+### I: Djupdykk – «Alt om denne låta»
+**Konsept:** Éin låt, all kontekst. Klikk på ein låt i topplista → ekspanderer til fullstendig profil.
+- Strøymelenker (Spotify, Apple, Tidal, YouTube, Deezer)
+- Låtskrivarar og produsentar
+- Utgivingsdato og plateselskap
+- Spelhistorikk på radio (graf over tid)
+- «Høyr meir frå [Artist]»
+
+**Metadata:** ISRC → Musicfetch → alle lenker.
+
+---
+
+### J: Artistprofil 2.0 – «Kygo på ein stad»
+**Konsept:** Dedikert artistside med alt samla:
+- Bio + bilete
+- Alle lenker (Spotify, Instagram, TikTok, nettside)
+- Diskografi med radiospeling per album
+- Tidslinje: «Kygo sin radiokarriere 2014-2024»
+- Kart: «Kvar i verda kjem spelelistene frå?»
+
+**Metadata:** Discogs (diskografi) + Spotify (lenker) + Gramo (speletal).
+
+---
+
+### K: Tidsmaskin – «Radio i 2019 vs. 2024»
+**Konsept:** Samanlikn to tidsperiodar side-by-side.
+- Vel år: 2019 ↔ 2024
+- Topp 10 artistar då vs. no
+- Kven har forsvunne? Kven er nye?
+- «Avicii var #45 i 2019, no #12»
+- Animert overgang mellom åra
+
+**Teknisk:** Historiske data frå Gramo.
+
+---
+
+### L: Låtreisa – «Josefin frå utgiving til #1»
+**Konsept:** Tidslinje for éin låt si reise på radio.
+- Utgivingsdato → første radiospeling
+- Dag-for-dag oppbygging
+- «Tipping point» når låta tok av
+- Kva kanal spelte den først?
+- Total akkumulert tid
+
+**Teknisk:** Detaljert historikk per låt.
+
+---
+
+### M: Strøymekoplingar – «Lytt no»
+**Konsept:** Frå statistikk til lytting på 1 klikk.
+- Kvart element i topplista har strøymelenker
+- Hover → viser Spotify/Apple/Tidal-ikon
+- Klikk → opnar i føretrekt teneste
+- «Logg inn med Spotify» for personleggjering
+
+**Metadata:** Musicfetch eller manuell ISRC-kopling.
+
+---
+
+### N: Samarbeid – «Kven spelar saman?»
+**Konsept:** Visualiser artistar som ofte spelar saman.
+- Nettverksdiagram: Kygo ↔ Justin Jesso ↔ Conrad Sewell
+- «Artistar som ofte vert spelt etter kvarandre»
+- Featuring-koplingar
+- Produsent-nettverk
+
+**Metadata:** MusicBrainz (relasjonar) + Gramo (speledata).
+
+---
+
+### O: Krediteringsfokus – «Bak låtane»
+**Konsept:** Løft fram produsentar og låtskrivarar.
+- «Topp 10 produsentar 2024»
+- «Stargate har produsert X av topp 100»
+- Klikk på produsent → alle låtar
+- «Låtskrivarar på topp 10»
+
+**Metadata:** MusicBrainz (works/recordings) + TONO (ISWC).
+
+---
+
+### P: Plateselskap-perspektiv – «Kven eig hitsa?»
+**Konsept:** Vis marknadsandel per plateselskap.
+- Universal vs. Sony vs. Warner vs. uavhengige
+- «56% av norsk radio er frå dei tre store»
+- Trendlinje: Uavhengige veks?
+- Filter: Vis berre uavhengige
+
+**Metadata:** Spotify (label) + Discogs.
+
+---
+
+### Q: «Min radiosmak» – Personleg statistikk
+**Konsept:** Logg inn → sjå statistikk om musikken din (for artistar).
+- «Dine låtar vart spelt X timar i 2024»
+- «Din mest spelte kanal: NRK P3»
+- «Din peak: Veke 23, 42 spelar»
+- Samanlikn med landsgjennomsnittet
+- Del til SoMe
+
+**Teknisk:** Krev innlogging og kopling til Gramo-medlemsdata.
+
+---
+
+## Prioriteringsmatrise (nye konsept)
+
+| Konsept | Kompleksitet | Verdi | Teknisk avhengnad |
+|---------|-------------|-------|-------------------|
+| **H: Live** | 🔴 Høg | Høg | ACRCloud/NRK-API |
+| **I: Djupdykk låt** | 🟡 Medium | Høg | Musicfetch |
+| **J: Artistprofil** | 🟡 Medium | Høg | Discogs + Spotify |
+| **K: Tidsmaskin** | 🟢 Låg | Medium | Berre Gramo-data |
+| **L: Låtreise** | 🟡 Medium | Medium | Detaljert historikk |
+| **M: Strøymelenker** | 🟢 Låg | Høg | Musicfetch/ISRC |
+| **N: Samarbeid** | 🔴 Høg | Medium | MusicBrainz + analyse |
+| **O: Kreditering** | 🟡 Medium | Medium | MusicBrainz + TONO |
+| **P: Plateselskap** | 🟢 Låg | Medium | Spotify label-data |
+| **Q: Min radiosmak** | 🔴 Høg | Høg | Innlogging + Apollon |
+
+---
+
+## Tilrådde API-ar for metadata-beriking
+
+1. **Musicfetch** – Éin ISRC → alle strøymelenker
+2. **MusicBrainz** – Gratis, open, ISRC-verifisering
+3. **Spotify API** – Popularitet, lenker, bilete
+4. **Discogs API** – Diskografi, bio, plateselskap
+5. **ACRCloud** – For livestatistikk (kommersiell)
+
+---
+
 ## Relaterte dokumenter
 
 - [Analyse/Statistikk-visualisering.md](../Analyse/Statistikk-visualisering.md) – 30 visualiseringsideer
