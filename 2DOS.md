@@ -1,6 +1,6 @@
 # 2DOS - Gramo Redesign
 
-> Aktive oppgaver og neste steg.
+> Aktive oppgåver og neste steg.
 
 ---
 
@@ -12,20 +12,35 @@
 | Inge | 3 dagar | +2 dagar | 5 |
 | **Sum** | 8 | 12 | **20** |
 
-⚠️ **Tilbod må formaliserast med Rita (mandag 2. des)**
+---
+
+## Neste steg (frå møte 4. des)
+
+### Høgste prioritet
+- [ ] **Book møte Kim + Inge** (+ evt. Ståle) - fredag eller onsdag neste veke
+- [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
+- [ ] **Få Apollon-mandat frå Kim** - for samanlikning med vårt
+
+### Innhald og data
+- [ ] **Lag innhaldskart** - Map til prioriterte kjernesider (ISRC, registrering, FAQ)
+- [ ] **Avklar API/data-moglegheiter** - Apollon, Metabase, Azure, Power BI
+
+### Planlegging
+- [ ] **Forbered mandatutkast** - Samanlikn med Apollon-malen
+- [ ] **Planlegg prioriteringsverksted** - Deltakarliste, pre-wiring, agenda
 
 ---
 
-## I dag: Arbeidsmøte med Kim (ons 3. des)
+## Avklaringar frå Kim-møte (4. des)
 
-1. **Takke for avklaringen** - vi forstår scope
-2. **Avklare grenselandsfunksjonalitet:**
-   - Medlemsregistrering - Apollon eller nettside?
-   - Enkel registrering - Apollon eller nettside?
-   - ISRC-registrering - Apollon eller nettside?
-3. **Etablere informasjonskanal** - informert, ikke involvert
-4. **Diskutere sammenheng nettside ↔ webportal**
-5. **Uttrykke bekymring** - hvem spesifiserer UI i webportalen?
+| Tema | Status | Ansvarleg |
+|------|--------|-----------|
+| Kim er hovudkontakt | ✅ Bekrefta | Kim |
+| Prosjektplan/mandat Apollon | ⏳ Ventande | Kim |
+| Layoutfase = mapping (avgrensa design) | ✅ Bekrefta | - |
+| API-tilgang Apollon | ❓ Må avklarast | Kim/Ståle |
+
+**Apollon utrulling:** Sveits → Noreg → Danmark/Finland
 
 ---
 
@@ -52,11 +67,34 @@
 ### Påbegynte leveransar
 - [ ] Sanity-installasjon
 - [x] Arbeidsdokumenter i Airtable, Miro og Notion
-- [x ] Kjerneflyt i Miro
+- [x] Kjerneflyt i Miro
 - [x] GEO-/SEO-analyse
 - [ ] Informasjonsarkitektur
 - [ ] Interne og eksterne intervjuer
 - [ ] Dashboards pr kjerne
+
+---
+
+## Interessentar å involvere
+
+| Person | Rolle | Tilnærming |
+|--------|-------|------------|
+| **Toril** | Medlemsavd. | Intervju først (pre-wiring) |
+| **Julia** | ? | Inviter til prioriteringsverksted |
+| **Kristoffer** | Medlemsavd. | Vurder til verksted |
+| **Ståle** | Intern utviklar | Metabase, API-spørjingar |
+
+---
+
+## Data og visualisering (nye moglegheiter)
+
+- Månedlege/ukentlege datadrypp
+- Kjønnsbalanse i musikk
+- Playlists og Spotify-integrasjon
+- Interaktive visualiseringar
+- Bruk data til innhald for SoMe og presse
+
+**Teknisk:** Azure, Power BI, Metabase - må avklarast med Kim/Ståle
 
 ---
 
@@ -68,22 +106,16 @@
 
 ---
 
-## Kontekstarkitektur
-
-- [ ] Opprett _eval/OVERSIKT.md (dashboard)
-- [ ] Etabler fredag-review rutine
-
----
-
 ## Hypoteser
 
 | # | Hypotese | Status |
 |---|----------|--------|
 | H1 | ISRC on-the-fly registrering | 🔄 Under utforsking |
-| H2 | Repertoar som omdømmebygger | ✅ Bekreftet |
-| H3 | Verdistrøm-analyse for org | ⏳ Ikke startet |
+| H2 | Repertoar som omdømmebygger | ✅ Bekrefta |
+| H3 | Verdistrøm-analyse for org | ⏳ Ikkje starta |
 | H4 | Direkte sangregistrering | 🔄 Under utforsking |
+| H5 | Data som kontinuerleg innhaldskjelde | 🆕 Ny |
 
 ---
 
-*Oppdateres fortløpende*
+*Sist oppdatert: 4. desember 2025*

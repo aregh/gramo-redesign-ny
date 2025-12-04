@@ -1,6 +1,38 @@
 # LOGG - Gramo Redesign
 
-> Kronologisk logg. Nyeste først.
+> Kronologisk logg. Nyaste først.
+
+---
+
+## 4. desember 2025
+
+### Møte med Kim
+- Kim etablert som hovudkontakt for Apollon-avklaringar
+- Layoutfase = mapping med avgrensa designpåverknad (logo, fargar kan justerast)
+- Kim skal sende Apollon prosjektplan/mandat
+- Utrulling: Sveits → Noreg → Danmark/Finland
+
+### Oppfølgingsmøte Rita, Bastian, Are
+- Planlagt interessentstyring: pre-wiring og intervju med Toril før workshop
+- Nye moglegheiter: data som kontinuerleg innhaldskjelde (statistikk, visualisering)
+- Ståle (intern utviklar) kan hjelpe med Metabase/API
+- Inge hovudressurs for datakonsept
+
+### Avgjerder
+- ✅ Kim er hovudkontakt
+- ✅ Gjennomføre intervju med Toril før prioriteringsverkstad
+- ✅ Sette opp møte Kim + Inge (+ Ståle) for API/data-avklaring
+
+### Neste steg
+1. Book møte Kim + Inge (fredag/onsdag neste veke)
+2. Intervju med Toril
+3. Få Apollon-mandat frå Kim
+4. Lag innhaldskart for kjernesider
+
+### Kontekstarkitektur
+- Ny mappestruktur implementert
+- Separat GitHub-repo: https://github.com/aregh/gramo-redesign-ny
+- README.md klar for kundedeling
 
 ---
 
@@ -19,7 +51,7 @@
 
 ### Status
 - Arbeidsmøte med Kim i dag (onsdag 3. desember)
-- Finland-muligheten dokumentert
+- Finland-moglegheita dokumentert
 - Grenselandsfunksjonalitet kartlagt
 
 ---
@@ -27,9 +59,9 @@
 ## 29. november 2025
 
 ### Kontekstarkitektur-review og opprydding
-- Review mot 10 prinsipper: 6/8 oppfylt
+- Review mot 10 prinsipp: 6/8 oppfylt
 - Ny katalogstruktur: 13 → 5 filer på rot
-- Opprettet: prosjekt/, møter/, _eval/
+- Oppretta: prosjekt/, møter/, _eval/
 - FOLK.md med komplett intel
 
 ### 2DOS strukturert etter tilbod
@@ -42,30 +74,30 @@
 ## 28. november 2025
 
 ### Prosjektmandat ferdigstilt
-- Scope-avgrensning: ikke blande oss inn i Apollon
+- Scope-avgrensning: ikkje blande oss inn i Apollon
 - Grenselandsfunksjonalitet identifisert
-- Risikomatrise fra pre-mortem
+- Risikomatrise frå pre-mortem
 
 ### Kommunikasjon med Kim
-- Epost satte tydelige grenser
+- Epost sette tydelege grenser
 - Arbeidsmøte onsdag 4. desember
-- Vår respons: informert, ikke involvert
+- Vår respons: informert, ikkje involvert
 
-### Finland-muligheten
+### Finland-moglegheita
 - Finland vurderer å droppe BiConcept webportal
-- Trengs: anbudsdokument fra Sari
+- Trengst: anbudsdokument frå Sari
 
 ---
 
 ## 27. november 2025
 
 ### GEO-analyse ferdigstilt
-- ISRC = #1 toppoppgave (alle kilder)
-- 3000+ visninger på ISRC-søk
-- Repertoar-hypotese bekreftet
+- ISRC = #1 toppoppgåve (alle kjelder)
+- 3000+ visningar på ISRC-søk
+- Repertoar-hypotese bekrefta
 
 ### Airtable-oppsett
-- Tabeller: Folk, Brukeroppgaver, Innhold, Søkeord
+- Tabellar: Folk, Brukeroppgaver, Innhold, Søkeord
 
 ---
 
@@ -80,10 +112,10 @@
 ## 18. november 2025
 
 ### Oppstartsworkshop
-- Deltakere: Kim, Inge, Tommy, Thord, Torstein, Are, Bastian, Rita
-- Sanity som innholdshub - konsensus
-- ISRC som typisk toppoppgave
+- Deltakarar: Kim, Inge, Tommy, Thord, Torstein, Are, Bastian, Rita
+- Sanity som innhaldshub - konsensus
+- ISRC som typisk toppoppgåve
 
 ---
 
-*Oppdateres fortløpende*
+*Oppdaterast fortløpande*

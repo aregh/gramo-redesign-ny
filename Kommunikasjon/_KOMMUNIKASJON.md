@@ -18,17 +18,31 @@
 
 | Dato | Tittel | Type |
 |------|--------|------|
+| 2025-11-18 | Oppstartsworkshop | Workshop |
 | 2025-11-27 | Workshop teamoppstart | Workshop |
 | 2025-11-28 | Samtalepunkter Kim | Førebuing |
 | 2025-12-02 | Epost-svar Kim | Korrespondanse |
+| 2025-12-04 | Møte med Kim | Avklaring |
+| 2025-12-04 | Oppfølging Rita, Bastian, Are | Planlegging |
 
 ---
 
-## Autoritativ kjelde
+## Neste møte
 
-For komplett møtehistorikk, sjå:
-**[../../KOMMUNIKASJON.md](../../KOMMUNIKASJON.md)** (overordna prosjektmappe)
+- [ ] **Kim + Inge (+ Ståle)** - Fredag eller onsdag neste veke
+- [ ] **Intervju Toril** - Før prioriteringsverkstad
 
 ---
 
-*Denne mappa inneheld prosjektspesifikk kommunikasjon for Gramo redesign*
+## Interessentar
+
+| Person | Status | Tilnærming |
+|--------|--------|------------|
+| Kim | ✅ Hovudkontakt | Kommunikasjon går via han |
+| Toril | ⏳ Planlagt intervju | Pre-wiring før workshop |
+| Julia | ⏳ Inviter til verkstad | Prioriteringsverkstad |
+| Ståle | ⏳ Møte med Inge | API/data-avklaring |
+
+---
+
+*Sist oppdatert: 4. desember 2025*
