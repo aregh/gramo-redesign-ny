@@ -4,7 +4,7 @@
 
 **Status:** Utkast
 **Sist oppdatert:** 4. desember 2025
-**Ansvar:** Inge Fossland (design), Are Halland (innhald)
+**Ansvar:** Inge Fossland (ekstern designar), Are Halland (innhald)
 
 ---
 
