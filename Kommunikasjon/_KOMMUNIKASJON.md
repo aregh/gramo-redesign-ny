@@ -16,14 +16,11 @@
 
 ## Møte (kronologisk)
 
-| Dato | Tittel | Type |
-|------|--------|------|
-| 2025-11-18 | Oppstartsworkshop | Workshop |
-| 2025-11-27 | Workshop teamoppstart | Workshop |
-| 2025-11-28 | Samtalepunkter Kim | Førebuing |
-| 2025-12-02 | Epost-svar Kim | Korrespondanse |
-| 2025-12-04 | Møte med Kim | Avklaring |
-| 2025-12-04 | Oppfølging Rita, Bastian, Are | Planlegging |
+| Dato | Tittel | Type | Fil |
+|------|--------|------|-----|
+| 2025-11-18 | Oppstartsworkshop | Workshop | — |
+| 2025-12-04 | Møte med Kim | Avklaring | — |
+| 2025-12-04 | Oppfølging Rita, Bastian, Are | Planlegging | [Referat](Møter/2025-12-04_Oppfølging-Rita-Bastian.md) |
 
 ---
 

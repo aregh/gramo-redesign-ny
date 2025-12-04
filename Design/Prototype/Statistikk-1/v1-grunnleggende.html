@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramo Statistikken 2024 - Prototype v1</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1e3a8a 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .highlight-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-stat .number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+
+        .highlight-stat .label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chart-card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #93c5fd;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .chart-container-wide {
+            position: relative;
+            height: 400px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .source {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">GRAMO</div>
+            <h1>Statistikken 2024</h1>
+            <p class="subtitle">Musikk på norsk radio</p>
+        </header>
+
+        <div class="highlight-stat">
+            <div class="number">206 428</div>
+            <div class="label">timer musikk spilt på norsk radio i 2024</div>
+        </div>
+
+        <div class="charts-grid">
+            <!-- Donut: Norge vs. verden -->
+            <div class="chart-card">
+                <h2>Hvor kommer musikken fra?</h2>
+                <div class="chart-container">
+                    <canvas id="nationChart"></canvas>
+                </div>
+                <p class="source">Spilletid fordelt på opprinnelsesland</p>
+            </div>
+
+            <!-- Horisontal bar: Topp 10 mest spilte -->
+            <div class="chart-card">
+                <h2>Topp 10 mest spilte låter</h2>
+                <div class="chart-container">
+                    <canvas id="top10Chart"></canvas>
+                </div>
+                <p class="source">Spilletid i timer</p>
+            </div>
+
+            <!-- Linjediagram: Norskandel per kanal -->
+            <div class="chart-card full-width">
+                <h2>Norskandel per kanal 2020–2024</h2>
+                <div class="chart-container-wide">
+                    <canvas id="norskAndelChart"></canvas>
+                </div>
+                <p class="source">Andel innspillinger utgitt av norsk plateselskap eller egenprodusent</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Kilde: Gramo Statistikken 2024</p>
+            <p>Prototype v1 – Kjernekaren for Gramo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Felles chart.js-innstillinger
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.8)';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Gramo-fargepalett
+        const gramoColors = {
+            primary: '#1e3a8a',
+            accent: '#60a5fa',
+            norge: '#ef4444',
+            usa: '#3b82f6',
+            uk: '#8b5cf6',
+            eu: '#22c55e',
+            norden: '#f59e0b',
+            other: '#6b7280'
+        };
+
+        // 1. Donut: Nasjonsfordeling
+        const nationCtx = document.getElementById('nationChart').getContext('2d');
+        new Chart(nationCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Norge (35,3%)', 'USA (34,9%)', 'Storbritannia (17,8%)', 'EU (5,3%)', 'Norden (5,2%)', 'Andre (1,6%)'],
+                datasets: [{
+                    data: [72856, 72094, 36636, 10987, 10649, 3206],
+                    backgroundColor: [
+                        gramoColors.norge,
+                        gramoColors.usa,
+                        gramoColors.uk,
+                        gramoColors.eu,
+                        gramoColors.norden,
+                        gramoColors.other
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const hours = context.raw.toLocaleString('no-NO');
+                                return `${context.label}: ${hours} timer`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Horisontal bar: Topp 10 mest spilte låter
+        const top10Ctx = document.getElementById('top10Chart').getContext('2d');
+        new Chart(top10Ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Josefin – Delara',
+                    'Too Sweet – Hozier',
+                    'Lose Control – Teddy Swims',
+                    'Whatever – Kygo & Ava Max',
+                    'Beautiful Things – Benson Boone',
+                    'A Bar Song (Tipsy) – Shaboozey',
+                    'Kristoffer Robin – Randi Oline',
+                    'Can\'t Tame Her – Zara Larsson',
+                    'Barn som deg – Matoma & Gabrielle',
+                    'Same Again – Dagny'
+                ],
+                datasets: [{
+                    data: [654, 593, 587, 521, 515, 460, 389, 389, 387, 380],
+                    backgroundColor: [
+                        gramoColors.norge,
+                        gramoColors.usa,
+                        gramoColors.usa,
+                        gramoColors.norge,
+                        gramoColors.usa,
+                        gramoColors.usa,
+                        gramoColors.norge,
+                        gramoColors.norden,
+                        gramoColors.norge,
+                        gramoColors.norge
+                    ],
+                    borderRadius: 4,
+                    barThickness: 24
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.raw} timer spilletid`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Timer',
+                            color: 'rgba(255,255,255,0.6)'
+                        },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 11 }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. Linjediagram: Norskandel per kanal 2020-2024
+        const norskAndelCtx = document.getElementById('norskAndelChart').getContext('2d');
+        new Chart(norskAndelCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'NRK P1',
+                        data: [52.6, 50.9, 50.9, 51.9, 51.8],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'NRK P3',
+                        data: [53.9, 51.5, 50.7, 54.0, 52.4],
+                        borderColor: '#f97316',
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'NRK Distrikt',
+                        data: [50.5, 51.7, 52.9, 54.3, 53.6],
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'P4',
+                        data: [28.7, 27.0, 27.4, 25.4, 22.3],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: 'Radio Norge',
+                        data: [3.4, 3.4, 5.6, 5.4, 6.0],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 60,
+                        title: {
+                            display: true,
+                            text: 'Norskandel (%)',
+                            color: 'rgba(255,255,255,0.6)'
+                        },
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

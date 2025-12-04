@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bygg din toppliste – Gramo 2024</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1e3a8a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        /* Filter section */
+        .filters {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .filters h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #93c5fd;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: #60a5fa;
+        }
+
+        .filter-group select option {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        /* Stats summary */
+        .stats-summary {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+
+        .stat-card .label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        /* Playlist */
+        .playlist {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .playlist-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 80px;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+        }
+
+        .playlist-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 80px;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .playlist-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+
+        .rank.top3 {
+            color: #fbbf24;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .track-title {
+            font-weight: 500;
+        }
+
+        .track-artist {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .track-hours {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .track-flag {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .flag {
+            font-size: 1.2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .tag-no {
+            background: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .tag-no-text {
+            background: rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        /* Share button */
+        .share-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #60a5fa;
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .share-btn:hover {
+            background: #3b82f6;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .playlist-header,
+            .playlist-item {
+                grid-template-columns: 40px 1fr 70px;
+            }
+
+            .track-flag {
+                display: none;
+            }
+
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">GRAMO</div>
+            <h1>Bygg din toppliste</h1>
+            <p class="subtitle">206 428 timer musikk på norsk radio i 2024</p>
+        </header>
+
+        <div class="filters">
+            <h2>Filtrer låtene</h2>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Opprinnelse</label>
+                    <select id="filterCountry">
+                        <option value="all">Alle land</option>
+                        <option value="NO">Kun norske</option>
+                        <option value="INT">Kun internasjonale</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Språk</label>
+                    <select id="filterLanguage">
+                        <option value="all">Alle språk</option>
+                        <option value="NO">Norsk tekst</option>
+                        <option value="EN">Engelsk tekst</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Kanal</label>
+                    <select id="filterChannel">
+                        <option value="all">Alle kanaler</option>
+                        <option value="P4">P4</option>
+                        <option value="RadioNorge">Radio Norge</option>
+                        <option value="NRKP1">NRK P1</option>
+                        <option value="NRKP3">NRK P3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-summary">
+            <div class="stat-card">
+                <div class="value" id="totalTracks">100</div>
+                <div class="label">låter</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="totalHours">5 821</div>
+                <div class="label">timer totalt</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="norskAndel">39%</div>
+                <div class="label">norske</div>
+            </div>
+        </div>
+
+        <div class="playlist">
+            <div class="playlist-header">
+                <span>#</span>
+                <span>Låt</span>
+                <span style="text-align: right;">Timer</span>
+                <span style="text-align: right;">Land</span>
+            </div>
+            <div id="playlistItems">
+                <!-- Generert med JavaScript -->
+            </div>
+        </div>
+
+        <div class="share-section">
+            <button class="share-btn" onclick="shareList()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+                </svg>
+                Del din toppliste
+            </button>
+        </div>
+
+        <footer>
+            <p>Kilde: Gramo Statistikken 2024 · Prototype v2</p>
+        </footer>
+    </div>
+
+    <script>
+        // Komplett datasett fra Gramo Statistikken 2024
+        const allTracks = [
+            { rank: 1, title: "Josefin", artist: "Delara", hours: 654, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1", "NRKP3"] },
+            { rank: 2, title: "Too Sweet", artist: "Hozier", hours: 593, country: "IE", language: "EN", channels: ["all", "P4", "NRKP1"] },
+            { rank: 3, title: "Lose Control", artist: "Teddy Swims", hours: 587, country: "US", language: "EN", channels: ["all", "NRKP1", "NRKP3"] },
+            { rank: 4, title: "Whatever", artist: "Kygo & Ava Max", hours: 521, country: "NO", language: "EN", channels: ["all", "P4", "NRKP3"] },
+            { rank: 5, title: "Beautiful Things", artist: "Benson Boone", hours: 515, country: "US", language: "EN", channels: ["all", "P4", "NRKP1"] },
+            { rank: 6, title: "A Bar Song (Tipsy)", artist: "Shaboozey", hours: 460, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 7, title: "Kristoffer Robin", artist: "Randi Oline", hours: 389, country: "NO", language: "NO", channels: ["all", "NRKP1", "NRKP3"] },
+            { rank: 8, title: "Can't Tame Her", artist: "Zara Larsson", hours: 389, country: "SE", language: "EN", channels: ["all", "P4", "NRKP3"] },
+            { rank: 9, title: "Barn som deg", artist: "Matoma & Gabrielle", hours: 387, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 10, title: "Same Again (For Love)", artist: "Dagny", hours: 380, country: "NO", language: "EN", channels: ["all", "P4"] },
+            { rank: 11, title: "Stargazing", artist: "Myles Smith", hours: 377, country: "UK", language: "EN", channels: ["all", "P4"] },
+            { rank: 12, title: "Houdini", artist: "Eminem", hours: 376, country: "US", language: "EN", channels: ["all", "NRKP3"] },
+            { rank: 13, title: "Austin", artist: "Dasha", hours: 371, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 14, title: "Daylight", artist: "David Kushner", hours: 369, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 15, title: "Wow", artist: "Ramón", hours: 366, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 16, title: "I Don't Wanna Wait", artist: "David Guetta & OneRepublic", hours: 365, country: "FR", language: "EN", channels: ["all", "P4"] },
+            { rank: 17, title: "Texas Hold 'Em", artist: "Beyoncé", hours: 365, country: "US", language: "EN", channels: ["all", "P4", "NRKP3"] },
+            { rank: 18, title: "The Ballet Girl", artist: "Aden Foyer", hours: 357, country: "NO", language: "EN", channels: ["all", "P4"] },
+            { rank: 19, title: "Tattoo", artist: "Loreen", hours: 350, country: "SE", language: "EN", channels: ["all", "P4"] },
+            { rank: 20, title: "I Had Some Help", artist: "Post Malone & Morgan Wallen", hours: 350, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 21, title: "A Million Dreams", artist: "P!nk", hours: 349, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 22, title: "Samurai Swords", artist: "Matoma & Miriam Bryant", hours: 344, country: "NO", language: "EN", channels: ["all", "P4", "NRKP3"] },
+            { rank: 23, title: "Espresso", artist: "Sabrina Carpenter", hours: 344, country: "US", language: "EN", channels: ["all", "P4", "NRKP3"] },
+            { rank: 24, title: "For Life", artist: "Kygo feat. Zak Abel", hours: 341, country: "NO", language: "EN", channels: ["all", "P4"] },
+            { rank: 25, title: "Before You Leave Me", artist: "Alex Warren", hours: 329, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 26, title: "Belong Together", artist: "Mark Ambor", hours: 328, country: "US", language: "EN", channels: ["all", "P4"] },
+            { rank: 27, title: "Floden", artist: "Emma Steinbakken", hours: 324, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 28, title: "Feelslikeimfallinginlove", artist: "Coldplay", hours: 306, country: "UK", language: "EN", channels: ["all", "P4"] },
+            { rank: 29, title: "Forget Me", artist: "Lewis Capaldi", hours: 294, country: "UK", language: "EN", channels: ["all", "P4"] },
+            { rank: 30, title: "Strangers", artist: "Kenya Grace", hours: 290, country: "UK", language: "EN", channels: ["all", "NRKP3"] },
+            // Norske låter med norsk tekst (fra "Mest spilte låt norsk på norsk")
+            { rank: 31, title: "For evig", artist: "Chris Holsten", hours: 254, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 32, title: "Danser videre i livet", artist: "Hkeem & Makosir", hours: 234, country: "NO", language: "NO", channels: ["all", "NRKP3"] },
+            { rank: 33, title: "Slå hjerte, slå", artist: "Chris Holsten", hours: 224, country: "NO", language: "NO", channels: ["all", "NRKP1"] },
+            { rank: 34, title: "Ok", artist: "Synne Vo", hours: 219, country: "NO", language: "NO", channels: ["all", "NRKP1"] },
+            { rank: 35, title: "Jeg glemmer deg aldri", artist: "Emma Steinbakken", hours: 211, country: "NO", language: "NO", channels: ["all", "P4"] },
+            { rank: 36, title: "Ok jeg lover", artist: "Ramón", hours: 210, country: "NO", language: "NO", channels: ["all", "P4"] },
+            { rank: 37, title: "Smilet i ditt eget speil", artist: "Chris Holsten", hours: 210, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 38, title: "Den fineste Chevy'n", artist: "Halva Priset & Maria Mena", hours: 170, country: "NO", language: "NO", channels: ["all", "P4", "NRKP1"] },
+            { rank: 39, title: "Falsk alarm", artist: "Emelie Hollow", hours: 166, country: "NO", language: "NO", channels: ["all", "NRKP1"] },
+            { rank: 40, title: "Hvis verden", artist: "Chris Holsten & Frida Ånnevik", hours: 164, country: "NO", language: "NO", channels: ["all", "NRKP1"] },
+            // Radio Norge-spesifikke (80-tall)
+            { rank: 41, title: "I Wanna Dance with Somebody", artist: "Whitney Houston", hours: 47, country: "US", language: "EN", channels: ["RadioNorge"] },
+            { rank: 42, title: "Bad Romance", artist: "Lady Gaga", hours: 42, country: "US", language: "EN", channels: ["all", "RadioNorge"] },
+            { rank: 43, title: "Like a Prayer", artist: "Madonna", hours: 42, country: "US", language: "EN", channels: ["RadioNorge"] },
+            { rank: 44, title: "Bohemian Rhapsody", artist: "Queen", hours: 38, country: "UK", language: "EN", channels: ["all", "RadioNorge"] },
+            { rank: 45, title: "Maniac", artist: "Michael Sembello", hours: 40, country: "US", language: "EN", channels: ["RadioNorge"] },
+        ];
+
+        const countryFlags = {
+            "NO": "🇳🇴",
+            "US": "🇺🇸",
+            "UK": "🇬🇧",
+            "SE": "🇸🇪",
+            "IE": "🇮🇪",
+            "FR": "🇫🇷"
+        };
+
+        function filterTracks() {
+            const countryFilter = document.getElementById('filterCountry').value;
+            const languageFilter = document.getElementById('filterLanguage').value;
+            const channelFilter = document.getElementById('filterChannel').value;
+
+            let filtered = allTracks.filter(track => {
+                // Country filter
+                if (countryFilter === 'NO' && track.country !== 'NO') return false;
+                if (countryFilter === 'INT' && track.country === 'NO') return false;
+
+                // Language filter
+                if (languageFilter !== 'all' && track.language !== languageFilter) return false;
+
+                // Channel filter
+                if (channelFilter !== 'all' && !track.channels.includes(channelFilter)) return false;
+
+                return true;
+            });
+
+            // Sort by hours and re-rank
+            filtered.sort((a, b) => b.hours - a.hours);
+            filtered = filtered.map((track, index) => ({...track, displayRank: index + 1}));
+
+            return filtered;
+        }
+
+        function renderPlaylist() {
+            const tracks = filterTracks();
+            const container = document.getElementById('playlistItems');
+
+            // Update stats
+            const totalHours = tracks.reduce((sum, t) => sum + t.hours, 0);
+            const norskCount = tracks.filter(t => t.country === 'NO').length;
+
+            document.getElementById('totalTracks').textContent = tracks.length;
+            document.getElementById('totalHours').textContent = totalHours.toLocaleString('no-NO');
+            document.getElementById('norskAndel').textContent = tracks.length > 0
+                ? Math.round((norskCount / tracks.length) * 100) + '%'
+                : '0%';
+
+            // Render tracks (max 25)
+            const displayTracks = tracks.slice(0, 25);
+
+            container.innerHTML = displayTracks.map(track => `
+                <div class="playlist-item">
+                    <span class="rank ${track.displayRank <= 3 ? 'top3' : ''}">${track.displayRank}</span>
+                    <div class="track-info">
+                        <span class="track-title">${track.title}</span>
+                        <span class="track-artist">${track.artist}</span>
+                    </div>
+                    <span class="track-hours">${track.hours} t</span>
+                    <div class="track-flag">
+                        <span class="flag">${countryFlags[track.country] || '🌍'}</span>
+                        ${track.country === 'NO' ? `<span class="tag tag-no">NO</span>` : ''}
+                        ${track.language === 'NO' ? `<span class="tag tag-no-text">Norsk</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            if (tracks.length === 0) {
+                container.innerHTML = '<div style="padding: 2rem; text-align: center; opacity: 0.6;">Ingen låter matcher filteret</div>';
+            }
+        }
+
+        function shareList() {
+            const countryFilter = document.getElementById('filterCountry').value;
+            const languageFilter = document.getElementById('filterLanguage').value;
+
+            let description = "Toppliste";
+            if (countryFilter === 'NO') description = "Norske topplåter";
+            if (languageFilter === 'NO') description = "Topplåter på norsk";
+            if (countryFilter === 'NO' && languageFilter === 'NO') description = "Norsk på norsk";
+
+            const text = `${description} på norsk radio 2024 🎵\n\nSjekk ut lista på gramo.no/statistikken`;
+
+            if (navigator.share) {
+                navigator.share({ title: 'Gramo Statistikken 2024', text: text });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('Kopiert til utklippstavle!');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('filterCountry').addEventListener('change', renderPlaylist);
+        document.getElementById('filterLanguage').addEventListener('change', renderPlaylist);
+        document.getElementById('filterChannel').addEventListener('change', renderPlaylist);
+
+        // Initial render
+        renderPlaylist();
+    </script>
+</body>
+</html>
