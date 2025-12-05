@@ -133,10 +133,11 @@ Prosjektene har separate scope, men felles prosjekteier sikrer koordinering.
 
 | Fase | Periode | Hovedaktiviteter |
 |------|---------|------------------|
-| Design | Q1 2026 | Konseptutvikling, visuell profil, informasjonsarkitektur |
-| Utvikling | Q1-Q2 2026 | Teknisk plattform, CMS-oppsett |
-| Innhold | Q2 2026 | Innholdsproduksjon, migrering |
-| Lansering | Q2-Q3 2026 | Testing, opplæring, go-live |
+| Fase 1: Konsept | Q4 2025 | Brukerbehov, kartlegging, teknologi, merkevare, utforskning av konseptretning, stil og tone, informasjonsarkitektur, GEO/SEO-analyse, toppoppgaver, kjerneflyt, prototyping |
+| Fase 2: Design | Q1 2026 | Visuell profil, designsystem, prototyping |
+| Fase 3: Utvikling | Q1-Q2 2026 | Teknisk plattform, CMS-oppsett |
+| Fase 4: Innhold | Q2 2026 | Innholdsproduksjon, migrering |
+| Fase 5: Lansering | Q2-Q3 2026 | Testing, opplæring, go-live |
 
 Detaljert prosjektplan utarbeides som del av forprosjektet.
 
