@@ -93,8 +93,10 @@ Den nye nettsiden skal være en moderne, brukervennlig og profesjonell plattform
 | Rolle | Navn | Ansvar |
 |-------|------|--------|
 | Prosjekteier | Kim Skarning Andersen | Overordnet ansvar for måloppnåelse og ressursallokering. Godkjenner vesentlige endringer. |
-| Prosjektleder | Are Halland | Daglig ledelse, koordinering av interne og eksterne ressurser. |
+| Prosjektleder | Are Halland | Daglig ledelse, koordinering og prosjektledelse. |
 | Produktteam | Are, Rita, Bastian, Inge | Kommunikasjon, UX, innhold, design, data |
+
+**Eksterne leverandører:** Bastian (innhold) og Inge (design) fakturerer separat. Are har overordnet ansvar for koordinering og prosjektledelse.
 
 ### Forholdet til Apollon-prosjektet
 
@@ -129,37 +131,37 @@ Prosjektene har separate scope, men felles prosjekteier sikrer koordinering.
 - Merkevareanalyse
 - Teknologisk analyse
 
-### Hovedprosjekt (2026)
+### Hovedprosjekt
 
-| Fase | Periode | Hovedaktiviteter |
-|------|---------|------------------|
-| Fase 1: Konsept | Q4 2025 | Brukerbehov, kartlegging, teknologi, merkevare, utforskning av konseptretning, stil og tone, informasjonsarkitektur, GEO/SEO-analyse, toppoppgaver, kjerneflyt, prototyping |
-| Fase 2: Design | Q1 2026 | Visuell profil, designsystem, prototyping |
-| Fase 3: Utvikling | Q1-Q2 2026 | Teknisk plattform, CMS-oppsett |
-| Fase 4: Innhold | Q2 2026 | Innholdsproduksjon, migrering |
-| Fase 5: Lansering | Q2-Q3 2026 | Testing, opplæring, go-live |
+| Fase | Periode | Ressurs | Hovedaktiviteter |
+|------|---------|---------|------------------|
+| Fase 1: Analyse | Q4 2025 | 30 dagsverk | Brukerbehov, kartlegging, teknologi, merkevare, utforskning av konseptretning, stil og tone, informasjonsarkitektur, GEO/SEO-analyse, toppoppgaver, kjerneflyt, prototyping. **Leveranse:** Detaljert plan for fase 2 og 3. |
+| Fase 2: Utvikling | Q1 2026 | 45 dagsverk | Detaljert design, teknisk utvikling, innholdsproduksjon, brukertesting, kjerneverksted, GPT-utvikling |
+| Fase 3: Lansering | Q2 2026 | 25 dagsverk (estimat) | Innholdsproduksjon, ferdigstilling av innhold, brukertesting, driftsavtale, lansering (juni 2026) |
 
-Detaljert prosjektplan utarbeides som del av forprosjektet.
+**Ressursramme totalt:** 100 dagsverk
+
+Overskridelser av rammene skal avtales med prosjekteier. Eventuelle utvidelser (f.eks. statistikkprosjektet) avklares eksplisitt med prosjekteier i god tid.
+
+**Leveranseområder:**
+
+1. **Kjerneinnhold på nettsidene**
+   - Om Gramo og bli medlem
+   - Utbetalingskalkulator
+
+2. **Hjelpesider og toppoppgaver**
+   - FAQ og lenker til Apollon
+   - Landingssider for toppoppgaver (ISRC, registrering, etc.)
+
+3. **Statistikkvisning**
+   - Interaktiv statistikkvisning
+   - *Merk: Omfanget må avklares med prosjekteier. Statistikkvisning kan potensielt utvides utover prosjektrammen eller skilles ut som eget prosjekt.*
 
 ---
 
 ## 6. Budsjett
 
-### Forprosjekt
-| Post | Beløp |
-|------|-------|
-| Kjernekaren (Are + Inge) | [Fra tilbud] |
-| **Totalt forprosjekt** | [Avklares] |
-
-### Hovedprosjekt
-| Post | Estimat |
-|------|---------|
-| Design og UX | [Avklares] |
-| Teknisk utvikling | [Avklares] |
-| Innholdsproduksjon | [Avklares] |
-| **Totalt hovedprosjekt** | [Avklares] |
-
-Budsjett for hovedprosjekt utarbeides som del av forprosjektet.
+Se eget tilbud for detaljer.
 
 ---
 
