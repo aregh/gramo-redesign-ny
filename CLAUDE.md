@@ -1,33 +1,37 @@
 # CLAUDE.md - Gramo Redesign
 
-> Lettvekts-peikar til prosjektkontekst
+> Lettvekts-peker til prosjektkontekst
 
-## Les desse filene
+## VIKTIG: Språk
 
-1. **[KONTEKST.md](KONTEKST.md)** - Hub (start her)
-2. **[2DOS.md](2DOS.md)** - Aktive oppgåver og leveransar
+**All dokumentasjon skal skrives på bokmål.** Dette gjelder dokumenter, logger, dialoger og all kommunikasjon.
+
+## Les disse filene først
+
+1. **[KONTEKST.md](KONTEKST.md)** - Hub med prosjektoversikt og språkkrav
+2. **[2DOS.md](2DOS.md)** - Aktive oppgaver og leveranser
 3. **[LOGG.md](LOGG.md)** - Kronologisk logg
 
 ## Ved behov
 
 - **[Bakgrunn/OmGramo.md](Bakgrunn/OmGramo.md)** - Om Gramo, strategi, teknisk landskap
-- **[Bakgrunn/Folk.md](Bakgrunn/Folk.md)** - Nøkkelpersonar og intel
+- **[Bakgrunn/Folk.md](Bakgrunn/Folk.md)** - Nøkkelpersoner og intel
 - **[Dokumenter/Prosjektmandat.md](Dokumenter/Prosjektmandat.md)** - Formelt mandat
 
 ## Metodikk
 
-- **[Bakgrunn/Pakker/](Bakgrunn/Pakker/)** - Kjernemodellen, Toppoppgåver, Kontekstarkitektur
+- **[Bakgrunn/Pakker/](Bakgrunn/Pakker/)** - Kjernemodellen, Toppoppgaver, Kontekstarkitektur
 
-## Kjappe fakta
+## Raske fakta
 
 | | |
 |-|-|
 | **Klient** | Gramo (kollektiv forvaltning) |
 | **Fase** | Forprosjekt (nov-des 2025) |
 | **Omfang** | 20 dagsverk (15 Are + 5 Inge) |
-| **Toppoppgåve #1** | ISRC-registrering |
+| **Toppoppgave #1** | ISRC-registrering |
 | **Airtable** | `appo0g1sGfgBc6mHg` |
 
 ---
 
-*Sist oppdatert: 4. desember 2025*
+*Sist oppdatert: 5. desember 2025*
