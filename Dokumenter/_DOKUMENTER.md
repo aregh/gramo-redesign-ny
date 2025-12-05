@@ -33,3 +33,15 @@
 ---
 
 *Noverande mandat: [Prosjektmandat.md](Prosjektmandat.md)*
+
+---
+
+## Arbeidsrutinar
+
+### Revidering av Prosjektmandat
+
+Ved oppdatering av `Prosjektmandat.md`:
+
+1. **Arkiver først** gjeldande versjon til `Revisjonar/PROSJEKTMANDAT-YYMMDD.md`
+2. **Oppdater så** `Prosjektmandat.md` med nye endringar
+3. **Oppdater revisjonslista** i denne fila

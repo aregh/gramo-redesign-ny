@@ -72,11 +72,20 @@ Analysearbeid og innsikt.
 
 | Fil | Skildring |
 |-----|-----------|
+| [_ANALYSE.md](Analyse/_ANALYSE.md) | Samandrag |
 | [GEO-analyse.md](Analyse/GEO-analyse.md) | Søkeordsanalyse og GEO-strategi |
 | [Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md) | Brukarreise for ISRC (toppoppgåve #1) |
 | [Verdistrøm-ISRC.md](Analyse/Verdistrøm-ISRC.md) | Business case ISRC |
 | [Innhaldskartlegging.md](Analyse/Innhaldskartlegging.md) | Kartlegging eksisterande innhald |
 | [Teknisk.md](Analyse/Teknisk.md) | Teknisk landskap |
+| [Analyse-Toppoppgaver.md](Analyse/Analyse-Toppoppgaver.md) | Analyse av toppoppgåver |
+| [Medlemsundersøkelse-2023-oppsummering.md](Analyse/Medlemsundersøkelse-2023-oppsummering.md) | Oppsummering medlemsundersøking |
+| [Statistikk-visualisering.md](Analyse/Statistikk-visualisering.md) | Statistikk-visualisering |
+
+| Mappe | Innhald |
+|-------|---------|
+| [Rådata/](Analyse/Rådata/) | Rådata og kjeldemateriale |
+| [Teknisk/](Analyse/Teknisk/) | Teknisk dokumentasjon (Apollon kravspek m.m.) |
 
 ### [Design/](Design/)
 Designarbeid og brief.
