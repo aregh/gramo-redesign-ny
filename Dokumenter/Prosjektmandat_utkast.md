@@ -2,9 +2,7 @@
 
 **Versjon:** 2.0
 **Dato:** 5. desember 2025
-**Status:** Utkast til diskusjon onsdag
-
-> Strukturert etter samme mal som Apollon-prosjektmandatet (27. oktober 2025)
+**Status:** Utkast basert på Apollon-prosjektmandatet
 
 ---
 
@@ -14,12 +12,19 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 
 **Dagens situasjon:**
 - Innhold eksisterer i tre separate systemer (Webflow, Intercom, Min side)
-- Fragmentert brukeropplevelse
-- Lav løsningsgrad på toppoppgaver (43%)
+- Fragmentert brukeropplevelse på tvers av systemene
+- Lav løsningsgrad på toppoppgaver (målt til 43%)
+- Brukere opplever at det er vanskelig å finne, forstå og bruke det de trenger
 - Min side skal erstattes av Apollon webportal i 2026
 
-**Viktig avklaring (5. desember 2025):**
-> Gramo.no-prosjektet skal IKKE bruke tid på Apollon/medlemsportal. Fokus er merkevare, statistikk og innhold.
+**Ønsket situasjon:**
+Den nye nettsiden skal være en moderne, brukervennlig og profesjonell plattform som:
+- Ivaretar målgruppenes behov gjennom innhold bygget på kjernemodellen
+- Effektiviserer driften ved å redusere henvendelser til medlemsservice
+- Kommuniserer tydelig om Gramos virksomhet og resultater
+- Styrker merkevaren i tråd med kommunikasjonsstrategi
+- Overholder lovkrav (CRM-loven for kollektive forvaltningsorganisasjoner)
+- Er fremtidsrettet med skalerbar og fleksibel plattform
 
 ---
 
@@ -27,9 +32,11 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 
 ### Resultatmål
 - Nytt nettsted optimalisert for brukeroppgaver (toppoppgaver)
-- Profesjonell visuell profil som styrker merkevaren
-- Innhold med konsistent kvalitet
-- Statistikkpresentasjon som unik mulighet
+- Profesjonell visuell profil (digital stilguide)
+- Innhold med konsistent og helhetlig kvalitet
+- Statistikkpresentasjon som omdømmebygger
+- SEO og AI-optimalisering (ChatGPT, Google AI Overview)
+- Universell utforming (WCAG 2.1 AA)
 
 ### Effektmål
 - Redusert supportbelastning på medlemsservice
@@ -50,26 +57,32 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 - Innholdsproduksjon for kjernesider
 
 **Data og visualisering:**
-- Statistikkpresentasjon på nettsiden (offentlige data)
+- Statistikkpresentasjon på nettsiden (offentlige, aggregerte data)
 - Interaktive topplister og visualiseringer
-- Kobling spilledata + metadata
 
 **Teknisk plattform:**
 - Single source of truth (Sanity som innholdshub)
 - Headless arkitektur for fleksibel distribusjon
 - SEO og AI-optimalisering
+- Dokumentert fleksibilitet for videreutvikling
+
+**Grensesnitt mot Apollon webportal:**
+- FAQ-er som matcher webportalens funksjonalitet
+- Lenker til innlogging og selvbetjeningsfunksjoner
+- Hjelpetekster som forklarer hvordan ting fungerer i webportalen
+- God overgang/veksling fra nettside til webportal
 
 ### Prosjektet omfatter IKKE
 
-- Apollon medlemsportal (eget prosjekt)
+- Apollon medlemsportal (eget prosjekt med BiConcepts)
 - Teknisk utvikling av webportal
-- Integrasjoner mot Apollon (først aktuelt 2027)
-- Utskifting av Intercom
+- Integrasjoner mot Apollon (først aktuelt når systemet er i stabil drift, 2027)
+- Utskifting av Intercom som medlemskommunikasjonsløsning
 
-**Grensesnitt mot Apollon:**
-- gramo.no = offentlig nettsted (merkevare, statistikk, info)
+**Avgrensning mot Apollon:**
+- gramo.no = offentlig nettsted (merkevare, statistikk, informasjon)
 - Apollon = innlogget medlemsportal (mine data, registrering, utbetaling)
-- Eventuelle avklaringer kommer som «bestillinger» fra Apollon-prosjektet
+- Eventuelle behov for UI-branding, lenker eller hjelpetekster koordineres via prosjekteier
 
 ---
 
@@ -79,46 +92,53 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 
 | Rolle | Navn | Ansvar |
 |-------|------|--------|
-| Prosjekteier | Kim | Overordnet ansvar, godkjenning |
-| Prosjektleder | Are | Daglig ledelse, koordinering |
-| Produktteam | Are, Rita, Bastian, Inge | Kommunikasjon, UX, innhold, data |
+| Prosjekteier | Kim Skarning Andersen | Overordnet ansvar for måloppnåelse og ressursallokering. Godkjenner vesentlige endringer. |
+| Prosjektleder | Are Halland | Daglig ledelse, koordinering av interne og eksterne ressurser. |
+| Produktteam | Are, Rita, Bastian, Inge | Kommunikasjon, UX, innhold, design, data |
 
 ### Forholdet til Apollon-prosjektet
+
+Prosjektene har separate scope, men felles prosjekteier sikrer koordinering.
 
 | Apollon-prosjektet | Gramo.no-prosjektet |
 |--------------------|---------------------|
 | Prosjekteier: Kim | Prosjekteier: Kim |
 | Systemeier: Toril | Prosjektleder: Are |
 | Prosjektleder: Morten | |
-| Migrering/BI: Ståle | |
 
-**Samordning:** Prosjektene har separate scope. Eventuelle behov for UI-branding eller lenker koordineres via Kim.
+**Samordning:** Når Apollon-prosjektet har behov for UI-branding, lenker eller hjelpetekster på gramo.no, kommer dette som konkrete bestillinger til gramo.no-prosjektet.
 
 ---
 
-## 5. Tidsplan
+## 5. Tidsplan og milepæler
 
 ### Forprosjekt (november-desember 2025)
 
-| Aktivitet | Status |
-|-----------|--------|
-| Kartlegging interne nøkkelpersoner | ✅ |
-| GEO-/SEO-analyse | ✅ |
-| Kjerneflyt i Miro | ✅ |
-| Prototype statistikkvisning | ✅ 17 konsepter |
-| Intervju Toril | ⏳ |
-| Prioriteringsverksted | ⏳ |
+**Ressursramme:** 20 dagsverk (15 Are + 5 Inge)
 
-**Ressursramme forprosjekt:** 20 dagsverk (15 Are + 5 Inge)
+**Leveranser:**
+- Presentasjon av forprosjekt
+- Detaljert plan for hovedprosjekt
+- Konseptretning for merkevare/design
+- Budsjettforslag
+
+**Aktiviteter:**
+- Innholdskartlegging og -analyse
+- Interne og eksterne intervjuer
+- Prioriteringsverksted
+- Merkevareanalyse
+- Teknologisk analyse
 
 ### Hovedprosjekt (2026)
 
 | Fase | Periode | Hovedaktiviteter |
 |------|---------|------------------|
-| Design | Q1 2026 | Konseptutvikling, visuell profil |
-| Utvikling | Q1-Q2 2026 | Teknisk plattform, integrasjoner |
+| Design | Q1 2026 | Konseptutvikling, visuell profil, informasjonsarkitektur |
+| Utvikling | Q1-Q2 2026 | Teknisk plattform, CMS-oppsett |
 | Innhold | Q2 2026 | Innholdsproduksjon, migrering |
 | Lansering | Q2-Q3 2026 | Testing, opplæring, go-live |
+
+Detaljert prosjektplan utarbeides som del av forprosjektet.
 
 ---
 
@@ -138,61 +158,39 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 | Innholdsproduksjon | [Avklares] |
 | **Totalt hovedprosjekt** | [Avklares] |
 
+Budsjett for hovedprosjekt utarbeides som del av forprosjektet.
+
 ---
 
 ## 7. Risiko
 
 | Risikonivå | Risiko | Tiltak |
 |------------|--------|--------|
-| **Middels** | Uklart grensesnitt mot Apollon | Avklart: Separate prosjekter, koordinering via Kim |
-| **Middels** | Manglende tilgang til spilledata | Avklare med Ståle hva som er tilgjengelig |
-| **Middels** | Kapasitet medlemsavdeling | Avklare tidlig, minimere belastning |
-| **Lav** | Teknisk kompleksitet | Sanity er etablert, god erfaring |
+| **Middels** | Manglende tilgang til data for statistikkvisning | Avklare med Ståle hva som er tilgjengelig via datavarehus/Power BI |
+| **Middels** | Kapasitet fra medlemsavdeling | Avklare tidlig, minimere belastning |
+| **Middels** | Koordinering med Apollon-prosjektet | Felles prosjekteier, tydelig avgrensning |
+| **Lav** | Teknisk kompleksitet | Sanity er etablert teknologi med god erfaring |
 
 ---
 
-## 8. Leveranser fra forprosjektet
+## 8. Forutsetninger
 
-### Hovedleveranser
-- [ ] Presentasjon av forprosjekt
-- [ ] Detaljert plan for hovedprosjekt
-- [ ] Konseptretning for merkevare/design
-- [ ] Budsjettforslag
+Følgende forutsetninger ligger til grunn:
 
-### Underveisleveranser
-- [x] Arbeidsdokumenter i Airtable, Miro, Notion
-- [x] Kjerneflyt i Miro
-- [x] GEO-/SEO-analyse
-- [x] Prototype statistikkvisning (17 konsepter)
-- [ ] Informasjonsarkitektur
-- [ ] Intervjuer og workshop
+- Apollon-prosjektet og gramo.no-prosjektet har separate scope
+- Koordinering skjer via felles prosjekteier
+- Eventuelle bestillinger fra Apollon-prosjektet (UI-branding, lenker, hjelpetekster) kommer som definerte oppgaver
+- Tilgang til nødvendige ressurser fra medlemsavdeling avklares
 
 ---
 
-## 9. Avklaringer
-
-### Avklart
-- [x] Kim er hovedkontakt og prosjekteier
-- [x] gramo.no og Apollon er separate prosjekter
-- [x] Fokus: merkevare, statistikk, innhold
-- [x] Apollon-mandat mottatt
-
-### Må avklares
-- [ ] Budsjett for hovedprosjekt
-- [ ] Tilgang til spilledata for statistikkvisning
-- [ ] Kapasitet fra medlemsavdeling
-
----
-
-## 10. Godkjenning
+## 9. Godkjenning
 
 | Rolle | Navn | Signatur | Dato |
 |-------|------|----------|------|
-| Prosjekteier | Kim | | |
-| Prosjektleder | Are | | |
+| Prosjekteier | Kim Skarning Andersen | | |
+| Prosjektleder | Are Halland | | |
 
 ---
-
-*Tidligere versjoner: [Prosjektmandat.md](Prosjektmandat.md)*
 
 *Sist oppdatert: 5. desember 2025*
