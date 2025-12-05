@@ -4,6 +4,57 @@
 
 ---
 
+## 5. desember 2025
+
+### Apollon-dokumentasjon motteke frå Rita/Kim
+- **Medlemsportal-spec (BiConcepts):** Standardfunksjonar + 9 gap-løysingar
+- **Internt prosjektmandat:** Fullstendig prosjektplan, organisering, budsjett
+
+### Viktig avklaring frå Kim
+> «Gramo.no-prosjektet skal IKKJE bruke meir tid på Apollon/medlemsportal»
+
+**Grunngjeving:**
+- Standardløysing + avtalte gaps, ikkje kravspesifisering
+- Kun datamapping og UI-branding
+- Ev. avklaringar kjem som «bestillingar» frå Apollon-prosjektet
+
+### Apollon medlemsportal - nøkkelpunkt
+| Funksjon | Beskriving |
+|----------|------------|
+| Mine innspelingar | Liste over innspelingar der medlem er i besetning |
+| Min bruk | Spelingar gruppert på år/kanal/innspeling |
+| Claiming (G.20) | Krevje rettar til innspelingar |
+| Rapportering (G.21) | Laste opp repertoar via Excel-mal |
+| Dashboard (G.24) | Årleg oppsummering med vederlag |
+
+### Apollon-prosjektet - tidslinje
+- **1. juni 2026:** Go-live kjernesystem + medlemsportal
+- **1. des 2026:** Distribusjon og utbetaling
+- **Budsjett:** ~29 MNOK inkl. buffer
+
+### Konsekvens for gramo.no-prosjektet
+- Vi fokuserer på **merkevare, statistikk, innhald** - ikkje medlemsportal
+- Statistikkvisning på gramo.no = *offentleg*, ikkje innlogga brukardata
+- Potensielt: Hente aggregert data frå Apollon datavarehus / Power BI
+
+### Echo-feltanalyse
+- Analysert schema-uttrekk frå Ståle (153 tabellar, 1157 felt)
+- Laga sjekkliste for dataavklaring: [Datafelt-statistikk.md](Analyse/Teknisk/Datafelt-statistikk.md)
+- Briefing til Bastian: [Til-Bastian-dataavklaring.md](Analyse/Teknisk/Til-Bastian-dataavklaring.md)
+
+### Møte onsdag - agenda (frå Rita)
+1. Innhaldsdesign for å styrke merkevaren/omdømme
+2. Presentasjon av statistikk på nettsida
+3. Prosjektmandat
+4. Budsjett/tilbod
+
+### Neste steg
+- [ ] Are: Sjå på tilbodet/budsjett
+- [ ] Rita: Kalle inn til møte onsdag
+- [ ] Bastian: Avklare spelingsdata med Ståle
+
+---
+
 ## 4. desember 2025
 
 ### Prototyping av interaktive statistikk-konsept

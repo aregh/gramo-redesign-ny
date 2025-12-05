@@ -14,18 +14,23 @@
 
 ---
 
-## Neste steg (frå møte 4. des)
+## Neste steg
+
+### Møte onsdag (Rita kallar inn)
+Agenda:
+- [ ] Innhaldsdesign for å styrke merkevaren/omdømme
+- [ ] Presentasjon av statistikk på nettsida
+- [ ] Prosjektmandat
+- [ ] Budsjett/tilbod (Are ser på)
 
 ### Høgste prioritet
-- [ ] **Book møte Kim + Inge** (+ evt. Ståle) - fredag eller onsdag neste veke
+- [x] **Få Apollon-mandat frå Kim** - ✅ Motteke 5. des
 - [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
-- [ ] **Få Apollon-mandat frå Kim** - for samanlikning med vårt
-- [ ] **Avklar metadata-tilgang med Kim** ⭐ – designarbeidsmøte for å kartlegge kva metadata Gramo faktisk har tilgang til (ISRC, credits, label, etc.)
+- [ ] **Budsjett til Kim** - Are ser på tilbodet
 
 ### Innhald og data
 - [ ] **Lag innhaldskart** - Map til prioriterte kjernesider (ISRC, registrering, FAQ)
-- [ ] **Avklar API/data-moglegheiter** - Apollon, Metabase, Azure, Power BI
-- [ ] **Kartlegg tilgjengelege metadata-felt** – Kva har Gramo i dag? Kva kjem via Apollon? Kva må berikast eksternt?
+- [ ] **Kartlegg tilgjengelege metadata-felt** – Kva har Gramo i dag? Kva kjem via Apollon?
 
 ### Planlegging
 - [ ] **Forbered mandatutkast** - Samanlikn med Apollon-malen
@@ -33,14 +38,60 @@
 
 ---
 
-## Avklaringar frå Kim-møte (4. des)
+## Viktig avklaring frå Kim (5. des)
 
-| Tema | Status | Ansvarleg |
-|------|--------|-----------|
-| Kim er hovudkontakt | ✅ Bekrefta | Kim |
-| Prosjektplan/mandat Apollon | ⏳ Ventande | Kim |
-| Layoutfase = mapping (avgrensa design) | ✅ Bekrefta | - |
-| API-tilgang Apollon | ❓ Må avklarast | Kim/Ståle |
+> «Gramo.no-prosjektet skal IKKJE bruke meir tid på Apollon/medlemsportal»
+
+**Grunngjeving:**
+- Apollon = standardløysing + avtalte gaps, ikkje kravspesifisering
+- Kun datamapping og UI-branding
+- Ev. avklaringar kjem som «bestillingar» frå Apollon-prosjektet
+
+**Konsekvens for oss:** Vi fokuserer på gramo.no (merkevare, statistikk, innhald) - ikkje på medlemsportalen.
+
+---
+
+## Apollon-prosjektet (bakgrunn)
+
+**Tidslinje:**
+- Go-live kjernesystem: 1. juni 2026
+- Medlemsportal: 1. juni 2026
+- Distribusjon/utbetaling: 1. des 2026
+
+**Medlemsportal-funksjonar (frå BiConcepts):**
+| Funksjon | Beskriving |
+|----------|------------|
+| Mine innspelingar | Liste over innspelingar der medlem er i besetning |
+| Min bruk | Spelingar gruppert på år/kanal/innspeling |
+| Mine avspelte innspelingar | Innspelingar med fordelingsbeløp |
+| Mine oppgjer | Transaksjonshistorikk |
+| Rapportering av repertoar | Laste opp/endre innspelingar |
+| Claiming | Krevje rettar til innspelingar |
+
+**Relevans for statistikkvisning:**
+- «Min bruk» i Apollon = spelingsdata per brukar
+- Vi kan potensielt hente aggregert data via Power BI / datavarehus
+- Men: gramo.no skal ikkje duplisere medlemsportal-funksjonar
+
+**Prosjektorganisering:**
+| Rolle | Person |
+|-------|--------|
+| Prosjekteigar | Kim |
+| Systemeigar | Toril |
+| Prosjektleiar | Morten |
+| Migrering/BI | Ståle |
+| Rettigheitskrav | Kristoffer |
+
+---
+
+## Tidlegare avklaringar (4. des)
+
+| Tema | Status |
+|------|--------|
+| Kim er hovudkontakt | ✅ |
+| Apollon-mandat motteke | ✅ |
+| Layoutfase = mapping | ✅ |
+| gramo.no uavhengig av Apollon | ✅ |
 
 **Apollon utrulling:** Sveits → Noreg → Danmark/Finland
 
@@ -174,4 +225,4 @@
 
 ---
 
-*Sist oppdatert: 4. desember 2025*
+*Sist oppdatert: 5. desember 2025*
