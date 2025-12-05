@@ -117,24 +117,38 @@
 - [ ] **Kartlegg metadata-kjelder** - Dokumenter verifiseringsprosess
 - [ ] **API-avklaring med Ståle** - Apollon, Metabase, Azure
 
-### Metadata-avklaring (designarbeidsmøte med Kim) ⭐
-Kritisk for å forstå kva som er realistisk å vise i prototypane:
+### Spelingsdata-avklaring (kritisk for statistikkvisning) ⭐
 
-| Felt | Har vi? | Kjelde | Må avklarast |
-|------|---------|--------|--------------|
-| ISRC | ? | Gramo/Apollon | ✅ Truleg ja |
-| Artist | ? | Gramo | ✅ Truleg ja |
-| Låttittel | ? | Gramo | ✅ Truleg ja |
-| Spelingar/spilletid | ? | Radiomonitor | ✅ Truleg ja |
-| Plateselskap/label | ? | ? | ❓ |
-| Produsentar | ? | ? | ❓ |
-| Låtskrivarar | ? | TONO? | ❓ |
-| Strøymelenker | Nei | Musicfetch/ISRC | Ekstern beriking |
-| Artistbilde | ? | ? | ❓ |
-| Albumcover | ? | ? | ❓ |
-| Nasjonalitet | ? | Gramo | ❓ |
-| Fødselsdato | ? | Gramo | ❓ |
-| Kjønn | ? | Gramo | ❓ |
+**Kontekst:** Vi har fått schema-uttrekk frå Ståle (Echo-felter.xlsx) som viser 153 tabellar. Men vi veit ikkje kva som er *tilgjengeleg* via API.
+
+**Må avklarast med Ståle:**
+
+| Spørsmål | Kvifor viktig |
+|----------|---------------|
+| Finst det eit API for spelingsdata? | Kan vi bygge dynamisk statistikk? |
+| Kva aggregeringsnivå finst? | Per låt? Per artist? Per kanal? Per dag/veke/år? |
+| Kor langt tilbake går data? | Kan vi vise trender over tid? |
+| Kor ofte oppdatert? | Dagleg, vekentleg, eller berre ved fordeling? |
+| Kan vi få testbrukar i Echo? | For å sjå kva "Mi side" faktisk returnerer |
+
+**Spelingsdata vi treng (for statistikkvisninga):**
+- Antal spelingar per innspeling
+- Kanal/kringkastar
+- Dato (for tidslinje)
+- Medium (radio/TV)
+- Varigheit/spilletid
+
+**Metadata vi treng (for å berike visning):**
+| Felt | Har vi? | Kjelde |
+|------|---------|--------|
+| ISRC | Ja | Echo |
+| Tittel + artist | Ja | Echo |
+| Varigheit | Ja | Echo |
+| Produksjonsår | Ja | Echo |
+| Plateselskap | ? | Echo (record_label felt finst) |
+| Nasjonalitet | ? | Truleg via person-data |
+| Kjønn | ? | Truleg via person-data |
+| Artistbilde/cover | Nei | Må berikast eksternt |
 
 **Teknisk:** Azure, Power BI, Metabase - må avklarast med Kim/Ståle
 
