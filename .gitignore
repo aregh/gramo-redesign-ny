@@ -14,6 +14,7 @@ Thumbs.db
 credentials.json
 *-credentials.json
 *.secret
+.mcp.json
 
 # MCP secrets (behold eksempelfiler)
 mcp-config/*.json

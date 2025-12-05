@@ -20,10 +20,12 @@
 - [ ] **Book møte Kim + Inge** (+ evt. Ståle) - fredag eller onsdag neste veke
 - [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
 - [ ] **Få Apollon-mandat frå Kim** - for samanlikning med vårt
+- [ ] **Avklar metadata-tilgang med Kim** ⭐ – designarbeidsmøte for å kartlegge kva metadata Gramo faktisk har tilgang til (ISRC, credits, label, etc.)
 
 ### Innhald og data
 - [ ] **Lag innhaldskart** - Map til prioriterte kjernesider (ISRC, registrering, FAQ)
 - [ ] **Avklar API/data-moglegheiter** - Apollon, Metabase, Azure, Power BI
+- [ ] **Kartlegg tilgjengelege metadata-felt** – Kva har Gramo i dag? Kva kjem via Apollon? Kva må berikast eksternt?
 
 ### Planlegging
 - [ ] **Forbered mandatutkast** - Samanlikn med Apollon-malen
@@ -111,9 +113,28 @@
 - Nasjonsfordeling
 
 ### Nye oppgåver
-- [ ] **Prototype interaktive lister** - Vis spilledata med filterval
+- [x] **Prototype interaktive lister** - ✅ 17 konsept (A-Q) laga
 - [ ] **Kartlegg metadata-kjelder** - Dokumenter verifiseringsprosess
 - [ ] **API-avklaring med Ståle** - Apollon, Metabase, Azure
+
+### Metadata-avklaring (designarbeidsmøte med Kim) ⭐
+Kritisk for å forstå kva som er realistisk å vise i prototypane:
+
+| Felt | Har vi? | Kjelde | Må avklarast |
+|------|---------|--------|--------------|
+| ISRC | ? | Gramo/Apollon | ✅ Truleg ja |
+| Artist | ? | Gramo | ✅ Truleg ja |
+| Låttittel | ? | Gramo | ✅ Truleg ja |
+| Spelingar/spilletid | ? | Radiomonitor | ✅ Truleg ja |
+| Plateselskap/label | ? | ? | ❓ |
+| Produsentar | ? | ? | ❓ |
+| Låtskrivarar | ? | TONO? | ❓ |
+| Strøymelenker | Nei | Musicfetch/ISRC | Ekstern beriking |
+| Artistbilde | ? | ? | ❓ |
+| Albumcover | ? | ? | ❓ |
+| Nasjonalitet | ? | Gramo | ❓ |
+| Fødselsdato | ? | Gramo | ❓ |
+| Kjønn | ? | Gramo | ❓ |
 
 **Teknisk:** Azure, Power BI, Metabase - må avklarast med Kim/Ståle
 

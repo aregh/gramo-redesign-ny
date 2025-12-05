@@ -172,6 +172,9 @@ Frå brukarundersøking og GSC-analyse:
 
 ## 10. Statistikk og datavisualisering (frå samtale med Inge 4. des)
 
+### Unik posisjon
+> **Viktig innsikt:** Det finst *ingen offisiell, sentral oversikt* over spilletid per artist på radio i Noreg. Google AI Overview stadfestar dette (4. des 2025). Gramo har dermed ein **unik moglegheit** til å bli autoritativ kjelde for slik statistikk.
+
 ### Konseptretning
 Gramo sit på **verifisert metadata** frå fleire kjelder, matcha mot spilledata. Dette er ein unik styrke som kan brukast til:
 - Interaktive topplister med filtrering

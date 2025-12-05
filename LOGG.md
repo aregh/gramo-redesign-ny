@@ -6,6 +6,22 @@
 
 ## 4. desember 2025
 
+### Prototyping av interaktive statistikk-konsept
+- **17 konseptprototypar** laga i wireframe-stil (HTML/CSS)
+- Konsept A-Q utforskar ulike inngangar til statistikkdata
+- **Live demo:** https://aregh.github.io/gramo-redesign-ny/Design/Prototype/Statistikk-2/
+- **Første runde (A-G):** Storytelling, samanlikning, kanalprofiler, long tail + CTA, geografi, interaktiv toppliste-byggar, SoMe-vinklingar
+- **Andre runde (H-Q):** Livestatistikk, djupdykk låt (metadata), artistprofil 2.0, tidsmaskin, låtreisa, strøymekoplingar, samarbeidsnettverk, kreditering, plateselskap, personleg statistikk
+- **Viktig innsikt:** Google AI Overview stadfestar at det *ikkje finst nokon offisiell oversikt over spilletid per artist på radio* - dette er ein unik moglegheit for Gramo
+
+### Metadata-research for statistikkberriking
+- Gjennomgang av API-ar og databasar for å berike statistikken
+- **ISRC** som universell nøkkel for kopling
+- **Musicfetch API** – éin ISRC gir lenker til Spotify, Apple Music, Tidal, YouTube, Deezer
+- **MusicBrainz** – gratis ISRC-verifisering og relasjonar (samarbeid, credits)
+- **ACRCloud/Chartmetric** – sanntidsdata for live-statistikk
+- Dokumentert i Design/Prototype-statistikk.md med prioritetsmatrise
+
 ### Samtale med Inge om design og datavisualisering
 - **Hovudinnsikt:** Koble spilledata med verifisert metadata for dypare innsikt
 - **Interaktive filtre:** Norsk språk, kjønn, avdøde artistar, geografi (bergensere etc.)
