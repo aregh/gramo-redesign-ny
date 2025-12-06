@@ -2,6 +2,8 @@
 
 > **Hub-fil** - Les denne først. Lenker til alle relevante dokument.
 
+⚠️ **DELT KATALOG** - Denne katalogen deles med kunden (Gramo) via GitHub. Ikkje legg inn sensitiv informasjon om prising, interne vurderinger eller salgsstrategier her. For internt materiale, bruk `/Prosjekt/Gramo/`.
+
 ## Språk
 
 **All dokumentasjon i dette prosjektet skal skrives på bokmål.**
@@ -22,7 +24,7 @@ Dette gjelder:
 | Klient | Gramo (kollektiv forvaltning av nærstående rettigheter) |
 | Prosjekt | Redesign av digitale kanaler |
 | Fase | Forprosjekt (nov-des 2025) |
-| Omfang | 20 dagsverk (15 Are + 5 Inge) |
+| Omfang | TBD |
 | Team | Are, Bastian, Rita + Inge |
 
 ---
@@ -81,6 +83,7 @@ Analysearbeid og innsikt.
 | [Analyse-Toppoppgaver.md](Analyse/Analyse-Toppoppgaver.md) | Analyse av toppoppgåver |
 | [Medlemsundersøkelse-2023-oppsummering.md](Analyse/Medlemsundersøkelse-2023-oppsummering.md) | Oppsummering medlemsundersøking |
 | [Statistikk-visualisering.md](Analyse/Statistikk-visualisering.md) | Statistikk-visualisering |
+| [Metadata.md](Analyse/Metadata.md) | Metadatafelt for statistikkvisning |
 
 | Mappe | Innhald |
 |-------|---------|

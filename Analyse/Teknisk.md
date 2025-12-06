@@ -124,6 +124,37 @@
 
 ---
 
+## Databaseskjema (Echo)
+
+Echo er det nye PostgreSQL-baserte systemet som erstatter det gamle DB2-baserte Apollon.
+
+### Nøkkeltall
+
+| Metrikk | Apollon (gammelt) | Echo (nytt) |
+|---------|-------------------|-------------|
+| Totalt felt | 994 | 1157 |
+| Tabeller | 73 | 153 |
+| Mappet mellom systemene | 143 felt (14%) | |
+
+### Sentrale tabeller
+
+| Tabell | Felt | Beskrivelse |
+|--------|------|-------------|
+| `recordings` | 24 | Innspillinger (ISRC, tittel, artist, spilletid) |
+| `releases` | 8 | Utgivelser (album, singel) |
+| `performers_and_producers` | 10 | Artister og produsenter |
+| `performances` | 6 | Kobling artist → innspilling |
+| `unidentified_playback_groups` | 20 | Spilledata fra kringkastere |
+| `genres` | 3 | Sjangre |
+| `gender` | 2 | Kjønnsdata |
+
+### Dokumentasjon
+
+- **[Teknisk/Echo-felter.xlsx](Teknisk/Echo-felter.xlsx)** – Komplett feltliste og mappinger
+- **[Metadata.md](Metadata.md)** – Metadata for statistikkvisning
+
+---
+
 ## Anbefalt teknisk stack (hovedprosjekt)
 
 | Komponent | Teknologi | Ansvar |
