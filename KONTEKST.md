@@ -80,7 +80,7 @@ Analysearbeid og innsikt.
 | [Verdistrøm-ISRC.md](Analyse/Verdistrøm-ISRC.md) | Business case ISRC |
 | [Innhaldskartlegging.md](Analyse/Innhaldskartlegging.md) | Kartlegging eksisterande innhald |
 | [Teknisk.md](Analyse/Teknisk.md) | Teknisk landskap |
-| [Analyse-Toppoppgaver.md](Analyse/Analyse-Toppoppgaver.md) | Analyse av toppoppgåver |
+| [Toppoppgaver.md](Analyse/Toppoppgaver.md) | Analyse av toppoppgaver |
 | [Medlemsundersøkelse-2023-oppsummering.md](Analyse/Medlemsundersøkelse-2023-oppsummering.md) | Oppsummering medlemsundersøking |
 | [Statistikk-visualisering.md](Analyse/Statistikk-visualisering.md) | Statistikk-visualisering |
 | [Metadata.md](Analyse/Metadata.md) | Metadatafelt for statistikkvisning |
