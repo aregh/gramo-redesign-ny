@@ -27,6 +27,8 @@ Agenda:
 - [x] **Få Apollon-mandat frå Kim** - ✅ Motteke 5. des
 - [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
 - [ ] **Budsjett til Kim** - Are ser på tilbodet
+- [ ] **Bastian: Se på utvalg for å rekruttere folk til intervju** - I morgen
+- [ ] **Are og Bastian: Se på innhold i e-post og lag doodle/liknende** - For å velge tidspunkt
 
 ### Innhald og data
 - [ ] **Lag innhaldskart** - Map til prioriterte kjernesider (ISRC, registrering, FAQ)
