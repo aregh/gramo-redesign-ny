@@ -23,7 +23,7 @@
 - Bastians perspektiv: Intern forankring er det viktigaste
 
 ### Medlemsavdelinga (nøkkelressursar)
-- Toril, Kristoffer, Jonas, Henriette
+- Torill, Kristoffer, Jonas, Henriette
 - Intervju, workshop, innhaldsproduksjon, FAQ
 
 ---
