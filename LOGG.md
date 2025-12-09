@@ -91,19 +91,19 @@
 - Utrulling: Sveits → Noreg → Danmark/Finland
 
 ### Oppfølgingsmøte Rita, Bastian, Are
-- Planlagt interessentstyring: pre-wiring og intervju med Toril før workshop
+- Planlagt interessentstyring: pre-wiring og intervju med Torill før workshop
 - Nye moglegheiter: data som kontinuerleg innhaldskjelde (statistikk, visualisering)
 - Ståle (intern utviklar) kan hjelpe med Metabase/API
 - Inge hovudressurs for datakonsept
 
 ### Avgjerder
 - ✅ Kim er hovudkontakt
-- ✅ Gjennomføre intervju med Toril før prioriteringsverkstad
+- ✅ Gjennomføre intervju med Torill før prioriteringsverkstad
 - ✅ Sette opp møte Kim + Inge (+ Ståle) for API/data-avklaring
 
 ### Neste steg
 1. Book møte Kim + Inge (fredag/onsdag neste veke)
-2. Intervju med Toril
+2. Intervju med Torill
 3. Få Apollon-mandat frå Kim
 4. Lag innhaldskart for kjernesider
 

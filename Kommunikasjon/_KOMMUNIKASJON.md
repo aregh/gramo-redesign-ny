@@ -27,7 +27,7 @@
 ## Neste møte
 
 - [ ] **Kim + Inge (+ Ståle)** - Fredag eller onsdag neste veke
-- [ ] **Intervju Toril** - Før prioriteringsverkstad
+- [ ] **Intervju Torill** - Før prioriteringsverkstad
 
 ---
 
@@ -36,7 +36,7 @@
 | Person | Status | Tilnærming |
 |--------|--------|------------|
 | Kim | ✅ Hovudkontakt | Kommunikasjon går via han |
-| Toril | ⏳ Planlagt intervju | Pre-wiring før workshop |
+| Torill | ⏳ Planlagt intervju | Pre-wiring før workshop |
 | Julia | ⏳ Inviter til verkstad | Prioriteringsverkstad |
 | Ståle | ⏳ Møte med Inge | API/data-avklaring |
 

@@ -25,7 +25,7 @@ Agenda:
 
 ### Høgste prioritet
 - [x] **Få Apollon-mandat frå Kim** - ✅ Motteke 5. des
-- [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
+- [ ] **Intervju med Torill** - 1 time, før prioriteringsverkstad
 - [ ] **Budsjett til Kim** - Are ser på tilbodet
 - [ ] **Bastian: Se på utvalg for å rekruttere folk til intervju** - I morgen
 - [ ] **Are og Bastian: Se på innhold i e-post og lag doodle/liknende** - For å velge tidspunkt
@@ -79,7 +79,7 @@ Agenda:
 | Rolle | Person |
 |-------|--------|
 | Prosjekteigar | Kim |
-| Systemeigar | Toril |
+| Systemeigar | Torill |
 | Prosjektleiar | Morten |
 | Migrering/BI | Ståle |
 | Rettigheitskrav | Kristoffer |
@@ -134,7 +134,7 @@ Agenda:
 
 | Person | Rolle | Tilnærming |
 |--------|-------|------------|
-| **Toril** | Medlemsavd. | Intervju først (pre-wiring) |
+| **Torill** | Medlemsavd. | Intervju først (pre-wiring) |
 | **Julia** | ? | Inviter til prioriteringsverksted |
 | **Kristoffer** | Medlemsavd. | Vurder til verksted |
 | **Ståle** | Intern utviklar | Metabase, API-spørjingar |

@@ -37,18 +37,18 @@ Møtet oppsummerte status med Apollon-prosjektet, behov for tydelig samarbeid me
 
 **Tilnærming:**
 - Pre-wiring (forhåndsinformasjon) før workshops
-- Éin-til-éin-intervju med Toril først
+- Éin-til-éin-intervju med Torill først
 - La ho uttrykke bekymringar
 - Bruk svara til å tilpasse agenda
 
 **Deltakarar til prioriteringsverkstad:**
 - Medlemsavdelinga
 - Julia
-- Eventuelt Toril
+- Eventuelt Torill
 - Møller/Kristoffer (vurder)
 
 ### Oppgåver
-- [ ] **Intervju med Toril** - Book 1 time, la ho snakke mest
+- [ ] **Intervju med Torill** - Book 1 time, la ho snakke mest
 - [ ] **Planlegg prioriteringsverkstad** - Deltakarliste, pre-wiring, agenda
 
 ---
@@ -115,7 +115,7 @@ Møtet oppsummerte status med Apollon-prosjektet, behov for tydelig samarbeid me
 | Avgjerd | Status |
 |---------|--------|
 | Kim er hovudkontakt og skal levere prosjektplan/mandat | ✅ Endeleg |
-| Gjennomføre intervju med Toril før prioriteringsverkstad | ✅ Endeleg |
+| Gjennomføre intervju med Torill før prioriteringsverkstad | ✅ Endeleg |
 | Sette opp møte Kim + Inge (+ Ståle) for API/data-avklaring | ✅ Endeleg |
 
 ---
@@ -123,7 +123,7 @@ Møtet oppsummerte status med Apollon-prosjektet, behov for tydelig samarbeid me
 ## Neste steg (prioritert)
 
 1. **Book møte Kim + Inge** (neste veke)
-2. **Intervju med Toril** (før prioriteringsverkstad)
+2. **Intervju med Torill** (før prioriteringsverkstad)
 3. **Få Apollon-mandat frå Kim** (for samanlikning)
 4. **Lag innhaldskart** (kjernesider)
 5. **Avklar API/data-moglegheiter** (med Ståle)

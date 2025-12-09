@@ -140,7 +140,7 @@ Suksess måles gjennom følgende indikatorer:
 | **Prosjekteier** | Kim | Eier av prosjektet, ansvarlig for gevinstrealisering. |
 | **Prosjektleder** | Are | Daglig ledelse av prosjektet. |
 | **Produktteam** | Are, Rita, Bastian, Inge | Kommunikasjon, UX, brukerinnsikt, innholdsdesign |
-| **Nøkkelressurser medlemsavd.** | Toril, Kristoffer, Jonas, Henriette | Intervju, workshop, innholdsproduksjon, FAQ |
+| **Nøkkelressurser medlemsavd.** | Torill, Kristoffer, Jonas, Henriette | Intervju, workshop, innholdsproduksjon, FAQ |
 
 **Må avklares:**
 - [ ] Behov for formell styringsgruppe?

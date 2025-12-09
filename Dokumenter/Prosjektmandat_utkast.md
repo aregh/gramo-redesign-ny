@@ -105,7 +105,7 @@ Prosjektene har separate scope, men felles prosjekteier sikrer koordinering.
 | Apollon-prosjektet | Gramo.no-prosjektet |
 |--------------------|---------------------|
 | Prosjekteier: Kim | Prosjekteier: Kim |
-| Systemeier: Toril | Prosjektleder: Are |
+| Systemeier: Torill | Prosjektleder: Are |
 | Prosjektleder: Morten | |
 
 **Samordning:** Når Apollon-prosjektet har behov for UI-branding, lenker eller hjelpetekster på gramo.no, kommer dette som konkrete bestillinger til gramo.no-prosjektet.
