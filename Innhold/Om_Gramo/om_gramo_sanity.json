@@ -1,0 +1,203 @@
+{
+  "_type": "article",
+  "title": "Om Gramo",
+  "slug": {
+    "_type": "slug",
+    "current": "om-gramo"
+  },
+  "intro": "Gramo er en forening som eies av medlemmene våre. Vi sørger for at du som artist, musiker eller plateselskap får betalt når musikken din blir brukt på radio eller ute blant folk.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Hvorfor finnes Gramo?"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Når musikk blir spilt på radio, i butikker, på treningssentre eller andre offentlige steder, har de som har laget musikken krav på betaling. Vi kaller det vederlag."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Det er umulig for en radiokanal å inngå avtale med alle verdens artister. Derfor finnes Gramo. Vi er bindeleddet som:"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Krever inn penger fra de som bruker musikk."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Fordeler pengene til dere som eier innspillingene (artister, musikere og plateselskap)."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Forankret i loven"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Vi er godkjent av Kulturdepartementet for å kreve inn pengene. Oppdraget vårt står beskrevet i åndsverkloven § 21."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Medlemsdemokrati og årsmøte"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Gramo styres etter demokratiske prinsipper, og årsmøtet er vår øverste myndighet."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Hvem har stemmerett?"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Artister og musikere: Du har stemmerett hvis du har fått utbetalt penger de siste tre årene."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Plateselskap: Du har stemmerett hvis du har opptjent penger det siste året."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Vi er åpne om økonomien"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Vi lever av tillit. Hvert år publiserer vi en rapport som viser:"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Hvor mye penger vi har krevet inn."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Hvordan midlene er fordelt."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "level": 1,
+      "children": [
+        {
+          "_type": "span",
+          "text": "Hva vi bruker på drift."
+        }
+      ]
+    }
+  ],
+  "seo": {
+    "metaTitle": "Om Gramo - Vi sikrer deg betaling for musikkbruk",
+    "metaDescription": "Gramo eies av medlemmene og sørger for at du får betalt når musikken din brukes på radio eller offentlig. Les om årsmøte og stemmerett her."
+  },
+  "kjerneReference": {
+    "_type": "reference",
+    "_ref": "recNAhv2fXSKkkjfN"
+  }
+}
