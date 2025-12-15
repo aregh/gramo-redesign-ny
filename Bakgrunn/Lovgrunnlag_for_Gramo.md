@@ -12,8 +12,10 @@ Dette er "Gramo-paragrafen". Den slår fast at utøvende kunstnere og produsente
 
 *   **Hvem har rett:**
     *   **Utøvende kunstnere (Utøver):** Den som fremfører et åndsverk. I Gramo-sammenheng omfatter dette for eksempel de som synger, spiller, er dirigent eller musikalsk leder på innspillingen.
-    *   **Tilvirkere (Produsenter):** De som har rettighetene til masterinnspillingen.
-        *   *Juridisk definisjon (etter åndsverkloven § 20):* «[D]en som forestår, i betydningen tilrettelegger og bærer omkostningene med, produksjonen av opptakene.» (Se Høyesteretts dom HR-2023-2282-A).
+    *   **Produsent:** De som har rettighetene til masterinnspillingen.
+        *   *Juridisk definisjon (Åndsverkloven § 20):* «En produsent av lydopptak [...] har enerett til å råde over opptaket ved å fremstille varig eller midlertidig eksemplar av det og å gjøre opptaket tilgjengelig for allmennheten.»
+        *   *Juridisk definisjon (Høyesterett HR-2023-2282-A):* Produsenten er «den som forestår, i betydningen tilrettelegger og bærer omkostningene med, produksjonen av opptakene.»
+        *   *Nøkkelkriterier:* Høyesterett vektla i dommen hvem som har **initiert, tilrettelagt og bekostet** innspillingen. Det er ikke tilstrekkelig å kun ha en teknisk eller kunstnerisk rolle (f.eks. gjøre opptak på eget utstyr) hvis prosjektet er styrt og betalt av andre.
         *   *Presisering:* Det er den som initierer og finansierer innspillingen som er produsent. Det er ikke tilstrekkelig å kun ha en teknisk eller kunstnerisk rolle (f.eks. som «studioprodusent» som skrur lyd), dersom prosjektet er betalt av andre.
 *   **Hva gjelder det:** Lydopptak av fremføringer.
 *   **Hva slags bruk:** 
