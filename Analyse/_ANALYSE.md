@@ -1,4 +1,4 @@
-# Analyse - Samandrag
+# Analyse - Sammendrag
 
 > Oversikt over analysearbeid
 
@@ -6,37 +6,37 @@
 
 ## Analysefiler
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
 | [GEO-analyse.md](GEO-analyse.md) | Søkeordsanalyse og GEO-strategi |
-| [Innhaldskartlegging.md](Innhaldskartlegging.md) | Kartlegging av eksisterande innhald |
-| [Kjerneflyt-ISRC.md](Kjerneflyt-ISRC.md) | Brukarreise for ISRC-registrering |
-| [Verdistrøm-ISRC.md](Verdistrøm-ISRC.md) | Business case for ISRC-forbetring |
+| [Innholdskartlegging.md](Innholdskartlegging.md) | Kartlegging av eksisterende innhold |
+| [Kjerneflyt-ISRC.md](Kjerneflyt-ISRC.md) | Brukerreise for ISRC-registrering |
+| [Verdistrøm-ISRC.md](Verdistrøm-ISRC.md) | Business case for ISRC-forbedring |
 | [Teknisk.md](Teknisk.md) | Teknisk landskap og arkitektur |
 
 ---
 
 ## Undermapper
 
-| Mappe | Innhald |
+| Mappe | Innhold |
 |-------|---------|
-| [Rådata/](Rådata/) | Rådata frå analyser |
+| [Rådata/](Rådata/) | Rådata fra analyser |
 
 ---
 
-## Hovudfunn
+## Hovedfunn
 
-### ISRC som toppoppgåve
-- #1 toppoppgåve for brukarane
-- Kompleks brukarreise med fleire friksjonspunkt
-- Stor moglegheit for forbetring
+### ISRC som toppoppgave
+- #1 toppoppgave for brukerne
+- Kompleks brukerreise med flere friksjonspunkter
+- Stor mulighet for forbedring
 
 ### Teknisk landskap
 - Webflow (nettside)
 - Intercom (hjelpesenter)
 - Apollon (nytt kjernesystem, go-live 2026)
-- Sanity CMS (planlagt innhaldshub)
+- Sanity CMS (planlagt innholdshub)
 
 ---
 
-*Sjå enkeltfilene for detaljar*
+*Se enkeltfilene for detaljer*

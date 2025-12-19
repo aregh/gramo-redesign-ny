@@ -1,40 +1,40 @@
-# Bakgrunn - Samandrags
+# Bakgrunn - Sammendrag
 
 > Lettvekts-oversikt over bakgrunnsmaterialet
 
 ---
 
-## Innhald i denne mappa
+## Innhold i denne mappen
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
 | [OmGramo.md](OmGramo.md) | Om Gramo, strategi, teknisk landskap |
-| [Folk.md](Folk.md) | Nøkkelpersonar og kontaktinfo |
+| [Folk.md](Folk.md) | Nøkkelpersoner og kontaktinfo |
 | [Strategi.md](Strategi.md) | Gramo sin strategi 2025-2027 |
-| [Pakker/](Pakker/) | Metodikk-pakker (Kjernemodellen, Toppoppgåver, Kontekstarkitektur) |
+| [Pakker/](Pakker/) | Metodikk-pakker (Kjernemodellen, Toppoppgaver, Kontekstarkitektur) |
 
 ---
 
-## Kjappe fakta
+## Raske fakta
 
 - **Klient:** Gramo (kollektiv forvaltningsorganisasjon)
-- **Storleik:** ~20 tilsette, 14.000 medlemmar, 250 mill årleg innkrevjing
+- **Størrelse:** ~20 ansatte, 14.000 medlemmer, 250 mill årlig innkreving
 - **Lokasjon:** St. Olavs gate 28, Oslo
 
 ## Strategiske mål
 
-1. Best i Norden på innkrevjing
+1. Best i Norden på innkreving
 2. Best i Norden på fordeling/utbetaling
 3. Effektiv organisasjon
 4. Beste partner
 
 ## Kommunikasjonsmål
 
-1. **Kjenne** - Rettighetshavarar og musikkbrukarar kjenner Gramo
-2. **Forstå** - Lett å finne, forstå og bruke det dei treng
-3. **Velje** - Rettighetshavarar vel Gramo fordi dei ser verdien
-4. **Handle** - Musikkbrukarar forstår kvifor lovleg bruk er viktig
+1. **Kjenne** - Rettighetshavere og musikkbrukere kjenner Gramo
+2. **Forstå** - Lett å finne, forstå og bruke det de trenger
+3. **Velge** - Rettighetshavere velger Gramo fordi de ser verdien
+4. **Handle** - Musikkbrukere forstår hvorfor lovlig bruk er viktig
 
 ---
 
-*Sjå enkeltfilene for detaljar*
+*Se enkeltfilene for detaljer*

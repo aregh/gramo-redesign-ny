@@ -2,18 +2,23 @@
 
 > **Hub-fil** - Les denne først. Lenker til alle relevante dokument.
 
-⚠️ **DELT KATALOG** - Denne katalogen deles med kunden (Gramo) via GitHub. Ikkje legg inn sensitiv informasjon om prising, interne vurderinger eller salgsstrategier her. For internt materiale, bruk `/Prosjekt/Gramo/`.
+⚠️ **DELT KATALOG** - Denne katalogen deles med kunden (Gramo) via GitHub. Ikke legg inn sensitiv informasjon om prising, interne vurderinger eller salgsstrategier her. For internt materiale, bruk `/Prosjekt/Gramo/`.
 
 ## Språk
 
-**All dokumentasjon i dette prosjektet skal skrives på bokmål.**
+**All dokumentasjon i dette prosjektet skal være på bokmål.**
 
 Dette gjelder:
-- Møtereferater
-- Analyser
-- Designbrief
-- Logg og 2DOS
-- All kommunikasjon i kontekstarkitekturen
+- **Katalognavn** (f.eks. `Innhold/`, `Revisjoner/`, `Transkripsjoner/`)
+- **Filnavn** (f.eks. `_INNHOLD.md`, `Innholdskartlegging.md`)
+- **Innhold i filer:**
+  - Møtereferater
+  - Analyser
+  - Designbrief
+  - Logg og 2DOS
+  - All kommunikasjon i kontekstarkitekturen
+
+**Viktig:** Eldre filer kan inneholde nynorsk. Ved oppdatering skal disse konverteres til bokmål.
 
 ---
 
@@ -42,82 +47,82 @@ Dette gjelder:
 ### [Bakgrunn/](Bakgrunn/)
 Om Gramo, strategi, folk og metodikk.
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
-| [_BAKGRUNN.md](Bakgrunn/_BAKGRUNN.md) | Samandrag |
+| [_BAKGRUNN.md](Bakgrunn/_BAKGRUNN.md) | Sammendrag |
 | [OmGramo.md](Bakgrunn/OmGramo.md) | Om Gramo, strategi, teknisk landskap |
-| [Folk.md](Bakgrunn/Folk.md) | Nøkkelpersonar og kontaktinfo |
+| [Folk.md](Bakgrunn/Folk.md) | Nøkkelpersoner og kontaktinfo |
 | [Strategi.md](Bakgrunn/Strategi.md) | Gramo strategi 2025-2027 |
-| [Pakker/](Bakgrunn/Pakker/) | Metodikk (Kjernemodellen, Toppoppgåver, Kontekstarkitektur) |
+| [Pakker/](Bakgrunn/Pakker/) | Metodikk (Kjernemodellen, Toppoppgaver, Kontekstarkitektur) |
 
 ### [Kommunikasjon/](Kommunikasjon/)
-Møte, intervju og transkripsjonar.
+Møter med kunden (Gramo), intervjuer og transkripsjoner. Interne teammøter ligger i `/Prosjekt/Gramo/Prosjektledelse/`.
 
-| Mappe | Innhald |
+| Mappe | Innhold |
 |-------|---------|
-| [Møter/](Kommunikasjon/Møter/) | Møtereferat og førebuingar |
-| [Intervjuer/](Kommunikasjon/Intervjuer/) | Brukarintervju |
-| [Transkripsjonar/](Kommunikasjon/Transkripsjonar/) | Råtranskripsjonar |
+| [Møter/](Kommunikasjon/Møter/) | Kundemøter og forberedelser |
+| [Intervjuer/](Kommunikasjon/Intervjuer/) | Brukerintervjuer |
+| [Transkripsjoner/](Kommunikasjon/Transkripsjoner/) | Råtranskripsjoner |
 
 ### [Dokumenter/](Dokumenter/)
-Prosjektdokument og formelle leveransar.
+Prosjektdokumenter og formelle leveranser.
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
 | [Prosjektmandat.md](Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
-| [Prosjektplan.md](Dokumenter/Prosjektplan.md) | Faser og milepælar |
-| [Revisjonar/](Dokumenter/Revisjonar/) | Tidlegare versjonar |
-| [Arkiv/](Dokumenter/Arkiv/) | Arkiverte dokument |
+| [Prosjektplan.md](Dokumenter/Prosjektplan.md) | Faser og milepæler |
+| [Revisjoner/](Dokumenter/Revisjoner/) | Tidligere versjoner |
+| [Arkiv/](Dokumenter/Arkiv/) | Arkiverte dokumenter |
 
 ### [Analyse/](Analyse/)
 Analysearbeid og innsikt.
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
-| [_ANALYSE.md](Analyse/_ANALYSE.md) | Samandrag |
+| [_ANALYSE.md](Analyse/_ANALYSE.md) | Sammendrag |
 | [GEO-analyse.md](Analyse/GEO-analyse.md) | Søkeordsanalyse og GEO-strategi |
-| [Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md) | Brukarreise for ISRC (toppoppgåve #1) |
+| [Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md) | Brukerreise for ISRC (toppoppgave #1) |
 | [Verdistrøm-ISRC.md](Analyse/Verdistrøm-ISRC.md) | Business case ISRC |
-| [Innhaldskartlegging.md](Analyse/Innhaldskartlegging.md) | Kartlegging eksisterande innhald |
+| [Innholdskartlegging.md](Analyse/Innholdskartlegging.md) | Kartlegging av eksisterende innhold |
 | [Teknisk.md](Analyse/Teknisk.md) | Teknisk landskap |
 | [Toppoppgaver.md](Analyse/Toppoppgaver.md) | Analyse av toppoppgaver |
-| [Medlemsundersøkelse-2023-oppsummering.md](Analyse/Medlemsundersøkelse-2023-oppsummering.md) | Oppsummering medlemsundersøking |
+| [Medlemsundersøkelse-2023-oppsummering.md](Analyse/Medlemsundersøkelse-2023-oppsummering.md) | Oppsummering av medlemsundersøkelse |
 | [Statistikk-visualisering.md](Analyse/Statistikk-visualisering.md) | Statistikk-visualisering |
 | [Metadata.md](Analyse/Metadata.md) | Metadatafelt for statistikkvisning |
 
-| Mappe | Innhald |
+| Mappe | Innhold |
 |-------|---------|
-| [Rådata/](Analyse/Rådata/) | Rådata og kjeldemateriale |
+| [Rådata/](Analyse/Rådata/) | Rådata og kildemateriale |
 | [Teknisk/](Analyse/Teknisk/) | Teknisk dokumentasjon (Apollon kravspek m.m.) |
 
 ### [Design/](Design/)
 Designarbeid og brief.
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
 | [Designbrief.md](Design/Designbrief.md) | Brief til designfasen |
 
-### [Innhald/](Innhald/)
-Innhald for ny nettside (produksjonsfase).
+### [Innhold/](Innhold/)
+Innhold for ny nettside (produksjonsfase).
 
 ### [_TOOLS/](_TOOLS/)
 Verktøy og konfigurasjon.
 
-| Mappe | Innhald |
+| Mappe | Innhold |
 |-------|---------|
 | [Eval/](_TOOLS/Eval/) | Evaluering og review |
 | [MCP/](_TOOLS/MCP/) | MCP-server konfigurasjon |
 
 ---
 
-## Toppoppgåver
+## Toppoppgaver
 
-1. **Registrere utgjeving med ISRC-kode** - #1
-2. **Få oversikt over utbetalingar**
-3. **Registrere rettigheitskrav**
-4. **Finne rettleiing/svar**
+1. **Registrere utgivelse med ISRC-kode** - #1
+2. **Få oversikt over utbetalinger**
+3. **Registrere rettighetskrav**
+4. **Finne veiledning/svar**
 
-→ Sjå [Analyse/Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md)
+→ Se [Analyse/Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md)
 
 ---
 
@@ -125,13 +130,13 @@ Verktøy og konfigurasjon.
 
 | Rolle | Person |
 |-------|--------|
-| Prosjektleiar | Are Halland |
-| Innhald | Bastian Daae |
+| Prosjektleder | Are Halland |
+| Innhold | Bastian Daae |
 | Design | Inge Fossland |
 | Kunde | Rita H. Mamelund |
-| Avgjerdstakar | Kim Skarning Andersen |
+| Beslutningstaker | Kim Skarning Andersen |
 
-→ Sjå [Bakgrunn/Folk.md](Bakgrunn/Folk.md) for komplett oversikt.
+→ Se [Bakgrunn/Folk.md](Bakgrunn/Folk.md) for komplett oversikt.
 
 ---
 
@@ -142,8 +147,5 @@ Verktøy og konfigurasjon.
 
 ---
 
-*Sist oppdatert: 4. desember 2025*
+*Sist oppdatert: 9. desember 2025*
 
----
-
-**Merk:** Eldre filer kan inneholde nynorsk. Ved oppdatering skal disse konverteres til bokmål.

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,11 @@
             --wireframe: #cbd5e1;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Courier New', monospace;
@@ -39,7 +44,9 @@
             z-index: 1000;
         }
 
-        .prototype-banner strong { color: #d97706; }
+        .prototype-banner strong {
+            color: #d97706;
+        }
 
         /* Sketch-style container */
         .container {
@@ -183,13 +190,11 @@
 
         /* Placeholder elements */
         .placeholder {
-            background: repeating-linear-gradient(
-                45deg,
-                #f1f5f9,
-                #f1f5f9 10px,
-                #e2e8f0 10px,
-                #e2e8f0 20px
-            );
+            background: repeating-linear-gradient(45deg,
+                    #f1f5f9,
+                    #f1f5f9 10px,
+                    #e2e8f0 10px,
+                    #e2e8f0 20px);
             border: 2px dashed var(--wireframe);
             border-radius: 8px;
             display: flex;
@@ -326,6 +331,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="prototype-banner">
         <strong>PROTOTYPE</strong> – Konsept A: Storytelling-fokus – Ikkje ferdig design, berre idéutforsking
@@ -336,7 +342,8 @@
             📖 Konsept A: «Forteljinga om norsk radio»
         </h1>
 
-        <p class="annotation">Hypotese: Folk engasjerer seg meir av historier enn av tal. Start med eit menneskeleg faktum.</p>
+        <p class="annotation">Hypotese: Folk engasjerer seg meir av historier enn av tal. Start med eit menneskeleg
+            faktum.</p>
 
         <!-- HERO: The hook -->
         <div class="wireframe-box" data-label="Hero / Hook">
@@ -347,7 +354,8 @@
                 <div class="hero-context">Så lenge spelte norsk radio «Josefin» av Delara i 2024</div>
                 <div class="hero-human">= 27 dagar non-stop 🎵</div>
             </div>
-            <p class="annotation">Konverterer tal til noko menneskeleg. «27 dagar» er lettare å forstå enn «654 timer».</p>
+            <p class="annotation">Konverterer tal til noko menneskeleg. «27 dagar» er lettare å forstå enn «654 timer».
+            </p>
             <p class="annotation question">Kva er den beste «hook»? Josefin? 206 000 timer? Kygo?</p>
         </div>
 
@@ -456,7 +464,7 @@
                 <li><strong>Svakheit:</strong> Kan bli for lang, mistar folk undervegs?</li>
                 <li><strong>Best for:</strong> Nettside, nyheitsbrev, presse</li>
                 <li><strong>Dårleg for:</strong> Folk som berre vil ha tal raskt</li>
-                <li><strong>Spørsmål:</strong> Kva historie vil Kim fortelje? Kva engasjerer medlemmar?</li>
+                <li><strong>Spørsmål:</strong> Kva historie vil vi fortelje? Kva engasjerer medlemmar?</li>
             </ul>
         </div>
 
@@ -469,4 +477,5 @@
         </div>
     </div>
 </body>
+
 </html>

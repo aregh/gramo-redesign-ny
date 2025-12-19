@@ -1,6 +1,6 @@
 # Prosjektmandat: Gramo Redesign
 
-**Dato:** 02.12.2025 **Status:** ARKIVERT (erstattet 03.12.2025)
+**Dato:** 03.12.2025 **Status:** Utkast til diskusjon med Kim (onsdag 4. desember)
 
 ---
 
@@ -47,10 +47,13 @@ Prosjektet skal produsere, strukturere og lage en plan for forvaltning av innhol
 
 **Prosjektet skal:**
 
-* Levere et nytt nettsted optimalisert for brukeroppgaver (toppoppgaver).
+* Levere et nytt nettsted optimalisert for brukeroppgaver (toppoppgaver) – også de som løses i Apollon webportal, gjennom gode overganger.
 * Etablere en profesjonell visuell profil (digital stilguide og bildebank).
 * Sikre innhold med konsistent og helhetlig kvalitet, særskilt med tanke på juridisk innhold.
-* Optimalisere for SEO og AI-søk (ChatGPT, Google AI Overview) gjennom godt strukturert innhold
+* Vurdere hvordan vi kan utnytte statistikk og spilletidsdata for å lage gode interaktive opplevelser.
+* Vurdere interaktiv versjon av års- og åpenhetsrapport.
+* Vurdere andre grep som styrker Gramos omdømme og engasjement på nettsidene.
+* Optimalisere for SEO og AI-søk (ChatGPT, Google AI Overview) gjennom godt strukturert innhold.
 * Sørge for at nettsiden oppfyller WCAG 2.1 AA-standard (universell utforming).
 * Dokumentere teknisk fleksibilitet for videreutvikling.
 * Etablere rutiner for innholdsproduksjon og -forvaltning som sikrer at innholdet holdes oppdatert over tid.
@@ -61,57 +64,28 @@ Prosjektet skal produsere, strukturere og lage en plan for forvaltning av innhol
 * Headless arkitektur som muliggjør fleksibel distribusjon (nettside, nyhetsbrev, SoMe)
 * Fremtidsrettet arkitektur som kan integreres med Apollon når systemet er i stabil drift (2027)
 
-### Strategiske alternativer for forholdet til Apollon/Webportal
-
-Usikkerhet om hva som ligger innenfor Apollon-prosjektet og hva som skal leveres av webportalen, gjør at prosjektet må ta stilling til to alternativer.
-
-**Felles forutsetninger for begge alternativer:**
-- Avklart kontaktpunkt og samarbeidsform mellom prosjektene
-- Tilgang til teknisk arkitekturdokumentasjon
-
-#### Alternativ A: Holde seg utenfor spesifikasjonsfasen, men med løpende informasjon
-
-**Omfang:** Prosjektet holder seg til gramo.no og deltar ikke i spesifikasjonsarbeidet for webportalen.
-
-**Krav til Apollon-prosjektet:**
-- Grundig brief om funksjonalitet som er innenfor/utenfor webportalen
-- Løpende oppdateringer ved endringer i scope eller grensesnitt
-- Dokumentasjon av overganger mellom nettside og webportal (lenker, brukerflyt, FAQ-behov)
-
-**Risiko:**
-- Webportalen spesifiseres uten vår brukerinnsikt og innholdskompetanse
-- Brukerinnsikten fra toppoppgaveundersøkelsen blir ikke utnyttet
-- Svakere brukeropplevelse på tvers av nettside og webportal
-
-#### Alternativ B: Delta i spesifikasjonsfasen (anbefalt)
-
-**Omfang:** Prosjektet bidrar aktivt i spesifikasjonsfasen av webportal-prosjektet, med mål om å styrke brukeropplevelsen uten å påvirke fremdriften.
-
-**Vårt bidrag:**
-- Spisskompetanse på brukeropplevelse og innholdsdesign
-- Unik brukerinnsikt fra toppoppgaveundersøkelsen (som ingen andre Gramex-organisasjoner eller Byteconcept har)
-- Sikre god sammenheng mellom nettside og webportal
-
-**Forutsetninger:**
-- Formelt mandat og kapasitet til å delta
-- Gramo-ressurser frigjøres for å bidra (omfang avklares)
-- Rådgivende rolle i spesifikasjonsarbeidet
-
-**Gevinster:**
-- Styrket brukeropplevelse i webportalen basert på reell brukerinnsikt
-- Bedre utgangspunkt for å tilpasse nettsidene til portalen
-- Redusert risiko for feilkobling og dobbeltarbeid
-- Grunnlag for god brukeropplevelse på tvers når Apollon er i stabil drift (2027)
-
-**Anbefaling:** Prosjektgruppen anbefaler alternativ B. Endelig valg må gjøres av prosjekteier.
-
 ---
 
 ### Avgrensning (Hva prosjektet IKKE omfatter)
 
-* Teknisk utvikling av webportal – dette er Apollon-prosjektets ansvar.
+* **Webportal/MinSide** – dette er Apollon-prosjektets ansvar.
+* Prosjektet skal ikke blande seg inn i spesifikasjonsfasen av Apollon-prosjektet.
 * Integrasjoner mot Apollon er først aktuelt når systemet er i stabil drift (2027).
 * Utskiftning av Intercom som medlemskommunikasjonsløsning er utenfor scope og vurderes separat.
+
+---
+
+### Forholdet til Apollon-prosjektet
+
+Prosjektene har separate scope, men brukerreisene går på tvers. Folk googler og lander på nettsidene før de går til webportalen – gramo.no er uansett en del av brukerreisen.
+
+**For å lykkes med vårt prosjekt trenger vi:**
+
+1. **God informasjon raskt** – grundig brief om funksjonalitet som er innenfor/utenfor webportalen
+2. **Kontaktpersoner vi kan spørre** – avklart kontaktpunkt for løpende spørsmål
+3. **Løpende oppdatering** – ved endringer i scope eller grensesnitt som påvirker nettsiden
+4. **Tilgang til nøkkelpersoner** – for intervjuer, workshops og innholdsproduksjon
+5. **Dokumentasjon** – av overganger mellom nettside og webportal (lenker, brukerflyt, FAQ-behov)
 
 **Grenselandsfunksjonalitet - må avklares:** Følgende funksjonalitet ligger i dagens MinSide, men det er uklart om det skal inn i Apollon:
 
@@ -120,6 +94,7 @@ Usikkerhet om hva som ligger innenfor Apollon-prosjektet og hva som skal leveres
 | Medlemsregistrering | MinSide (skjema) | ? | Nettsiden? |
 | Enkel registrering (låter/artist) | MinSide (ikke koblet til Echo) | ? | Nettsiden? |
 | ISRC-registrering | MinSide | ? | Nettsiden? |
+| Registrantkode | MinSide | ? | Nettsiden? |
 | Oversikt utbetalinger | MinSide | Ja (verifisert data) | - |
 | Verifisert repertoar | MinSide | Ja | - |
 
@@ -128,9 +103,13 @@ Usikkerhet om hva som ligger innenfor Apollon-prosjektet og hva som skal leveres
 - Hvis funksjonaliteten IKKE er i Apollon, må nettsiden løse det
 - Hvis funksjonaliteten ER i Apollon, må vi vite hvordan det foregår for å forklare det på nettsiden
 - For at den tekniske arkitekturen skal kunne ta høyde for senere tilpasning til Apollon
-- Uansett må vi vite - enten for å bygge det eller for å forklare det
+- Uansett må vi vite – enten for å bygge det eller for å forklare det
 
-**Forholdet til Apollon-prosjektet:** Prosjektene har separate scope, men brukerreisene går på tvers. Folk googler og lander på nettsidene før de går til webportalen - gramo.no er uansett en del av brukerreisen.
+**Vi MÅ vite:**
+
+* Hva inngår/inngår ikke i webportalen (enkel registrering, medlemsregistrering, registrantkode, ISRC) – dette er funksjonalitet nettsideprosjektet kanskje kan bidra til
+* Hva er hoveddelene/funksjonene/prosessene i webportalen som nettsidene skal forklare og lenke til?
+* Hva skjer etter lansering av webportalen (2027 og framover) og hvordan kan nettsidene og Sanity evt. kobles i senere faser?
 
 **Selv om toppoppgavene løses i Apollon, må nettsiden:**
 
@@ -139,16 +118,9 @@ Usikkerhet om hva som ligger innenfor Apollon-prosjektet og hva som skal leveres
 * Forklare hvordan ting fungerer i webportalen (f.eks. "Slik ser du avregningen din")
 * Gi en best mulig overgang/veksling fra nettside til webportal
 
-*For å kunne gjøre dette trenger vi å vite:*
+**Mulighet for koordinering:** Når grensene er avklart, kan vi planlegge hvordan nettside og webportal skal henge sammen – ikke for å påvirke Apollon, men for å sikre en god brukeropplevelse på tvers og rigge for kontinuerlig, produktbasert videreutvikling.
 
-* Hvilke lenker skal være på nettsiden?
-* Hvilke FAQ-er trengs?
-* Hvordan foregår prosessene i webportalen? (for å forklare dem)
-* Hvilken retning går utviklingen mot 2027?
-
-**Mulighet for samarbeid:** Når grensene er avklart, kan vi planlegge hvordan nettside og webportal skal henge sammen - ikke for å påvirke Apollon, men for å sikre en god brukeropplevelse på tvers.
-
-Vi vet at Finland har gått langt i å vurdere alternativer til webportalen og er i anbudsrunde med flere leverandører for potensielt å erstatte hele eller deler av Biconcepts Web Portal 2.0.
+---
 
 ### Effektmål
 
@@ -165,15 +137,14 @@ Suksess måles gjennom følgende indikatorer:
 
 | Rolle | Navn | Ansvar |
 | :---- | :---- | :---- |
-| **Prosjekteier** | Kim | Eier av prosjektet, ansvarlig for gevinstrealisering og valg av strategisk alternativ. |
+| **Prosjekteier** | Kim | Eier av prosjektet, ansvarlig for gevinstrealisering. |
 | **Prosjektleder** | Are | Daglig ledelse av prosjektet. |
 | **Produktteam** | Are, Rita, Bastian, Inge | Kommunikasjon, UX, brukerinnsikt, innholdsdesign |
-| **Nøkkelressurser medlemsavd.** | Torill, Kristoffer, Jonas, Henriette | Intervju, workshop, innholdsproduksjon, FAQ |
+| **Nøkkelressurser medlemsavd.** | Toril, Kristoffer, Jonas, Henriette | Intervju, workshop, innholdsproduksjon, FAQ |
 
 **Må avklares:**
 - [ ] Behov for formell styringsgruppe?
 - [ ] Hvordan medlemsavdelingen og andre ressurser kobles på uten å belaste dem unødig
-- [ ] Etablering av en formalisert rolle som eier av UX og innhold på tvers av kanaler
 
 ---
 
@@ -206,24 +177,22 @@ Suksess måles gjennom følgende indikatorer:
 | :---- | :---- | :---- | :---- |
 | **Vi får ikke tilgang til nøkkelpersoner i medlemsavdelingen** | **Svært høy** | **Svært høy** | **Forankre tidlig hos ledelsen. Avklar hvem som kan bidra og i hvilket omfang.** |
 | Medlemsavdelingen reserverer kontaktkanaler eller frigir ikke kapasitet | Høy | Høy | Avklar forventninger og arbeidsform tidlig. Minimer belastning. |
-| Uklart hvem som eier brukeropplevelse og innhold på tvers | Høy | Høy | Avklar ansvar som del av valg mellom alternativ A/B. |
 | Intern uenighet om ansvar/roller | Medium | Høy | Avklar og formaliser roller og ansvar. |
 
 ### Apollon-avhengighet
 
 | Risiko | Sannsynlighet | Konsekvens | Tiltak |
 | :---- | :---- | :---- | :---- |
-| **Uklart hva som ligger innenfor/utenfor Apollon** | **Høy** | **Høy** | **Avklar scope i møte med prosjekteier. Velg mellom alternativ A/B.** |
+| **Uklart hva som ligger innenfor/utenfor Apollon** | **Høy** | **Høy** | **Avklar scope i møte med prosjekteier. Sikre grundig brief.** |
 | **Teknisk arkitektur ukjent** | **Høy** | **Høy** | **Etterspør dokumentasjon om integrasjonsflater og planlagte leveranser.** |
 | Feilkobling – bygger funksjonalitet feil sted | Høy | Høy | Grundig brief om grensesnitt mellom nettside og webportal. |
-| Toppoppgavene løses (ikke) i Apollon | Høy | Høy | Bidra med brukerinnsikt i spesifikasjonsfasen (alternativ B). |
+| Mangler løpende oppdatering ved endringer | Medium | Høy | Etabler informasjonskanal og kontaktpunkt mot Apollon-prosjektet. |
 
 ### Strategi og retning
 
 | Risiko | Sannsynlighet | Konsekvens | Tiltak |
 | :---- | :---- | :---- | :---- |
 | Jobber ikke mot felles mål | Medium | Høy | Etabler felles målbilde gjennom prioriteringsverksted. |
-| Strategiske valg ikke avklart | Høy | Høy | Avklar alternativ A/B før detaljarbeid starter. |
 | Ingen tydelig innholdsstrategi | Medium | Høy | Etabler innholdsstrategi som del av forprosjekt. |
 
 ### Innhold og måling
@@ -248,15 +217,14 @@ Følgende må avklares **før** hovedprosjektet kan starte:
 
 ### Må-avklaringer
 
-- [ ] **Strategisk alternativ:** Valg mellom alternativ A og B er gjort av prosjekteier.
 - [ ] **Grensesnitt mot Apollon:** Avklart hva som er innenfor/utenfor webportalen (medlemsregistrering, ISRC, integrasjoner).
-- [ ] **Teknisk arkitektur:** Oversikt over integrasjonsflater og planlagte leveranser fra Apollon.
+- [ ] **Kontaktpunkt:** Navngitt kontaktperson for spørsmål om Apollon/webportal.
 - [ ] **Kapasitet:** Navngitte personer med avsatt tid er bekreftet fra ledelsen.
-- [ ] **Ansvar for brukeropplevelse:** Avklart om det skal formaliseres en rolle som eier av UX/innhold på tvers.
 - [ ] **Informasjonskanal:** Etablert måte å få løpende informasjon om Apollon-utviklingen.
 
 ### Bør-avklaringer
 
+- [ ] **Teknisk arkitektur:** Oversikt over integrasjonsflater og planlagte leveranser fra Apollon.
 - [ ] **Måling:** Baseline for dagens situasjon er etablert.
 - [ ] **Innholdsstrategi:** Overordnet retning for innhold er skissert.
 
@@ -269,18 +237,14 @@ Følgende spørsmål må besvares i møte med Kim (4. desember 2025):
 ### Scope og grensesnitt
 1. Hva ligger innenfor Apollon vs webportalen? (medlemsregistrering, ISRC, integrasjoner)
 2. Hva er planlagt levert i webportalen før 2027?
-3. Kan vi få oversikt over teknisk arkitektur og integrasjonsflater?
-
-### Deltakelse og mandat
-4. Kan/skal vi delta i spesifikasjonsfasen av webportal-prosjektet?
-5. Hvem eier brukeropplevelse og innhold på tvers av kanaler?
+3. Hvem er kontaktperson for spørsmål om webportalen?
 
 ### Ressurser og organisering
-6. Hvem i medlemsavdelingen kan vi involvere, og i hvilket omfang?
-
+4. Hvem i medlemsavdelingen kan vi involvere, og i hvilket omfang?
+5. Hvordan får vi løpende oppdateringer om Apollon-utviklingen?
 
 ---
 
-*Tidligere versjoner: [revisjoner/PROSJEKTMANDAT_2025-11-28.md](revisjoner/PROSJEKTMANDAT_2025-11-28.md)*
+*Tidligere versjoner: [revisjoner/PROSJEKTMANDAT-251202-16_00.md](revisjoner/PROSJEKTMANDAT-251202-16_00.md)*
 
-*Sist oppdatert: 2. desember 2025*
+*Sist oppdatert: 3. desember 2025*

@@ -16,16 +16,19 @@
 
 ## Neste steg
 
-### Møte onsdag (Rita kallar inn)
-Agenda:
-- [ ] Innhaldsdesign for å styrke merkevaren/omdømme
-- [ ] Presentasjon av statistikk på nettsida
-- [ ] Prosjektmandat
-- [ ] Budsjett/tilbod (Are ser på)
+### Høgste prioritet (frå statusmøte 9. des)
+- [ ] **Del prosjektmandatet i Word** - Send til Kim for gjennomgang
+- [ ] **Avklaringsmøte med Kim** - Tidleg neste veke (prosjektmandat, styringsgruppe, Apollon)
+- [ ] **Sett opp Doodle for brukarsesjoner** - Rekrutter 10-15 stasjonar/produsentar
+- [ ] **Definer styringsgruppens sammensetning** - Kven sit i gruppa og kva mandat har den?
 
-### Høgste prioritet
+### Avklaringar som trengs
+- [ ] **ACR Cloud vs offisiell statistikk** - Korleis kombinere datakjelder? Kjeldehenvisning?
+- [ ] **Budsjett til Kim** - Are ser på tilbodet
+
+### Høgste prioritet (tidlegare)
 - [x] **Få Apollon-mandat frå Kim** - ✅ Motteke 5. des
-- [ ] **Intervju med Torill** - 1 time, før prioriteringsverkstad
+- [ ] **Intervju med Toril** - 1 time, før prioriteringsverkstad
 - [ ] **Budsjett til Kim** - Are ser på tilbodet
 - [ ] **Bastian: Se på utvalg for å rekruttere folk til intervju** - I morgen
 - [ ] **Are og Bastian: Se på innhold i e-post og lag doodle/liknende** - For å velge tidspunkt
@@ -33,10 +36,12 @@ Agenda:
 ### Innhald og data
 - [ ] **Lag innhaldskart** - Map til prioriterte kjernesider (ISRC, registrering, FAQ)
 - [ ] **Kartlegg tilgjengelege metadata-felt** – Kva har Gramo i dag? Kva kjem via Apollon?
+- [ ] **Førebu prototypar (17 stk)** - Klargjør for presentasjon til Kim
 
 ### Planlegging
 - [ ] **Forbered mandatutkast** - Samanlikn med Apollon-malen
 - [ ] **Planlegg prioriteringsverksted** - Deltakarliste, pre-wiring, agenda
+- [ ] **Definer medlemsrapportfunksjon** - Spesifiser krav (årsrapport, claim-løysing)
 
 ---
 

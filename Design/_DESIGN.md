@@ -1,4 +1,4 @@
-# Design - Samandrag
+# Design - Sammendrag
 
 > Oversikt over designarbeid
 
@@ -6,19 +6,19 @@
 
 ## Designfiler
 
-| Fil | Skildring |
+| Fil | Beskrivelse |
 |-----|-----------|
 | [Designbrief.md](Designbrief.md) | Brief til designfasen |
 
 ---
 
-## Designprinsipp
+## Designprinsipper
 
-Frå Gramo sin kommunikasjonsstrategi:
-- **Relevant** - Innhald som treff målgruppa
+Fra Gramo sin kommunikasjonsstrategi:
+- **Relevant** - Innhold som treffer målgruppen
 - **Profesjonell** - Konsistent kvalitet
-- **Open** - Gjennomsiktig kommunikasjon
-- **Tydeleg og enkel** - Klarspråk (NS-ISO 24495-1)
+- **Åpen** - Gjennomsiktig kommunikasjon
+- **Tydelig og enkel** - Klarspråk (NS-ISO 24495-1)
 
 ---
 
@@ -30,4 +30,4 @@ Frå Gramo sin kommunikasjonsstrategi:
 
 ---
 
-*Designfasen startar etter forprosjektet*
+*Designfasen starter etter forprosjektet*

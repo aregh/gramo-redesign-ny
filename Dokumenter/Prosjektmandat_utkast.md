@@ -19,10 +19,10 @@ Gramo skal gjennomføre et innholdsdrevet redesign av gramo.no for å styrke omd
 
 **Ønsket situasjon:**
 Den nye nettsiden skal være en moderne, brukervennlig og profesjonell plattform som:
+- Styrker merkevare og omdømme i tråd med kommunikasjonsstrategi
 - Ivaretar målgruppenes behov gjennom innhold bygget på kjernemodellen
 - Effektiviserer driften ved å redusere henvendelser til medlemsservice
 - Kommuniserer tydelig om Gramos virksomhet og resultater
-- Styrker merkevaren i tråd med kommunikasjonsstrategi
 - Overholder lovkrav (CRM-loven for kollektive forvaltningsorganisasjoner)
 - Er fremtidsrettet med skalerbar og fleksibel plattform
 

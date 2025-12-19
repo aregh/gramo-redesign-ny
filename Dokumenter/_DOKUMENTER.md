@@ -1,12 +1,12 @@
-# Dokumenter - Samandrag
+# Dokumenter - Sammendrag
 
-> Prosjektdokument og formelle leveransar
+> Prosjektdokumenter og formelle leveranser
 
 ---
 
-## Hovuddokument
+## Hoveddokumenter
 
-| Fil | Skildring | Status |
+| Fil | Beskrivelse | Status |
 |-----|-----------|--------|
 | [Prosjektmandat.md](Prosjektmandat.md) | Formelt mandat for prosjektet | Revidert utkast (4. des) |
 | [Prosjektplan.md](Prosjektplan.md) | Faseinndeling og tidsplan | Utkast |
@@ -15,14 +15,14 @@
 
 ## Undermapper
 
-| Mappe | Innhald |
+| Mappe | Innhold |
 |-------|---------|
-| [Revisjonar/](Revisjonar/) | Tidlegare versjonar av mandat |
-| [Arkiv/](Arkiv/) | Arkiverte dokument |
+| [Revisjoner/](Revisjoner/) | Tidligere versjoner av mandat |
+| [Arkiv/](Arkiv/) | Arkiverte dokumenter |
 
 ---
 
-## Revisjonar av mandat
+## Revisjoner av mandat
 
 | Versjon | Dato | Endring |
 |---------|------|---------|
@@ -32,16 +32,16 @@
 
 ---
 
-*Noverande mandat: [Prosjektmandat.md](Prosjektmandat.md)*
+*Nåværende mandat: [Prosjektmandat.md](Prosjektmandat.md)*
 
 ---
 
-## Arbeidsrutinar
+## Arbeidsrutiner
 
 ### Revidering av Prosjektmandat
 
 Ved oppdatering av `Prosjektmandat.md`:
 
-1. **Arkiver først** gjeldande versjon til `Revisjonar/PROSJEKTMANDAT-YYMMDD.md`
-2. **Oppdater så** `Prosjektmandat.md` med nye endringar
-3. **Oppdater revisjonslista** i denne fila
+1. **Arkiver først** gjeldende versjon til `Revisjoner/PROSJEKTMANDAT-YYMMDD.md`
+2. **Oppdater så** `Prosjektmandat.md` med nye endringer
+3. **Oppdater revisjonslisten** i denne filen

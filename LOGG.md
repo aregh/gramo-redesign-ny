@@ -4,6 +4,56 @@
 
 ---
 
+## 9. desember 2025
+
+### Statusmøte: Prosjektmandat, statistikk og nettstad
+*Deltakarar: Are, Bastian, Rita | 39 min | [Spellar-opptak](https://spellar.ai/account/meetings/6937edb63000002000d34c5d)*
+
+#### Prosjektmandat og Apollon-avgrensning
+- Ny versjon av prosjektmandatet er meir avgrenset mot Apollon
+- Bekymring: Nokre beslutningar kan vere tatt utan full vurdering av design/brukarbehov
+- **Avtalt:** Send heile prosjektmandatet i Word til Kim for gjennomgang
+
+#### Statistikk: ACR Cloud vs offisiell statistikk
+- ACR Cloud gir langt meir data og koblingsmoglegheiter enn offisielle register
+- Skepsis frå medlemsansvarleg om å blande ACR-data med offisiell avregningsdata
+- **Moglegheit:** Kombinere datakjelder med tydeleg kjeldehenvisning
+- Konkurrentar: topplista.no, Bimat
+- Teknisk: Spotify API for metadata-berikelse
+
+#### Nettside, innhald og medlemsportal
+- Ønskje om «Gramo-variant» - personleg årsrapport til medlemmer
+- Claim-løysing for korrigering av data
+- Automatisert innhaldsproduksjon (autogenererte SoMe-postar)
+- **17 prototypar klare** for presentasjon
+- Verktøy: Metabase/Power BI for dataspørring
+
+#### Styring og møteplan
+- Behov for tydeleg styringsgruppe og ansvarsfordeling
+- Risiko for «lost in translation» i større møter
+- Torsten nemnt som backup for leveransar
+
+#### Brukarinnsikt og testar
+- **Plan:** 10-15 korte brukarsesjoner (1 time kvar)
+- Målgruppe: Stasjonar/produsentar (Kristoffer, Bjørn Dahlsson m.fl.)
+- Metode: Doodle for å finne tidspunkt
+
+### Avgjerder
+- ✅ Førebu og del heile prosjektmandatet (Word) med Kim
+- ✅ Arrangere eige avklaringsmøte med Kim tidleg neste veke
+- ✅ Gjennomføre korte brukarsesjoner (10-15 stk)
+
+### Neste steg
+- [ ] Del prosjektmandatet i Word til Kim
+- [ ] Sett opp avklaringsmøte med Kim (prosjektmandat, styringsgruppe, Apollon)
+- [ ] Sett opp Doodle for brukarsesjoner og rekrutter deltakarar
+- [ ] Definer styringsgruppens sammensetning
+- [ ] Avklar bruk av datakjelder (offisiell vs ACR Cloud)
+- [ ] Førebu prototypar for presentasjon
+- [ ] Følg opp kl. 13:00 (oppfølging med deltakarane)
+
+---
+
 ## 5. desember 2025
 
 ### Apollon-dokumentasjon motteke frå Rita/Kim
