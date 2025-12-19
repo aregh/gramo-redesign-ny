@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innholdsgenerator V3 - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(30, 41, 59, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        h2,
+        h3,
+        .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Layout Structure */
+        header {
+            height: 60px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .btn-icon:hover {
+            color: var(--text-main);
+        }
+
+        /* Top Bar - Kjernemodell */
+        .core-summary {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .core-item {
+            background: var(--bg-card);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .core-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .core-item label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .core-item .value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-green {
+            background: #10b981;
+        }
+
+        .dot-blue {
+            background: #3b82f6;
+        }
+
+        .dot-orange {
+            background: #f59e0b;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 320px 1fr 400px;
+            overflow: hidden;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        section:last-child {
+            border-right: none;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Left Panel - Input */
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .fact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .fact-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fact-item .remove {
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        .fact-item .remove:hover {
+            color: var(--danger);
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+        }
+
+        /* Center Panel - Process */
+        .process-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 2rem;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-generate:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-generate:active {
+            transform: scale(0.98);
+        }
+
+        .progress-box {
+            width: 80%;
+            max-width: 400px;
+            display: none;
+            /* Shown during generation */
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-align: center;
+        }
+
+        .model-select {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Right Panel - Output */
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .size-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .size-btn.active {
+            border-color: var(--accent);
+            color: var(--text-main);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .variant-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .variant-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .variant-header {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .variant-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .variant-meta {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .variant-body {
+            padding: 1.2rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .variant-analysis {
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.05);
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: #10b981;
+        }
+
+        .analysis-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .variant-footer {
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-action {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .btn-action:hover {
+            color: var(--text-main);
+        }
+
+        .btn-action.star:hover {
+            color: var(--warning);
+        }
+
+        .btn-action.copy:hover {
+            color: var(--accent);
+        }
+
+        /* Footer Bar */
+        footer {
+            height: 40px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .variant-card {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Innholdsgenerator <span style="font-weight: 300;">V3</span></div>
+        <div class="user-nav">
+            <span style="font-size: 0.85rem; color: var(--text-dim);">Session: <span
+                    style="color: var(--text-main);">Gramo-2025-12</span></span>
+            <button class="btn-icon">⚙️</button>
+            <button class="btn-icon">👤</button>
+        </div>
+    </header>
+
+    <div class="core-summary">
+        <div class="core-item">
+            <label><span class="dot dot-red"></span> Målgruppe</label>
+            <div class="value">Artister & Musikere</div>
+        </div>
+        <div class="core-item">
+            <label><span class="dot dot-green"></span> Oppgave</label>
+            <div class="value">Forstå medlemskap</div>
+        </div>
+        <div class="core-item">
+            <label><span class="dot dot-blue"></span> Mål</label>
+            <div class="value">Bygge tillit / Konvertere</div>
+        </div>
+        <div class="core-item">
+            <label><span class="dot dot-orange"></span> CTA</label>
+            <div class="value">Bli medlem nå</div>
+        </div>
+    </div>
+
+    <main>
+        <!-- LEFT: INPUT -->
+        <section>
+            <h2>📝 Input</h2>
+
+            <div class="input-group">
+                <span class="input-label">Eksisterende tekster</span>
+                <div class="drop-zone" id="dropZone">
+                    <div>📁 Dra filer hit</div>
+                    <div style="font-size: 0.7rem; margin-top: 0.5rem; opacity: 0.6;">PDF, TXT, MD eller Word</div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-label">Fakta som MÅ være med</span>
+                <ul class="fact-list" id="factList">
+                    <li class="fact-item">Forvalter rettigheter <span class="remove">×</span></li>
+                    <li class="fact-item">Medlemseid organisasjon <span class="remove">×</span></li>
+                    <li class="fact-item">52 000 medlemmer <span class="remove">×</span></li>
+                </ul>
+                <button
+                    style="background:none; border:none; color:var(--accent); font-size: 0.8rem; cursor:pointer; margin-top:0.5rem;">+
+                    Legg til faktum</button>
+            </div>
+
+            <div class="input-group">
+                <span class="input-label">Stil og Tone</span>
+
+                <div class="slider-container">
+                    <div class="slider-labels"><span>Formell</span><span>Uformell</span></div>
+                    <input type="range" min="1" max="100" value="30">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-labels"><span>Fokus: Funksjon</span><span>Fokus: Verdi</span></div>
+                    <input type="range" min="1" max="100" value="80">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-labels"><span>Institusjonell</span><span>Personlig</span></div>
+                    <input type="range" min="1" max="100" value="45">
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER: PROCESS -->
+        <section style="background: rgba(0,0,0,0.1);">
+            <div class="process-container">
+                <select class="model-select">
+                    <option>Claude 3.5 Sonnet (Standard)</option>
+                    <option>Claude 3.5 Haiku (Rask)</option>
+                    <option>OpenAI GPT-4o</option>
+                </select>
+
+                <button class="btn-generate" id="generateBtn">Generer Varianter</button>
+
+                <div class="progress-box" id="progressBox">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Analyserer kontekst...</div>
+                </div>
+
+                <div style="text-align: center; color: var(--text-dim); font-size: 0.85rem;">
+                    <p>Bruker "PAKKE - Kjernemodellen.md"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT: OUTPUT -->
+        <section>
+            <div class="output-header">
+                <h2>📄 Output</h2>
+                <div class="size-selector">
+                    <button class="size-btn active">S</button>
+                    <button class="size-btn">M</button>
+                    <button class="size-btn">L</button>
+                </div>
+            </div>
+
+            <div id="variantList">
+                <!-- Variant 1 -->
+                <div class="variant-card">
+                    <div class="variant-header">
+                        <span class="variant-title">Variant 1: Verdifokus</span>
+                        <span class="variant-meta">Small • 156 tegn</span>
+                    </div>
+                    <div class="variant-body">
+                        "Vi sørger for at artister og produsenter får betalt når musikken deres spilles offentlig – som
+                        en medlemseid organisasjon godkjent av Kulturdepartementet."
+                    </div>
+                    <div class="variant-analysis">
+                        <span class="analysis-label">✨ AI-Analyse</span>
+                        Styrke: Tydelig autoritet (Kulturdep.). <br>
+                        Svakhet: Mangler emosjonell trigger.
+                    </div>
+                    <div class="variant-footer">
+                        <button class="btn-action star">⭐ Favoritt</button>
+                        <button class="btn-action copy">📋 Kopier</button>
+                        <button class="btn-action">✏️ Rediger</button>
+                    </div>
+                </div>
+
+                <!-- Variant 2 -->
+                <div class="variant-card">
+                    <div class="variant-header">
+                        <span class="variant-title">Variant 2: Brukerfokus</span>
+                        <span class="variant-meta">Small • 138 tegn</span>
+                    </div>
+                    <div class="variant-body">
+                        "Gjør du som 52 000 andre musikkskapere? Bli en del av Gramo og vær trygg på at vi krever inn
+                        vederlaget du har krav på."
+                    </div>
+                    <div class="variant-analysis">
+                        <span class="analysis-label">✨ AI-Analyse</span>
+                        Styrke: Sosialt bevis (52k medlemmer). <br>
+                        Svakhet: Litt mindre formell enn profilen tilsier.
+                    </div>
+                    <div class="variant-footer">
+                        <button class="btn-action star">⭐ Favoritt</button>
+                        <button class="btn-action copy">📋 Kopier</button>
+                        <button class="btn-action">✏️ Rediger</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div><span class="status-dot"></span> System Status: Online</div>
+        <div>Model Context Protocol (MCP) Aktiv • Tokens brukt: 12.4k</div>
+        <div>© 2025 Kjernekaren</div>
+    </footer>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const progressBox = document.getElementById('progressBox');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const variantList = document.getElementById('variantList');
+
+        generateBtn.addEventListener('click', () => {
+            generateBtn.style.display = 'none';
+            progressBox.style.display = 'block';
+
+            const steps = [
+                { p: 20, t: "Lastar inn kontekstpakker..." },
+                { p: 45, t: "Analyserer kildetekster..." },
+                { p: 70, t: "Syntetiserer fakta..." },
+                { p: 90, t: "Skriver varianter..." },
+                { p: 100, t: "Ferdig!" }
+            ];
+
+            let stepIdx = 0;
+            const interval = setInterval(() => {
+                if (stepIdx < steps.length) {
+                    progressFill.style.width = steps[stepIdx].p + '%';
+                    progressText.innerText = steps[stepIdx].t;
+                    stepIdx++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressBox.style.display = 'none';
+                        generateBtn.style.display = 'block';
+                        // Add some visual shimmer to variant cards
+                        variantList.querySelectorAll('.variant-card').forEach(card => {
+                            card.style.animation = 'none';
+                            card.offsetHeight; /* trigger reflow */
+                            card.style.animation = 'fadeIn 0.4s ease-out forwards';
+                        });
+                    }, 500);
+                }
+            }, 800);
+        });
+
+        // Simple remove fact logic
+        document.querySelectorAll('.remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.parentElement.remove();
+            });
+        });
+    </script>
+</body>
+
+</html>

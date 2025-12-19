@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lag gratis ISRC | Gramo Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="wizard-card" id="wizard">
+
+            <!-- Step 1: Start -->
+            <div class="step active" id="step1">
+                <h1>Få gratis ISRC</h1>
+                <p>Dette er ISRC-superkort forklaring. Vi hjelper deg å generere ISRC for din nye innspilling. Gratis,
+                    selvfølgelig.</p>
+                <div class="form-group">
+                    <label for="trackName">Hva heter låta?</label>
+                    <input type="text" id="trackName" placeholder="f.eks. Gary Speed 2">
+                </div>
+                <button class="btn btn-primary" onclick="nextStep(2)">Neste step</button>
+            </div>
+
+            <!-- Step 2: Registrant Check -->
+            <div class="step" id="step2">
+                <h1>Hvem er produsent?</h1>
+                <p>Vi sjekker om du har en registrantkode fra før.</p>
+                <div class="form-group">
+                    <label for="producerName">Hvilket label/platemerke?</label>
+                    <input type="text" id="producerName" placeholder="Søk på navn eller kode...">
+                </div>
+                <div id="producerStatus" style="margin-bottom: 1rem; font-size: 0.9rem;"></div>
+                <button class="btn btn-primary" id="btnStep2" onclick="handleProducerCheck()">Sjekk
+                    registrantkode</button>
+            </div>
+
+            <!-- Step 3: Missing Code Path -->
+            <div class="step" id="step3">
+                <h1>Mangler du kode?</h1>
+                <p>Det ser ut som du ikke har en registrantkode. Vi ordner det for deg nå så du kan fortsette.</p>
+                <div class="form-group">
+                    <label>Kontaktperson</label>
+                    <input type="text" id="contactPerson" placeholder="Ditt navn">
+                </div>
+                <div class="form-group">
+                    <label>E-post</label>
+                    <input type="text" id="contactEmail" placeholder="din@epost.no">
+                </div>
+                <button class="btn btn-primary" onclick="nextStep(4)">Søk om registrantkode</button>
+            </div>
+
+            <!-- Step 4: Final Result -->
+            <div class="step" id="step4">
+                <h1>Gratulerer! 🥳</h1>
+                <p>Her er din nye ISRC for <strong id="displayTrackName">Låta di</strong>:</p>
+
+                <div class="isrc-display" id="isrcResult">NO-K67-25-00001</div>
+
+                <div class="isrc-breakdown">
+                    <span class="breakdown-part">NO</span> •
+                    <span class="breakdown-part">K67</span> •
+                    <span class="breakdown-part">25</span> •
+                    <span class="breakdown-part">00001</span>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="copyISRC()">Kopier ISRC</button>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; text-align: center;">
+                        Låten er nå forhåndsregistrert hos Gramo.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

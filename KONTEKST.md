@@ -22,6 +22,21 @@ Dette gjelder:
 
 ---
 
+## Arkivering av endrede filer
+
+**ALLE filer som endres i prosjektet skal arkiveres før oppdatering.**
+
+Praksis:
+1. Før en fil endres, kopier gjeldende versjon til [Arkiv/](Arkiv/)
+2. Gi arkivfilen prefiks: `ÅÅMMDD-<original filnavn>`
+3. Eksempel: `Innholdsstrategi-gramo-no.md` → `Arkiv/251219-Innholdsstrategi-gramo-no.md`
+
+Dette sikrer sporbarhet og mulighet til å gå tilbake til tidligere versjoner.
+
+**Arkivmappe:** `/Prosjekt/Gramo/Gramo_kontekstarkitektur/Arkiv/`
+
+---
+
 ## Prosjektsammendrag
 
 | Egenskap | Verdi |
@@ -147,5 +162,5 @@ Verktøy og konfigurasjon.
 
 ---
 
-*Sist oppdatert: 9. desember 2025*
+*Sist oppdatert: 19. desember 2025*
 

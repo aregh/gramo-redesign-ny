@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innholdsgenerator V2 - Prototype</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --secondary: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        /* Topplinje - Kjernemodell */
+        .topline {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1.5rem 2rem;
+        }
+
+        .topline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .topline-item {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topline-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+        }
+
+        .topline-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .topline-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 0.25rem;
+        }
+
+        .topline-value {
+            font-size: 0.9rem;
+            color: var(--gray-900);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .panel-icon {
+            font-size: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        /* Input Panel */
+        .input-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--gray-300);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--gray-50);
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .uploaded-files {
+            margin-top: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--gray-50);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .fact-list {
+            list-style: none;
+        }
+
+        .fact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--gray-50);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .fact-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Slider */
+        .slider-container {
+            margin-bottom: 1rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Radio buttons */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .radio-item:hover {
+            background: var(--gray-50);
+        }
+
+        .radio-item input {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Process Panel */
+        .process-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .generate-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .progress-container {
+            width: 100%;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .status-text {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .meta-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        /* Output Panel */
+        .variant-card {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .variant-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+        }
+
+        .variant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .variant-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+        }
+
+        .variant-size {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .variant-content {
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-900);
+        }
+
+        .variant-meta {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-bottom: 0.75rem;
+        }
+
+        .variant-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .variant-btn {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .variant-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--primary);
+        }
+
+        .variant-btn.favorite {
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        /* Context Window */
+        .context-window {
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .context-info {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .context-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .topline-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray-600);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">📝 Innholdsgenerator V2</div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">⚙️ Innstillinger</button>
+            <button class="btn btn-secondary">❓ Hjelp</button>
+        </div>
+    </div>
+
+    <!-- Topplinje - Kjernemodell -->
+    <div class="topline">
+        <div class="topline-grid">
+            <div class="topline-item" onclick="editContext('målgruppe')">
+                <div class="topline-icon">🔺</div>
+                <div class="topline-label">Målgruppe</div>
+                <div class="topline-value" id="målgruppe-value">Artister, musikere</div>
+            </div>
+            <div class="topline-item" onclick="editContext('oppgave')">
+                <div class="topline-icon">🟩</div>
+                <div class="topline-label">Brukeroppgave</div>
+                <div class="topline-value" id="oppgave-value">Forstå hva Gramo er</div>
+            </div>
+            <div class="topline-item" onclick="editContext('mål')">
+                <div class="topline-icon">🔵</div>
+                <div class="topline-label">Mål</div>
+                <div class="topline-value" id="mål-value">Bygge tillit</div>
+            </div>
+            <div class="topline-item" onclick="editContext('cta')">
+                <div class="topline-icon">🟠</div>
+                <div class="topline-label">Call to Action</div>
+                <div class="topline-value" id="cta-value">Bli medlem</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- INPUT Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-icon">📥</div>
+                <div class="panel-title">Input</div>
+            </div>
+
+            <!-- Last opp tekster -->
+            <div class="input-section">
+                <div class="section-title">📁 Eksisterende tekster</div>
+                <div class="upload-area" onclick="alert('Drag-and-drop eller klikk for å laste opp')">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+                    <div>Dra filer hit eller klikk for å laste opp</div>
+                    <div style="font-size: 0.75rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        Støtter: .txt, .md, .pdf, .docx
+                    </div>
+                </div>
+                <div class="uploaded-files">
+                    <div class="file-item">
+                        <span>✓</span>
+                        <span>Om-gramo.md</span>
+                    </div>
+                    <div class="file-item">
+                        <span>✓</span>
+                        <span>Pressemelding.txt</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fakta -->
+            <div class="input-section">
+                <div class="section-title">✏️ Fakta (must-have)</div>
+                <ul class="fact-list">
+                    <li class="fact-item">
+                        <input type="checkbox" checked>
+                        <span>Forvalter rettigheter til innspilt musikk</span>
+                    </li>
+                    <li class="fact-item">
+                        <input type="checkbox" checked>
+                        <span>Medlemseid organisasjon</span>
+                    </li>
+                    <li class="fact-item">
+                        <input type="checkbox" checked>
+                        <span>52 000 medlemmer</span>
+                    </li>
+                </ul>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">+ Legg til</button>
+            </div>
+
+            <!-- Stil og tone -->
+            <div class="input-section">
+                <div class="section-title">🎨 Stil og tone</div>
+
+                <div class="slider-container">
+                    <label style="font-size: 0.875rem; margin-bottom: 0.5rem; display: block;">Formalitet</label>
+                    <input type="range" min="0" max="100" value="50" id="formalitet-slider">
+                    <div class="slider-label">
+                        <span>Byråkratisk</span>
+                        <span>Uformell</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <label style="font-size: 0.875rem; margin-bottom: 0.5rem; display: block;">Perspektiv</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="perspektiv" value="institusjonell">
+                            <span>Institusjonell ("Gramo er...")</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="perspektiv" value="vi" checked>
+                            <span>Vi-perspektiv ("Vi er...")</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="perspektiv" value="du">
+                            <span>Du-perspektiv ("For deg...")</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output spec -->
+            <div class="input-section">
+                <div class="section-title">📊 Output-spesifikasjon</div>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <button class="btn btn-primary" style="flex: 1;">S</button>
+                    <button class="btn btn-secondary" style="flex: 1;">M</button>
+                    <button class="btn btn-secondary" style="flex: 1;">L</button>
+                </div>
+                <label style="font-size: 0.875rem; margin-bottom: 0.5rem; display: block;">
+                    Antall varianter: <strong>3</strong>
+                </label>
+                <input type="range" min="1" max="5" value="3" style="width: 100%;">
+            </div>
+        </div>
+
+        <!-- PROSESS Panel -->
+        <div class="panel process-panel">
+            <div class="panel-header" style="width: 100%;">
+                <div class="panel-icon">⚙️</div>
+                <div class="panel-title">Prosess</div>
+            </div>
+
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; width: 100%;">
+                <button class="generate-btn" onclick="generateContent()">
+                    ▶️ Generer varianter
+                </button>
+
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="status-text" id="status-text">Genererer varianter...</div>
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+                    🔄 Regenerer siste
+                </button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+                    🗑️ Nullstill alt
+                </button>
+
+                <div class="meta-info">
+                    <div><strong>Model:</strong> Claude Sonnet 4.5</div>
+                    <div><strong>Token-bruk:</strong> <span id="token-count">0</span>k</div>
+                    <div><strong>Estimert kostnad:</strong> $<span id="cost">0.00</span></div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; text-align: left; font-size: 0.875rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">💡 Tips:</div>
+                    <div style="color: var(--gray-600);">
+                        • Vær spesifikk med målgruppe<br>
+                        • Last opp flere tekster for bedre variasjon<br>
+                        • Test ulike formalitetsnivåer
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTPUT Panel -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-icon">📄</div>
+                <div class="panel-title">Output</div>
+            </div>
+
+            <div id="output-container">
+                <!-- Empty state -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-icon">📭</div>
+                    <div>Ingen varianter ennå</div>
+                    <div style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Klikk "Generer varianter" for å starte
+                    </div>
+                </div>
+
+                <!-- Variants will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Window -->
+    <div class="context-window">
+        <div class="context-info">
+            <span><strong>Session:</strong> #42</span>
+            <span><strong>Created:</strong> 19.12.2025 10:15</span>
+            <span><strong>Tokens:</strong> <span id="footer-tokens">0</span>k / 200k</span>
+            <span><strong>Sist lagret:</strong> 10:34 ✓</span>
+        </div>
+        <div class="context-actions">
+            <button class="btn btn-secondary">📁 Last session</button>
+            <button class="btn btn-secondary">💾 Lagre</button>
+            <button class="btn btn-secondary">📤 Eksporter</button>
+            <button class="btn btn-primary">🔄 Ny session</button>
+        </div>
+    </div>
+
+    <script>
+        // Edit context items
+        function editContext(field) {
+            const value = prompt(`Endre ${field}:`, document.getElementById(`${field}-value`).textContent);
+            if (value) {
+                document.getElementById(`${field}-value`).textContent = value;
+            }
+        }
+
+        // Generate content simulation
+        function generateContent() {
+            const progressContainer = document.getElementById('progress-container');
+            const progressFill = document.getElementById('progress-fill');
+            const statusText = document.getElementById('status-text');
+            const emptyState = document.getElementById('empty-state');
+            const outputContainer = document.getElementById('output-container');
+
+            // Show progress
+            progressContainer.style.display = 'block';
+            progressFill.style.width = '0%';
+
+            // Simulate progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressFill.style.width = progress + '%';
+
+                if (progress === 50) {
+                    statusText.textContent = 'Analyserer kontekst...';
+                } else if (progress === 80) {
+                    statusText.textContent = 'Genererer varianter...';
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    statusText.textContent = 'Ferdig! ✓';
+
+                    // Update token count
+                    document.getElementById('token-count').textContent = '5.2';
+                    document.getElementById('footer-tokens').textContent = '5.2';
+                    document.getElementById('cost').textContent = '0.08';
+
+                    // Hide progress after delay
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                        showVariants();
+                    }, 1000);
+                }
+            }, 200);
+        }
+
+        function showVariants() {
+            const outputContainer = document.getElementById('output-container');
+            const emptyState = document.getElementById('empty-state');
+
+            emptyState.style.display = 'none';
+
+            const variants = [
+                {
+                    title: 'Variant 1: Verdifokusert',
+                    size: 'S (156 tegn)',
+                    content: 'Vi sørger for at artister, musikere og produsenter får betalt når musikken deres spilles offentlig – som en medlemseid organisasjon godkjent av Kulturdepartementet.',
+                    meta: 'Tone: Profesjonell, tydelig verdi • Vinkling: Hvorfor vi eksisterer'
+                },
+                {
+                    title: 'Variant 2: Brukerfokusert',
+                    size: 'S (152 tegn)',
+                    content: 'Gramo forvalter rettighetene dine til innspilt musikk. Vi sikrer at du får betalt når musikken din spilles på radio eller offentlig. 52 000 medlemmer.',
+                    meta: 'Tone: Direkte, personlig • Vinkling: Hva får du ut av det'
+                },
+                {
+                    title: 'Variant 3: Funksjonsfokusert',
+                    size: 'S (149 tegn)',
+                    content: 'Gramo er en kollektiv forvaltningsorganisasjon for innspilt musikk. Vi representerer 52 000 medlemmer og fordelte 221,9 millioner kr i 2024.',
+                    meta: 'Tone: Saklig, faktabasert • Vinkling: Hva vi gjør'
+                }
+            ];
+
+            outputContainer.innerHTML = variants.map((v, i) => `
+                <div class="variant-card">
+                    <div class="variant-header">
+                        <div class="variant-title">${v.title}</div>
+                        <div class="variant-size">${v.size}</div>
+                    </div>
+                    <div class="variant-content">${v.content}</div>
+                    <div class="variant-meta">${v.meta}</div>
+                    <div class="variant-actions">
+                        <button class="variant-btn" onclick="toggleFavorite(this)">⭐ Favoritt</button>
+                        <button class="variant-btn" onclick="copyVariant(${i})">📋 Kopier</button>
+                        <button class="variant-btn" onclick="editVariant(${i})">✏️ Rediger</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFavorite(btn) {
+            btn.classList.toggle('favorite');
+            btn.textContent = btn.classList.contains('favorite') ? '⭐ Favoritt!' : '⭐ Favoritt';
+        }
+
+        function copyVariant(index) {
+            alert('Variant ' + (index + 1) + ' kopiert til utklippstavle!');
+        }
+
+        function editVariant(index) {
+            alert('Åpner redigeringsmodus for variant ' + (index + 1));
+        }
+    </script>
+</body>
+</html>

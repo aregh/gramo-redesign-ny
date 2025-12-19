@@ -70,7 +70,7 @@ Tvist om vederlagets størrelse, mellom bruker og Gramo, kan bringes inn for Ved
 
 
 
-# Intercom 
+# Fra hjelpesidene
 
 
 
