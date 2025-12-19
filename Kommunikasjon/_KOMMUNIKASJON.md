@@ -22,6 +22,16 @@
 | 2025-12-04 | Møte med Kim | Avklaring | — |
 | 2025-12-04 | Oppfølging Rita, Bastian, Are | Planlegging | [Referat](Møter/2025-12-04_Oppfølging-Rita-Bastian.md) |
 | 2025-12-09 | Statusmøte Are, Bastian, Rita | Planlegging | [Spellar](https://spellar.ai/account/meetings/6937edb63000002000d34c5d) |
+| 2025-12-10 | Arbeidsmøte gramo.no - historiefortelling med data | Arbeidsmøte | [Transkript](Transkripsjoner/2025-12-10_Arbeidsmøte%20gramo.no%20-%20historiefortelling%20med%20data%20++%20.vtt) |
+
+---
+
+## Intervjuer
+
+| Type | Status | Fil |
+|------|--------|-----|
+| Jobs-to-be-done (JTBD) | ✅ Gjennomført | [Intervjuguide](Intervjuer/gramo-intervjuguide-jtbd.md) |
+| JTBD Transkripsjoner | ✅ Dokumentert | [Transkripsjon](Intervjuer/jobs-to-be-done-transcription.md) |
 
 ---
 
@@ -58,4 +68,4 @@
 
 ---
 
-*Sist oppdatert: 9. desember 2025 (etter statusmøte kl. 10:36)*
+*Sist oppdatert: 19. desember 2025*
