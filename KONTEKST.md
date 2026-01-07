@@ -43,17 +43,19 @@ Dette sikrer sporbarhet og mulighet til å gå tilbake til tidligere versjoner.
 |----------|-------|
 | Klient | Gramo (kollektiv forvaltning av nærstående rettigheter) |
 | Prosjekt | Redesign av digitale kanaler |
-| Fase | Forprosjekt (nov-des 2025) |
-| Omfang | TBD |
-| Team | Are, Bastian, Rita + Inge |
+| Fase | **Fase 1 - Forprosjekt** (nov 2025 - jan 2026) |
+| Status | Siste uke - 3 arbeidsdager igjen (7., 9., 10. januar) |
+| Budsjett Fase 1 | 30 dagsverk: Are (15), Bastian (10), Inge (5) |
+| Team | Are Halland, Bastian Daae, Inge Fossland |
+| Kunde | Rita H. Mamelund, Kim Skarning Andersen |
 
 ---
 
 ## Hurtiglenker
 
 ### Rot
-- [2DOS.md](2DOS.md) - Aktive oppgåver
-- [LOGG.md](LOGG.md) - Kronologisk logg
+- [2DOS.md](2DOS.md) - Aktive oppgaver og neste steg
+- [LOGG.md](LOGG.md) - Kronologisk logg (nyeste først)
 
 ---
 
@@ -162,5 +164,5 @@ Verktøy og konfigurasjon.
 
 ---
 
-*Sist oppdatert: 19. desember 2025*
+*Sist oppdatert: 7. januar 2026*
 
