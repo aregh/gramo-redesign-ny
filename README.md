@@ -6,8 +6,8 @@
 
 **Organisasjon:** [Gramo](https://gramo.no) - Kollektiv forvaltning av nærstående rettigheter
 **Ekstern leverandør:** [Kjernekaren](https://kjernekaren.no)
-**Periode:** November 2025 - 2026
-**Status:** Forprosjekt (20 dagsverk)
+**Periode:** November 2025 - juni 2026
+**Status:** Fase 1 fullført (30 dagsverk) | Fase 2 starter februar 2026
 
 ### Mål
 
@@ -80,6 +80,7 @@ Gramo_kontekstarkitektur/
 | Dokument | Beskrivelse |
 |----------|-------------|
 | [KONTEKST.md](KONTEKST.md) | **Start her** - Hub med lenker til alt |
+| [TIL-BASTIAN.md](TIL-BASTIAN.md) | **For Bastian** - Setup-guide og oversikt over endringer |
 | [2DOS.md](2DOS.md) | Aktive oppgaver og neste steg |
 | [LOGG.md](LOGG.md) | Kronologisk logg |
 | [Dokumenter/Prosjektmandat.md](Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
@@ -126,4 +127,4 @@ Privat repository. All dokumentasjon tilhører Gramo.
 
 ---
 
-*Sist oppdatert: 4. desember 2025*
+*Sist oppdatert: 8. januar 2026*

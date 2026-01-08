@@ -4,6 +4,225 @@
 
 ---
 
+## 8. januar 2026
+
+### Kontekstarkitektur-opprydding
+*Ansvarlig: Are | Ettermiddag*
+
+#### Gjennomført opprydding
+- ✅ **README.md oppdatert** - Status endret til "Fase 1 fullført (30 dagsverk) | Fase 2 starter februar 2026"
+- ✅ **Arkivering av duplikater:**
+  - `Prosjektmandat_Redesign_gramo.md` → [Dokumenter/Arkiv/260108-Prosjektmandat_Redesign_gramo.md](Dokumenter/Arkiv/260108-Prosjektmandat_Redesign_gramo.md)
+  - `Design/Prototype-statistikk.md` → [Dokumenter/Arkiv/260108-Prototype-statistikk.md](Dokumenter/Arkiv/260108-Prototype-statistikk.md)
+- ✅ **Systemfiler slettet** - Alle .DS_Store-filer fjernet
+
+#### Dokumentasjon opprettet/oppdatert
+- ✅ **[CONTRIBUTING.md](CONTRIBUTING.md)** - Fullstendig omskriving fra nynorsk til bokmål
+  - Daglig arbeidsflyt (pull/commit/push)
+  - Commit-meldinger (gode/dårlige eksempler)
+  - Arkiveringsstrategi (Git for daglig, manuell ved milepæler)
+  - Konfliktløsning (rebase vs merge)
+  - Rollefordeling (Bastian driver, Are støtter)
+
+- ✅ **[Dokumenter/Kontekstarkitektur-Plan.md](Dokumenter/Kontekstarkitektur-Plan.md)** - Komplett plan (6,800+ ord)
+  - Slått sammen Fase1-Opprydding-Plan.md og Kontekstarkitektur-Fase2-Plan.md
+  - Dekker Fase 1 (ferdig) → Fase 2 (planlagt) → Fase 3 (selvstendighet)
+  - Inneholder: Oppryddingsplan, Innhold/-struktur, Git-rutiner, MCP-integrasjon, EVAL-system, Suksesskriterier
+
+#### MCP-integrasjon verifisert
+- ✅ **Airtable:** `appo0g1sGfgBc6mHg` (26 tabeller tilgjengelige)
+- ✅ **Notion:** Gramo forprosjekt-sider tilgjengelige
+- ✅ **SSoT-strategi dokumentert:**
+  - GitHub = Long-term storage (markdown)
+  - Airtable = Working data (strukturert)
+  - Notion = Collaboration space (deling med Kim/Rita)
+
+#### Foreslått Innhold/-struktur
+Basert på toppoppgaver:
+- `ISRC/` (Toppoppgave #1, Fase 1)
+- `Om_Gramo/` (Organisasjon, Fase 1)
+- `Medlemskap/` (Toppoppgave #2, Fase 2)
+- `Utbetalinger/` (Toppoppgave #3, Fase 2)
+- `Rettighetskrav/` (Toppoppgave #4, Fase 2)
+
+Hver mappe får `_README.md` med sammendrag.
+
+#### Brukeridentifikasjon og Git-samarbeid
+- ✅ **[KONTEKST.md](KONTEKST.md)** - Brukeridentifikasjon basert på working directory
+  - Are, Bastian, Torstein identifiseres automatisk
+  - Kommandoer rapporterer hvem som utfører dem
+- ✅ **[CONTRIBUTING.md](CONTRIBUTING.md)** - Brukerbaserte Git-rutiner
+  - Git-konfigurasjon per bruker
+  - Brukerbaserte arbeidsstier
+  - `/pull` og `/push` kommandoer med automatisk brukeridentifikasjon
+- ✅ **Claude Code skills opprettet:**
+  - `.claude/skills/pull/SKILL.md` - Henter endringer fra GitHub
+  - `.claude/skills/push/SKILL.md` - Committer og pusher med brukeridentifikasjon
+
+#### Instruksjoner til Bastian
+- ✅ **[TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oppstartsdokument opprettet
+  - Forklarer alle endringer
+  - Steg-for-steg setup-instruksjoner
+  - Eksempler på bruk av `/pull` og `/push`
+  - Oversikt over strukturendringer i prosjektet
+  - Neste steg for uke 3
+
+#### Neste steg for Bastian
+- Sette opp Git-identitet (git config user.name/email)
+- Legge inn sin sti i KONTEKST.md og CONTRIBUTING.md
+- Teste `/pull` og `/push` kommandoer
+- Planlegge ny Innhold/-struktur (uke 3) - TODO, ikke ferdig forslag
+- Arkivere resterende utdaterte filer
+- Opprette manglende _README.md-filer
+
+---
+
+### Prioriteringsverksted med Kim (del 1) - Strategisk gjennombrudd
+*Deltakere: Kim, Are, Bastian, Rita | 09:00-12:30 | [Transkripsjon](Kommunikasjon/Transkripsjoner/2026-01-08_Prioriteringsverksted.md)*
+
+#### To-spor-strategien for gramo.no etablert
+
+**Overordnet målsetting:** Gramo.no skal være en "HUB for alt" - strategisk kommunikasjonsplattform som styrker merkevare, effektiviserer og øker inntekter.
+
+**Spor 1: Innhold som styrker kjennskap, kunnskap og merkevare**
+- Historiefortelling med data og statistikk
+- Merkevareforankret visuelt redesign
+- Styrke Gramos omdømme og posisjon som CMO
+- Øke engasjement og synlighet
+- Ekstern kommunikasjon og legitimitet
+
+**Spor 2: Innhold som løser toppoppgaver**
+- Fokus på brukeropplevelse og oppgaveløsning
+- Forbedring av sentrale brukerreiser
+- Redusere supportbelastning
+- Øke oppgaveløsningsgrad
+
+**Suksesskriterium felles for begge spor:** "Folk finner, forstår og får til"
+
+#### Målbare effektmål definert
+
+**Økt effektivisering:**
+- Færre henvendelser om prioriterte toppoppgaver (baseline: Morten starter nå)
+- Mindre tid brukt på kundeservice for rutineoppgaver
+- **Færre henvendelser til 3. linje (Øystein/juridisk)** - nytt effektmål
+
+**Økt kundetilfredshet:**
+- Økt gjennomføringsgrad for toppoppgaver (måles via Skyra)
+- Folk opplever at de finner, forstår og får til
+
+**Styrke omdømme:**
+- Økt trafikk på prioriterte sider
+- Økt engasjement på datadrevet innhold
+- Mer tid brukt på statistikk og insights
+
+**Øke inntekt:**
+- **Økt antall worldwide-medlemmer** (konkret inntektsmål)
+- Økt inntekt fra utlandet (baseline: 7 mill. kr/år vs. Finland: 14 mill. kr/år)
+
+#### Worldwide-medlemskap - strategisk gjennombrudd
+
+Møtet identifiserte worldwide-medlemskap som det viktigste strategiske målet for å øke inntekt:
+
+**Situasjon:**
+- Medlemmer kan velge regionalt (kun Norge) eller worldwide-mandat
+- Gramo har 7 mill. kr i inntekt fra utlandet
+- Finland har 14 mill. kr (norsk musikk spilles mer internasjonalt!)
+- Manglende worldwide-mandat = tapte inntekter
+
+**Nettsiden kan bidra:**
+- Synliggjøre verdien av worldwide-medlemskap (interaktivt kart, testimonials)
+- Gjøre det enklere å velge worldwide ved medlemskap
+- Konvertere eksisterende regionale medlemmer til worldwide
+- Kommunisere hvorfor man skal velge Gramo framfor agenter/plateselskap
+
+#### ISRC-registrering - nyansert diskusjon
+
+Viktig innsikt fra møtet: **ISRC-registrering er toppoppgave for brukere, men ikke strategisk viktig for Gramo**.
+
+**Realiteter:**
+- 75% av repertoar som gir penger er allerede registrert via plateselskap/automatiske kilder
+- Kun 25% av registrert repertoar gir faktisk penger
+- Mye egenregistrering fra amatører som aldri blir spilt på radio
+
+**Tilnærming:**
+- Gjør det enkelt å sjekke om låt er registrert
+- Gjør det enkelt å registrere hvis brukeren ønsker det
+- Men: ikke bruk for mye ressurser på det
+- Fokuser mer på worldwide-medlemskap og andre strategiske mål
+
+#### Rollekoder - forenkles i mars
+
+Rollekoder (ABC-system) skal forenkles i mars:
+- Nytt system med faste prosenter
+- Enklere forklaring direkte i skjema
+- Prosjektet venter med å forklare rollekoder til nye systemet er klart
+
+#### Juridisk innhold og 3. linje-effektivisering
+
+Øystein (jurist) har utviklet GPT-modeller for å kvalitetssikre juridisk innhold:
+- Mål: Redusere henvendelser til juridisk avdeling
+- Øystein bruker mye tid på å lese lange e-postdialoger
+- Han ønsker at datasett kvalitetssikres og at innhold blir pedagogisk og juridisk korrekt
+- **Planlagt møte:** Øystein skal vise frem GPT-løsningene sine
+
+#### Målgrupper prioritert
+
+**Primære målgrupper (75% av nettsidebrukere):**
+- Utøvere/artister (inkl. studiomusikere)
+- Produsenter/egenprodusenter
+- Både profesjonelle og amatører
+
+**Sekundære målgrupper:**
+- Agenter og management
+- Plateselskap
+- Musikklisensieringsselskap
+
+**Andre:**
+- Musikk-brukere (NRK, radio, markedskunder)
+- Internasjonale søsterorganisasjoner
+
+#### Kjerneinnhold for nettsiden
+
+Nettsiden må adressere:
+- **Om Gramo:** Forklare kollektiv forvaltning, verdikjeden (transparens, effektivitet, nøyaktighet)
+- **Medlemskap:** Inkl. worldwide-valg (prioritert!)
+- **ISRC/innspillingsregistrering:** Forenklet tilgang
+- **Utbetalinger:** Transparent og forståelig
+- **Kontaktinformasjon:** Mer synlig
+- **Statistikk:** Datadrevet storytelling
+- **Lovpålagt innhold:** CRM-krav, rettighetskrav (claim), åpenhetsrapport
+
+#### Forankring i organisasjonen - kritisk diskusjon
+
+Møtet diskuterte behov for bedre forankring:
+- **Møte med styringsgruppen** (Deb og Torbjørn) for å presentere to-spor-strategien
+- **Involvere medlemsavdelingen** (Toril, Morten, Julia) i arbeid med toppoppgaver
+- Viktig: Prosjektet må ikke oppleves som "Are sitt prosjekt", men som organisasjonens prosjekt
+- To-spor-modellen må kommuniseres tydelig: både merkevare OG toppoppgaver
+
+#### Tone of voice
+
+Viktig diskusjon om at tone of voice må defineres før innholdsproduksjon starter.
+
+### Avgjørelser fra møtet
+
+- ✅ To-spor-modellen er etablert som strategisk rammeverk
+- ✅ Worldwide-medlemskap er prioritert inntektsmål
+- ✅ "Folk finner, forstår og får til" er felles suksesskriterium
+- ✅ Færre henvendelser til 3. linje (juridisk) er et effektmål
+- ✅ Møte med styringsgruppe skal gjennomføres
+- ✅ Møte med Øystein om juridisk innhold
+- ✅ ISRC-registrering: viktig brukeroppgave, men begrenset strategisk verdi
+
+### Neste steg
+
+- [ ] Are setter opp møte med styringsgruppen (Deb, Torbjørn)
+- [ ] Møte med Øystein om juridisk GPT-løsninger
+- [ ] Definere tone of voice
+- [ ] Prioriteringsverksted dag 2 (statistikk) - fredag 10. januar
+
+---
+
 ## 7. januar 2026
 
 ### Siste uke av Fase 1 - Oppstart

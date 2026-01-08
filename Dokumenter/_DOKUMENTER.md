@@ -9,7 +9,7 @@
 | Fil | Beskrivelse | Status |
 |-----|-----------|--------|
 | [Prosjektmandat.md](Prosjektmandat.md) | Formelt mandat for prosjektet | Revidert utkast (4. des) |
-| [Prosjektplan.md](Prosjektplan.md) | Faseinndeling og tidsplan | Utkast |
+
 
 ---
 

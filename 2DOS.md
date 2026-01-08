@@ -29,23 +29,84 @@
 - [x] Prosjektmandat revidert (06.01.2026)
 - [x] Tilbud oppdatert (06.01.2026) - 3 faser, 100 dagsverk
 
-### 🔄 Tirsdag 7. januar (Are + Bastian)
+### ✅ Tirsdag 7. januar (Are + Bastian)
 - [x] Oppdatere KONTEKST.md og git commit/push
-- [x] Rydde opp i /Gramo_kontekstarkitektur/ (konsolidere duplikater)
+- [x] **Rydde opp i /Gramo_kontekstarkitektur/** ✅ Fullført 8. januar
+  - README.md oppdatert med Fase 1 status
+  - Arkivert duplikater (Prosjektmandat, Prototype-statistikk)
+  - Slettet .DS_Store-filer
+  - CONTRIBUTING.md omskrevet til bokmål med Git-rutiner per bruker
+  - Kontekstarkitektur-Plan.md opprettet (sammenslagning av Fase 1+2 planer)
+  - MCP-integrasjon verifisert (Airtable + Notion)
+  - **Brukeridentifikasjon implementert** (KONTEKST.md)
+  - **Claude Code skills opprettet** (`/pull` og `/push`)
 - [ ] **IA og innholdsoversikt inn i Airtable** - prioritert og strukturert
-- [ ] **Oppsett av GPT/Skills** - for kontekstarkitektur
+- [x] **Oppsett av GPT/Skills** - for kontekstarkitektur ✅ `/pull` og `/push` skills
 - [ ] **Rekruttere til brukerintervjuer** - 10-15 stasjoner/produsenter (Doodle)
 
-### 🔄 Torsdag 9. januar
-- [ ] **Intern test-intervju med Julie** - øve før eksterne
-- [ ] **Prioriteringsverksted med Kim (del 1)**
-  - Prioriteringskart
-  - Lande struktur for nettsider
+### 📋 Bastians første steg (før neste arbeidsdag)
 
-### 🔄 Fredag 10. januar (Inge deltar)
-- [ ] **Prioriteringsverksted med Kim (del 2)**
+**📄 Se [TIL-BASTIAN.md](TIL-BASTIAN.md) for fullstendig guide**
+
+- [ ] **Les [TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oversikt over alle endringer
+- [ ] **Sett opp Git-identitet** (10 min)
+  - `cd "[DIN STI]"`
+  - `git config user.name "Bastian Daae"`
+  - `git config user.email "bastian@gramo.no"`
+- [ ] **Legg inn din sti** i KONTEKST.md og CONTRIBUTING.md (5 min)
+  - Finn din sti med `pwd` i Terminal
+  - Erstatt `[BASTIAN: legg til din sti her]` med faktisk sti
+- [ ] **Test `/pull` og `/push` kommandoer** (5 min)
+  - Kjør `/pull` for å hente siste endringer
+  - Gjør en liten endring
+  - Kjør `/push` for å committe og pushe
+
+### ✅ Torsdag 8. januar (DAG 1)
+- [x] **Prioriteringsverksted med Kim (del 1)** - FULLFØRT
+  - To-spor-strategien etablert
+  - Worldwide-medlemskap som inntektsmål
+  - Målgrupper prioritert
+  - Målbare effektmål definert
+
+### 🔄 Fredag 10. januar (DAG 2 - Inge deltar)
+- [ ] **Prioriteringsverksted med Kim (del 2)** - statistikk og prototyper
 - [ ] **Diskutere prototyper** med Inge og Kim
 - [ ] **Finne landingsstruktur** for nye nettsider
+
+---
+
+## Nye oppgaver fra prioriteringsverksted (8. januar)
+
+### 🔴 Kritiske oppgaver
+- [ ] **Møte med styringsgruppen** (Are setter opp)
+  - Deltakere: Deb, Torbjørn (+ Kim, Rita, Are)
+  - Agenda: Presentere to-spor-strategien, mandat, forankring
+  - Formål: Sikre forankring i ledergruppen
+
+- [ ] **Møte med Øystein** (juridisk innhold)
+  - Vise frem GPT-løsninger for kvalitetssikring
+  - Diskutere hvordan nettsiden kan redusere 3. linje-henvendelser
+  - Avklare juridisk korrekt innhold
+
+- [ ] **Definere tone of voice**
+  - Må på plass før innholdsproduksjon starter
+  - Workshop med kommunikasjonsavdeling?
+
+### 🟡 Viktige oppgaver
+- [ ] **Baseline-målinger** (Morten)
+  - Kategorisere henvendelser etter toppoppgaver
+  - Måle tid brukt på ulike henvendelsestyper
+  - Spesielt: Henvendelser til Øystein (3. linje)
+
+- [ ] **Worldwide-medlemskap: Konsept og innhold**
+  - Interaktivt kart over internasjonale avtaler
+  - Testimonials fra worldwide-medlemmer
+  - Forklarende innhold om verdi vs. plateselskap/agenter
+
+- [ ] **Involvere medlemsavdelingen**
+  - Workshop med Toril, Morten, Julia
+  - Gå gjennom toppoppgaver fra deres perspektiv
+  - Identifisere "quick wins" for nettsiden
 
 ---
 
