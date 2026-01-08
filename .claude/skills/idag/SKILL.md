@@ -17,6 +17,7 @@ Bruk denne skill når:
 - Du trenger å vite hvilken uke vi er i
 - Du skal oppdatere dokumenter med "sist oppdatert"
 - Du skal sjekke hvilken prosjektfase vi er i
+- Du skal generere commit-melding basert på endringer
 
 ## Instruksjoner
 
@@ -76,3 +77,40 @@ Claude:
 - 10 = oktober
 - 11 = november
 - 12 = desember
+
+## Generere commit-meldinger
+
+Når du skal lage commit-melding:
+
+1. **Kjør git status og git diff for å se endringer**
+
+2. **Analyser endringene:**
+   - Hvilke filer er endret/lagt til/slettet?
+   - Hva er hovedformålet med endringene?
+   - Finnes det et felles tema?
+
+3. **Generer melding i dette formatet:**
+   ```
+   [Verb] [hva] [hvor] ([Bruker])
+   ```
+
+4. **Verb-eksempler (bruk alltid norsk):**
+   - Legg til (for nye filer/funksjonalitet)
+   - Oppdater (for endringer i eksisterende filer)
+   - Fjern (for slettede filer)
+   - Arkiver (for flytting til arkiv)
+   - Rydd (for reorganisering)
+   - Fiks (for bugfiks)
+
+5. **Eksempler på gode commit-meldinger:**
+   - "Legg til /idag skill og oppdater KONTEKST.md (Are Halland)"
+   - "Oppdater LOGG.md med møtereferat fra 8. januar (Bastian Daae)"
+   - "Arkiver gamle prosjektmandater til Dokumenter/Arkiv/ (Are Halland)"
+   - "Rydd opp i Analyse/-struktur med undermapper (Bastian Daae)"
+
+6. **Best practices:**
+   - Maks 50 tegn i første linje (ekskl. brukernavn)
+   - Bruk imperativ form (Legg til, ikke Legger til)
+   - Vær spesifikk men konsis
+   - Inkluder alltid brukerens navn i parentes
+   - Bruk bokmål
