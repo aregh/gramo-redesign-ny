@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyper – Gramo Statistikk</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--sketch-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            border: 2px dashed var(--sketch-blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .intro-box h2 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--sketch-blue);
+        }
+
+        .intro-box p {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Gallery grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-card {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .gallery-card:hover {
+            border-color: var(--sketch-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .card-preview {
+            height: 200px;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 2px dashed var(--wireframe);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(203, 213, 225, 0.2) 10px,
+                    rgba(203, 213, 225, 0.2) 20px
+                );
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--sketch-blue);
+            color: white;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 2rem;
+            font-family: 'Courier New', monospace;
+            z-index: 1;
+        }
+
+        .card-tag.storytelling { background: #f59e0b; }
+        .card-tag.compare { background: #7c3aed; }
+        .card-tag.kanal { background: #1e3a8a; }
+        .card-tag.cta { background: #16a34a; }
+        .card-tag.geo { background: #0891b2; }
+        .card-tag.interactive { background: #db2777; }
+        .card-tag.some { background: #dc2626; }
+        .card-tag.live { background: #ef4444; }
+        .card-tag.metadata { background: #8b5cf6; }
+        .card-tag.artist { background: #06b6d4; }
+        .card-tag.streaming { background: #1db954; }
+        .card-tag.network { background: #f97316; }
+        .card-tag.credits { background: #ec4899; }
+        .card-tag.industry { background: #6366f1; }
+        .card-tag.personal { background: #1e3a8a; }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-letter {
+            background: var(--sketch-blue);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .feature-chip {
+            font-size: 0.7rem;
+            background: #f1f5f9;
+            border: 1px solid var(--wireframe);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--sketch-gray);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .footer a {
+            color: var(--sketch-blue);
+        }
+
+        .update-note {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .update-note::before { content: '📅 '; }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE-GALLERI</strong> – Gramo Statistikk – Utforskingsfase
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 Statistikk-prototyper</h1>
+            <p>Utforskingsverktøy for å finne beste innfallsvinkel til statistikkvisning på Gramo sine flater</p>
+        </div>
+
+        <div class="intro-box">
+            <h2>🎯 Formål</h2>
+            <p>Disse prototypene er <strong>ideer å diskutere</strong>, ikke ferdige løsninger. Utforsk, kombiner, juster – og finn hva som fungerer best.</p>
+        </div>
+
+        <div class="gallery">
+
+            <!-- A: Gramo-fokus -->
+            <a href="konsept-a-gramo-fokus.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag metadata">Gramo-data</span>
+                    📋
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">A</span>
+                        Gramo-fokus
+                    </div>
+                    <p class="card-desc">
+                        Gramo-spesifikke data i fokus: ISRC, spilletid og kanalfordeling. Alt du trenger for å forstå hvordan en låt presterer.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">ISRC</span>
+                        <span class="feature-chip">Spilletid</span>
+                        <span class="feature-chip">Kanalfordeling</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- A2: Storytelling -->
+            <a href="konsept-a-storytelling.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag storytelling">Storytelling</span>
+                    📖
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">A</span>
+                        Storytelling
+                    </div>
+                    <p class="card-desc">
+                        Narrativ hook som trekker leseren inn. «654 timer med Josefin» – tall som forteller en historie.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Narrativ</span>
+                        <span class="feature-chip">Emosjonelt</span>
+                        <span class="feature-chip">Scroll-basert</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- B: Sammenligning -->
+            <a href="konsept-b-samanlikning.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag compare">Sammenligning</span>
+                    ⚔️
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">B</span>
+                        Sammenligning
+                    </div>
+                    <p class="card-desc">
+                        VS-format som inviterer til engasjement. Norge vs. verden, NRK vs. kommersiell – hvem vinner?
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">VS-format</span>
+                        <span class="feature-chip">Delbart</span>
+                        <span class="feature-chip">Polariserende</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- C: Kanal -->
+            <a href="konsept-c-kanal.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag kanal">Kanal</span>
+                    📻
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">C</span>
+                        Hva spiller din kanal?
+                    </div>
+                    <p class="card-desc">
+                        Personlig inngang via favorittkanal. Hver kanal har egen «personlighet» og profil.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Personlig</span>
+                        <span class="feature-chip">Kanalprofil</span>
+                        <span class="feature-chip">Sammenligning</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- D: Long tail + CTA -->
+            <a href="konsept-d-long-tail-cta.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag cta">CTA</span>
+                    🔍
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">D</span>
+                        Long tail + medlemsverving
+                    </div>
+                    <p class="card-desc">
+                        45 000 artister på ett sted. Søk deg selv opp – «Er dette deg? Bli medlem!»
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Søk</span>
+                        <span class="feature-chip">Konvertering</span>
+                        <span class="feature-chip">Long tail</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- E: Geografi + tid -->
+            <a href="konsept-e-geografi-tid.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag geo">Geografi</span>
+                    🗺️
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">E</span>
+                        Geografi + tid
+                    </div>
+                    <p class="card-desc">
+                        Utforsk etter by og se hvem som klatrer eller faller. Bergen, Oslo, Tromsø – hvor kommer musikken fra?
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Kart</span>
+                        <span class="feature-chip">Trender</span>
+                        <span class="feature-chip">Lokal vinkling</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- F: Bygg toppliste -->
+            <a href="konsept-f-bygg-toppliste.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag interactive">Interaktiv</span>
+                    🏗️
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">F</span>
+                        Bygg din toppliste
+                    </div>
+                    <p class="card-desc">
+                        Interaktiv toppliste-bygger med filter. Lag «Bergenske kvinner på norsk radio 2024» på 3 klikk.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Filter</span>
+                        <span class="feature-chip">Custom lister</span>
+                        <span class="feature-chip">Deling</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- G: SoMe-vinklingar -->
+            <a href="konsept-g-some-vinklinger.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag some">SoMe</span>
+                    📱
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">G</span>
+                        SoMe-vinklinger
+                    </div>
+                    <p class="card-desc">
+                        10 ferdigbygde statistikk-biter klare for sosiale media. Graf + post-preview + last ned.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Ferdig format</span>
+                        <span class="feature-chip">Delbart</span>
+                        <span class="feature-chip">Presse-kit</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- H: Livestatistikk -->
+            <a href="konsept-h-live.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag live">Live</span>
+                    📡
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">H</span>
+                        Livestatistikk
+                    </div>
+                    <p class="card-desc">
+                        Sanntidsoppdateringer – hva spiller akkurat nå? Ticker, 24-timer graf, og «trending» på NRK P3.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Sanntid</span>
+                        <span class="feature-chip">Ticker</span>
+                        <span class="feature-chip">ACRCloud</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- I: Djupdykk låt -->
+            <a href="konsept-i-djupdykk.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag metadata">Metadata</span>
+                    🔍
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">I</span>
+                        Djupdykk låt
+                    </div>
+                    <p class="card-desc">
+                        Alt om én låt: radiohistorikk, strømmekoplinger, credits, ISRC – den komplette profilen.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">ISRC</span>
+                        <span class="feature-chip">MusicBrainz</span>
+                        <span class="feature-chip">Strømming</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- J: Artistprofil 2.0 -->
+            <a href="konsept-j-artistprofil.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag artist">Artist</span>
+                    👤
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">J</span>
+                        Artistprofil 2.0
+                    </div>
+                    <p class="card-desc">
+                        Komplett artistprofil med karrieregraf, diskografi, «høydepunkter» og lignende artister.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Karriere</span>
+                        <span class="feature-chip">Diskografi</span>
+                        <span class="feature-chip">Spotify-data</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- K: Tidsmaskin -->
+            <a href="konsept-k-tidsmaskin.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag compare">Tid</span>
+                    ⏳
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">K</span>
+                        Tidsmaskin
+                    </div>
+                    <p class="card-desc">
+                        Sammenlign to år side om side. Hva var topp 10 i 2019 vs 2024? Hvem har forsvunnet?
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Årskollisjon</span>
+                        <span class="feature-chip">Slider</span>
+                        <span class="feature-chip">Nostalgi</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- L: Låtreisa -->
+            <a href="konsept-l-latreise.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag storytelling">Storytelling</span>
+                    🚀
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">L</span>
+                        Låtreisa
+                    </div>
+                    <p class="card-desc">
+                        Visualiser reisen fra utgivelse til #1. Timeline med milepæler og hendinger langs veien.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Timeline</span>
+                        <span class="feature-chip">Milepæler</span>
+                        <span class="feature-chip">Grafhistorie</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- M: Strømmekoplingar -->
+            <a href="konsept-m-streaming.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag streaming">Strømming</span>
+                    🎧
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">M</span>
+                        Strømmekoplinger
+                    </div>
+                    <p class="card-desc">
+                        Fra statistikk til lytting på 1 klikk. Hover → strømmeikon. Spotify, Apple, Tidal, YouTube.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Musicfetch</span>
+                        <span class="feature-chip">ISRC</span>
+                        <span class="feature-chip">Lav friksjon</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- N: Samarbeid -->
+            <a href="konsept-n-samarbeid.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag network">Nettverk</span>
+                    🔗
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">N</span>
+                        Samarbeid
+                    </div>
+                    <p class="card-desc">
+                        Nettverksdiagram over samarbeid. Hvem har Kygo samarbeidet med? Featuring-analyse.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Nettverk</span>
+                        <span class="feature-chip">Featuring</span>
+                        <span class="feature-chip">MusicBrainz</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- O: Kreditering -->
+            <a href="konsept-o-kreditering.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag credits">Credits</span>
+                    ✍️
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">O</span>
+                        Kreditering
+                    </div>
+                    <p class="card-desc">
+                        Produsenter og låtskrivere i fokus. Hvem lager hitsene? Stargate, Max Martin, Kygo.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Produsenter</span>
+                        <span class="feature-chip">Låtskrivere</span>
+                        <span class="feature-chip">Discogs</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- P: Plateselskap -->
+            <a href="konsept-p-plateselskap.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag industry">Bransje</span>
+                    🏢
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">P</span>
+                        Plateselskap
+                    </div>
+                    <p class="card-desc">
+                        Markedsandel: Universal vs Sony vs Warner vs indie. Hvem eier hitsene? Trend over tid.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Markedsandel</span>
+                        <span class="feature-chip">Indie-vekst</span>
+                        <span class="feature-chip">Label-data</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Q: Min radiosmak -->
+            <a href="konsept-q-minradio.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag personal">Personlig</span>
+                    📊
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">Q</span>
+                        Min radiosmak
+                    </div>
+                    <p class="card-desc">
+                        «Gramo Wrapped» for artister. Logg inn og se din egen statistikk. Delbart på SoMe.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Innlogging</span>
+                        <span class="feature-chip">Personlig</span>
+                        <span class="feature-chip">Deling</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- R: Årsberetning -->
+            <a href="konsept-r-aarsberetning.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag storytelling">Wrapped</span>
+                    🎉
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">R</span>
+                        Årsberetning
+                    </div>
+                    <p class="card-desc">
+                        Spotify Wrapped-inspirert storytelling. Klikk deg gjennom din personlige radiohistorie, slide for slide.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Stories-format</span>
+                        <span class="feature-chip">Animert</span>
+                        <span class="feature-chip">Delbart</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>Gramo Redesign</strong> – Forprosjekt 2025<br>
+                Design: Inge Fossland · Innhold: Are Halland
+            </p>
+            <div class="update-note">
+                Sist oppdatert: 9. januar 2026
+            </div>
+        </div>
+    </div>
+</body>
+</html>
