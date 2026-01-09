@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept A: Gramo-fokus – Låtdrilldown</title>
+    <style>
+        /* === PROTOTYPE STYLING === */
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-light: #dbeafe;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --gramo-green: #10b981;
+            --gramo-orange: #f59e0b;
+            --gramo-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        /* Prototype banner */
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong {
+            color: #d97706;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Wireframe box */
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Annotations */
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before {
+            content: '💡 ';
+        }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before {
+            content: '❓ ';
+        }
+
+        /* Header with song info */
+        .song-header {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        .album-cover {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: var(--sketch-gray);
+            font-size: 0.8rem;
+        }
+
+        .song-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--sketch-blue);
+        }
+
+        .song-info .artist {
+            font-size: 1.2rem;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .quick-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ISRC Badge */
+        .isrc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f0fdf4;
+            border: 2px solid var(--gramo-green);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .isrc-badge.warning {
+            background: #fef3c7;
+            border-color: var(--gramo-orange);
+        }
+
+        .isrc-badge.error {
+            background: #fee2e2;
+            border-color: var(--gramo-red);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gramo-green);
+        }
+
+        .status-dot.warning {
+            background: var(--gramo-orange);
+        }
+
+        .status-dot.error {
+            background: var(--gramo-red);
+        }
+
+        /* Metadata grid */
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .metadata-item {
+            padding: 1rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 6px;
+            background: #f8fafc;
+        }
+
+        .metadata-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sketch-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .metadata-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        /* Channel list */
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .channel-item {
+            display: grid;
+            grid-template-columns: 200px 1fr 100px;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 6px;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .channel-item:hover {
+            border-color: var(--sketch-blue);
+            transform: translateX(4px);
+        }
+
+        .channel-name {
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .channel-bar-container {
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .channel-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sketch-blue), var(--sketch-light));
+            display: flex;
+            align-items: center;
+            padding-left: 0.5rem;
+            font-size: 0.75rem;
+            color: #1e293b;
+        }
+
+        .channel-count {
+            text-align: right;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        /* Timeline chart */
+        .timeline-chart {
+            height: 200px;
+            background: repeating-linear-gradient(45deg,
+                    #f1f5f9,
+                    #f1f5f9 10px,
+                    #e2e8f0 10px,
+                    #e2e8f0 20px);
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Comparison cards */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .comparison-card {
+            padding: 1.5rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 8px;
+            text-align: center;
+            background: white;
+        }
+
+        .comparison-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .comparison-unit {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Arrow */
+        .arrow-down {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--sketch-blue);
+            border-radius: 6px;
+            background: white;
+            color: var(--sketch-blue);
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--sketch-blue);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--sketch-blue);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept A: Gramo-fokus – Ikke ferdig design, bare idéutforsking
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            🎵 Konsept A: Gramo-data i fokus
+        </h1>
+
+        <p class="annotation">Hypotese: Gramo-medlemmer trenger rask tilgang til ISRC, spilletid og kanalfordeling.
+            Dette er kjernedata for å forstå hvordan ein låt presterer.</p>
+
+        <!-- SONG HEADER -->
+        <div class="wireframe-box" data-label="Låt-header">
+            <div class="song-header">
+                <div class="album-cover">
+                    [Albumcover]
+                </div>
+                <div class="song-info">
+                    <h1>Josefin</h1>
+                    <div class="artist">Delara</div>
+
+                    <div class="isrc-badge">
+                        <span class="status-dot"></span>
+                        <span>ISRC: NO-XYZ-24-12345</span>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">654</div>
+                            <div class="stat-label">Timer spilt</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Kanalar</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">#1</div>
+                            <div class="stat-label">Toppliste 2024</div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary">Redigér ISRC</a>
+                        <a href="#" class="btn">Last ned rapport</a>
+                    </div>
+                </div>
+            </div>
+            <p class="annotation">ISRC-badge med status-indikator (grøn=verifisert, oransje=mangler metadata,
+                raud=konflikt). Raske handlinger tilgjengeleg.</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- ISRC DETAILS -->
+        <div class="wireframe-box" data-label="ISRC-detaljar">
+            <h2 style="margin-bottom: 1rem;">📋 ISRC-registrering</h2>
+
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">ISRC-kode</div>
+                    <div class="metadata-value">NO-XYZ-24-12345</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Registreringsstatus</div>
+                    <div class="metadata-value" style="color: var(--gramo-green);">✓ Verifisert</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Registrert dato</div>
+                    <div class="metadata-value">12. januar 2024</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Registrert av</div>
+                    <div class="metadata-value">Universal Music</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Komponist(ar)</div>
+                    <div class="metadata-value">Delara Ekrami</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Utgivar</div>
+                    <div class="metadata-value">Universal Music</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Lengde</div>
+                    <div class="metadata-value">3:24</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Utgivelsesdato</div>
+                    <div class="metadata-value">8. mars 2024</div>
+                </div>
+            </div>
+
+            <p class="annotation">Alle metadata-felt som Gramo trenger for å fordele kompensasjon korrekt. Klikk på
+                "Redigér ISRC" for å oppdatere.</p>
+            <p class="annotation question">Hva metadata er mest kritisk? Hva mangler ofte?</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- PLAYTIME OVERVIEW -->
+        <div class="wireframe-box" data-label="Spilletid-oversikt">
+            <h2 style="margin-bottom: 1rem;">⏱️ Spilletid – 2024</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Total spilletid</h3>
+                    <div class="comparison-value">654</div>
+                    <div class="comparison-unit">timer</div>
+                </div>
+                <div class="comparison-card">
+                    <h3>Gjennomsnitt/dag</h3>
+                    <div class="comparison-value">1.8</div>
+                    <div class="comparison-unit">timer</div>
+                </div>
+                <div class="comparison-card">
+                    <h3>Toppmånad</h3>
+                    <div class="comparison-value">Mai</div>
+                    <div class="comparison-unit">98 timer</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 1rem;">Spilletid over tid</h3>
+            <div class="timeline-chart">
+                [Linjediagram: Spilletid per månad jan-des 2024]
+            </div>
+
+            <p class="annotation">Interaktivt diagram med zoom og hover-tooltip. Klikk på månad for drilldown.</p>
+            <p class="annotation question">Skal vi vise sammenligning med forrige år? Eller gjennomsnitt for genre?</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- CHANNEL BREAKDOWN -->
+        <div class="wireframe-box" data-label="Kanalfordeling">
+            <h2 style="margin-bottom: 1rem;">📻 Kanalfordeling</h2>
+
+            <div class="channel-list">
+                <div class="channel-item">
+                    <div class="channel-name">NRK P3</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 85%;">
+                            243 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">243t</div>
+                </div>
+                <div class="channel-item">
+                    <div class="channel-name">P4</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 65%;">
+                            156 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">156t</div>
+                </div>
+                <div class="channel-item">
+                    <div class="channel-name">Radio Norge</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 45%;">
+                            98 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">98t</div>
+                </div>
+                <div class="channel-item">
+                    <div class="channel-name">NRK P1</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 35%;">
+                            67 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">67t</div>
+                </div>
+                <div class="channel-item">
+                    <div class="channel-name">NRK mP3</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 28%;">
+                            54 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">54t</div>
+                </div>
+                <div class="channel-item">
+                    <div class="channel-name">Andre (7 kanalar)</div>
+                    <div class="channel-bar-container">
+                        <div class="channel-bar" style="width: 15%;">
+                            36 timer
+                        </div>
+                    </div>
+                    <div class="channel-count">36t</div>
+                </div>
+            </div>
+
+            <p class="annotation">Klikk på kanal for å sjå detaljert spelehistorikk. Visuell vekting gjer det lett å
+                sjå hva kanaler som er viktigast.</p>
+            <p class="annotation question">Skal vi vise andel av total spilletid per kanal? Eller total kompensasjon?
+            </p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- RELATED DATA -->
+        <div class="wireframe-box" data-label="Relatert data">
+            <h2 style="margin-bottom: 1rem;">🔗 Relatert data</h2>
+
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Artist</div>
+                    <div class="metadata-value"><a href="#" style="color: var(--sketch-blue);">Delara</a></div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Album</div>
+                    <div class="metadata-value"><a href="#" style="color: var(--sketch-blue);">Josefin (Single)</a>
+                    </div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Andre låtar av Delara</div>
+                    <div class="metadata-value">12 låter</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Saman genre</div>
+                    <div class="metadata-value">Pop</div>
+                </div>
+            </div>
+
+            <p class="annotation">Lenker til relaterte sider for vidare utforsking. Bygg kontekst rundt låten.</p>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept A</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Gramo-spesifikke data i fokus. ISRC, spilletid og kanal er
+                    høgast prioritert og lett tilgjengeleg.</li>
+                <li><strong>Styrke:</strong> Visuell hierarki gjer det lett å scanne. Status-indikatorar (grøn/gul/raud)
+                    gir rask oversikt.</li>
+                <li><strong>Svakheit:</strong> Kan bli for datadrevet for nokre brukarar. Trenger vi forenkla visning?
+                </li>
+                <li><strong>Best for:</strong> Gramo-medlemmer (artister, plateselskap) som trenger innsikt i korleis
+                    låtar presterer.</li>
+                <li><strong>Dårleg for:</strong> Casual brukere som bare vil høyre musikk.</li>
+                <li><strong>Spørsmål:</strong> Hva er viktigast: ISRC-detaljer eller spilletid? Skal vi ha
+                    "enkel/avansert" modus?</li>
+                <li><strong>Spørsmål:</strong> Hvordan viser vi konflikter i ISRC-data? Hva er typiske feil?</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>
+                Prototype laga 9. januar 2026 – Kjernekaren for Gramo<br>
+                <a href="index.html">← Tilbake til oversikt</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

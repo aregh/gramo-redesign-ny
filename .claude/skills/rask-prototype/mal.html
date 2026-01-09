@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[KONSEPTNAMN] – PROTOTYPE</title>
+    <style>
+        /* === PROTOTYPE STYLING === */
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-light: #dbeafe;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        /* Prototype banner */
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong {
+            color: #d97706;
+        }
+
+        /* Sketch-style container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Wireframe box */
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Annotations */
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before {
+            content: '💡 ';
+        }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before {
+            content: '❓ ';
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            border: 3px solid var(--sketch-blue);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #475569;
+        }
+
+        /* Placeholder elements */
+        .placeholder {
+            background: repeating-linear-gradient(45deg,
+                    #f1f5f9,
+                    #f1f5f9 10px,
+                    #e2e8f0 10px,
+                    #e2e8f0 20px);
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+            min-height: 150px;
+        }
+
+        /* Arrow connector */
+        .arrow-down {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – [KONSEPTNAMN] – Ikkje ferdig design, berre idéutforsking
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            [IKON] [KONSEPTNAMN]
+        </h1>
+
+        <p class="annotation">[HYPOTESE ELLER INNSIKT]</p>
+
+        <!-- HERO / HOOK -->
+        <div class="wireframe-box" data-label="Hero / Hook">
+            <div class="hero">
+                <div class="hero-eyebrow">[KATEGORI]</div>
+                <div class="hero-title">[HOVUDTITTEL]</div>
+                <div class="hero-subtitle">[UNDERTITTEL]</div>
+            </div>
+            <p class="annotation">[FORKLARING AV HERO]</p>
+        </div>
+
+        <div class="arrow-down">↓</div>
+
+        <!-- KONSEPT-INNHALD -->
+        <div class="wireframe-box" data-label="[Seksjonstittel]">
+            <h2 style="margin-bottom: 1rem;">[SEKSJONSTITTEL]</h2>
+            <div class="placeholder">
+                [PLACEHOLDER-BESKRIVELSE]
+            </div>
+            <p class="annotation">[FORKLARING]</p>
+            <p class="annotation question">[SPØRSMÅL TIL DISKUSJON]</p>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – [KONSEPTNAMN]</h3>
+            <ul>
+                <li><strong>Styrke:</strong> [KVA ER BRA?]</li>
+                <li><strong>Svakheit:</strong> [KVA ER UTFORDRINGAR?]</li>
+                <li><strong>Best for:</strong> [KVA BRUKSTILFELLE?]</li>
+                <li><strong>Dårleg for:</strong> [KVA PASSAR IKKJE?]</li>
+                <li><strong>Spørsmål:</strong> [KVA MÅ AVKLARAST?]</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>
+                Prototype laga [DATO] – Kjernekaren for Gramo<br>
+                <a href="index.html">← Tilbake til oversikt</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

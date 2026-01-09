@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept R: Årsberetning – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --gramo-blue: #1e3a8a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+        .question::before { content: '❓ '; }
+
+        /* Story slides */
+        .story-container {
+            position: relative;
+            min-height: 600px;
+        }
+
+        .story-slide {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .story-slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Slide cards */
+        .slide-card {
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-intro {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        }
+
+        .slide-hours {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+        }
+
+        .slide-top-song {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+
+        .slide-growth {
+            background: linear-gradient(135deg, #dc2626, #f97316);
+        }
+
+        .slide-channels {
+            background: linear-gradient(135deg, #0891b2, #22d3ee);
+        }
+
+        .slide-rank {
+            background: linear-gradient(135deg, #c026d3, #f472b6);
+        }
+
+        .slide-share {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+        }
+
+        .slide-brand {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .slide-emoji {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .slide-big-number {
+            font-size: 4rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            animation: countUp 0.5s ease;
+        }
+
+        .slide-context {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 280px;
+        }
+
+        .slide-fun-fact {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        /* Album art placeholder */
+        .album-art {
+            width: 180px;
+            height: 180px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .song-info {
+            margin-bottom: 1rem;
+        }
+
+        .song-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .song-hours {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        /* Channel bars */
+        .channel-list {
+            width: 100%;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-name {
+            width: 80px;
+            font-size: 0.85rem;
+        }
+
+        .channel-bar-bg {
+            flex: 1;
+            height: 24px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .channel-bar {
+            height: 100%;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 0.75rem;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        /* Rank visual */
+        .rank-visual {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .rank-bar {
+            width: 50px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 0.5rem;
+        }
+
+        .rank-bar.you {
+            background: white;
+            color: #c026d3;
+        }
+
+        .rank-bar span {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation */
+        .story-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--wireframe);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .story-dot.active {
+            background: var(--gramo-blue);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .story-arrows {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .arrow-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .arrow-btn:hover {
+            border-color: var(--gramo-blue);
+            color: var(--gramo-blue);
+        }
+
+        .arrow-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Share buttons on final slide */
+        .share-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .share-btn {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid white;
+            border-radius: 2rem;
+            background: transparent;
+            color: white;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background: white;
+            color: var(--gramo-blue);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+
+        /* Comparison with Q */
+        .vs-box {
+            background: #eff6ff;
+            border: 2px solid #93c5fd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .vs-box strong { color: var(--gramo-blue); }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept R: Årsberetning – Spotify Wrapped-inspirert storytelling
+    </div>
+
+    <div class="container">
+
+        <div class="wireframe-box" data-label="Konseptforklaring">
+            <h2>Årsberetning – Din radiohistorie 2024</h2>
+            <p style="margin-top: 0.5rem; color: var(--sketch-gray);">
+                Interaktiv storytelling-opplevelse for medlemmer. Klikk deg gjennom din personlige radiohistorie – slide for slide.
+            </p>
+
+            <div class="vs-box">
+                <strong>Forskjell fra Konsept Q (Min radiosmak):</strong><br>
+                Q = Dashboard med all info synleg på éi side<br>
+                R = Animert storytelling, éi innsikt om gongen, bygger spenning
+            </div>
+        </div>
+
+        <p class="annotation">Klikk på pilene for å navigere gjennom årsberetningen</p>
+
+        <div class="wireframe-box" data-label="Story-opplevelse">
+            <div class="story-container">
+
+                <!-- Slide 1: Intro -->
+                <div class="story-slide active" data-slide="0">
+                    <div class="slide-card slide-intro">
+                        <div class="slide-brand">Gramo Årsberetning 2024</div>
+                        <div class="slide-emoji">👋</div>
+                        <div class="slide-title">Hei, Delara!</div>
+                        <div class="slide-big-number">2024</div>
+                        <div class="slide-context">
+                            La oss se tilbake på et fantastisk år for musikken din på norsk radio.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Total hours -->
+                <div class="story-slide" data-slide="1">
+                    <div class="slide-card slide-hours">
+                        <div class="slide-brand">Din spilletid</div>
+                        <div class="slide-emoji">⏱️</div>
+                        <div class="slide-title">Musikken din ble spilt i</div>
+                        <div class="slide-big-number">1 045</div>
+                        <div class="slide-context">timer på norsk radio</div>
+                        <div class="slide-fun-fact">
+                            Det tilsvarer <strong>43 dager</strong> non-stop!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Top song -->
+                <div class="story-slide" data-slide="2">
+                    <div class="slide-card slide-top-song">
+                        <div class="slide-brand">Din #1 låt</div>
+                        <div class="album-art">🎵</div>
+                        <div class="song-info">
+                            <div class="song-title">Josefin</div>
+                        </div>
+                        <div class="song-hours">654 timer</div>
+                        <div class="slide-context">
+                            Din mest spilte låt i 2024
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Growth -->
+                <div class="story-slide" data-slide="3">
+                    <div class="slide-card slide-growth">
+                        <div class="slide-brand">Din vekst</div>
+                        <div class="slide-emoji">🚀</div>
+                        <div class="slide-title">Fra 2023 til 2024</div>
+                        <div class="slide-big-number">+340%</div>
+                        <div class="slide-context">mer spilletid enn i fjor</div>
+                        <div class="slide-fun-fact">
+                            307 timer → 1 045 timer
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Channels -->
+                <div class="story-slide" data-slide="4">
+                    <div class="slide-card slide-channels">
+                        <div class="slide-brand">Dine kanaler</div>
+                        <div class="slide-emoji">📻</div>
+                        <div class="slide-title">Her ble du spilt mest</div>
+                        <div class="channel-list">
+                            <div class="channel-item">
+                                <span class="channel-name">NRK P3</span>
+                                <div class="channel-bar-bg">
+                                    <div class="channel-bar" style="width: 100%">412t</div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <span class="channel-name">P4</span>
+                                <div class="channel-bar-bg">
+                                    <div class="channel-bar" style="width: 65%">268t</div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <span class="channel-name">NRK P1</span>
+                                <div class="channel-bar-bg">
+                                    <div class="channel-bar" style="width: 45%">186t</div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <span class="channel-name">Radio Norge</span>
+                                <div class="channel-bar-bg">
+                                    <div class="channel-bar" style="width: 35%">145t</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Rank -->
+                <div class="story-slide" data-slide="5">
+                    <div class="slide-card slide-rank">
+                        <div class="slide-brand">Din plassering</div>
+                        <div class="slide-emoji">🏆</div>
+                        <div class="slide-title">Blant alle norske artister</div>
+                        <div class="rank-visual">
+                            <div class="rank-bar" style="height: 80px;"><span>5</span></div>
+                            <div class="rank-bar you" style="height: 110px;"><span>4</span></div>
+                            <div class="rank-bar" style="height: 130px;"><span>3</span></div>
+                            <div class="rank-bar" style="height: 150px;"><span>2</span></div>
+                            <div class="rank-bar" style="height: 170px;"><span>1</span></div>
+                        </div>
+                        <div class="slide-big-number">#4</div>
+                        <div class="slide-context">av 45 000 artister</div>
+                    </div>
+                </div>
+
+                <!-- Slide 7: Share -->
+                <div class="story-slide" data-slide="6">
+                    <div class="slide-card slide-share">
+                        <div class="slide-brand">Del din historie</div>
+                        <div class="slide-emoji">🎉</div>
+                        <div class="slide-title">Gratulerer med et flott år!</div>
+                        <div class="slide-big-number">2024</div>
+                        <div class="slide-context">
+                            Del din årsberetning med fansen
+                        </div>
+                        <div class="share-buttons">
+                            <button class="share-btn">📷 Story</button>
+                            <button class="share-btn">🐦 Tweet</button>
+                            <button class="share-btn">📥 Last ned</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation dots -->
+            <div class="story-nav">
+                <div class="story-dot active" data-target="0"></div>
+                <div class="story-dot" data-target="1"></div>
+                <div class="story-dot" data-target="2"></div>
+                <div class="story-dot" data-target="3"></div>
+                <div class="story-dot" data-target="4"></div>
+                <div class="story-dot" data-target="5"></div>
+                <div class="story-dot" data-target="6"></div>
+            </div>
+
+            <!-- Arrow navigation -->
+            <div class="story-arrows">
+                <button class="arrow-btn" id="prevBtn" disabled>← Forrige</button>
+                <button class="arrow-btn" id="nextBtn">Neste →</button>
+            </div>
+        </div>
+
+        <p class="annotation">Automatisk avspilling kan legges til (som Instagram Stories)</p>
+        <p class="annotation question">Skal bruker kunne eksportere hele årsberetningen som video/GIF?</p>
+
+        <div class="wireframe-box" data-label="Mulige ekstra slides">
+            <h3 style="margin-bottom: 1rem;">Flere slides som kan legges til:</h3>
+            <ul style="padding-left: 1.5rem; font-size: 0.9rem;">
+                <li><strong>«Din beste måned»</strong> – Mai med 178 timer</li>
+                <li><strong>«Dine samarbeidspartnere»</strong> – Hvem du har låter med</li>
+                <li><strong>«Din typiske lytter»</strong> – Aldersgruppe/demografi (om tilgjengelig)</li>
+                <li><strong>«Dine credits»</strong> – Produsent, komponist, etc.</li>
+                <li><strong>«Årets gjennombrudd»</strong> – For nye artister</li>
+                <li><strong>«Veteran-badge»</strong> – For artister med 10+ år på radio</li>
+            </ul>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept R: Årsberetning</h3>
+            <ul>
+                <li><strong>Inspirasjon:</strong> Spotify Wrapped, Apple Music Replay, YouTube Rewind</li>
+                <li><strong>Styrke:</strong> Bygger spenning – én innsikt om gangen</li>
+                <li><strong>Styrke:</strong> Perfekt for SoMe-deling (stories-format)</li>
+                <li><strong>Styrke:</strong> Emosjonell opplevelse vs. ren data</li>
+                <li><strong>Forskjell fra Q:</strong> Storytelling vs. dashboard</li>
+                <li><strong>Teknisk:</strong> Kan generere delbare bilder/video per slide</li>
+                <li><strong>Timing:</strong> Lanseres årlig i januar (som Spotify Wrapped i desember)</li>
+                <li><strong>Utvidelse:</strong> Kan ha «Mini-wrapped» kvartalsvis</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="konsept-q-minradio.html">← Konsept Q: Min radiosmak</a> |
+            <a href="index.html">Oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.story-slide');
+        const dots = document.querySelectorAll('.story-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
+            nextBtn.textContent = index === slides.length - 1 ? 'Ferdig!' : 'Neste →';
+            currentSlide = index;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showSlide(parseInt(dot.dataset.target));
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+    </script>
+</body>
+</html>
