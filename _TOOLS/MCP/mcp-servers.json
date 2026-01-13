@@ -2,7 +2,10 @@
   "mcpServers": {
     "airtable": {
       "command": "npx",
-      "args": ["-y", "@airtable/mcp-server"],
+      "args": [
+        "-y",
+        "@airtable/mcp-server"
+      ],
       "env": {
         "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"
       },
@@ -10,7 +13,10 @@
     },
     "notion": {
       "command": "npx",
-      "args": ["-y", "@notionhq/mcp-server"],
+      "args": [
+        "-y",
+        "@notionhq/mcp-server"
+      ],
       "env": {
         "NOTION_API_KEY": "${NOTION_API_KEY}"
       },
@@ -18,11 +24,24 @@
     },
     "google-drive": {
       "command": "npx",
-      "args": ["-y", "@anthropic/mcp-server-google-drive"],
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-google-drive"
+      ],
       "env": {
         "GOOGLE_CREDENTIALS": "${GOOGLE_CREDENTIALS}"
       },
       "description": "GSC-eksport, dokumentasjon"
+    },
+    "sanity": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.sanity.io",
+        "--transport",
+        "http-only"
+      ],
+      "description": "Sanity CMS - skjemaer, dokumenter, GROQ-spørringer og dokumentasjon"
     }
   },
   "projectConfig": {

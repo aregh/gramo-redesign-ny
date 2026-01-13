@@ -1,218 +1,143 @@
 # MCP-konfigurasjon for Gramo-prosjektet
 
-> Instruksjonar for å sette opp alle MCP-integrasjonar på nytt.
->
-> **Fullstendig tool-dokumentasjon:** `_TOOLS/OVERSIKT.md`
+Denne guiden hjelper deg å koble AI-assistenten din (Antigravity, Cursor, etc.) direkte til prosjektverktøyene våre, som Sanity (CMS), Notion (Docs) og Airtable (Data).
+
+## 💡 Konseptet: Slik fungerer det
+
+Oppsettet består av to deler:
+1.  **Prosjektet** bestemmer *hvilke* verktøy vi bruker. (Dette ligger i filen `mcp-servers.json` i denne mappen).
+2.  **Du** må sette opp *din* tilgang lokalt. (Dette gjøres i din egen config-fil på din maskin).
+
+### 🗺️ Visuell oversikt: Hvor filene bor
+
+```
+PROSJEKTET (Deles i Git)             DIN MASKIN (Ditt private oppsett)
+------------------------             ---------------------------------
+📂 gramo-redesign-ny/                🏠 ~/ (Din Hjemmekatalog)
+ └── 📂 _TOOLS/                       ├── 📂 .gemini/antigravity/
+      └── 📂 MCP/                     │    └── 📄 mcp_config.json  <-- DIN CONFIG
+           └── 📄 mcp-servers.json    │        (Her limer du inn tokens)
+               (Kilde: "Menyen")      │
+                                      ├── 📂 .cursor/
+                                      │    └── 📄 mcp.json         <-- DIN CONFIG
+```
+
+Filen `mcp-servers.json` i prosjektet er bare en "meny". Du må manuelt kopiere koden derfra (eller fra denne guiden) inn i *din* lokale fil (`mcp_config.json` e.l.) for at det skal virke.
 
 ---
 
-## Quick Reference
+## 🏗️ Steg 1: Finn din lokale config-fil
 
-| Integrasjon | Base/ID | Bruk i prosjektet |
-|-------------|---------|-------------------|
-| Airtable | `appo0g1sGfgBc6mHg` | Leads, brukaroppgåver, innhald |
-| Notion | `2b5e1430...` | Prosjektdokumentasjon |
-| Google Drive | - | Bakgrunnsmateriale |
+Første steg er å finne filen hvor du skal lime inn konfigurasjonen. Dette varierer basert på hvilken editor du bruker:
 
----
+### For Antigravity (Google IDE)
+*   **Filsti:** `~/.gemini/antigravity/mcp_config.json`
+*   **Merk:** Antigravity støtter foreløpig ikke automatisk innlogging (OAuth). Du **MÅ** bruke API-tokens (se veiledninger under).
 
-## 1. Airtable
+### For Cursor
+*   **Meny:** Trykk `Cmd+Shift+P` -> Søk etter "Open MCP Settings"
+*   **Filsti:** `~/.cursor/mcp.json`
 
-### Installasjon
-```bash
-claude mcp add airtable -- npx -y @modelcontextprotocol/server-airtable
-```
-
-### Konfigurasjon
-Ved første køyring blir du spurt om API-nøkkel:
-1. Gå til [airtable.com/create/tokens](https://airtable.com/create/tokens)
-2. Opprett "Personal Access Token" med scopes:
-   - `data.records:read`
-   - `data.records:write`
-   - `schema.bases:read`
-3. Lim inn token når spurt
-
-### Gramo-spesifikk info
-**Base ID:** `appo0g1sGfgBc6mHg`
-**Base namn:** Gramo Redesign
-**Tabellar:** Folk, Brukeroppgaver, Innhald, Søkeord, m.fl.
-
-### Testkommando
-```
-mcp__airtable__list_tables baseId="appo0g1sGfgBc6mHg" detailLevel="tableIdentifiersOnly"
-```
+### For VS Code
+*   **Meny:** `Cmd+Shift+P` -> Søk etter "MCP: Open User Configuration"
 
 ---
 
-## 2. Notion
+## 🔑 Steg 2: Sett opp tjenestene
 
-### Installasjon
-```bash
-claude mcp add notion -- npx -y @modelcontextprotocol/server-notion
+Her er oppskriften for å koble til hver tjeneste. Kopier kodesnutten inn i din config-fil (`mcpServers`-seksjonen), og bytt ut teksten i `<...>` med din nøkkel.
+
+### 1. Sanity (Innhold & Data)
+
+Du trenger en **API Token** fra Sanity.
+1.  Gå til [sanity.io/manage](https://sanity.io/manage) -> Velg prosjektet "Gramo hub"
+2.  Gå til **All projects** -> **Settings** -> **API** -> **Tokens** -> **Add API token**
+3.  Gi den navnet "MCP Access" og velg "Viewer" (lese) eller "Editor" (lese/skrive) rettigheter.
+4.  Kopier tokenen (starter med `sk...`).
+
+**Konfigurasjon:**
+```json
+"Sanity": {
+  "serverUrl": "https://mcp.sanity.io",
+  "headers": {
+    "Authorization": "Bearer <DIN_SANITY_TOKEN>"
+  }
+}
 ```
 
-### Konfigurasjon
-1. Gå til [notion.so/my-integrations](https://www.notion.so/my-integrations)
-2. Opprett ny integrasjon
-3. Kopier "Internal Integration Token"
-4. Del relevante sider med integrasjonen i Notion
+### 2. Airtable (Analyse & Oppgaver)
 
-### Gramo-spesifikk info
-**Forprosjekt-side:** `2b5e14309122807086c1cc0c062689e8`
-**Målbildeprosjekt:** `269e1430912280769685e0a02992635f`
+Du trenger en **Personal Access Token**.
+1.  Gå til [airtable.com/create/tokens](https://airtable.com/create/tokens)
+2.  Opprett token med scopes: `data.records:read`, `data.records:write`, `schema.bases:read`.
+3.  Gi tilgang til basen "Gramo Redesign".
 
-### Testkommando
-```
-mcp__notion__API-retrieve-a-page page_id="2b5e14309122807086c1cc0c062689e8"
-```
-
----
-
-## 3. Google Drive
-
-### Installasjon
-```bash
-claude mcp add google-drive -- npx -y @anthropics/server-google-drive
+**Konfigurasjon:**
+```json
+"airtable": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-airtable"],
+  "env": {
+    "AIRTABLE_API_KEY": "<DIN_AIRTABLE_TOKEN>"
+  }
+}
 ```
 
-### Konfigurasjon
-Ved første køyring opnar nettlesar for OAuth:
-1. Logg inn med Google-konto
-2. Gi tilgang til Drive
-3. Token blir lagra lokalt
+### 3. Notion (Dokumentasjon)
 
-### Testkommando
-```
-mcp__google-drive__search query="Gramo"
-```
+Du trenger en **Internal Integration Token**.
+1.  Gå til [notion.so/my-integrations](https://www.notion.so/my-integrations)
+2.  Opprett ny integrasjon.
+3.  **Viktig:** I Notion, gå til sidene du vil bruke (Prosjektdokumentasjon) -> `...` -> `Connect to` -> Velg integrasjonen din.
 
----
-
-## 4. Gmail
-
-### Installasjon
-```bash
-claude mcp add gmail -- npx -y @gongrzhe/server-gmail-mcp
-```
-
-### Konfigurasjon
-Same OAuth-flyt som Google Drive.
-
-### Testkommando
-```
-mcp__gmail__list_messages q="from:gramo.no" maxResults=5
-```
-
----
-
-## 5. Google Calendar
-
-### Installasjon
-```bash
-claude mcp add google-calendar -- npx -y @takumi0706/google-calendar-mcp
-```
-
-### Konfigurasjon
-Same OAuth-flyt som Google Drive.
-
-### Testkommando
-```
-mcp__google-calendar__calendar_list_events maxResults=5
+**Konfigurasjon:**
+```json
+"notion": {
+  "command": "npx",
+  "args": ["-y", "@notionhq/mcp-server"],
+  "env": {
+    "NOTION_API_KEY": "<DIN_NOTION_TOKEN>"
+  }
+}
 ```
 
 ---
 
-## 6. Fiken (eigenutvikla)
+## 🤝 Deling av tilgang i teamet
 
-### Installasjon
-```bash
-cd _TOOLS/fiken-mcp
-npm install
-npm run build
-claude mcp add fiken -- node /path/to/_TOOLS/fiken-mcp/dist/index.js
-```
+Hvordan gir du andre på teamet tilgang til Airtable/Notion hvis de ikke har egen konto?
 
-### Konfigurasjon
-1. Opprett `.env` i fiken-mcp/:
-```
-FIKEN_API_TOKEN=din_api_token
-```
-2. Hent token frå Fiken-innstillingar
+**Løsningen er å dele API-nøkkelen (sikkert):**
+1.  Admin (du) lager en token som beskrevet over.
+2.  Del denne tokenen med teamet via en sikker kanal (f.eks. 1Password/LastPass). **IKKE** legg den i git/Slack.
+3.  Teammedlemmet limer inn din token i *sin* lokale `mcp_config.json`.
 
-### Testkommando
-```
-mcp__fiken__search_contacts company_slug="kjernekaren-as" query="Gramo"
-```
+Nå fungerer deres AI-assistent "på vegne av" deg (eller prosjektet), selv om de ikke har personlig tilgang til verktøyet.
+
+> **Tips:** For langsiktige prosjekter, vurder å opprette en egen "Systembruker" (f.eks. `bot@gramo.no`) i Airtable/Notion, og lag tokens fra den brukeren. Da er ikke tilgangen knyttet til en person som kanskje slutter.
 
 ---
 
-## Komplett oppsett (alle servere)
+## ℹ️ Referanse & ID-er
 
-```bash
-# Offisielle Anthropic-servere
-claude mcp add airtable -- npx -y @modelcontextprotocol/server-airtable
-claude mcp add notion -- npx -y @modelcontextprotocol/server-notion
-claude mcp add google-drive -- npx -y @anthropics/server-google-drive
+Dette er faste verdier for Gramo-prosjektet som du kan trenge i mcp-config eller i prompts.
 
-# Community-servere
-claude mcp add gmail -- npx -y @gongrzhe/server-gmail-mcp
-claude mcp add google-calendar -- npx -y @takumi0706/google-calendar-mcp
+### Sanity Info
+| Nøkkel | Verdi |
+| :--- | :--- |
+| **Project ID** | `b7xj6hwg` |
+| **Dataset** | `production` |
+| **Org ID** | `oge5qX36E` |
 
-# Eigenutvikla (krev lokal installasjon)
-# Sjå fiken-mcp/KONTEKST.md
-```
-
----
-
-## Planlagde integrasjonar
-
-### Sanity CMS (må lagast)
-**Bruksområde:** Innhaldshub for strukturert innhald
-**Referanse:** https://www.sanity.io/docs/http-api
-
-### Miro (vurderast)
-**Bruksområde:** Hente innhald frå workshop-boards
+### Andre ID-er
+| Tjeneste | ID / Info |
+| :--- | :--- |
+| **Airtable Base ID** | `appo0g1sGfgBc6mHg` |
 
 ---
 
-## Feilsøking
-
-### MCP-server startar ikkje
-```bash
-# Sjekk status
-claude mcp list
-
-# Restart server
-claude mcp remove airtable
-claude mcp add airtable -- npx -y @modelcontextprotocol/server-airtable
-```
-
-### Token utgått
-- **Airtable:** Generer ny PAT på airtable.com/create/tokens
-- **Notion:** Generer ny token i integrasjons-innstillingar
-- **Google:** Køyr `claude mcp add google-drive` på nytt for re-auth
-
-### Airtable: "Invalid permissions"
-- Sjekk at API-nøkkel har tilgang til basen
-- Sjekk at tabellnamn er korrekt
-
-### Notion: "Could not find page"
-- Sjekk at sida er delt med integrasjonen
-- Bruk page ID, ikkje URL
-
----
-
-## Tilgangsnivå
-
-| Integrasjon | Lese | Skrive | Slette |
-|-------------|------|--------|--------|
-| Airtable | ✅ | ✅ | ❌ |
-| Notion | ✅ | ✅ | ❌ |
-| Google Drive | ✅ | ✅ | ❌ |
-| Gmail | ✅ | ✅ | ❌ |
-| Fiken | ✅ | ❌ | ❌ |
-| Sanity | ⏳ | ⏳ | ⏳ |
-
----
-
-*Sist oppdatert: 28. november 2025*
+### Verifisering
+For å sjekke at alt virker:
+1.  Restart IDE-en din.
+2.  Spør chatten: *"Hent de 5 siste dokumentene fra Sanity"* (eller Airtable/Notion).
+3.  Får du svar, er du i gang! 🚀
