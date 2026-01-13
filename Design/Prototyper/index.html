@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyper – Gramo Redesign</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-light: #dbeafe;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --green: #22c55e;
+            --green-light: #dcfce7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong {
+            color: #d97706;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--sketch-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Timeline */
+        .timeline {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline h2 {
+            color: var(--sketch-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .timeline-items {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .timeline-item {
+            min-width: 200px;
+            padding: 1rem;
+            background: var(--sketch-light);
+            border: 1px solid var(--sketch-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .timeline-item:hover {
+            background: var(--sketch-blue);
+            color: white;
+        }
+
+        .timeline-date {
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-item:hover .timeline-date {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Category sections */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            background: var(--sketch-light);
+            border: 2px dashed var(--sketch-blue);
+            border-radius: 8px 8px 0 0;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .category-header h2 {
+            color: var(--sketch-blue);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .category-count {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            font-weight: normal;
+            margin-left: 0.5rem;
+        }
+
+        .prototype-list {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 1.5rem;
+        }
+
+        .prototype-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            background: #fafafa;
+        }
+
+        .prototype-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .prototype-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .prototype-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .prototype-meta {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--sketch-blue);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .prototype-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--sketch-blue);
+            background: white;
+            color: var(--sketch-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--sketch-blue);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--sketch-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+        }
+
+        .btn-green {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .btn-green:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        .new-version-input {
+            padding: 0.5rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            width: 300px;
+            background: white;
+        }
+
+        .new-version-input:focus {
+            outline: none;
+            border-color: var(--green);
+            background: var(--green-light);
+        }
+
+        .new-version-input::placeholder {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Version group */
+        .version-group {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .concept-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--sketch-blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .versions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .version-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+        }
+
+        .version-row.latest {
+            border-color: var(--green);
+            background: var(--green-light);
+        }
+
+        .latest-badge {
+            background: var(--green);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .footer-section {
+            border-top: 2px dashed var(--wireframe);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-section p {
+            color: var(--sketch-gray);
+            font-size: 0.9rem;
+        }
+
+        .update-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 2000;
+            font-size: 0.9rem;
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE-GALLERI</strong> – Gramo Redesign – Self-contained HTML prototyper
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🎨 Prototyper</h1>
+            <p>Wireframe-konsepter for Gramo redesign – Klikk for å se, skriv stikkord for ny versjon</p>
+        </div>
+
+        <!-- Timeline: Latest prototypes -->
+        <div class="timeline">
+            <h2>⏰ Siste prototyper</h2>
+            <div class="timeline-items">
+                <a href="om-gramo-tekstvariasjoner-v1-20260109.html" class="timeline-item">
+                    <div class="timeline-date">9. januar 2026</div>
+                    <div class="timeline-title">Om Gramo (Tekstvariasjoner)</div>
+                </a>
+                <a href="statistikk-storytelling-v1-20260105.html" class="timeline-item">
+                    <div class="timeline-date">5. januar 2026</div>
+                    <div class="timeline-title">Statistikk (Storytelling)</div>
+                </a>
+                <a href="statistikk-sammenligning-v1-20260105.html" class="timeline-item">
+                    <div class="timeline-date">5. januar 2026</div>
+                    <div class="timeline-title">Statistikk (Sammenligning)</div>
+                </a>
+                <a href="statistikk-kanal-v1-20260105.html" class="timeline-item">
+                    <div class="timeline-date">5. januar 2026</div>
+                    <div class="timeline-title">Statistikk (Kanal)</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Category: Om Gramo -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2>📋 Om Gramo <span class="category-count">(1 konsept, 1 versjon)</span></h2>
+            </div>
+            <div class="prototype-list">
+
+                <div class="version-group">
+                    <div class="concept-name">💡 Tekstvariasjoner</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">9. jan 2026 · SMALL/MEDIUM/LARGE, FAQs, Nøkkeltall</span>
+                            <a href="om-gramo-tekstvariasjoner-v1-20260109.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="om-gramo-tekstvariasjoner">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Category: Statistikk -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2>📊 Statistikk <span class="category-count">(19 konsepter, 19 versjoner)</span></h2>
+            </div>
+            <div class="prototype-list">
+
+                <!-- Storytelling -->
+                <div class="version-group">
+                    <div class="concept-name">📖 Storytelling</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · Narrativ-drevet statistikkvisning</span>
+                            <a href="statistikk-storytelling-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-storytelling">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sammenligning -->
+                <div class="version-group">
+                    <div class="concept-name">⚖️ Sammenligning</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · Side-ved-side sammenligning</span>
+                            <a href="statistikk-sammenligning-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-sammenligning">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gramo-fokus -->
+                <div class="version-group">
+                    <div class="concept-name">🎯 Gramo-fokus</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · ISRC-fokusert metadata</span>
+                            <a href="statistikk-gramo-fokus-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-gramo-fokus">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanal -->
+                <div class="version-group">
+                    <div class="concept-name">📻 Kanal</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · Radiokanal-fokusert visning</span>
+                            <a href="statistikk-kanal-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-kanal">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Geografi-tid -->
+                <div class="version-group">
+                    <div class="concept-name">🗺️ Geografi & Tid</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · Geografisk og temporal visning</span>
+                            <a href="statistikk-geografi-tid-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-geografi-tid">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artistprofil -->
+                <div class="version-group">
+                    <div class="concept-name">🎤 Artistprofil</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026 · Artist-sentrert statistikk</span>
+                            <a href="statistikk-artistprofil-v1-20260105.html" class="btn btn-primary" target="_blank">Se prototype</a>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="new-version-input" placeholder="Stikkord for v2..." data-concept="statistikk-artistprofil">
+                                <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Andre konsepter (kompakt format) -->
+                <div class="version-group">
+                    <div class="concept-name">📈 Long Tail</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-long-tail-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-long-tail">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🏆 Toppliste</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-toppliste-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-toppliste">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">📱 SoMe-vinklinger</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-some-vinklinger-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-some-vinklinger">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🎵 Live</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-live-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-live">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🔍 Djupdykk</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-djupdykk-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-djupdykk">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">⏰ Tidsmaskin</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-tidsmaskin-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-tidsmaskin">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🌍 Låtreise</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-latreise-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-latreise">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🎧 Streaming</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-streaming-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-streaming">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">🤝 Samarbeid</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-samarbeid-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-samarbeid">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">✍️ Kreditering</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-kreditering-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-kreditering">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">💿 Plateselskap</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-plateselskap-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-plateselskap">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">📻 Min Radio</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-minradio-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-minradio">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="version-group">
+                    <div class="concept-name">📊 Årsberetning</div>
+                    <div class="versions-list">
+                        <div class="version-row latest">
+                            <span class="version-badge">v1</span>
+                            <span class="prototype-meta">5. jan 2026</span>
+                            <a href="statistikk-aarsberetning-v1-20260105.html" class="btn btn-primary" target="_blank">Se</a>
+                            <input type="text" class="new-version-input" placeholder="v2 stikkord..." data-concept="statistikk-aarsberetning">
+                            <button class="btn btn-green" onclick="generateVersion(this)">Lag v2</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p>
+                Design: Inge Fossland · Innhold: Are Halland
+            </p>
+            <div class="update-note">
+                Sist oppdatert: 10. januar 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function generateVersion(button) {
+            const input = button.previousElementSibling;
+            const keywords = input.value.trim();
+            const concept = input.dataset.concept;
+
+            if (!keywords) {
+                showToast('⚠️ Skriv inn stikkord først', 'warning');
+                input.focus();
+                return;
+            }
+
+            // Extract version number from concept
+            const versionMatch = concept.match(/v(\d+)$/);
+            const currentVersion = versionMatch ? parseInt(versionMatch[1]) : 1;
+            const nextVersion = currentVersion + 1;
+
+            // Build command for clipboard
+            const command = `/rask-prototype ${concept} ${keywords}`;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(command).then(() => {
+                showToast(`✅ Kopiert til clipboard: "${command}"<br><small>Lim inn i Claude for å generere v${nextVersion}</small>`);
+                input.value = '';
+            }).catch(() => {
+                showToast(`📋 Kommando: ${command}<br><small>Kopier og lim inn i Claude</small>`);
+            });
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = message;
+            toast.className = 'toast show';
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Allow Enter key in input fields
+        document.querySelectorAll('.new-version-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.target.nextElementSibling.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

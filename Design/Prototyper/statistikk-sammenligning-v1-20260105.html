@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept B: Sammenligning – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-red: #dc2626;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong { color: #d97706; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before { content: '❓ '; }
+
+        /* VS Layout */
+        .vs-hero {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #fef2f2 0%, #eff6ff 100%);
+            border: 3px solid var(--wireframe);
+            border-radius: 12px;
+        }
+
+        .vs-side {
+            text-align: center;
+        }
+
+        .vs-flag {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .vs-percent {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        .vs-norway .vs-percent { color: var(--sketch-red); }
+        .vs-world .vs-percent { color: var(--sketch-blue); }
+
+        .vs-label {
+            font-size: 1.2rem;
+            color: var(--sketch-gray);
+        }
+
+        .vs-divider {
+            font-size: 3rem;
+            color: var(--wireframe);
+            font-weight: bold;
+        }
+
+        /* Country breakdown */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .country-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .country-card:hover {
+            border-color: var(--sketch-blue);
+            transform: translateY(-2px);
+        }
+
+        .country-card.highlight {
+            border-color: var(--sketch-red);
+            background: #fef2f2;
+        }
+
+        .country-flag {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .country-percent {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .country-card.highlight .country-percent {
+            color: var(--sketch-red);
+        }
+
+        .country-name {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        .country-hours {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Bar comparison */
+        .bar-compare {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .bar-label {
+            width: 100px;
+            font-size: 0.85rem;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 30px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .bar-fill.norway { background: var(--sketch-red); }
+        .bar-fill.usa { background: var(--sketch-blue); }
+        .bar-fill.uk { background: #8b5cf6; }
+        .bar-fill.eu { background: #22c55e; }
+        .bar-fill.nordic { background: #f59e0b; }
+
+        /* Toggle selector */
+        .toggle-selector {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover { border-color: var(--sketch-blue); }
+        .toggle-btn.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        /* Trend comparison */
+        .trend-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .trend-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .trend-value {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .trend-up { color: #22c55e; }
+        .trend-down { color: var(--sketch-red); }
+
+        .trend-label {
+            color: var(--sketch-gray);
+            margin-top: 0.5rem;
+        }
+
+        .placeholder {
+            background: repeating-linear-gradient(
+                45deg,
+                #f1f5f9,
+                #f1f5f9 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+            height: 200px;
+        }
+
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Insight box */
+        .insight-box {
+            background: #fef3c7;
+            border: 2px solid #fde047;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .insight-icon {
+            font-size: 2rem;
+        }
+
+        .insight-content h4 {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept B: Sammenligning-fokus – Ikke ferdig design, bare idéutforsking
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            ⚖️ Konsept B: «Norge vs. Verda»
+        </h1>
+
+        <p class="annotation">Hypotese: Sammenligning skaper nysgjerrighet og debatt. «Er det virkelig så mykje norsk?»</p>
+
+        <!-- VS HERO -->
+        <div class="wireframe-box" data-label="Hero: Head-to-head">
+            <div class="vs-hero">
+                <div class="vs-side vs-norway">
+                    <div class="vs-flag">🇳🇴</div>
+                    <div class="vs-percent">35%</div>
+                    <div class="vs-label">Norsk musikk</div>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="vs-side vs-world">
+                    <div class="vs-flag">🌍</div>
+                    <div class="vs-percent">65%</div>
+                    <div class="vs-label">Internasjonal</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--sketch-gray);">
+                206 428 timer musikk på norsk radio i 2024
+            </p>
+            <p class="annotation">Dramatisk VS-format. Fungerer godt for SoMe og presse.</p>
+            <p class="annotation question">Er 35% mykje eller lite? Trenger vi kontekst?</p>
+        </div>
+
+        <!-- COUNTRY BREAKDOWN -->
+        <div class="wireframe-box" data-label="Landsfordeling">
+            <h2 style="margin-bottom: 1rem; text-align: center;">Kor kjem musikken frå?</h2>
+
+            <div class="toggle-selector">
+                <button class="toggle-btn active">Timer</button>
+                <button class="toggle-btn">Prosent</button>
+                <button class="toggle-btn">Tal låter</button>
+            </div>
+
+            <div class="country-grid">
+                <div class="country-card highlight">
+                    <div class="country-flag">🇳🇴</div>
+                    <div class="country-percent">35,3%</div>
+                    <div class="country-name">Norge</div>
+                    <div class="country-hours">72 856 timer</div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🇺🇸</div>
+                    <div class="country-percent">34,9%</div>
+                    <div class="country-name">USA</div>
+                    <div class="country-hours">72 094 timer</div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🇬🇧</div>
+                    <div class="country-percent">17,8%</div>
+                    <div class="country-name">Storbritannia</div>
+                    <div class="country-hours">36 636 timer</div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🇪🇺</div>
+                    <div class="country-percent">5,3%</div>
+                    <div class="country-name">EU (utan UK)</div>
+                    <div class="country-hours">10 987 timer</div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🇸🇪</div>
+                    <div class="country-percent">5,2%</div>
+                    <div class="country-name">Norden</div>
+                    <div class="country-hours">10 649 timer</div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">🌍</div>
+                    <div class="country-percent">1,6%</div>
+                    <div class="country-name">Andre</div>
+                    <div class="country-hours">3 206 timer</div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-icon">💡</div>
+                <div class="insight-content">
+                    <h4>Visste du?</h4>
+                    <p>Norge og USA er nesten heilt likt! Bare 762 timer skil dei to landa.</p>
+                </div>
+            </div>
+
+            <p class="annotation">Klikk på land → filtrer toppliste til bare det landet</p>
+        </div>
+
+        <!-- BAR COMPARISON -->
+        <div class="wireframe-box" data-label="Horisontal sammenligning">
+            <h2 style="margin-bottom: 1.5rem;">Alternativ visning: Søylediagram</h2>
+
+            <div class="bar-compare">
+                <div class="bar-label">🇳🇴 Norge</div>
+                <div class="bar-track">
+                    <div class="bar-fill norway" style="width: 35.3%;">35,3%</div>
+                </div>
+            </div>
+            <div class="bar-compare">
+                <div class="bar-label">🇺🇸 USA</div>
+                <div class="bar-track">
+                    <div class="bar-fill usa" style="width: 34.9%;">34,9%</div>
+                </div>
+            </div>
+            <div class="bar-compare">
+                <div class="bar-label">🇬🇧 UK</div>
+                <div class="bar-track">
+                    <div class="bar-fill uk" style="width: 17.8%;">17,8%</div>
+                </div>
+            </div>
+            <div class="bar-compare">
+                <div class="bar-label">🇪🇺 EU</div>
+                <div class="bar-track">
+                    <div class="bar-fill eu" style="width: 5.3%;">5,3%</div>
+                </div>
+            </div>
+            <div class="bar-compare">
+                <div class="bar-label">🇸🇪 Norden</div>
+                <div class="bar-track">
+                    <div class="bar-fill nordic" style="width: 5.2%;">5,2%</div>
+                </div>
+            </div>
+
+            <p class="annotation question">Søyler eller kakediagram? Hva kommuniserer best?</p>
+        </div>
+
+        <!-- TREND OVER TIME -->
+        <div class="wireframe-box" data-label="Trend over tid">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Hvordan har det endra seg?</h2>
+
+            <div class="trend-row">
+                <div class="trend-card">
+                    <div class="trend-value trend-up">↑ 7%</div>
+                    <div class="trend-label">Norsk musikk sidan 2015</div>
+                    <p style="font-size: 0.8rem; color: var(--sketch-gray); margin-top: 0.5rem;">
+                        32% → 39%
+                    </p>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-value trend-down">↓ 5%</div>
+                    <div class="trend-label">USA sidan 2015</div>
+                    <p style="font-size: 0.8rem; color: var(--sketch-gray); margin-top: 0.5rem;">
+                        40% → 35%
+                    </p>
+                </div>
+            </div>
+
+            <div class="placeholder" style="margin-top: 1.5rem;">
+                [Linjediagram: Norge vs. USA vs. UK over tid 2015-2024]
+            </div>
+
+            <p class="annotation">Trend viser at norsk musikk veks – god nyheit for Gramo!</p>
+        </div>
+
+        <!-- CHANNEL COMPARISON -->
+        <div class="wireframe-box" data-label="Per kanal">
+            <h2 style="margin-bottom: 1rem;">Same data, ulike kanalar</h2>
+            <p style="color: var(--sketch-gray); margin-bottom: 1.5rem;">NRK vs. P4 vs. Bauer – kven spiller mest norsk?</p>
+
+            <div class="placeholder">
+                [Grouped bar chart: Norskandel per kanal]
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-icon">📻</div>
+                <div class="insight-content">
+                    <h4>NRK P1: 52% norsk</h4>
+                    <p>NRK spiller mest norsk musikk. Radio Norge bare 6%.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept B</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Lett å forstå, dramatisk, godt for infografikk og presse</li>
+                <li><strong>Svakheit:</strong> Kan bli kjedelig fort. «OK, 35%, og?»</li>
+                <li><strong>Best for:</strong> PR, årleg rapport, SoMe-deling</li>
+                <li><strong>Dårleg for:</strong> Djupare utforsking, engasjement over tid</li>
+                <li><strong>Spørsmål:</strong> Trenger vi kontekst for hva 35% betyr? Samanlikna med andre land?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                Prototype laga 4. desember 2025 – Kjernekaren for Gramo<br>
+                <a href="konsept-a-storytelling.html">← Konsept A</a> |
+                <a href="konsept-c-kanal.html">→ Konsept C: Kanal</a>
+            </p>
+        </div>
+    </div>
+<footer style="text-align: center; padding: 2rem; margin-top: 3rem; border-top: 2px dashed #cbd5e1;"><a href="index.html" style="color: #2563eb; text-decoration: none; font-weight: bold;">← Tilbake til oversikt</a></footer>
+</body>
+</html>

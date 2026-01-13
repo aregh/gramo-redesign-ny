@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept F: Bygg din toppliste – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-green: #16a34a;
+            --sketch-red: #dc2626;
+            --sketch-purple: #7c3aed;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+        .question::before { content: '❓ '; }
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+
+        /* Main layout */
+        .builder-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar builder */
+        .builder-sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .builder-card {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 3px solid var(--sketch-blue);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .builder-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Filter groups */
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-chip {
+            padding: 0.4rem 0.8rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover { border-color: var(--sketch-blue); }
+        .filter-chip.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        .filter-chip.active.norway { background: var(--sketch-red); border-color: var(--sketch-red); }
+        .filter-chip.active.women { background: var(--sketch-purple); border-color: var(--sketch-purple); }
+        .filter-chip.active.bergen { background: var(--sketch-green); border-color: var(--sketch-green); }
+
+        /* Summary card */
+        .summary-card {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .summary-title {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--wireframe);
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .summary-stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 4px;
+        }
+
+        .summary-stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .summary-stat-label {
+            font-size: 0.65rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Visual insights */
+        .insights-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .insight-card {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .insight-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .insight-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        .insight-context {
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            margin-top: 0.25rem;
+            opacity: 0.7;
+        }
+
+        /* Charts area */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-box {
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .chart-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .placeholder {
+            background: repeating-linear-gradient(
+                45deg,
+                #f1f5f9,
+                #f1f5f9 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.8rem;
+            height: 150px;
+        }
+
+        /* Result list */
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover { border-color: var(--sketch-blue); }
+        .action-btn.primary {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        .result-list {
+            border: 2px solid var(--wireframe);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .result-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 80px 100px;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+            background: white;
+        }
+
+        .result-item:hover {
+            background: #f8fafc;
+        }
+
+        .result-rank {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .result-rank.top { color: var(--sketch-blue); }
+
+        .result-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .result-meta {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        .result-hours {
+            text-align: right;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .result-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .result-bar-fill {
+            height: 100%;
+            background: var(--sketch-blue);
+            border-radius: 4px;
+        }
+
+        /* Tags */
+        .tag-row {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .tag {
+            font-size: 0.6rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .tag-norway { background: #fee2e2; color: #991b1b; }
+        .tag-women { background: #f3e8ff; color: #6b21a8; }
+        .tag-bergen { background: #dcfce7; color: #166534; }
+        .tag-norsk { background: #fef3c7; color: #92400e; }
+
+        /* Share preview */
+        .share-preview {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 8px;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+
+        .share-preview h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .share-preview-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .share-preview-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .share-stat {
+            text-align: center;
+        }
+
+        .share-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .share-stat-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .builder-layout {
+                grid-template-columns: 1fr;
+            }
+            .builder-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept F: Bygg din toppliste – Interessant datavisualisering
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            🎨 Konsept F: «Bygg din toppliste»
+        </h1>
+
+        <p class="annotation">Hypotese: Gjer det til eit verktøy der folk kan «byggje» sin eigen analyse – ikke bare filter, men faktisk visualisering av hva dei har valt.</p>
+
+        <div class="builder-layout">
+            <!-- SIDEBAR: Builder -->
+            <div class="builder-sidebar">
+                <div class="builder-card">
+                    <div class="builder-title">🔧 Bygg toppliste</div>
+
+                    <div class="filter-section">
+                        <div class="filter-label">Land/opphav</div>
+                        <div class="filter-chips">
+                            <span class="filter-chip active norway">🇳🇴 Norsk</span>
+                            <span class="filter-chip">🇺🇸 USA</span>
+                            <span class="filter-chip">🇬🇧 UK</span>
+                            <span class="filter-chip">🌍 Alle</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-label">Kjønn (hovudartist)</div>
+                        <div class="filter-chips">
+                            <span class="filter-chip active women">👩 Kvinner</span>
+                            <span class="filter-chip">👨 Menn</span>
+                            <span class="filter-chip">👥 Grupper</span>
+                            <span class="filter-chip">Alle</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-label">Geografi (norske)</div>
+                        <div class="filter-chips">
+                            <span class="filter-chip active bergen">📍 Bergen</span>
+                            <span class="filter-chip">📍 Oslo</span>
+                            <span class="filter-chip">📍 Trondheim</span>
+                            <span class="filter-chip">Alle</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-label">Språk i tekst</div>
+                        <div class="filter-chips">
+                            <span class="filter-chip">Norsk</span>
+                            <span class="filter-chip">Engelsk</span>
+                            <span class="filter-chip">Alle</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-label">Tidsperiode</div>
+                        <div class="filter-chips">
+                            <span class="filter-chip active">2024</span>
+                            <span class="filter-chip">2023</span>
+                            <span class="filter-chip">Siste 5 år</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary of what you've built -->
+                <div class="summary-card">
+                    <div class="summary-title">Du har bygd:</div>
+                    <div class="summary-label">
+                        «Bergenske kvinner på norsk radio 2024»
+                    </div>
+                    <div class="summary-stats">
+                        <div class="summary-stat">
+                            <div class="summary-stat-value">12</div>
+                            <div class="summary-stat-label">artister</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="summary-stat-value">1 840t</div>
+                            <div class="summary-stat-label">spilletid</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="summary-stat-value">2,5%</div>
+                            <div class="summary-stat-label">av all norsk</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="summary-stat-value">45</div>
+                            <div class="summary-stat-label">låter</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="annotation">Samandraget endrar seg live når du vel filter</p>
+            </div>
+
+            <!-- MAIN: Results + Visualizations -->
+            <div class="builder-main">
+                <div class="wireframe-box" data-label="Innsikt frå utvalet ditt">
+                    <div class="insights-row">
+                        <div class="insight-card">
+                            <div class="insight-icon">👑</div>
+                            <div class="insight-value">Aurora</div>
+                            <div class="insight-label">mest spelt</div>
+                            <div class="insight-context">456 timer</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon">📈</div>
+                            <div class="insight-value">+34%</div>
+                            <div class="insight-label">vekst frå 2023</div>
+                            <div class="insight-context">bergenske kvinner</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon">🎯</div>
+                            <div class="insight-value">2,5%</div>
+                            <div class="insight-label">av all radio</div>
+                            <div class="insight-context">av 206 428 timer</div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-box">
+                            <div class="chart-title">Spilletid per artist</div>
+                            <div class="placeholder">[Horisontal bar chart]</div>
+                        </div>
+                        <div class="chart-box">
+                            <div class="chart-title">Trend over tid</div>
+                            <div class="placeholder">[Linjediagram 2020-2024]</div>
+                        </div>
+                    </div>
+
+                    <p class="annotation">Visualiserer utvalet – ikke bare ei liste, men faktiske innsikter</p>
+                </div>
+
+                <!-- Result list -->
+                <div class="wireframe-box" data-label="Resultat: 12 artister">
+                    <div class="result-header">
+                        <div class="result-title">Bergenske kvinner på radio 2024</div>
+                        <div class="result-actions">
+                            <button class="action-btn">⬇️ Last ned</button>
+                            <button class="action-btn primary">📤 Del</button>
+                        </div>
+                    </div>
+
+                    <div class="result-list">
+                        <div class="result-item">
+                            <span class="result-rank top">1</span>
+                            <div class="result-info">
+                                <h4>Aurora</h4>
+                                <span class="result-meta">23 låtar • Bergen</span>
+                                <div class="tag-row">
+                                    <span class="tag tag-norway">NO</span>
+                                    <span class="tag tag-women">♀</span>
+                                    <span class="tag tag-bergen">Bergen</span>
+                                </div>
+                            </div>
+                            <div class="result-hours">456t</div>
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="result-item">
+                            <span class="result-rank top">2</span>
+                            <div class="result-info">
+                                <h4>Sigrid</h4>
+                                <span class="result-meta">18 låtar • Bergen (Ålesund)</span>
+                                <div class="tag-row">
+                                    <span class="tag tag-norway">NO</span>
+                                    <span class="tag tag-women">♀</span>
+                                </div>
+                            </div>
+                            <div class="result-hours">289t</div>
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: 63%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="result-item">
+                            <span class="result-rank top">3</span>
+                            <div class="result-info">
+                                <h4>Annie</h4>
+                                <span class="result-meta">12 låtar • Bergen</span>
+                                <div class="tag-row">
+                                    <span class="tag tag-norway">NO</span>
+                                    <span class="tag tag-women">♀</span>
+                                    <span class="tag tag-bergen">Bergen</span>
+                                </div>
+                            </div>
+                            <div class="result-hours">134t</div>
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: 29%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="result-item">
+                            <span class="result-rank">4</span>
+                            <div class="result-info">
+                                <h4>Samsaya</h4>
+                                <span class="result-meta">8 låtar • Bergen</span>
+                                <div class="tag-row">
+                                    <span class="tag tag-norway">NO</span>
+                                    <span class="tag tag-women">♀</span>
+                                    <span class="tag tag-bergen">Bergen</span>
+                                </div>
+                            </div>
+                            <div class="result-hours">87t</div>
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: 19%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="result-item" style="opacity: 0.6;">
+                            <span class="result-rank">...</span>
+                            <div class="result-info">
+                                <h4>+ 8 artister til</h4>
+                                <span class="result-meta">Vis alle</span>
+                            </div>
+                            <div class="result-hours">874t</div>
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: 47%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Share preview -->
+                <div class="wireframe-box" data-label="Delingsførehandsvisning">
+                    <h3 style="margin-bottom: 1rem;">📤 Slik ser delingen ut</h3>
+
+                    <div class="share-preview">
+                        <h3>GRAMO STATISTIKKEN 2024</h3>
+                        <div class="share-preview-title">Bergenske kvinner på norsk radio</div>
+                        <div class="share-preview-stats">
+                            <div class="share-stat">
+                                <div class="share-stat-value">12</div>
+                                <div class="share-stat-label">artister</div>
+                            </div>
+                            <div class="share-stat">
+                                <div class="share-stat-value">1 840t</div>
+                                <div class="share-stat-label">spilletid</div>
+                            </div>
+                            <div class="share-stat">
+                                <div class="share-stat-value">2,5%</div>
+                                <div class="share-stat-label">av radio</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
+                        <button class="action-btn">🔗 Kopier lenke</button>
+                        <button class="action-btn">🖼️ Last ned bilde</button>
+                        <button class="action-btn">📊 Embed-kode</button>
+                    </div>
+
+                    <p class="annotation">Genererer delbart innhald basert på utvalet – for SoMe, presse, osv.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept F</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Gjer data til eit verktøy – folk kan utforske og lage eigne analysar</li>
+                <li><strong>Styrke:</strong> Delbart – genererer bilete/lenker som kan delast</li>
+                <li><strong>Styrke:</strong> Innsikter frå utvalet – ikke bare liste, men «kva betyr dette?»</li>
+                <li><strong>Svakheit:</strong> Krev mykje databehandling på backend</li>
+                <li><strong>Bruksområde:</strong> Journalistar som vil lage saker, medlemmer som vil sjå «sine»</li>
+                <li><strong>Spørsmål:</strong> Hva kombinasjonar er interessante? Pre-bygde «oppdagingar»?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                <a href="konsept-a-storytelling.html">A: Storytelling</a> |
+                <a href="konsept-b-sammenligning.html">B: Sammenligning</a> |
+                <a href="konsept-c-kanal.html">C: Kanal</a> |
+                <a href="konsept-d-long-tail-cta.html">D: Long tail</a> |
+                <a href="konsept-e-geografi-tid.html">E: Geografi</a>
+            </p>
+        </div>
+    </div>
+<footer style="text-align: center; padding: 2rem; margin-top: 3rem; border-top: 2px dashed #cbd5e1;"><a href="index.html" style="color: #2563eb; text-decoration: none; font-weight: bold;">← Tilbake til oversikt</a></footer>
+</body>
+</html>

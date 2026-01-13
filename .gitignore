@@ -41,3 +41,6 @@ node_modules/
 # Cache
 .cache/
 __pycache__/
+
+# macOS folder icons
+**/Icon

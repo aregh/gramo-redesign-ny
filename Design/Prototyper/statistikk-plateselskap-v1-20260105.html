@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept P: Plateselskap – PROTOTYPE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --universal: #e11d48;
+            --sony: #000;
+            --warner: #1d4ed8;
+            --indie: #16a34a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Market share */
+        .market-hero {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+
+        .market-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .legend-item:hover {
+            background: #f8fafc;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-color.universal { background: var(--universal); }
+        .legend-color.sony { background: var(--sony); }
+        .legend-color.warner { background: var(--warner); }
+        .legend-color.indie { background: var(--indie); }
+
+        .legend-info {
+            flex: 1;
+        }
+
+        .legend-name {
+            font-weight: bold;
+        }
+
+        .legend-sublabels {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        .legend-percent {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .legend-percent.universal { color: var(--universal); }
+        .legend-percent.sony { color: var(--sony); }
+        .legend-percent.warner { color: var(--warner); }
+        .legend-percent.indie { color: var(--indie); }
+
+        /* Trend chart */
+        .trend-container {
+            height: 200px;
+            position: relative;
+        }
+
+        /* Label cards */
+        .label-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .label-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .label-card:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .label-logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .label-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .label-parent {
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .label-hours {
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .label-tracks {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Filter */
+        .filter-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--sketch-blue);
+        }
+
+        .filter-btn.active {
+            background: var(--indie);
+            color: white;
+            border-color: var(--indie);
+        }
+
+        /* Indie highlight */
+        .indie-highlight {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .indie-stat {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--indie);
+        }
+
+        .indie-label {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .indie-context {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept P: Plateselskap – «Kven eig hitsa?»
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🏢 Kven eig hitsa?</h1>
+            <p style="color: var(--sketch-gray);">Marknadsandel per plateselskap på norsk radio</p>
+        </div>
+
+        <p class="annotation">Vis marknadsfordeling – dei tre store vs. uavhengige</p>
+
+        <div class="wireframe-box" data-label="Marknadsandel 2024">
+            <div class="market-hero">
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+                <div class="market-legend">
+                    <div class="legend-item">
+                        <div class="legend-color universal"></div>
+                        <div class="legend-info">
+                            <div class="legend-name">Universal Music</div>
+                            <div class="legend-sublabels">Island, Interscope, Def Jam...</div>
+                        </div>
+                        <div class="legend-percent universal">32%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color sony"></div>
+                        <div class="legend-info">
+                            <div class="legend-name">Sony Music</div>
+                            <div class="legend-sublabels">Columbia, RCA, Epic...</div>
+                        </div>
+                        <div class="legend-percent sony">24%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color warner"></div>
+                        <div class="legend-info">
+                            <div class="legend-name">Warner Music</div>
+                            <div class="legend-sublabels">Atlantic, Elektra, Parlophone...</div>
+                        </div>
+                        <div class="legend-percent warner">18%</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color indie"></div>
+                        <div class="legend-info">
+                            <div class="legend-name">Uavhengige</div>
+                            <div class="legend-sublabels">Indie, eigenutgjeving, lokale...</div>
+                        </div>
+                        <div class="legend-percent indie">26%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Trend over tid">
+            <h2 style="margin-bottom: 1rem;">📈 Hvordan har det endra seg?</h2>
+            <div class="trend-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Indie-spotlight">
+            <div class="indie-highlight">
+                <div class="indie-stat">+4%</div>
+                <div class="indie-label">Uavhengige har vakse sidan 2020</div>
+                <div class="indie-context">
+                    22% → 26% · Meir eigenutgjeving og lokale plateselskap får gjennomslag
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Topp plateselskap">
+            <h2 style="margin-bottom: 1rem;">🏷️ Mest spelte selskap</h2>
+            <div class="filter-row">
+                <button class="filter-btn">Alle</button>
+                <button class="filter-btn">Universal</button>
+                <button class="filter-btn">Sony</button>
+                <button class="filter-btn">Warner</button>
+                <button class="filter-btn active">Uavhengige</button>
+            </div>
+            <div class="label-grid">
+                <div class="label-card">
+                    <div class="label-logo">🎵</div>
+                    <div class="label-name">Propeller</div>
+                    <div class="label-parent">Uavhengig · NO</div>
+                    <div class="label-hours">1 234t</div>
+                    <div class="label-tracks">45 låter</div>
+                </div>
+                <div class="label-card">
+                    <div class="label-logo">🎵</div>
+                    <div class="label-name">Cosmos</div>
+                    <div class="label-parent">Uavhengig · NO</div>
+                    <div class="label-hours">987t</div>
+                    <div class="label-tracks">32 låter</div>
+                </div>
+                <div class="label-card">
+                    <div class="label-logo">🎵</div>
+                    <div class="label-name">Jansen</div>
+                    <div class="label-parent">Uavhengig · NO</div>
+                    <div class="label-hours">876t</div>
+                    <div class="label-tracks">28 låter</div>
+                </div>
+                <div class="label-card">
+                    <div class="label-logo">🎵</div>
+                    <div class="label-name">Eigenutgjeving</div>
+                    <div class="label-parent">Diverse artister</div>
+                    <div class="label-hours">2 456t</div>
+                    <div class="label-tracks">156 låter</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept P: Plateselskap</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Interessant for bransjen – maktstrukturar synlege</li>
+                <li><strong>Styrke:</strong> «Indie veks» er god pressehistorie</li>
+                <li><strong>Styrke:</strong> Låg teknisk kompleksitet</li>
+                <li><strong>Teknisk:</strong> Spotify label-data + Discogs</li>
+                <li><strong>Best for:</strong> Bransjepresse, artister, investorar</li>
+                <li><strong>Utviding:</strong> «Norske eigenutgjevingar» som eige filter</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+
+    <script>
+        // Market share donut
+        new Chart(document.getElementById('marketChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Universal', 'Sony', 'Warner', 'Uavhengige'],
+                datasets: [{
+                    data: [32, 24, 18, 26],
+                    backgroundColor: ['#e11d48', '#000', '#1d4ed8', '#16a34a'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Trend over time
+        new Chart(document.getElementById('trendChart'), {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Universal',
+                        data: [35, 34, 33, 32, 32],
+                        borderColor: '#e11d48',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Sony',
+                        data: [26, 25, 25, 24, 24],
+                        borderColor: '#000',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Warner',
+                        data: [17, 18, 18, 18, 18],
+                        borderColor: '#1d4ed8',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Uavhengige',
+                        data: [22, 23, 24, 26, 26],
+                        borderColor: '#16a34a',
+                        borderWidth: 3,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 15 }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 15,
+                        max: 40,
+                        ticks: { callback: v => v + '%' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

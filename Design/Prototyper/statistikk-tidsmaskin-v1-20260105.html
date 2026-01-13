@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept K: Tidsmaskin – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --past: #7c3aed;
+            --present: #2563eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Time selector */
+        .time-hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .time-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .year-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .year-box {
+            text-align: center;
+        }
+
+        .year-label {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .year-select {
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border: 3px solid var(--wireframe);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .year-select.past {
+            border-color: var(--past);
+            color: var(--past);
+        }
+
+        .year-select.present {
+            border-color: var(--present);
+            color: var(--present);
+        }
+
+        .vs-badge {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sketch-gray);
+        }
+
+        /* Comparison grid */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 1rem;
+        }
+
+        .compare-column {
+            padding: 1rem;
+        }
+
+        .compare-column.past {
+            background: #f5f3ff;
+            border-radius: 8px;
+        }
+
+        .compare-column.present {
+            background: #eff6ff;
+            border-radius: 8px;
+        }
+
+        .compare-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+        }
+
+        .compare-header.past {
+            background: var(--past);
+            color: white;
+        }
+
+        .compare-header.present {
+            background: var(--present);
+            color: white;
+        }
+
+        .compare-divider {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rank-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            background: white;
+        }
+
+        .rank-num {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .past .rank-num {
+            background: var(--past);
+            color: white;
+        }
+
+        .present .rank-num {
+            background: var(--present);
+            color: white;
+        }
+
+        .rank-info {
+            flex: 1;
+        }
+
+        .rank-artist {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .rank-hours {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Movement indicators */
+        .movement {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 2rem;
+        }
+
+        .movement.new {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .movement.up {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .movement.down {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .movement.gone {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Changes summary */
+        .changes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .change-card {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .change-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .change-value.green { color: #16a34a; }
+        .change-value.red { color: #dc2626; }
+        .change-value.blue { color: var(--sketch-blue); }
+
+        .change-label {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Spotlight */
+        .spotlight {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .spotlight-title {
+            font-size: 0.8rem;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .spotlight-stat {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .spotlight-desc {
+            font-size: 0.9rem;
+            color: #78350f;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept K: Tidsmaskin – «Radio i 2019 vs. 2024»
+    </div>
+
+    <div class="container">
+        <div class="wireframe-box" data-label="Årsveljar">
+            <div class="time-hero">
+                <h1>⏳ Tidsmaskinen</h1>
+                <p style="color: var(--sketch-gray);">Samanlikn to periodar – hva har endra seg?</p>
+
+                <div class="year-selector">
+                    <div class="year-box">
+                        <div class="year-label">Frå</div>
+                        <select class="year-select past">
+                            <option>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                            <option>2022</option>
+                            <option>2023</option>
+                        </select>
+                    </div>
+                    <div class="vs-badge">→</div>
+                    <div class="year-box">
+                        <div class="year-label">Til</div>
+                        <select class="year-select present">
+                            <option>2024</option>
+                            <option>2023</option>
+                            <option>2022</option>
+                            <option>2021</option>
+                            <option>2020</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="annotation">Side-by-side sammenligning – kven har stige, falle, forsvunne?</p>
+
+        <div class="wireframe-box" data-label="Topp 10 sammenligning">
+            <h2 style="text-align: center; margin-bottom: 1.5rem;">Topp 10 norske artister</h2>
+
+            <div class="compare-grid">
+                <div class="compare-column past">
+                    <div class="compare-header past">2019</div>
+                    <div class="rank-row">
+                        <span class="rank-num">1</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Kygo</div>
+                            <div class="rank-hours">1 234t</div>
+                        </div>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">2</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">a-ha</div>
+                            <div class="rank-hours">987t</div>
+                        </div>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">3</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Astrid S</div>
+                            <div class="rank-hours">876t</div>
+                        </div>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">4</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Sigrid</div>
+                            <div class="rank-hours">765t</div>
+                        </div>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">5</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Dagny</div>
+                            <div class="rank-hours">654t</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-divider">
+                    <span class="movement up">↑</span>
+                    <span class="movement down">↓</span>
+                    <span class="movement new">NY</span>
+                    <span class="movement gone">UTE</span>
+                </div>
+
+                <div class="compare-column present">
+                    <div class="compare-header present">2024</div>
+                    <div class="rank-row">
+                        <span class="rank-num">1</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Kygo</div>
+                            <div class="rank-hours">1 690t</div>
+                        </div>
+                        <span class="movement up">+37%</span>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">2</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Chris Holsten</div>
+                            <div class="rank-hours">1 239t</div>
+                        </div>
+                        <span class="movement new">NY</span>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">3</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Dagny</div>
+                            <div class="rank-hours">1 176t</div>
+                        </div>
+                        <span class="movement up">↑2</span>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">4</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Delara</div>
+                            <div class="rank-hours">1 045t</div>
+                        </div>
+                        <span class="movement new">NY</span>
+                    </div>
+                    <div class="rank-row">
+                        <span class="rank-num">5</span>
+                        <div class="rank-info">
+                            <div class="rank-artist">Sigrid</div>
+                            <div class="rank-hours">998t</div>
+                        </div>
+                        <span class="movement down">↓1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Endringar">
+            <h2 style="text-align: center; margin-bottom: 1.5rem;">Hva har endra seg?</h2>
+            <div class="changes-grid">
+                <div class="change-card">
+                    <div class="change-value green">+7%</div>
+                    <div class="change-label">Norskandel opp</div>
+                    <div style="font-size: 0.75rem; color: var(--sketch-gray);">32% → 39%</div>
+                </div>
+                <div class="change-card">
+                    <div class="change-value blue">3</div>
+                    <div class="change-label">Nye i topp 10</div>
+                    <div style="font-size: 0.75rem; color: var(--sketch-gray);">Chris, Delara, Aurora</div>
+                </div>
+                <div class="change-card">
+                    <div class="change-value red">2</div>
+                    <div class="change-label">Ute av topp 10</div>
+                    <div style="font-size: 0.75rem; color: var(--sketch-gray);">Matoma, Alan Walker</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Spotlight">
+            <div class="spotlight">
+                <div class="spotlight-title">⭐ Største endring</div>
+                <div class="spotlight-stat">Avicii: #100 → #37</div>
+                <div class="spotlight-desc">Klatrer 63 plassar – 6 år etter sin død</div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept K: Tidsmaskin</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Enkelt å forstå – før vs. etter</li>
+                <li><strong>Styrke:</strong> Gode historier i endringar (Avicii, nye namn)</li>
+                <li><strong>Styrke:</strong> Låg teknisk kompleksitet – bare historiske data</li>
+                <li><strong>Best for:</strong> Årlege oppsummeringar, pressehistorier</li>
+                <li><strong>Utviding:</strong> Animert overgang mellom år</li>
+                <li><strong>Utviding:</strong> «Kva skjedde med...?» – søk på forsvunne artister</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+</body>
+</html>

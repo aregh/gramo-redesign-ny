@@ -1,113 +1,246 @@
-# Statistikk-prototyper
+# Prototyper – Gramo Redesign
 
-> Oversikt over prototyper for statistikkvisning på gramo.no
-
----
+> Wireframe-konsepter for Gramo redesign
 
 ## Status
 
-**Sist oppdatert:** 8. januar 2026
+**Sist oppdatert:** 10. januar 2026
 **Ansvarlig:** Inge Fossland (design), Are Halland (konsept)
 **Fase:** Fase 1 (konseptutvikling) ✅
-**Neste:** Presentasjon for Kim (10. januar) + diskusjon med Inge
+**Antall prototyper:** 20
+**Kategorier:** Om Gramo (1), Statistikk (19)
 
 ---
 
-## Bakgrunn
+## 🎯 Formål
 
-I løpet av Fase 1 (desember 2025) ble det utviklet **18 interaktive konsepter (A-R)** for å utforske mulighetene i statistikkvisning basert på Gramos spilledata.
+Denne katalogen inneholder alle HTML-prototyper for Gramo redesign-prosjektet. Prototypene er self-contained wireframes som kan åpnes direkte i nettleser.
 
-**Formål:**
-- Utforske ulike vinklinger og målgrupper for statistikk
-- Teste interaktive filtre og visualiseringer
-- Identifisere hva som gir mest verdi for brukerne
-- Inspirere til prioritering i Fase 2
-
-**Datagrunnlag:**
-- Spillingsdata fra norske radiostasjoner
-- Metadata (artist, tittel, sjanger, nasjonalitet, osv.)
-- Tidsserier (2020-2024)
+**Fokusområder:**
+- **Om Gramo:** Onboarding og informasjon om Gramo
+- **Statistikk:** Visualisering av spilledata fra norske radiostasjoner
 
 ---
 
-## Konseptoversikt
+## 📁 Struktur
 
-### Statistikk-2 (hovedversjon - 18 konsepter)
+```
+Design/Prototyper/
+├── index.html                                    ← Hovedoversikt med alle prototyper
+├── om-gramo-tekstvariasjoner-v1-20260109.html   ← Self-contained prototype
+├── statistikk-storytelling-v1-20260105.html
+├── statistikk-sammenligning-v1-20260105.html
+└── [20 prototyper totalt...]
+```
 
-| Konsept | Tittel | Vinkling | Status | Beslutning |
-|---------|--------|----------|--------|------------|
-| **A** | [Storytelling](Statistikk/Statistikk-2/konsept-a-storytelling.html) | Narrativ tilnærming med tall som historier | ✅ Prototype | Avventer feedback |
-| **B** | [Sammenligning](Statistikk/Statistikk-2/konsept-b-samanlikning.html) | Norge vs. verden, kjønn, tidsperioder | ✅ Prototype | Avventer feedback |
-| **C** | [Kanal](Statistikk/Statistikk-2/konsept-c-kanal.html) | Kanalprofiler (P1 vs P3 vs Radio Norge) | ✅ Prototype | Avventer feedback |
-| **D** | [Long tail + CTA](Statistikk/Statistikk-2/konsept-d-long-tail-cta.html) | Fokus på mindre artister + bli medlem-oppfordring | ✅ Prototype | Avventer feedback |
-| **E** | [Geografi + tid](Statistikk/Statistikk-2/konsept-e-geografi-tid.html) | Geografisk fordeling over tid | ✅ Prototype | Avventer feedback |
-| **F** | [Bygg toppliste](Statistikk/Statistikk-2/konsept-f-bygg-toppliste.html) | Interaktiv filtrering (kjønn, språk, etc.) | ✅ Prototype | Avventer feedback |
-| **G** | [SoMe-vinklinger](Statistikk/Statistikk-2/konsept-g-some-vinklinger.html) | Innhold optimalisert for deling | ✅ Prototype | Avventer feedback |
-| **H** | [Live](Statistikk/Statistikk-2/konsept-h-live.html) | Sanntidsdata og nå-lytting | ✅ Prototype | Avventer feedback |
-| **I** | [Dybdedykk](Statistikk/Statistikk-2/konsept-i-djupdykk.html) | Detaljert analyse av enkeltlåt | ✅ Prototype | Avventer feedback |
-| **J** | [Artistprofil](Statistikk/Statistikk-2/konsept-j-artistprofil.html) | Dedikert artistside med statistikk | ✅ Prototype | Avventer feedback |
-| **K** | [Tidsmaskin](Statistikk/Statistikk-2/konsept-k-tidsmaskin.html) | Utforsk historiske trender | ✅ Prototype | Avventer feedback |
-| **L** | [Låtreise](Statistikk/Statistikk-2/konsept-l-latreise.html) | Følg en låts reise gjennom radio-Norge | ✅ Prototype | Avventer feedback |
-| **M** | [Streaming](Statistikk/Statistikk-2/konsept-m-streaming.html) | Radio vs. streaming-sammenligning | ✅ Prototype | Avventer feedback |
-| **N** | [Samarbeid](Statistikk/Statistikk-2/konsept-n-samarbeid.html) | Visualisere musikalske samarbeid | ✅ Prototype | Avventer feedback |
-| **O** | [Kreditering](Statistikk/Statistikk-2/konsept-o-kreditering.html) | Fremheve produsenter, låtskrivere, musikere | ✅ Prototype | Avventer feedback |
-| **P** | [Plateselskap](Statistikk/Statistikk-2/konsept-p-plateselskap.html) | Oversikt per plateselskap/label | ✅ Prototype | Avventer feedback |
-| **Q** | [Minradio](Statistikk/Statistikk-2/konsept-q-minradio.html) | Personalisert statistikk for brukere | ✅ Prototype | Avventer feedback |
-| **R** | [Årsberetning](Statistikk/Statistikk-2/konsept-r-aarsberetning.html) | Årsrapport-format med høydepunkter | ✅ Prototype | Avventer feedback |
-
-### Andre versjoner
-
-| Fil | Beskrivelse | Status |
-|-----|-------------|--------|
-| [index.html](Statistikk/Statistikk-2/index.html) | Oversikt over alle konsepter | ✅ |
-| [v2-komplett.html](Statistikk/Statistikk-2/v2-komplett.html) | Komplett visning med alle elementer | ✅ |
-| [v2-spilleliste-filter.html](Statistikk/Statistikk-2/v2-spilleliste-filter.html) | Interaktiv spilleliste med filtre | ✅ |
-
-### Statistikk-1 (tidlig versjon)
-
-Tidligere iterasjoner, primært brukt for intern utforsking. Se [Statistikk/Statistikk-1/](Statistikk/Statistikk-1/).
+**Alle prototyper ligger direkte i rot-katalogen** for enkel tilgang og oversikt.
 
 ---
 
-## Målgrupper
+## 📝 Navngivingskonvensjon
 
-**Primært:**
-- **Medlemmer** - se hvordan deres musikk brukes
-- **Potensielle medlemmer** - vise verdien av Gramo
-- **Musikknæringen** - innsikt i radiobruk
-- **Allmennheten** - interesse for musikkstatistikk
+Alle prototyper følger formatet:
 
-**Sekundært:**
-- **Media** - historier og data
-- **Forskere** - tilgang til aggregert data
+```
+[tema]-[stikkord]-v[versjon]-[YYYYMMDD].html
+```
+
+**Eksempler:**
+- `om-gramo-tekstvariasjoner-v1-20260109.html`
+- `statistikk-storytelling-v1-20260105.html`
+- `statistikk-storytelling-v2-20260110.html` ← ny versjon
+
+**Fordeler:**
+- ✅ Lett å identifisere tema og konsept
+- ✅ Versjonsnummer tydelig synlig
+- ✅ Kronologisk sortering via dato
+- ✅ Self-contained (ingen eksterne avhengigheter)
+- ✅ Lett å bygge videre på eksisterende konsepter
 
 ---
 
-## Tekniske avklaringer (kritisk for Fase 2)
+## 🚀 Bruk
 
-### Datakilder
+### 1. Se alle prototyper
 
-**Avklares med Ståle:**
-- [ ] Finnes det API for spillingsdata?
-- [ ] Hva aggregeringsnivå er tilgjengelig? (per låt/artist/kanal/dag)
-- [ ] Hvor langt tilbake går data?
-- [ ] Oppdateringsfrekvens? (daglig/ukentlig/ved fordeling)
-- [ ] Kan vi få testbruker i Echo?
+Åpne oversikten:
+```bash
+open Design/Prototyper/index.html
+```
 
-**Metadataberikelse:**
-- [ ] Artistbilder - kilde? (Spotify API, manuell kurasjon?)
-- [ ] Cover art - kilde?
-- [ ] Kjønn, nasjonalitet - hvordan verifisere?
+Her finner du:
+- 📊 Alle prototyper gruppert etter tema
+- ⏰ Tidslinje med siste prototyper
+- 🔗 Direkte lenker til hver prototype
+- ✏️ Input-felt for å lage nye versjoner
 
-Se [Analyse/Metadata.md](../../Analyse/Metadata.md) for detaljer.
+### 2. Se en enkelt prototype
 
-### Implementering
+Åpne prototypen direkte:
+```bash
+open Design/Prototyper/statistikk-storytelling-v1-20260105.html
+```
 
-**Beslutninger for Fase 2:**
-- Frontend-teknologi (Next.js, Sanity visuals, etc.)
-- API-arkitektur (Apollon, Metabase, Azure?)
-- Caching-strategi (for ytelse)
-- Real-time vs. statisk data
+### 3. Lag ny versjon av prototype
+
+**Metode A: Fra prototypen selv (anbefalt)**
+
+1. Åpne prototypen i nettleser
+2. Scroll ned til bunnen
+3. Skriv inn hva du vil endre i tekstfeltet
+4. Klikk "Lag v2"
+5. Kommandoen kopieres til clipboard
+6. Lim inn i Claude-chatten
+
+**Metode B: Fra oversikten**
+
+1. Åpne `index.html`
+2. Finn prototypen du vil iterere på
+3. Skriv stikkord i input-feltet
+4. Klikk "Lag v2"
+5. Lim kommandoen inn i Claude
+
+**Metode C: Direkte i Claude**
+
+```
+/rask-prototype statistikk-storytelling med fokus på geografi
+```
+→ Genererer `statistikk-storytelling-v2-20260110.html`
+
+---
+
+## 📋 Prototyper
+
+### Om Gramo (1 konsept)
+
+Prototyper for å forklare "hva er Gramo":
+
+| Konsept | Fil | Beskrivelse | Status |
+|---------|-----|-------------|--------|
+| **Tekstvariasjoner** | `om-gramo-tekstvariasjoner-v1-20260109.html` | SMALL/MEDIUM/LARGE-varianter, FAQs, nøkkeltall, § 21-forankring | ✅ Prototype |
+
+### Statistikk (19 konsepter)
+
+Prototyper for statistikkvisning basert på radiodata:
+
+| Konsept | Fil | Vinkling | Status |
+|---------|-----|----------|--------|
+| **Storytelling** | `statistikk-storytelling-v1-20260105.html` | Narrativ tilnærming med tall som historier | ✅ |
+| **Sammenligning** | `statistikk-sammenligning-v1-20260105.html` | Norge vs. verden, kjønn, tidsperioder | ✅ |
+| **Gramo-fokus** | `statistikk-gramo-fokus-v1-20260105.html` | ISRC-fokusert metadata | ✅ |
+| **Kanal** | `statistikk-kanal-v1-20260105.html` | Kanalprofiler (P1 vs P3 vs Radio Norge) | ✅ |
+| **Long tail** | `statistikk-long-tail-v1-20260105.html` | Fokus på mindre artister + CTA | ✅ |
+| **Geografi & tid** | `statistikk-geografi-tid-v1-20260105.html` | Geografisk fordeling over tid | ✅ |
+| **Toppliste** | `statistikk-toppliste-v1-20260105.html` | Interaktiv filtrering (kjønn, språk, etc.) | ✅ |
+| **SoMe-vinklinger** | `statistikk-some-vinklinger-v1-20260105.html` | Innhold optimalisert for deling | ✅ |
+| **Live** | `statistikk-live-v1-20260105.html` | Sanntidsdata og nå-lytting | ✅ |
+| **Dybdedykk** | `statistikk-djupdykk-v1-20260105.html` | Detaljert analyse av enkeltlåt | ✅ |
+| **Artistprofil** | `statistikk-artistprofil-v1-20260105.html` | Dedikert artistside med statistikk | ✅ |
+| **Tidsmaskin** | `statistikk-tidsmaskin-v1-20260105.html` | Utforsk historiske trender | ✅ |
+| **Låtreise** | `statistikk-latreise-v1-20260105.html` | Følg en låts reise gjennom radio-Norge | ✅ |
+| **Streaming** | `statistikk-streaming-v1-20260105.html` | Radio vs. streaming-sammenligning | ✅ |
+| **Samarbeid** | `statistikk-samarbeid-v1-20260105.html` | Visualisere musikalske samarbeid | ✅ |
+| **Kreditering** | `statistikk-kreditering-v1-20260105.html` | Fremheve produsenter, låtskrivere, musikere | ✅ |
+| **Plateselskap** | `statistikk-plateselskap-v1-20260105.html` | Oversikt per plateselskap/label | ✅ |
+| **Min Radio** | `statistikk-minradio-v1-20260105.html` | Personalisert statistikk for brukere | ✅ |
+| **Årsberetning** | `statistikk-aarsberetning-v1-20260105.html` | Årsrapport-format med høydepunkter | ✅ |
+
+---
+
+## 🛠️ Teknisk
+
+### Self-contained HTML
+
+- Alle prototyper er én HTML-fil
+- Ingen eksterne CSS/JS-filer
+- Kan åpnes direkte i nettleser
+- Fungerer offline
+
+### Stil
+
+- **Wireframe-estetikk:** Grid-bakgrunn, stiplede linjer
+- **Gramo fargepalett:** sketch-blue (#2563eb), wireframe grå (#cbd5e1)
+- **Annotasjoner:** 💡 for forklaringer, ❓ for spørsmål
+- **Design-notater:** Styrker, svakheter, spørsmål nederst i hver prototype
+
+### Interaktiv footer
+
+Hver prototype har en footer med:
+- 💬 Input-felt for feedback/endringer
+- 🔄 "Lag v2"-knapp som kopierer kommando til clipboard
+- ← Link tilbake til oversikt
+
+**Eksempel-workflow:**
+1. Åpne `statistikk-storytelling-v1-20260105.html`
+2. Skriv i input-felt: "med fokus på geografi"
+3. Klikk "Lag v2"
+4. Lim inn: `/rask-prototype statistikk-storytelling med fokus på geografi`
+5. Claude genererer: `statistikk-storytelling-v2-20260110.html`
+
+---
+
+## 📌 Workflow
+
+### Typisk arbeidsflyt:
+
+1. **Utforsk** → Åpne `index.html`
+2. **Se** → Klikk på prototype
+3. **Vurder** → Les design-notater, test konsept
+4. **Iterer** → Skriv feedback i input-felt
+5. **Generer** → Klikk "Lag v2", lim inn i Claude
+6. **Sammenlign** → Åpne v1 og v2 side-ved-side
+7. **Velg** → Bestem hvilken versjon som fungerer best
+
+### Eksempel: Iterativ utvikling
+
+```
+1. Åpne statistikk-storytelling-v1-20260105.html
+2. Se konseptet, tenk: "Dette trenger geografisk fokus"
+3. Skriv i input-felt: "med fokus på geografi"
+4. Klikk "Lag v2" → kopierer: /rask-prototype statistikk-storytelling med fokus på geografi
+5. Lim inn i Claude-chatten
+6. Claude genererer statistikk-storytelling-v2-20260110.html
+7. Sammenlign v1 og v2
+8. Eventuelt lag v3 med ytterligere justeringer
+```
+
+---
+
+## 🎨 Design-prinsipper
+
+- **Rask** - Wireframes skal være raske å lage og iterere på
+- **Enkel** - Fokus på struktur, ikke detaljer
+- **Annotert** - Tydelige forklaringer og spørsmål
+- **Self-contained** - Ingen eksterne avhengigheter
+- **Versjonert** - Lett å sammenligne ulike versjoner
+
+---
+
+## 📝 Vedlikehold
+
+### Legge til ny prototype i oversikten
+
+Når du har generert en ny prototype via `/rask-prototype`:
+
+1. Åpne `index.html`
+2. Finn riktig kategori (Om Gramo / Statistikk)
+3. Legg til ny `<div class="version-group">` eller ny versjon i eksisterende gruppe
+4. Oppdater "Siste prototyper"-tidslinje øverst
+5. Oppdater antall i kategori-header
+
+### Arkivere gamle versjoner
+
+Hvis en prototype har mange versjoner (v1, v2, v3, v4...):
+- Behold siste 2-3 versjoner synlige i index.html
+- Eller behold alle - filene er små og det er nyttig å se utviklingen
+
+---
+
+## 🔗 Relaterte filer
+
+- **Skill:** `.claude/skills/rask-prototype/skill.md` - Genererer nye prototyper
+- **Dokumentasjon:** `KONTEKST.md`, `LOGG.md`, `2DOS.md`
+- **Analyse:** `Analyse/Statistikk-visualisering.md`, `Analyse/Metadata.md`
 
 ---
 
@@ -129,22 +262,6 @@ Se [Analyse/Metadata.md](../../Analyse/Metadata.md) for detaljer.
 4. Brukertesting
 5. Iterasjon
 
-**Omfangsavklaring (fra tilbud):**
-> "Statistikkvisning har et stort muligheitsrom. Vi legger opp til å lansere funksjonell og brukartestet visning av basis-statistikk innenfor rammene av prosjektet."
-
 ---
 
-## Dokumentasjon
-
-**Relaterte dokumenter:**
-- [Analyse/Statistikk-visualisering.md](../../Analyse/Statistikk-visualisering.md) - idébank
-- [Analyse/Metadata.md](../../Analyse/Metadata.md) - metadatafelt
-- [2DOS.md](../../2DOS.md) - aktive oppgaver
-- [LOGG.md](../../LOGG.md) - historikk
-
-**Beslutninger:**
-- Se [Dokumenter/BESLUTNINGER.md](../../Dokumenter/BESLUTNINGER.md) for viktige valg rundt statistikk
-
----
-
-*Sist oppdatert: 8. januar 2026*
+*Sist oppdatert: 10. januar 2026*

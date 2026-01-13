@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept N: Samarbeid – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+        .question::before { content: '❓ '; }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Network visualization placeholder */
+        .network-viz {
+            height: 400px;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .network-node {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .network-node:hover {
+            transform: scale(1.1);
+        }
+
+        .node-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--sketch-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .node-avatar.main {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        .node-name {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-align: center;
+            background: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .node-collab {
+            font-size: 0.65rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Connection lines (simplified) */
+        .network-viz::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border: 2px dashed var(--wireframe);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Collaboration list */
+        .collab-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .collab-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .collab-card:hover {
+            border-color: var(--sketch-blue);
+            background: #eff6ff;
+        }
+
+        .collab-avatars {
+            display: flex;
+        }
+
+        .collab-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--wireframe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: 2px solid white;
+        }
+
+        .collab-avatar:not(:first-child) {
+            margin-left: -12px;
+        }
+
+        .collab-info {
+            flex: 1;
+        }
+
+        .collab-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .collab-artists {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .collab-stat {
+            text-align: right;
+        }
+
+        .collab-hours {
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .collab-tracks {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Producer network */
+        .producer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .producer-card {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .producer-avatar {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 0.75rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .producer-name {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .producer-tracks {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .producer-artists {
+            font-size: 0.75rem;
+            color: var(--sketch-blue);
+            margin-top: 0.5rem;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept N: Samarbeid – «Kven spiller saman?»
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🔗 Musikknettverk</h1>
+            <p style="color: var(--sketch-gray);">Visualiser samarbeid mellom artister</p>
+        </div>
+
+        <p class="annotation">Nettverksdiagram som viser kven som samarbeider med kven</p>
+
+        <div class="wireframe-box" data-label="Samarbeidsnettverk">
+            <div class="network-viz">
+                <!-- Central node -->
+                <div class="network-node" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <div class="node-avatar main">🎧</div>
+                    <div class="node-name">Kygo</div>
+                </div>
+
+                <!-- Connected nodes -->
+                <div class="network-node" style="top: 20%; left: 30%;">
+                    <div class="node-avatar">🎤</div>
+                    <div class="node-name">Selena Gomez</div>
+                    <div class="node-collab">2 låter</div>
+                </div>
+
+                <div class="network-node" style="top: 15%; left: 60%;">
+                    <div class="node-avatar">👩‍🎤</div>
+                    <div class="node-name">Whitney Houston</div>
+                    <div class="node-collab">1 låt</div>
+                </div>
+
+                <div class="network-node" style="top: 40%; left: 80%;">
+                    <div class="node-avatar">🎙️</div>
+                    <div class="node-name">Justin Jesso</div>
+                    <div class="node-collab">3 låter</div>
+                </div>
+
+                <div class="network-node" style="top: 70%; left: 75%;">
+                    <div class="node-avatar">🎵</div>
+                    <div class="node-name">Conrad Sewell</div>
+                    <div class="node-collab">1 låt</div>
+                </div>
+
+                <div class="network-node" style="top: 80%; left: 45%;">
+                    <div class="node-avatar">🎤</div>
+                    <div class="node-name">Sandro Cavazza</div>
+                    <div class="node-collab">2 låter</div>
+                </div>
+
+                <div class="network-node" style="top: 65%; left: 20%;">
+                    <div class="node-avatar">👨‍🎤</div>
+                    <div class="node-name">OneRepublic</div>
+                    <div class="node-collab">1 låt</div>
+                </div>
+
+                <div class="network-node" style="top: 30%; left: 15%;">
+                    <div class="node-avatar">🎹</div>
+                    <div class="node-name">Ellie Goulding</div>
+                    <div class="node-collab">1 låt</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Topp samarbeid">
+            <h2 style="margin-bottom: 1rem;">🤝 Topp samarbeid på norsk radio 2024</h2>
+            <div class="collab-list">
+                <div class="collab-card">
+                    <div class="collab-avatars">
+                        <div class="collab-avatar">🎧</div>
+                        <div class="collab-avatar">👩‍🎤</div>
+                    </div>
+                    <div class="collab-info">
+                        <div class="collab-title">Higher Love</div>
+                        <div class="collab-artists">Kygo & Whitney Houston</div>
+                    </div>
+                    <div class="collab-stat">
+                        <div class="collab-hours">521t</div>
+                        <div class="collab-tracks">1 låt</div>
+                    </div>
+                </div>
+
+                <div class="collab-card">
+                    <div class="collab-avatars">
+                        <div class="collab-avatar">🎧</div>
+                        <div class="collab-avatar">🎙️</div>
+                    </div>
+                    <div class="collab-info">
+                        <div class="collab-title">Stargazing + 2</div>
+                        <div class="collab-artists">Kygo & Justin Jesso</div>
+                    </div>
+                    <div class="collab-stat">
+                        <div class="collab-hours">456t</div>
+                        <div class="collab-tracks">3 låter</div>
+                    </div>
+                </div>
+
+                <div class="collab-card">
+                    <div class="collab-avatars">
+                        <div class="collab-avatar">🎤</div>
+                        <div class="collab-avatar">🎵</div>
+                    </div>
+                    <div class="collab-info">
+                        <div class="collab-title">Unholy</div>
+                        <div class="collab-artists">Sam Smith & Kim Petras</div>
+                    </div>
+                    <div class="collab-stat">
+                        <div class="collab-hours">389t</div>
+                        <div class="collab-tracks">1 låt</div>
+                    </div>
+                </div>
+
+                <div class="collab-card">
+                    <div class="collab-avatars">
+                        <div class="collab-avatar">🎹</div>
+                        <div class="collab-avatar">👨‍🎤</div>
+                    </div>
+                    <div class="collab-info">
+                        <div class="collab-title">I Ain't Worried</div>
+                        <div class="collab-artists">OneRepublic & Kygo</div>
+                    </div>
+                    <div class="collab-stat">
+                        <div class="collab-hours">312t</div>
+                        <div class="collab-tracks">1 låt</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="annotation question">Teknisk: Krev analyse av featuring-data og MusicBrainz-relasjonar</p>
+
+        <div class="wireframe-box" data-label="Produsent-nettverk">
+            <h2 style="margin-bottom: 1rem;">🎚️ Produsenter bak hitsa</h2>
+            <div class="producer-grid">
+                <div class="producer-card">
+                    <div class="producer-avatar">🎹</div>
+                    <div class="producer-name">Stargate</div>
+                    <div class="producer-tracks">12 låtar i topp 100</div>
+                    <div class="producer-artists">Rihanna, Beyoncé, Katy Perry</div>
+                </div>
+                <div class="producer-card">
+                    <div class="producer-avatar">🎛️</div>
+                    <div class="producer-name">Max Martin</div>
+                    <div class="producer-tracks">8 låtar i topp 100</div>
+                    <div class="producer-artists">Taylor Swift, The Weeknd</div>
+                </div>
+                <div class="producer-card">
+                    <div class="producer-avatar">🎧</div>
+                    <div class="producer-name">Kygo</div>
+                    <div class="producer-tracks">15 låtar i topp 100</div>
+                    <div class="producer-artists">Eigen + samarbeid</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept N: Samarbeid</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Visuelt engasjerande – folk elskar nettverk</li>
+                <li><strong>Styrke:</strong> Viser skjulte koplingar i musikkindustrien</li>
+                <li><strong>Svakheit:</strong> Høg teknisk kompleksitet</li>
+                <li><strong>Teknisk:</strong> MusicBrainz (relasjonar) + Gramo (speledata)</li>
+                <li><strong>Best for:</strong> Interaktiv utforsking, pressehistorier</li>
+                <li><strong>Inspirasjon:</strong> Spotify «fans also like»-nettverk</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+</body>
+</html>

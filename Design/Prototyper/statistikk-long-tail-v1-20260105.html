@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept D: Long Tail + CTA – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-green: #16a34a;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong { color: #d97706; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before { content: '❓ '; }
+
+        /* Long tail visualization */
+        .long-tail-hero {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 3px solid var(--sketch-green);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .long-tail-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .long-tail-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--sketch-green);
+        }
+
+        .long-tail-context {
+            font-size: 1.1rem;
+            color: var(--sketch-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Long tail chart mockup */
+        .tail-chart {
+            height: 200px;
+            margin: 2rem 0;
+            position: relative;
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .tail-bars {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            gap: 2px;
+            padding: 0 1rem;
+        }
+
+        .tail-bar {
+            flex: 1;
+            background: var(--sketch-blue);
+            border-radius: 2px 2px 0 0;
+            min-width: 4px;
+            transition: all 0.2s;
+        }
+
+        .tail-bar:hover {
+            background: var(--sketch-green);
+        }
+
+        .tail-bar.highlight {
+            background: var(--sketch-green);
+        }
+
+        .tail-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Artist list - long tail */
+        .artist-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+        }
+
+        .artist-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 80px 100px;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .artist-item:hover {
+            background: #f8fafc;
+        }
+
+        .artist-item.highlight {
+            background: #f0fdf4;
+            border-left: 4px solid var(--sketch-green);
+        }
+
+        .artist-rank {
+            text-align: center;
+            font-weight: bold;
+            color: var(--sketch-gray);
+        }
+
+        .artist-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .artist-meta {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        .artist-hours {
+            text-align: right;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .artist-hours span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: normal;
+            color: var(--sketch-gray);
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 3px solid var(--sketch-blue);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .cta-question {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtext {
+            color: var(--sketch-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .cta-btn-primary {
+            background: var(--sketch-blue);
+            color: white;
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .cta-btn-secondary {
+            background: white;
+            color: var(--sketch-blue);
+            border: 2px solid var(--sketch-blue);
+        }
+
+        .cta-btn-secondary:hover {
+            background: #eff6ff;
+        }
+
+        /* Search box */
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--sketch-blue);
+        }
+
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--sketch-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Inline CTA in list */
+        .inline-cta {
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .inline-cta h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .inline-cta p {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Variants section */
+        .variants {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .variant-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .variant-box h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--sketch-gray);
+        }
+
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept D: Long Tail + CTA – «Er dette deg?» – Idéutforsking
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            📊 Konsept D: Long Tail + Medlems-CTA
+        </h1>
+
+        <p class="annotation">Hypotese: Mange medlemmer er i «long tail» – ikke topp 100, men framleis viktige. Vis at alle tel, og bruk det til å drive innlogging/registrering.</p>
+
+        <!-- LONG TAIL HERO -->
+        <div class="wireframe-box" data-label="Long Tail Hero">
+            <div class="long-tail-hero">
+                <div class="long-tail-title">Alle artister tel</div>
+                <div class="long-tail-number">45 000+</div>
+                <div class="long-tail-context">unike artister spelt på norsk radio i 2024</div>
+            </div>
+
+            <div class="tail-chart">
+                <div class="tail-bars">
+                    <!-- Simulated long tail distribution -->
+                    <div class="tail-bar" style="height: 100%;"></div>
+                    <div class="tail-bar" style="height: 90%;"></div>
+                    <div class="tail-bar" style="height: 82%;"></div>
+                    <div class="tail-bar" style="height: 75%;"></div>
+                    <div class="tail-bar" style="height: 68%;"></div>
+                    <div class="tail-bar" style="height: 60%;"></div>
+                    <div class="tail-bar" style="height: 52%;"></div>
+                    <div class="tail-bar" style="height: 44%;"></div>
+                    <div class="tail-bar" style="height: 36%;"></div>
+                    <div class="tail-bar" style="height: 30%;"></div>
+                    <div class="tail-bar" style="height: 25%;"></div>
+                    <div class="tail-bar" style="height: 21%;"></div>
+                    <div class="tail-bar" style="height: 18%;"></div>
+                    <div class="tail-bar" style="height: 15%;"></div>
+                    <div class="tail-bar" style="height: 13%;"></div>
+                    <div class="tail-bar" style="height: 11%;"></div>
+                    <div class="tail-bar" style="height: 10%;"></div>
+                    <div class="tail-bar" style="height: 9%;"></div>
+                    <div class="tail-bar" style="height: 8%;"></div>
+                    <div class="tail-bar highlight" style="height: 7%;"></div>
+                    <div class="tail-bar highlight" style="height: 6%;"></div>
+                    <div class="tail-bar highlight" style="height: 5%;"></div>
+                    <div class="tail-bar highlight" style="height: 5%;"></div>
+                    <div class="tail-bar highlight" style="height: 4%;"></div>
+                    <div class="tail-bar highlight" style="height: 4%;"></div>
+                    <div class="tail-bar highlight" style="height: 3%;"></div>
+                    <div class="tail-bar highlight" style="height: 3%;"></div>
+                    <div class="tail-bar highlight" style="height: 3%;"></div>
+                    <div class="tail-bar highlight" style="height: 2%;"></div>
+                    <div class="tail-bar highlight" style="height: 2%;"></div>
+                </div>
+                <div class="tail-labels">
+                    <span>Topp 10 (654+ timer)</span>
+                    <span style="color: var(--sketch-green);">← Du er kanskje her? →</span>
+                    <span>Long tail (1-10 timer)</span>
+                </div>
+            </div>
+
+            <p class="annotation">Visualiserer at dei fleste artister er i «halen» – men summen er stor!</p>
+        </div>
+
+        <!-- SEARCH + CTA -->
+        <div class="wireframe-box" data-label="Søk + CTA">
+            <h2 style="text-align: center; margin-bottom: 0.5rem;">Er dette deg?</h2>
+            <p style="text-align: center; color: var(--sketch-gray); margin-bottom: 1.5rem;">
+                Søk etter ditt artistnamn eller låttittel
+            </p>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Skriv inn artistnamn eller låt..." value="Ola Nordmann">
+                <button class="search-btn">Søk</button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">låtar på radio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12t</div>
+                    <div class="stat-label">total spilletid</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">#8 432</div>
+                    <div class="stat-label">rangering</div>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <div class="cta-question">🎉 Gratulerer! Du vart spelt 12 timer i 2024</div>
+                <div class="cta-subtext">
+                    Dette gir deg rett til vederlag. Logg inn for å sjå utbetalingar, eller bli medlem om du ikke er det.
+                </div>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-btn cta-btn-primary">Logg inn på Min Side</a>
+                    <a href="#" class="cta-btn cta-btn-secondary">Bli medlem</a>
+                </div>
+            </div>
+
+            <p class="annotation">Personalisert CTA basert på søkeresultat. Driv konvertering!</p>
+            <p class="annotation question">Hvordan handtere «ikke funne»? «Registrer deg så vi kan finne deg»?</p>
+        </div>
+
+        <!-- ALTERNATIVE CTA VARIANTS -->
+        <div class="wireframe-box" data-label="CTA-variantar">
+            <h2 style="margin-bottom: 1.5rem;">Ulike CTA-formuleringer å teste</h2>
+
+            <div class="variants">
+                <div class="variant-box">
+                    <h3>Variant A: Direkte</h3>
+                    <div style="background: #eff6ff; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>Er dette deg?</strong><br>
+                        <small style="color: var(--sketch-gray);">Logg inn | Bli medlem</small>
+                    </div>
+                </div>
+
+                <div class="variant-box">
+                    <h3>Variant B: Verdifokus</h3>
+                    <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>Du har penger til gode! 💰</strong><br>
+                        <small style="color: var(--sketch-gray);">Sjekk utbetalingene dine</small>
+                    </div>
+                </div>
+
+                <div class="variant-box">
+                    <h3>Variant C: Spørsmål</h3>
+                    <div style="background: #fef3c7; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>Har du fått vederlag for dette?</strong><br>
+                        <small style="color: var(--sketch-gray);">Registrer deg gratis</small>
+                    </div>
+                </div>
+
+                <div class="variant-box">
+                    <h3>Variant D: Sosial proof</h3>
+                    <div style="background: #fce7f3; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>23 000 artister har fått utbetalt</strong><br>
+                        <small style="color: var(--sketch-gray);">Bli ein av dei</small>
+                    </div>
+                </div>
+            </div>
+
+            <p class="annotation question">Hva CTA fungerer best? A/B-testing?</p>
+        </div>
+
+        <!-- LONG TAIL LIST -->
+        <div class="wireframe-box" data-label="Long tail-liste">
+            <h2 style="margin-bottom: 0.5rem;">Utforsk heile lista</h2>
+            <p style="color: var(--sketch-gray); margin-bottom: 1rem;">Ikke bare topp 10 – alle artister som vart spelt</p>
+
+            <div class="artist-list">
+                <div class="artist-item">
+                    <span class="artist-rank">#1</span>
+                    <div class="artist-info">
+                        <h4>Kygo</h4>
+                        <span class="artist-meta">59 låtar • Norge</span>
+                    </div>
+                    <div class="artist-hours">1 690t <span>70 dagar</span></div>
+                    <button style="padding: 0.25rem 0.5rem; border: 1px solid var(--wireframe); border-radius: 4px; background: white; cursor: pointer; font-size: 0.75rem;">Profil →</button>
+                </div>
+                <div class="artist-item">
+                    <span class="artist-rank">#2</span>
+                    <div class="artist-info">
+                        <h4>Chris Holsten</h4>
+                        <span class="artist-meta">23 låtar • Norge</span>
+                    </div>
+                    <div class="artist-hours">1 239t <span>52 dagar</span></div>
+                    <button style="padding: 0.25rem 0.5rem; border: 1px solid var(--wireframe); border-radius: 4px; background: white; cursor: pointer; font-size: 0.75rem;">Profil →</button>
+                </div>
+
+                <!-- ... skipping some ... -->
+
+                <div class="artist-item" style="opacity: 0.7;">
+                    <span class="artist-rank">#100</span>
+                    <div class="artist-info">
+                        <h4>Artist #100</h4>
+                        <span class="artist-meta">5 låtar • Norge</span>
+                    </div>
+                    <div class="artist-hours">89t <span>3,7 dagar</span></div>
+                    <button style="padding: 0.25rem 0.5rem; border: 1px solid var(--wireframe); border-radius: 4px; background: white; cursor: pointer; font-size: 0.75rem;">Profil →</button>
+                </div>
+
+                <!-- INLINE CTA -->
+                <div class="inline-cta">
+                    <h4>👋 Finn deg sjølv!</h4>
+                    <p>Søk i lista for å sjå om du er her. Alle artister med spilletid har rett til vederlag.</p>
+                    <button class="cta-btn cta-btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Søk etter meg</button>
+                </div>
+
+                <div class="artist-item highlight">
+                    <span class="artist-rank">#8 432</span>
+                    <div class="artist-info">
+                        <h4>Ola Nordmann</h4>
+                        <span class="artist-meta">3 låtar • Norge</span>
+                    </div>
+                    <div class="artist-hours">12t <span>0,5 dagar</span></div>
+                    <button style="padding: 0.25rem 0.5rem; border: 1px solid var(--sketch-green); border-radius: 4px; background: #f0fdf4; cursor: pointer; font-size: 0.75rem; color: var(--sketch-green);">Dette er meg!</button>
+                </div>
+
+                <div class="artist-item" style="opacity: 0.5;">
+                    <span class="artist-rank">#45 000</span>
+                    <div class="artist-info">
+                        <h4>Siste artist</h4>
+                        <span class="artist-meta">1 låt • Norge</span>
+                    </div>
+                    <div class="artist-hours">0,5t <span>30 min</span></div>
+                    <button style="padding: 0.25rem 0.5rem; border: 1px solid var(--wireframe); border-radius: 4px; background: white; cursor: pointer; font-size: 0.75rem;">Profil →</button>
+                </div>
+            </div>
+
+            <p class="annotation">Inline CTA midt i lista fanger folk som blar</p>
+        </div>
+
+        <!-- FOOTER CTA -->
+        <div class="wireframe-box" data-label="Botn CTA">
+            <div class="cta-box" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: var(--sketch-green);">
+                <div class="cta-question">Er du ikke medlem enno?</div>
+                <div class="cta-subtext">
+                    Gramo samler inn vederlag for utøvarar og produsenter når musikk spelast på radio. Det er gratis å bli medlem.
+                </div>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-btn cta-btn-primary" style="background: var(--sketch-green);">Bli medlem gratis</a>
+                    <a href="#" class="cta-btn cta-btn-secondary" style="color: var(--sketch-green); border-color: var(--sketch-green);">Les meir om Gramo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept D</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Personleg, relevant for alle medlemmer (ikke bare topp-artister)</li>
+                <li><strong>Styrke:</strong> Direkte kopling til forretningsverdi (innlogging, medlemskap)</li>
+                <li><strong>Svakheit:</strong> Trenger data-tilgang for å vise «er dette deg»</li>
+                <li><strong>Spørsmål:</strong> Kan vi vise spilletid offentleg? GDPR-vurdering?</li>
+                <li><strong>Spørsmål:</strong> Hvordan handtere artister som ikke er registrerte?</li>
+                <li><strong>Test:</strong> A/B-test ulike CTA-formuleringar</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                Prototype laga 4. desember 2025 – Kjernekaren for Gramo<br>
+                <a href="konsept-a-storytelling.html">Konsept A</a> |
+                <a href="konsept-b-sammenligning.html">Konsept B</a> |
+                <a href="konsept-c-kanal.html">Konsept C</a>
+            </p>
+        </div>
+    </div>
+<footer style="text-align: center; padding: 2rem; margin-top: 3rem; border-top: 2px dashed #cbd5e1;"><a href="index.html" style="color: #2563eb; text-decoration: none; font-weight: bold;">← Tilbake til oversikt</a></footer>
+</body>
+</html>

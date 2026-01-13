@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept S: Om Gramo – PROTOTYPE</title>
+    <style>
+        /* === PROTOTYPE STYLING === */
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-light: #dbeafe;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        /* Prototype banner */
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .prototype-banner strong {
+            color: #d97706;
+        }
+
+        /* Sketch-style container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Wireframe box */
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Annotations */
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before {
+            content: '💡 ';
+        }
+
+        .question {
+            background: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+
+        .question::before {
+            content: '❓ ';
+        }
+
+        /* Placeholder elements */
+        .placeholder {
+            border: 2px dashed var(--wireframe);
+            background: #f1f5f9;
+            padding: 2rem;
+            text-align: center;
+            color: var(--sketch-gray);
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--sketch-blue);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--sketch-blue);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: #475569;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Text length tabs */
+        .text-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--wireframe);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 4px 4px 0 0;
+            background: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: var(--sketch-light);
+            border-color: var(--sketch-blue);
+            color: var(--sketch-blue);
+        }
+
+        .text-content {
+            display: none;
+            padding: 1rem;
+            background: white;
+            border: 2px dashed var(--wireframe);
+            border-radius: 0 8px 8px 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-content.active {
+            display: block;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px dashed var(--sketch-blue);
+            border-radius: 8px;
+            background: white;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+        }
+
+        /* FAQs */
+        .faq-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--wireframe);
+            border-radius: 4px;
+            background: white;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--sketch-blue);
+        }
+
+        .faq-answer {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        /* Law reference */
+        .law-box {
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .law-box strong {
+            color: #d97706;
+            font-size: 1.2rem;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .design-notes h2 {
+            color: #15803d;
+            margin-top: 0;
+        }
+
+        .design-notes section {
+            margin: 1rem 0;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        footer a {
+            color: var(--sketch-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept S: Om Gramo – Kontekstbasert onboarding
+    </div>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="wireframe-box" data-label="Hero">
+            <h1>📋 Dette er Gramo</h1>
+            <p style="font-size: 1.1rem; color: var(--sketch-gray);">
+                Gramo jobber for at musikere, artister og plateselskap får betalt når musikken deres blir brukt
+                offentlig.
+            </p>
+            <div class="annotation">
+                Kort, tydelig verdiløfte som starter hver variant
+            </div>
+        </div>
+
+        <!-- Text length variants -->
+        <div class="wireframe-box" data-label="Tekstvariasjoner - tilpasses kontekst">
+            <h2>Velg informasjonsnivå</h2>
+            <div class="annotation">
+                Brukeren velger hvor mye kontekst de trenger. Tilpasser seg situasjon og forkunnskaper.
+            </div>
+
+            <div class="text-tabs">
+                <div class="tab active" onclick="showText('small')">SMALL</div>
+                <div class="tab" onclick="showText('medium')">MEDIUM</div>
+                <div class="tab" onclick="showText('large')">LARGE</div>
+            </div>
+
+            <!-- SMALL -->
+            <div class="text-content active" id="small">
+                <h3>📌 Kort versjon (SMALL)</h3>
+                <p>
+                    <strong>Gramo sørger for at musikere, artister og produsenter får betalt når innspilt musikk
+                        spilles offentlig på radio, i butikker og kafeer.</strong>
+                </p>
+                <p style="font-size: 0.9rem; color: var(--sketch-gray);">
+                    → <a href="#" style="color: var(--sketch-blue);">Lese mer om...</a>
+                </p>
+                <div class="annotation">
+                    Bruk: Hurtiginfo, mobil, tooltips, sosiale medier
+                </div>
+            </div>
+
+            <!-- MEDIUM -->
+            <div class="text-content" id="medium">
+                <h3>📖 Medium versjon (MEDIUM)</h3>
+                <p>
+                    Når musikken din spilles på radio, i butikker eller kafeer, har du krav på betaling. Gramo krever
+                    inn pengene fra musikkbrukerne og fordeler dem til deg.
+                </p>
+                <p>
+                    Vi er godkjent av Kulturdepartementet og eid av medlemmene selv. Det gjør oss til et bindeledd
+                    mellom rettighetshavere og musikkbrukere, slik at du slipper å inngå avtale hver eneste gang.
+                </p>
+                <p style="font-size: 0.9rem; color: var(--sketch-gray);">
+                    → <a href="#" style="color: var(--sketch-blue);">Bli medlem?</a>
+                </p>
+                <div class="annotation">
+                    Bruk: Nettsideintro, FAQ-svar, onboarding
+                </div>
+            </div>
+
+            <!-- LARGE -->
+            <div class="text-content" id="large">
+                <h3>📚 Lang versjon (LARGE)</h3>
+                <p>
+                    <strong>Gramo jobber for at musikere, artister og plateselskap får betalt når musikken deres blir
+                        brukt offentlig.</strong>
+                </p>
+                <p>
+                    Vi er til for at de som har skapt innspilt musikk skal få betalt når den brukes på radio, i
+                    butikker, kafeer, treningssentre og lignende. Gramo fordeler vederlag til både utøvende kunstnere
+                    (artister og musikere) og produsenter av lydopptak (plateselskap og egenprodusenter).
+                </p>
+                <p>
+                    <strong>Bindeledd mellom rettighetshavere og musikkbrukere:</strong> Det er umulig for en
+                    radiokanal eller butikk å inngå avtaler med alle verdens artister hver gang en innspilling skal
+                    brukes. Derfor fungerer Gramo som bindeleddet. Vi gjør det enkelt for musikkbrukerne å bruke musikk
+                    lovlig, samtidig som vi sikrer at rettighetshaverne får det de har krav på. Du slipper å forhandle
+                    avtaler – vi gjør den jobben for deg.
+                </p>
+                <p>
+                    <strong>Godkjent og lovforankret:</strong> Gramo er godkjent av Kultur- og likestillingsdepartementet
+                    som oppkrevings- og fordelingsorganisasjon etter åndsverkloven § 21. Vi er registrert hos Patentstyret
+                    som en kollektiv forvaltningsorganisasjon. Vår virksomhet er forankret i norsk lov, og vi er underlagt
+                    krav til åpenhet, nøyaktighet og effektivitet.
+                </p>
+                <p>
+                    <strong>Eid av medlemmene:</strong> Gramo er en ideell medlemsforening stiftet i 1989. Vi eies og
+                    drives av rettighetshaverne selv. Det betyr at medlemmene er øverste beslutningsmyndighet på
+                    årsmøtet. Medlemskap er gratis, og vi jobber for rettighetshavernes beste – ikke for å tjene penger
+                    til aksjonærer.
+                </p>
+                <p>
+                    I 2024 fordelte vi 221,9 millioner kroner til 52 000 medlemmer. En kilde til et rikt musikkliv.
+                </p>
+                <div class="annotation">
+                    Bruk: Om oss-side, dokumentasjon, detaljert forklaring
+                </div>
+            </div>
+
+            <div class="question">
+                Skal alle tre variantene vises samtidig, eller toggle mellom dem? Tabs, accordion, eller separate sider?
+            </div>
+        </div>
+
+        <!-- Nøkkeltall -->
+        <div class="wireframe-box" data-label="Nøkkeltall - visuell troverdighet">
+            <h2>🎯 Gramo i tall (2024)</h2>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">52.000</span>
+                    <span class="stat-label">medlemmer</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">220 mill</span>
+                    <span class="stat-label">utbetalt 2024</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">999.999</span>
+                    <span class="stat-label">verifiserte innspillinger</span>
+                </div>
+            </div>
+
+            <div class="annotation">
+                Tall bygger tillit. Viser størrelse, aktivitet og relevans.
+            </div>
+            <div class="question">
+                Skal tallene animeres når de kommer i viewport? Countup-effekt?
+            </div>
+        </div>
+
+        <!-- FAQs -->
+        <div class="wireframe-box" data-label="FAQs - vanlige spørsmål">
+            <h2>❓ Ofte stilte spørsmål</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Hva er Gramo?</div>
+                <div class="faq-answer">
+                    → Lenker til tekstvariasjon (SMALL/MEDIUM/LARGE) basert på kontekst
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Hva er forskjellen mellom Gramo, Tono og Gramart?</div>
+                <div class="faq-answer">
+                    [Tekstvariant MEDIUM] + link til komplett forklaring
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Hvordan fungerer utbetalinger?</div>
+                <div class="faq-answer">
+                    [Forenklet prosess-diagram] + link til detaljert guide
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Hvordan blir jeg medlem?</div>
+                <div class="faq-answer">
+                    [CTA til registrering] + 3 steg-guide
+                </div>
+            </div>
+
+            <div class="annotation">
+                FAQs bruker de samme tekstvariantene som hovedinnholdet. Konsistent informasjonsnivå.
+            </div>
+            <div class="question">
+                Skal FAQs ekspandere/kollapse, eller vises alle samtidig? Search-funksjon?
+            </div>
+        </div>
+
+        <!-- § 21 lovforankring -->
+        <div class="law-box">
+            <strong>§ 21 åndsverkloven</strong>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                Gramo er godkjent av Kultur- og likestillingsdepartementet som oppkrevings- og
+                fordelingsorganisasjon etter åndsverkloven § 21. Vi er registrert hos Patentstyret som en kollektiv
+                forvaltningsorganisasjon.
+            </p>
+            <div class="annotation">
+                Lovforankring bygger legitimitet og tillit. Særlig viktig for nye brukere.
+            </div>
+        </div>
+
+        <!-- Illustrasjon placeholder -->
+        <div class="placeholder">
+            [Diagram: Hva gjør Gramo?]<br>
+            Visualiser flyten: Musikkbruker → Gramo → Rettighetshaver<br>
+            Bindeledd-metafor
+        </div>
+
+        <div class="annotation">
+            Diagram bør vise Gramo som bindeledd mellom musikkbrukere (radio, butikk, kafe) og rettighetshavere
+            (artist, musiker, plateselskap)
+        </div>
+
+        <!-- Design notes -->
+        <div class="design-notes">
+            <h2>🎨 Designnotater</h2>
+
+            <section>
+                <h3>✅ Styrker</h3>
+                <ul>
+                    <li><strong>Fleksibel informasjonsdybde:</strong> SMALL/MEDIUM/LARGE tilpasser seg brukerens behov
+                        og kontekst</li>
+                    <li><strong>Troverdighet:</strong> Tall + lovforankring bygger tillit fra første møte</li>
+                    <li><strong>Gjenbrukbart:</strong> Samme tekstvariasjoner brukes i FAQs, tooltips, og andre
+                        steder</li>
+                    <li><strong>Selvbetjeningsvennlig:</strong> Brukeren velger informasjonsnivå selv</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>⚠️ Svakheter</h3>
+                <ul>
+                    <li><strong>Kompleksitet:</strong> Tre tekstvariasjoner må vedlikeholdes parallelt</li>
+                    <li><strong>Valg-paradoks:</strong> For mange valg kan forvirre i stedet for å hjelpe</li>
+                    <li><strong>Mobil:</strong> LARGE-variant kan bli for lang på små skjermer</li>
+                    <li><strong>SEO:</strong> Hvordan indekseres skjult innhold (tabs)?</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>🎯 Best for</h3>
+                <ul>
+                    <li>Nye brukere som trenger ulik mengde kontekst</li>
+                    <li>Situasjoner der brukeren selv vet hvor mye informasjon de trenger</li>
+                    <li>Gjenbruk av innhold på tvers av plattformer (web, mobil, sosiale medier)</li>
+                    <li>Dokumentasjon og FAQ-systemer</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>❓ Spørsmål å avklare</h3>
+                <ul>
+                    <li>Skal default være SMALL, MEDIUM eller LARGE? Avhenger av brukerens forkunnskaper</li>
+                    <li>Skal alle tre variantene vises samtidig, eller toggle mellom dem?</li>
+                    <li>Hvordan integreres dette med eksisterende CMS? Felter for hver lengde?</li>
+                    <li>Skal nøkkeltall oppdateres automatisk fra backend, eller manuelt?</li>
+                    <li>Hvordan håndteres SEO med skjult/toggled innhold?</li>
+                    <li>Skal FAQs ekspandere individuelt eller vise alle svar samtidig?</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>🔄 Neste iterasjon</h3>
+                <ul>
+                    <li>Teste med ekte brukere: Hvilken lengde foretrekkes? Når?</li>
+                    <li>Lage templates for de tre lengdene som kan gjenbrukes</li>
+                    <li>Integrere med brukerens kontekst (ny vs. kjent bruker, medlemsstatus)</li>
+                    <li>A/B-teste tabs vs. accordion vs. side-by-side visning</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <a href="index.html">← Tilbake til oversikt</a>
+    </footer>
+
+    <script>
+        function showText(size) {
+            // Hide all text contents
+            document.querySelectorAll('.text-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected content
+            document.getElementById(size).classList.add('active');
+            // Activate selected tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept M: Strømmekoplingar – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+            --spotify: #1db954;
+            --apple: #fc3c44;
+            --tidal: #000;
+            --youtube: #ff0000;
+            --deezer: #feaa2d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+        .annotation::before { content: '💡 '; }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Track list with streaming */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .track-item {
+            display: grid;
+            grid-template-columns: 40px 60px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .track-item:hover {
+            background: #f8fafc;
+            border-color: var(--wireframe);
+        }
+
+        .track-item:hover .stream-icons {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .track-rank {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--sketch-gray);
+            text-align: center;
+        }
+
+        .track-cover {
+            width: 60px;
+            height: 60px;
+            background: var(--wireframe);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .track-info {
+            min-width: 0;
+        }
+
+        .track-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-artist {
+            font-size: 0.85rem;
+            color: var(--sketch-gray);
+        }
+
+        .track-hours {
+            font-size: 0.75rem;
+            color: var(--sketch-blue);
+            margin-top: 0.25rem;
+        }
+
+        /* Streaming icons */
+        .stream-icons {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.2s;
+        }
+
+        .stream-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .stream-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .stream-icon.spotify {
+            background: var(--spotify);
+            color: white;
+        }
+
+        .stream-icon.apple {
+            background: var(--apple);
+            color: white;
+        }
+
+        .stream-icon.tidal {
+            background: var(--tidal);
+            color: white;
+        }
+
+        .stream-icon.youtube {
+            background: var(--youtube);
+            color: white;
+        }
+
+        /* Expanded view */
+        .track-expanded {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .stream-links-full {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .stream-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: 2px solid;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .stream-btn.spotify {
+            border-color: var(--spotify);
+            color: var(--spotify);
+        }
+        .stream-btn.spotify:hover {
+            background: var(--spotify);
+            color: white;
+        }
+
+        .stream-btn.apple {
+            border-color: var(--apple);
+            color: var(--apple);
+        }
+        .stream-btn.apple:hover {
+            background: var(--apple);
+            color: white;
+        }
+
+        .stream-btn.tidal {
+            border-color: var(--tidal);
+            color: var(--tidal);
+        }
+        .stream-btn.tidal:hover {
+            background: var(--tidal);
+            color: white;
+        }
+
+        .stream-btn.youtube {
+            border-color: var(--youtube);
+            color: var(--youtube);
+        }
+        .stream-btn.youtube:hover {
+            background: var(--youtube);
+            color: white;
+        }
+
+        .stream-btn.deezer {
+            border-color: var(--deezer);
+            color: #a238ff;
+        }
+        .stream-btn.deezer:hover {
+            background: var(--deezer);
+            color: white;
+        }
+
+        /* User preference */
+        .pref-box {
+            background: #eff6ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .pref-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .pref-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pref-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .pref-btn:hover {
+            border-color: var(--sketch-blue);
+        }
+
+        .pref-btn.selected {
+            border-color: var(--spotify);
+            background: var(--spotify);
+            color: white;
+        }
+
+        /* Design notes */
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 { color: #166534; margin-bottom: 1rem; }
+        .design-notes ul { padding-left: 1.5rem; }
+        .design-notes li { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px dashed var(--wireframe);
+        }
+
+        .nav-footer a { color: var(--sketch-blue); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept M: Strømmekoplingar – «Lytt no»
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🎧 Topp 10 – Lytt no</h1>
+            <p style="color: var(--sketch-gray);">Frå statistikk til lytting på 1 klikk</p>
+        </div>
+
+        <p class="annotation">Hover over ei låt → strømmeikon dukkar opp. Klikk for å lytte.</p>
+
+        <div class="wireframe-box" data-label="Toppliste med strøyming">
+            <div class="track-list">
+                <div class="track-item">
+                    <div class="track-rank">1</div>
+                    <div class="track-cover">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title">Josefin</div>
+                        <div class="track-artist">Delara</div>
+                        <div class="track-hours">654 timar</div>
+                    </div>
+                    <div class="stream-icons">
+                        <a href="#" class="stream-icon spotify" title="Spotify">●</a>
+                        <a href="#" class="stream-icon apple" title="Apple Music">♪</a>
+                        <a href="#" class="stream-icon tidal" title="Tidal">≋</a>
+                        <a href="#" class="stream-icon youtube" title="YouTube">▶</a>
+                    </div>
+                </div>
+
+                <div class="track-item">
+                    <div class="track-rank">2</div>
+                    <div class="track-cover">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title">Too Sweet</div>
+                        <div class="track-artist">Hozier</div>
+                        <div class="track-hours">593 timar</div>
+                    </div>
+                    <div class="stream-icons">
+                        <a href="#" class="stream-icon spotify" title="Spotify">●</a>
+                        <a href="#" class="stream-icon apple" title="Apple Music">♪</a>
+                        <a href="#" class="stream-icon tidal" title="Tidal">≋</a>
+                        <a href="#" class="stream-icon youtube" title="YouTube">▶</a>
+                    </div>
+                </div>
+
+                <div class="track-item">
+                    <div class="track-rank">3</div>
+                    <div class="track-cover">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title">Lose Control</div>
+                        <div class="track-artist">Teddy Swims</div>
+                        <div class="track-hours">587 timar</div>
+                    </div>
+                    <div class="stream-icons">
+                        <a href="#" class="stream-icon spotify" title="Spotify">●</a>
+                        <a href="#" class="stream-icon apple" title="Apple Music">♪</a>
+                        <a href="#" class="stream-icon tidal" title="Tidal">≋</a>
+                        <a href="#" class="stream-icon youtube" title="YouTube">▶</a>
+                    </div>
+                </div>
+
+                <div class="track-item">
+                    <div class="track-rank">4</div>
+                    <div class="track-cover">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title">Higher Love</div>
+                        <div class="track-artist">Kygo & Whitney Houston</div>
+                        <div class="track-hours">521 timar</div>
+                    </div>
+                    <div class="stream-icons">
+                        <a href="#" class="stream-icon spotify" title="Spotify">●</a>
+                        <a href="#" class="stream-icon apple" title="Apple Music">♪</a>
+                        <a href="#" class="stream-icon tidal" title="Tidal">≋</a>
+                        <a href="#" class="stream-icon youtube" title="YouTube">▶</a>
+                    </div>
+                </div>
+
+                <div class="track-item">
+                    <div class="track-rank">5</div>
+                    <div class="track-cover">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title">Beautiful Things</div>
+                        <div class="track-artist">Benson Boone</div>
+                        <div class="track-hours">515 timar</div>
+                    </div>
+                    <div class="stream-icons">
+                        <a href="#" class="stream-icon spotify" title="Spotify">●</a>
+                        <a href="#" class="stream-icon apple" title="Apple Music">♪</a>
+                        <a href="#" class="stream-icon tidal" title="Tidal">≋</a>
+                        <a href="#" class="stream-icon youtube" title="YouTube">▶</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Utvida visning (klikk)">
+            <h3 style="margin-bottom: 1rem;">Utvida visning for «Josefin»</h3>
+            <div class="stream-links-full">
+                <a href="#" class="stream-btn spotify">
+                    <span>●</span> Spotify
+                </a>
+                <a href="#" class="stream-btn apple">
+                    <span>♪</span> Apple Music
+                </a>
+                <a href="#" class="stream-btn tidal">
+                    <span>≋</span> Tidal
+                </a>
+                <a href="#" class="stream-btn youtube">
+                    <span>▶</span> YouTube Music
+                </a>
+                <a href="#" class="stream-btn deezer">
+                    <span>♫</span> Deezer
+                </a>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--sketch-gray); margin-top: 1rem;">
+                ISRC: NOAOJ2400123 · Universal Music Norway · Utgjeve 15. mars 2024
+            </p>
+        </div>
+
+        <div class="wireframe-box" data-label="Brukarpreferanse">
+            <div class="pref-box">
+                <div class="pref-title">🎯 Vel din føretrekte strømmetjeneste</div>
+                <p style="font-size: 0.85rem; color: var(--sketch-gray); margin-bottom: 1rem;">
+                    Då opnar alle lenker automatisk i den tenesta
+                </p>
+                <div class="pref-options">
+                    <button class="pref-btn selected">● Spotify</button>
+                    <button class="pref-btn">♪ Apple Music</button>
+                    <button class="pref-btn">≋ Tidal</button>
+                    <button class="pref-btn">▶ YouTube</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept M: Strømmekoplingar</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Låg friksjon – frå statistikk til lytting på 1 klikk</li>
+                <li><strong>Styrke:</strong> Aukar brukarverdi betydeleg</li>
+                <li><strong>Styrke:</strong> Låg teknisk kompleksitet (ISRC → Musicfetch)</li>
+                <li><strong>Teknisk:</strong> Musicfetch API eller manuell ISRC-kopling</li>
+                <li><strong>Best for:</strong> Alle topplister og låtvisningar</li>
+                <li><strong>Utviding:</strong> «Logg inn med Spotify» for personleggjering</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html">← Tilbake til oversikt</a>
+        </div>
+    </div>
+</body>
+</html>

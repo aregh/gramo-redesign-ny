@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyper – Gramo Test</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .prototype-banner strong {
+            color: #d97706;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--sketch-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--sketch-gray);
+        }
+
+        .intro-box {
+            background: #fef9c3;
+            border: 2px dashed #fde047;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-box h2 {
+            color: #d97706;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .intro-box p {
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            background: white;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+
+        .gallery-card:hover {
+            border-color: var(--sketch-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .card-preview {
+            background: var(--sketch-light);
+            padding: 2rem;
+            text-align: center;
+            font-size: 3rem;
+            position: relative;
+            border-bottom: 2px dashed var(--wireframe);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-tag.onboarding {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--sketch-blue);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--sketch-gray);
+            margin-bottom: 1rem;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .feature-chip {
+            background: #f1f5f9;
+            color: var(--sketch-gray);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            border: 1px solid var(--wireframe);
+        }
+
+        .footer-section {
+            border-top: 2px dashed var(--wireframe);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-section p {
+            color: var(--sketch-gray);
+            font-size: 0.9rem;
+        }
+
+        .update-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE-GALLERI</strong> – Gramo Test – Utforskingsfase
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🧪 Test-prototyper</h1>
+            <p>Konsept- og onboarding-prototyper for Gramo-redesign</p>
+        </div>
+
+        <div class="intro-box">
+            <h2>🎯 Formål</h2>
+            <p>Disse prototypene er <strong>ideer å diskutere</strong>, ikke ferdige løsninger. Utforsk, kombiner, juster – og finn hva som fungerer best.</p>
+        </div>
+
+        <div class="gallery">
+
+            <!-- S: Om Gramo -->
+            <a href="konsept-s-om-gramo.html" class="gallery-card">
+                <div class="card-preview">
+                    <span class="card-tag onboarding">Onboarding</span>
+                    📋
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="card-letter">S</span>
+                        Om Gramo
+                    </div>
+                    <p class="card-desc">
+                        Kontekstbasert "Dette er Gramo"-innhold i tre lengder (SMALL/MEDIUM/LARGE) med nøkkeltall, FAQs og lovforankring.
+                    </p>
+                    <div class="card-features">
+                        <span class="feature-chip">Tekstvariasjoner</span>
+                        <span class="feature-chip">FAQs</span>
+                        <span class="feature-chip">§ 21</span>
+                        <span class="feature-chip">Nøkkeltall</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="footer-section">
+            <p>
+                Design: Inge Fossland · Innhald: Are Halland
+            </p>
+            <div class="update-note">
+                Sist oppdatert: 9. januar 2026
+            </div>
+        </div>
+    </div>
+</body>
+</html>

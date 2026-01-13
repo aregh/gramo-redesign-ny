@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsept E: Geografi + Tid – PROTOTYPE</title>
+    <style>
+        :root {
+            --sketch-blue: #2563eb;
+            --sketch-green: #16a34a;
+            --sketch-red: #dc2626;
+            --sketch-gray: #64748b;
+            --sketch-bg: #f8fafc;
+            --wireframe: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--sketch-bg);
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .prototype-banner {
+            background: #fef3c7;
+            border-bottom: 2px dashed #f59e0b;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wireframe-box {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            position: relative;
+        }
+
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--sketch-bg);
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: var(--sketch-gray);
+            text-transform: uppercase;
+        }
+
+        .annotation {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        .annotation::before { content: '💡 '; }
+        .question::before { content: '❓ '; }
+        .question { background: #fce7f3; border-color: #f9a8d4; }
+
+        /* Map section */
+        .map-hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .map-container {
+            background: #e0f2fe;
+            border: 3px solid var(--sketch-blue);
+            border-radius: 12px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .map-placeholder {
+            color: var(--sketch-gray);
+            font-size: 1rem;
+        }
+
+        /* Map markers (mockup) */
+        .map-marker {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--sketch-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .map-marker:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .map-marker.oslo { top: 40%; left: 55%; background: var(--sketch-red); }
+        .map-marker.bergen { top: 45%; left: 25%; background: var(--sketch-green); }
+        .map-marker.trondheim { top: 25%; left: 40%; }
+        .map-marker.tromso { top: 10%; left: 50%; }
+        .map-marker.stavanger { top: 60%; left: 20%; }
+
+        /* Region cards */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .region-card {
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .region-card:hover {
+            border-color: var(--sketch-blue);
+            transform: translateY(-2px);
+        }
+
+        .region-card.selected {
+            border-color: var(--sketch-green);
+            background: #f0fdf4;
+        }
+
+        .region-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .region-count {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--sketch-blue);
+        }
+
+        .region-label {
+            font-size: 0.75rem;
+            color: var(--sketch-gray);
+        }
+
+        /* Bergen spotlight */
+        .spotlight-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 3px solid var(--sketch-green);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .spotlight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .spotlight-title {
+            font-size: 1.5rem;
+        }
+
+        .spotlight-badge {
+            background: var(--sketch-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+        }
+
+        .artist-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .artist-chip {
+            background: white;
+            border: 2px solid var(--wireframe);
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .artist-chip:hover {
+            border-color: var(--sketch-green);
+            background: #f0fdf4;
+        }
+
+        .artist-chip-hours {
+            color: var(--sketch-gray);
+            font-size: 0.75rem;
+        }
+
+        /* Timeline section */
+        .timeline-hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .year-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .year-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--wireframe);
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .year-btn:hover { border-color: var(--sketch-blue); }
+        .year-btn.active {
+            background: var(--sketch-blue);
+            color: white;
+            border-color: var(--sketch-blue);
+        }
+
+        /* Movement list */
+        .movement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .movement-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            background: white;
+        }
+
+        .movement-indicator {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .movement-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .movement-info p {
+            font-size: 0.8rem;
+            color: var(--sketch-gray);
+        }
+
+        .movement-change {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .movement-change.up { color: var(--sketch-green); }
+        .movement-change.down { color: var(--sketch-red); }
+
+        /* Placeholder */
+        .placeholder {
+            background: repeating-linear-gradient(
+                45deg,
+                #f1f5f9,
+                #f1f5f9 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+            border: 2px dashed var(--wireframe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-size: 0.85rem;
+            height: 200px;
+        }
+
+        .design-notes {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .design-notes h3 {
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .design-notes ul {
+            padding-left: 1.5rem;
+        }
+
+        .design-notes li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Tabs */
+        .tab-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--wireframe);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--sketch-gray);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn:hover { color: var(--sketch-blue); }
+        .tab-btn.active {
+            color: var(--sketch-blue);
+            border-bottom-color: var(--sketch-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE</strong> – Konsept E: Geografi + Tid – Bergensartister, klatring, trendar
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center; margin: 2rem 0; color: var(--sketch-gray);">
+            🗺️ Konsept E: Geografi + Tid
+        </h1>
+
+        <p class="annotation">Hypotese: Folk er stolte av «sine» artister – bergensere vil sjå bergensartister, oslofolk vil sjå Oslo. Kombinert med tidstrendar (klatring/fall).</p>
+
+        <!-- TAB NAVIGATION -->
+        <div class="tab-row">
+            <button class="tab-btn active">🗺️ Geografi</button>
+            <button class="tab-btn">📈 Klatring</button>
+            <button class="tab-btn">📉 Nedgang</button>
+            <button class="tab-btn">⏳ Tidslinje</button>
+        </div>
+
+        <!-- GEOGRAPHY SECTION -->
+        <div class="wireframe-box" data-label="Geografisk utforsking">
+            <div class="map-hero">
+                <h2>Kor kjem norske artister frå?</h2>
+                <p style="color: var(--sketch-gray);">Klikk på ein region for å sjå artistene derifrå</p>
+            </div>
+
+            <div class="map-container">
+                <div class="map-marker oslo">1.2k</div>
+                <div class="map-marker bergen">890</div>
+                <div class="map-marker trondheim">340</div>
+                <div class="map-marker tromso">120</div>
+                <div class="map-marker stavanger">280</div>
+                <span class="map-placeholder">[Norgeskart med artistfordeling]</span>
+            </div>
+
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">📍 Oslo</div>
+                    <div class="region-count">1 234</div>
+                    <div class="region-label">artister • 45% av norsk</div>
+                </div>
+                <div class="region-card selected">
+                    <div class="region-name">📍 Bergen</div>
+                    <div class="region-count">890</div>
+                    <div class="region-label">artister • 28% av norsk</div>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">📍 Trondheim</div>
+                    <div class="region-count">340</div>
+                    <div class="region-label">artister • 12% av norsk</div>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">📍 Tromsø</div>
+                    <div class="region-count">120</div>
+                    <div class="region-label">artister • 4% av norsk</div>
+                </div>
+            </div>
+
+            <p class="annotation">Metadata frå Gramo: heimstad/by på kvar artist</p>
+            <p class="annotation question">Har vi gode nok data på geografisk tilhøyrsle?</p>
+        </div>
+
+        <!-- BERGEN SPOTLIGHT -->
+        <div class="wireframe-box" data-label="Bergensartister">
+            <div class="spotlight-box">
+                <div class="spotlight-header">
+                    <div>
+                        <div class="spotlight-title">🏔️ Bergensartister på radio</div>
+                        <p style="color: var(--sketch-gray); margin-top: 0.5rem;">890 timer spilletid i 2024</p>
+                    </div>
+                    <span class="spotlight-badge">28% av norsk</span>
+                </div>
+
+                <h3 style="margin-bottom: 1rem;">Topp artister frå Bergen</h3>
+                <div class="artist-chips">
+                    <div class="artist-chip">
+                        🎧 Kygo <span class="artist-chip-hours">1 690t</span>
+                    </div>
+                    <div class="artist-chip">
+                        🎤 Aurora <span class="artist-chip-hours">456t</span>
+                    </div>
+                    <div class="artist-chip">
+                        🎵 Röyksopp <span class="artist-chip-hours">234t</span>
+                    </div>
+                    <div class="artist-chip">
+                        🎸 Datarock <span class="artist-chip-hours">89t</span>
+                    </div>
+                    <div class="artist-chip">
+                        🎹 Sondre Lerche <span class="artist-chip-hours">67t</span>
+                    </div>
+                    <div class="artist-chip">
+                        + 42 artister til...
+                    </div>
+                </div>
+
+                <div class="placeholder" style="margin-top: 1.5rem; height: 150px;">
+                    [Bergen vs. Oslo spilletid over tid]
+                </div>
+            </div>
+
+            <p class="annotation">Lokale media vil elske «Bergens-lista» – PR-moglegheit!</p>
+        </div>
+
+        <!-- MOVEMENT SECTION -->
+        <div class="wireframe-box" data-label="Klatring og nedgang">
+            <h2 style="margin-bottom: 0.5rem;">📈 Største klatrarar 2024</h2>
+            <p style="color: var(--sketch-gray); margin-bottom: 1.5rem;">Artister som har klatra mest på listene samanlikna med 2023</p>
+
+            <div class="movement-list">
+                <div class="movement-item">
+                    <div class="movement-indicator">🚀</div>
+                    <div class="movement-info">
+                        <h4>Avicii</h4>
+                        <p>Frå #100 til #37 – nostalgi-effekt 6 år etter</p>
+                    </div>
+                    <div class="movement-change up">+63 ↑</div>
+                </div>
+                <div class="movement-item">
+                    <div class="movement-indicator">⭐</div>
+                    <div class="movement-info">
+                        <h4>Delara</h4>
+                        <p>Ny på lista – rett til #1 med «Josefin»</p>
+                    </div>
+                    <div class="movement-change up">NY ↑</div>
+                </div>
+                <div class="movement-item">
+                    <div class="movement-indicator">📈</div>
+                    <div class="movement-info">
+                        <h4>Randi Oline</h4>
+                        <p>Frå #89 til #7 – «Kristoffer Robin» tok av</p>
+                    </div>
+                    <div class="movement-change up">+82 ↑</div>
+                </div>
+            </div>
+
+            <h2 style="margin: 2rem 0 0.5rem;">📉 Størst nedgang</h2>
+            <p style="color: var(--sketch-gray); margin-bottom: 1.5rem;">Artister som har falle mest frå 2023</p>
+
+            <div class="movement-list">
+                <div class="movement-item">
+                    <div class="movement-indicator">📉</div>
+                    <div class="movement-info">
+                        <h4>Harry Styles</h4>
+                        <p>«As It Was»-effekten over – frå #5 til #45</p>
+                    </div>
+                    <div class="movement-change down">-40 ↓</div>
+                </div>
+                <div class="movement-item">
+                    <div class="movement-indicator">📉</div>
+                    <div class="movement-info">
+                        <h4>Miley Cyrus</h4>
+                        <p>«Flowers» falt frå #2 til #38</p>
+                    </div>
+                    <div class="movement-change down">-36 ↓</div>
+                </div>
+            </div>
+
+            <p class="annotation">Klatring/nedgang = historier. «Kven kjem tilbake? Kven forsvinn?»</p>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="wireframe-box" data-label="Tidslinje">
+            <div class="timeline-hero">
+                <h2>Sjå utviklingen over tid</h2>
+                <p style="color: var(--sketch-gray);">Vel ein artist og sjå hvordan spilletida har utvikla seg</p>
+            </div>
+
+            <div class="year-selector">
+                <button class="year-btn">2015</button>
+                <button class="year-btn">2016</button>
+                <button class="year-btn">2017</button>
+                <button class="year-btn">2018</button>
+                <button class="year-btn">2019</button>
+                <button class="year-btn">2020</button>
+                <button class="year-btn">2021</button>
+                <button class="year-btn">2022</button>
+                <button class="year-btn">2023</button>
+                <button class="year-btn active">2024</button>
+            </div>
+
+            <div class="placeholder">[Linjediagram: Kygo spilletid 2015-2024]</div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;">
+                <div style="text-align: center; padding: 1rem; border: 2px dashed var(--wireframe); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--sketch-green);">+420%</div>
+                    <div style="font-size: 0.8rem; color: var(--sketch-gray);">sidan 2015</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; border: 2px dashed var(--wireframe); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: bold;">2017</div>
+                    <div style="font-size: 0.8rem; color: var(--sketch-gray);">beste år</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; border: 2px dashed var(--wireframe); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--sketch-blue);">59</div>
+                    <div style="font-size: 0.8rem; color: var(--sketch-gray);">låtar totalt</div>
+                </div>
+            </div>
+
+            <p class="annotation">Tidslinje gir perspektiv – ikke bare eit år, men utviklinga</p>
+        </div>
+
+        <!-- DESIGN NOTES -->
+        <div class="design-notes">
+            <h3>📝 Designnotat – Konsept E</h3>
+            <ul>
+                <li><strong>Styrke:</strong> Fleire inngangspunkt – geografi, tid, klatring</li>
+                <li><strong>Styrke:</strong> Lokalt stoltheit – «bergensartister» er delbart</li>
+                <li><strong>Styrke:</strong> Klatring/nedgang = drama og historier</li>
+                <li><strong>Svakheit:</strong> Krev mykje metadata (heimstad, historikk)</li>
+                <li><strong>Spørsmål:</strong> Har vi geografisk data? API-tilgang?</li>
+                <li><strong>Spørsmål:</strong> Kor langt tilbake har vi data?</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; padding: 1rem; border-top: 2px dashed var(--wireframe);">
+            <p style="color: var(--sketch-gray); font-size: 0.85rem;">
+                <a href="konsept-a-storytelling.html">Konsept A</a> |
+                <a href="konsept-b-sammenligning.html">Konsept B</a> |
+                <a href="konsept-c-kanal.html">Konsept C</a> |
+                <a href="konsept-d-long-tail-cta.html">Konsept D</a>
+            </p>
+        </div>
+    </div>
+<footer style="text-align: center; padding: 2rem; margin-top: 3rem; border-top: 2px dashed #cbd5e1;"><a href="index.html" style="color: #2563eb; text-decoration: none; font-weight: bold;">← Tilbake til oversikt</a></footer>
+</body>
+</html>

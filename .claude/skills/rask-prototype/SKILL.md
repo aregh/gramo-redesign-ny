@@ -1,6 +1,6 @@
 ---
 name: rask-prototype
-description: Lag raske wireframe-prototyper for design-konsept basert på stikkord. Bruk for UI-ideer, konsepttesting, eller skisser. Parametrar bruker eller konseptnamn.
+description: Lag raske wireframe-prototyper. Støtter både nye konsepter og iterasjoner på eksisterende. Format [tema]-[stikkord]-v[nr]-[YYYYMMDD].html
 ---
 
 # Rask Prototype
@@ -8,38 +8,69 @@ description: Lag raske wireframe-prototyper for design-konsept basert på stikko
 ## Formål
 Genererer raske wireframe/skisse-stil HTML-prototyper for konsepttesting og idéutforsking. Prototypene har Gramo-farger og samme design-språk som eksisterende prototyper.
 
+**Nøkkelfunksjon:** Rask iterasjon - skriv stikkord, få prototype.
+
 ## Når skal du bruke denne skillen?
 - Når brukeren ber om "rask prototype", "wireframe", "skisse" eller "konsept"
-- Når brukeren vil teste en UI-idé raskt
+- Når brukeren vil lage ny versjon av eksisterende prototype
 - Når brukeren gir stikkord for et designkonsept
+
+## Input-format
+
+Skillen støtter **to bruksmåter**:
+
+### 1. Ny prototype
+```
+/rask-prototype [tema] [stikkord/beskrivelse]
+```
+**Eksempel:** `/rask-prototype statistikk kompakt ISRC-verktøy`
+**Output:** `statistikk-kompakt-isrc-verktoy-v1-20260110.html`
+
+### 2. Ny versjon av eksisterende
+```
+/rask-prototype [eksisterende-konsept] [stikkord for endringer]
+```
+**Eksempel:** `/rask-prototype statistikk-storytelling med fokus på geografi`
+**Output:** `statistikk-storytelling-v2-20260110.html`
 
 ## Instruksjoner
 
-### 1. Hent kontekst
-- Spør brukeren om: **konseptnamn**, **hovedfunksjon**, og **målgruppe** (hvis ikke oppgitt)
-- Bruk eksisterende prototyper under `Design/Prototyper/Statistikk/Statistikk-2/` som referanse
+### 1. Analyser input og sjekk eksisterende
+
+**Prosess:**
+1. **Parse input** - identifiser tema og stikkord
+2. **Sjekk eksisterende** - søk i `Design/Prototyper/` etter lignende prototyper
+3. **Bestem versjon:**
+   - Hvis eksisterende konsept funnet → neste versjonsnummer (v2, v3, etc.)
+   - Hvis nytt konsept → v1
+4. **Generer filnavn:** `[tema]-[stikkord]-v[nr]-[YYYYMMDD].html`
+
+**Viktig:**
+- Hvis brukeren spesifiserer eksisterende konsept (f.eks. "statistikk-storytelling") → les den filen først for kontekst
+- Hvis helt nytt konsept → bruk eksisterende prototyper som stilreferanse
 
 ### 2. Generer HTML-prototype
 
 **Standard plassering:**
 ```
-Design/Prototyper/Statistikk/Statistikk-2/konsept-[bokstav]-[navn].html
+Design/Prototyper/[tema]-[stikkord]-v[nr]-[YYYYMMDD].html
 ```
 
 **VIKTIG - Fil-struktur:**
-- **ALLE nye prototyper** plasseres direkte i `Design/Prototyper/Statistikk/Statistikk-2/`
-- Filnavn skal være `konsept-[bokstav]-[navn].html` (f.eks. `konsept-a-gramo-fokus.html`)
-- Finn neste ledige bokstav ved å sjekke eksisterende filer i mappen
-- Oppdater alltid `index.html` i samme mappe med den nye prototypen
-- Link fra konsept tilbake til `index.html` i footer
+- **ALLE prototyper** plasseres direkte i `Design/Prototyper/` (rot-nivå)
+- Filnavn følger formatet: `[tema]-[stikkord]-v[nr]-[YYYYMMDD].html`
+- Bruk dagens dato i ISO-format (YYYYMMDD)
+- Hver prototype er self-contained HTML (ingen eksterne avhengigheter)
+- Inkluder alltid footer med link til `index.html`
 
-**Standard wireframe-stil (som konsept-a-storytelling.html):**
+**Standard wireframe-stil:**
 - Prototype-banner med gul bakgrunn (`.prototype-banner`)
 - Grid-basert bakgrunn (`background-size: 20px 20px`)
-- Wireframe-boksar med stiplede kantlinjer (`.wireframe-box`)
-- Annotasjonar med 💡 (`.annotation`) og spørsmål med ❓ (`.question`)
-- Placeholders for bilete/diagram (`.placeholder`)
+- Wireframe-bokser med stiplede kantlinjer (`.wireframe-box`)
+- Annotasjoner med 💡 (`.annotation`) og spørsmål med ❓ (`.question`)
+- Placeholders for bilder/diagram (`.placeholder`)
 - Design-notater nederst (`.design-notes`)
+- Footer med link tilbake til oversikt
 
 **Gramo fargepalett:**
 ```css
@@ -50,11 +81,12 @@ Design/Prototyper/Statistikk/Statistikk-2/konsept-[bokstav]-[navn].html
 --wireframe: #cbd5e1;
 ```
 
-**Grunnleggjande seksjonar:**
-1. **Prototype-banner** - markerer at dette er ein prototype
-2. **Hero/Hook** - hovudvisualisering eller hook
-3. **Konsept-innhald** - kjernekomponentar med wireframe-boksar
-4. **Design-notater** - styrkar, svakheiter, spørsmål
+**Grunnleggende seksjoner:**
+1. **Prototype-banner** - markerer at dette er en prototype
+2. **Hero/Hook** - hovedvisualisering eller hook
+3. **Konsept-innhold** - kjernekomponenter med wireframe-bokser
+4. **Design-notater** - styrker, svakheter, spørsmål
+5. **Footer** - link til `index.html`
 
 ### 3. Inkluder designnotat
 
@@ -64,43 +96,97 @@ Legg alltid til en `.design-notes`-seksjon nederst med:
 - **Best for:** Hvilket brukstilfelle passer dette?
 - **Spørsmål:** Hva må avklares?
 
-### 4. Lagre filen og oppdater index
+### 4. Lagre filen
 
 **Prosess:**
-1. **Finn neste bokstav:** Sjekk eksisterende filer i `Design/Prototyper/Statistikk/Statistikk-2/` for å finne neste ledige bokstav (A, B, C, etc.)
-2. **Lagre prototype:** `Design/Prototyper/Statistikk/Statistikk-2/konsept-[bokstav]-[navn].html`
-3. **Oppdater index.html:** Legg til nytt kort i galleriet i `Design/Prototyper/Statistikk/Statistikk-2/index.html` med:
-   - Riktig card-tag basert på type (storytelling, compare, metadata, etc.)
-   - Emoji-ikon
-   - Tittel med bokstav
-   - Beskrivelse
-   - Feature-chips
-4. **Legg til footer-link:** `<a href="index.html">← Tilbake til oversikt</a>`
-5. **Kopier til docs:** Kopier den nye filen til `docs/` for GitHub Pages publisering
+1. **Generer filnavn** basert på dagens dato (YYYYMMDD)
+2. **Lagre prototype:** `Design/Prototyper/[filnavn].html`
+3. **IKKE oppdater index.html** - brukeren gjør dette manuelt ved behov
 
 ### 5. Vis resultatet
 
 Informer brukeren om:
-- Filsti til prototypen (både i Design/Prototyper og docs/)
+- Filsti til prototypen
+- Versjonsnummer (hvis iterasjon)
 - Hvordan åpne den i nettleser (`open [filsti]` på macOS)
-- Forslag til videre iterasjoner
+- Hint: Gå til `Design/Prototyper/index.html` for å legge til i oversikten
 
-## Eksempel
+## Eksempler
 
-**Bruker:** `/rask-prototype ISRC-registrering kompakt verktøy`
+### Eksempel 1: Ny prototype
+
+**Bruker:** `/rask-prototype om-gramo FAQs med kategorisering`
 
 **Output:**
-1. Sjekker eksisterende prototyper i `Design/Prototyper/Statistikk/Statistikk-2/` (ser A-R er brukt)
-2. Oppretter `Design/Prototyper/Statistikk/Statistikk-2/konsept-s-kompakt-verktoy.html`
-3. Genererer wireframe med:
-   - Hero: "Registrer ISRC på 3 steg"
-   - Steg 1-3 med wireframe-bokser
-   - Forklaringsannotasjoner
-   - Designnotat med styrker/svakheter
-   - Footer med link til `index.html`
-4. Oppdaterer `Design/Prototyper/Statistikk/Statistikk-2/index.html` med nytt galleri-kort
-5. Kopierer til `docs/konsept-s-kompakt-verktoy.html`
-6. Melder tilbake: "Prototype laget: [filsti]. Åpne med: `open [filsti]`"
+1. Sjekker eksisterende prototyper i `Design/Prototyper/`
+2. Finner `om-gramo-tekstvariasjoner-v1-20260109.html`
+3. Dette er nytt konsept (FAQs) → v1
+4. Genererer filnavn: `om-gramo-faqs-v1-20260110.html`
+5. Lager prototype med:
+   - FAQ-struktur med kategorier
+   - Wireframe-bokser for spørsmål/svar
+   - Design-notater
+   - Footer med link til index.html
+6. Lagrer i `Design/Prototyper/om-gramo-faqs-v1-20260110.html`
+7. Melder tilbake: "✅ Prototype laget: Design/Prototyper/om-gramo-faqs-v1-20260110.html"
+
+### Eksempel 2: Ny versjon (iterasjon)
+
+**Bruker:** `/rask-prototype statistikk-storytelling med fokus på geografi`
+
+**Output:**
+1. Finner `statistikk-storytelling-v1-20260105.html`
+2. Leser v1 for kontekst og stil
+3. Neste versjon → v2
+4. Genererer filnavn: `statistikk-storytelling-v2-20260110.html`
+5. Lager prototype basert på v1, men med:
+   - Geografisk kart-element
+   - Storytelling-struktur bevart
+   - Geo-data integrert i narrativ
+   - Design-notater: forskjeller fra v1
+   - Footer med link til index.html
+6. Lagrer i `Design/Prototyper/statistikk-storytelling-v2-20260110.html`
+7. Melder tilbake: "✅ v2 laget basert på v1. Se Design/Prototyper/statistikk-storytelling-v2-20260110.html"
+
+### Eksempel 3: Variant med nye stikkord
+
+**Bruker:** `/rask-prototype statistikk-sammenligning radiokanaler vs streaming`
+
+**Output:**
+1. Finner `statistikk-sammenligning-v1-20260105.html`
+2. Leser v1 for struktur
+3. Dette er ny vinkling → v2
+4. Genererer filnavn: `statistikk-sammenligning-v2-20260110.html`
+5. Lager prototype med:
+   - Samme sammenligning-layout som v1
+   - Nytt innhold: radiokanaler vs streaming
+   - Annotasjoner om forskjeller
+   - Design-notater
+   - Footer med link til index.html
+6. Lagrer i `Design/Prototyper/statistikk-sammenligning-v2-20260110.html`
+7. Melder tilbake: "✅ v2 med fokus på radio vs streaming. Design/Prototyper/statistikk-sammenligning-v2-20260110.html"
+
+## Workflow-tips
+
+### Rask iterasjon
+```
+1. Bruker åpner index.html
+2. Ser "statistikk-storytelling-v1"
+3. Skriver stikkord i input: "med fokus på geografi"
+4. Klikker "Lag v2" → kopierer til clipboard
+5. Limer inn i Claude: /rask-prototype statistikk-storytelling med fokus på geografi
+6. Skillen genererer v2 automatisk
+7. Bruker oppdaterer index.html manuelt (eller lar Claude gjøre det)
+```
+
+### Ny prototype
+```
+1. Bruker: /rask-prototype isrc-registrering 3-stegs wizard
+2. Skillen lager: isrc-registrering-wizard-v1-20260110.html
+3. Bruker åpner, tester, gir feedback
+4. Bruker: /rask-prototype isrc-registrering-wizard forenklet til 2 steg
+5. Skillen lager: isrc-registrering-wizard-v2-20260110.html
+```
 
 ## Tips
 - Hold det enkelt - wireframes skal være raske å lage
@@ -109,9 +195,10 @@ Informer brukeren om:
 - Annoter flittig med 💡 og ❓
 - Inkluder alltid design-notater for refleksjon
 - **VIKTIG:** Bruk bokmål, ikke nynorsk i alle prototyper
-- **VIKTIG:** Alle prototyper legges i `Design/Prototyper/Statistikk/Statistikk-2/`
+- **VIKTIG:** Alle prototyper legges direkte i `Design/Prototyper/` (rot-nivå)
+- **VIKTIG:** Inkluder alltid footer med link til `index.html`
 
 ## Relaterte filer
-- Eksempel: `Design/Prototyper/Statistikk/Statistikk-2/konsept-a-gramo-fokus.html`
-- Eksempel: `Design/Prototyper/Statistikk/Statistikk-2/konsept-a-storytelling.html`
-- Eksempel: `Design/Prototyper/Statistikk/Statistikk-2/index.html`
+- Oversikt: `Design/Prototyper/index.html`
+- Eksempel: `Design/Prototyper/statistikk-storytelling-v1-20260105.html`
+- Eksempel: `Design/Prototyper/om-gramo-tekstvariasjoner-v1-20260109.html`
