@@ -18,7 +18,7 @@
 
 **Brukere i prosjektet:**
 - **Are Halland** - Prosjektleder/strategi (ekstern) - Sti: `/Users/arehalland/Library/CloudStorage/GoogleDrive-are@kjernekaren.no/Min disk/_KJERNEKAREN/Prosjekt/Gramo/Gramo_kontekstarkitektur`
-- **Bastian Daae** - Innhold/koordinering (intern Gramo) - Sti: [BASTIAN: legg til din sti her]
+- **Bastian Daae** - Innhold/koordinering (intern Gramo) - Sti: `/Users/bastian/GitHub/gramo-redesign-ny`
 - **Torstein Norendal** - Innholdsproduksjon (ekstern, fra Fase 2) - Sti: [TORSTEIN: legg til din sti her]
 
 **Viktig:** Ved commit/push skal brukerens navn alltid inkluderes i commit-meldinger når det er relevant for sporbarhet.

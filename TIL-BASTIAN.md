@@ -177,83 +177,37 @@ Claude: "✅ Bastian Daae: Endringer pushet til GitHub med melding 'Oppdater LOG
 
 ## Dine første steg
 
-### 1. Sett opp Git-identitet (gjør én gang, 10 min)
+### 1. Sett opp Git-identitet ✅ FULLFØRT
 
-Åpne Terminal og kjør:
-
-```bash
-cd "[DIN STI TIL Gramo_kontekstarkitektur]"
-git config user.name "Bastian Daae"
-git config user.email "bastian@gramo.no"
-```
-
-**Finn din sti:**
-```bash
-cd [naviger til prosjektmappen]
-pwd    # Viser full sti
-```
-
-**Din sti ser trolig slik ut:**
-- Mac: `/Users/bastian/...` eller `/Users/bastiandaae/...` eller lignende
-
-**Verifiser at det fungerer:**
-```bash
-git config user.name    # Skal vise "Bastian Daae"
-git config user.email   # Skal vise "bastian@gramo.no"
-```
+**Din Git-konfigurasjon (verifisert 12. januar 2026):**
+- Navn: `Bastian`
+- E-post: `bastian.daae@gramo.no`
 
 ---
 
-### 2. Legg inn din sti i dokumentene (5 min)
+### 2. Legg inn din sti i dokumentene ✅ FULLFØRT
 
-**Oppdater disse filene med din faktiske sti:**
+**Din sti er nå registrert (oppdatert 12. januar 2026):**
+- KONTEKST.md - Linje 21 ✅
+- CONTRIBUTING.md - Linje 28 ✅
+- CONTRIBUTING.md - Linje 60 ✅
 
-1. **[KONTEKST.md](KONTEKST.md)** - Linje 15:
-   ```markdown
-   - **Bastian Daae** - Innhold/koordinering (intern Gramo) - Sti: [DIN FAKTISKE STI]
-   ```
-
-2. **[CONTRIBUTING.md](CONTRIBUTING.md)** - Linje 28:
-   ```bash
-   cd "[DIN FAKTISKE STI]"
-   git config user.name "Bastian Daae"
-   git config user.email "bastian@gramo.no"
-   ```
-
-3. **[CONTRIBUTING.md](CONTRIBUTING.md)** - Linje 60:
-   ```bash
-   cd "[DIN FAKTISKE STI]"
-   git pull origin main
-   ```
+**Stien din:** `/Users/bastian/GitHub/gramo-redesign-ny`
 
 ---
 
-### 3. Test nye kommandoer (5 min)
+### 3. Test nye kommandoer ⏭️ IKKE NØDVENDIG
 
-I Claude Code:
-
-1. **Test `/pull`:**
-   ```
-   /pull
-   ```
-   Skal vise: "✅ Bastian Daae: Hentet siste endringer fra GitHub"
-
-2. **Gjør en liten endring** (f.eks. legg til en linje i denne filen)
-
-3. **Test `/push`:**
-   ```
-   /push
-   ```
-   Skal spørre om commit-melding, deretter committe og pushe med ditt navn
+> **Merk:** `/pull` og `/push`-kommandoene var designet for Claude Code med sti-basert identifikasjon. Siden Antigravity automatisk får metadata om brukeren, er dette ikke nødvendig for deg.
 
 ---
 
 ## Dine neste oppgaver
 
-### Umiddelbart (uke 2)
-- [ ] Sett opp Git-identitet (10 min)
-- [ ] Legg inn din sti i KONTEKST.md og CONTRIBUTING.md (5 min)
-- [ ] Test `/pull` og `/push` kommandoer (5 min)
+### Umiddelbart (uke 2) ✅ FULLFØRT
+- [x] Sett opp Git-identitet (verifisert)
+- [x] Legg inn din sti i KONTEKST.md og CONTRIBUTING.md (oppdatert 12. jan)
+- [x] ~~Test `/pull` og `/push` kommandoer~~ (ikke nødvendig for Antigravity)
 
 ### Uke 3 (etter prioriteringsverksted med Kim)
 - [ ] **Planlegge ny Innhold/-struktur** (2-3 timer)

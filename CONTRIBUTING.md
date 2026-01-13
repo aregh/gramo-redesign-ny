@@ -25,7 +25,7 @@ git config user.email "are@kjernekaren.no"
 
 ### Bastian Daae
 ```bash
-cd "[BASTIAN: erstatt med din faktiske sti til Gramo_kontekstarkitektur-mappen]"
+cd "/Users/bastian/GitHub/gramo-redesign-ny"
 git config user.name "Bastian Daae"
 git config user.email "bastian@gramo.no"
 ```
@@ -57,7 +57,7 @@ git pull origin main              # Hent siste endringer
 
 **Bastian:**
 ```bash
-cd "[DIN STI HER]"
+cd "/Users/bastian/GitHub/gramo-redesign-ny"
 git pull origin main              # Hent siste endringer
 ```
 

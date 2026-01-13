@@ -44,22 +44,14 @@
 - [x] **Oppsett av GPT/Skills** - for kontekstarkitektur ✅ `/pull` og `/push` skills
 - [ ] **Rekruttere til brukerintervjuer** - 10-15 stasjoner/produsenter (Doodle)
 
-### 📋 Bastians første steg (før neste arbeidsdag)
+### ✅ Bastians første steg - FULLFØRT (12. januar)
 
 **📄 Se [TIL-BASTIAN.md](TIL-BASTIAN.md) for fullstendig guide**
 
-- [ ] **Les [TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oversikt over alle endringer
-- [ ] **Sett opp Git-identitet** (10 min)
-  - `cd "[DIN STI]"`
-  - `git config user.name "Bastian Daae"`
-  - `git config user.email "bastian@gramo.no"`
-- [ ] **Legg inn din sti** i KONTEKST.md og CONTRIBUTING.md (5 min)
-  - Finn din sti med `pwd` i Terminal
-  - Erstatt `[BASTIAN: legg til din sti her]` med faktisk sti
-- [ ] **Test `/pull` og `/push` kommandoer** (5 min)
-  - Kjør `/pull` for å hente siste endringer
-  - Gjør en liten endring
-  - Kjør `/push` for å committe og pushe
+- [x] **Les [TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oversikt over alle endringer
+- [x] **Git-identitet verifisert** - `Bastian` / `bastian.daae@gramo.no`
+- [x] **Sti lagt inn** i KONTEKST.md og CONTRIBUTING.md
+- [x] ~~Test `/pull` og `/push` kommandoer~~ - Ikke nødvendig for Antigravity
 
 ### ✅ Torsdag 8. januar (DAG 1)
 - [x] **Prioriteringsverksted med Kim (del 1)** - FULLFØRT
