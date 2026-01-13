@@ -43,4 +43,5 @@ node_modules/
 __pycache__/
 
 # macOS folder icons
-**/Icon
+**/Icon?
+Icon?
