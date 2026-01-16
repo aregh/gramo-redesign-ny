@@ -8,7 +8,7 @@
 
 | Fil | Beskrivelse | Status |
 |-----|-----------|--------|
-| [Prosjektmandat.md](Prosjektmandat.md) | Formelt mandat for prosjektet | Revidert utkast (4. des) |
+| [Prosjektmandat-2026-01-14.md](Prosjektmandat-2026-01-14.md) | Formelt mandat for prosjektet | Endelig versjon (14. jan) |
 
 
 ---
@@ -29,6 +29,7 @@
 | v1 | 2025-11-27 | Første utkast |
 | v2 | 2025-11-28 | Etter pre-mortem workshop |
 | v3 | 2025-12-02 | Etter avklaringsmøte |
+| v4 | 2026-01-14 | Endelig versjon |
 
 ---
 
