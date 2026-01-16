@@ -67,7 +67,7 @@ cd "[DIN STI HER]"
 git pull origin main              # Hent siste endringer
 ```
 
-**Tips:** Hvis du bruker Claude Code, kan du også bruke `/pull` og `/push` kommandoer som automatisk identifiserer deg og håndterer git-operasjoner.
+**Tips:** Hvis du bruker Agenten, kan du også bruke `/pull` og `/push` kommandoer som automatisk identifiserer deg og håndterer git-operasjoner.
 
 ### Etter endringer
 ```bash
@@ -77,7 +77,7 @@ git commit -m "Beskrivelse"        # Commit (bruk bokmål!)
 git push origin main               # Push til GitHub
 ```
 
-**Claude Code kommandoer:**
+**Agenten kommandoer:**
 - `/pull` - Henter siste endringer fra GitHub (identifiserer bruker automatisk)
 - `/push` - Committer og pusher til GitHub med automatisk brukeridentifikasjon
 

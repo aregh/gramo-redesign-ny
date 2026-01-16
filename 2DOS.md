@@ -39,7 +39,7 @@
   - Kontekstarkitektur-Plan.md opprettet (sammenslagning av Fase 1+2 planer)
   - MCP-integrasjon verifisert (Airtable + Notion)
   - **Brukeridentifikasjon implementert** (KONTEKST.md)
-  - **Claude Code skills opprettet** (`/pull` og `/push`)
+  - **Agenten skills opprettet** (`/pull` og `/push`)
 - [ ] **IA og innholdsoversikt inn i Airtable** - prioritert og strukturert
 - [x] **Oppsett av GPT/Skills** - for kontekstarkitektur ✅ `/pull` og `/push` skills
 - [ ] **Rekruttere til brukerintervjuer** - 10-15 stasjoner/produsenter (Doodle)

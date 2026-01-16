@@ -56,11 +56,20 @@ Du trenger en **API Token** fra Sanity.
 4.  Kopier tokenen (starter med `sk...`).
 
 **Konfigurasjon:**
+**Konfigurasjon:**
+Legg denne inn i `mcpServers`. Du må sette 3 miljøvariabler for at det skal virke:
+- `SANITY_PROJECT_ID` (f.eks. `b7xj6hwg`)
+- `SANITY_DATASET` (f.eks. `production`)
+- `SANITY_API_TOKEN` (Din token)
+
 ```json
-"Sanity": {
-  "serverUrl": "https://mcp.sanity.io",
-  "headers": {
-    "Authorization": "Bearer <DIN_SANITY_TOKEN>"
+"sanity": {
+  "command": "npx",
+  "args": ["-y", "@sanity/mcp-server"],
+  "env": {
+    "SANITY_PROJECT_ID": "${SANITY_PROJECT_ID}",
+    "SANITY_DATASET": "${SANITY_DATASET}",
+    "SANITY_API_TOKEN": "${SANITY_API_TOKEN}"
   }
 }
 ```

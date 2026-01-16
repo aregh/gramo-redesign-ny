@@ -1,10 +1,18 @@
-# CLAUDE.md - Gramo Redesign
+# AGENT.md - Gramo Redesign
 
 > Lettvekts-peker til prosjektkontekst
 
 ## VIKTIG: Språk
 
 **All dokumentasjon skal skrives på bokmål.** Dette gjelder dokumenter, logger, dialoger og all kommunikasjon.
+
+## VIKTIG: Navnekonvensjoner
+
+For å sikre at prosjektet fungerer uavhengig av hvilken AI-agent som brukes:
+
+1.  **Interne strukturer** bruker `agent` (f.eks. `AGENT.md`, `.agent/skills`).
+2.  **Eksterne verktøy** beholder sine produktnavn (f.eks. `Claude Desktop`, `Sanity`).
+3.  **Filnavn** skal være beskrivende og bruke `kebab-case` eller `snake_case` (unngå mellomrom).
 
 ## Les disse filene først
 

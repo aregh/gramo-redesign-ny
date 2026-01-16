@@ -35,7 +35,7 @@ I Fase 1 ble det etablert en grunnleggende kontekstarkitektur for prosjektet. An
 - [KONTEKST.md](../KONTEKST.md) fungerer som tydelig hub
 - Sammendragsfiler (`_BAKGRUNN.md`, `_ANALYSE.md`) gir oversikt
 - Hub-and-Spoke-prinsippet er implementert
-- On-demand loading (CLAUDE.md er lett, kun 38 linjer)
+- On-demand loading (AGENT.md er lett, kun 38 linjer)
 
 ### ✅ Dokumentasjon
 - Språkpolicy (bokmål) er tydelig kommunisert
@@ -146,7 +146,7 @@ Når Torstein starter i Fase 2, hvordan kommer han raskt i gang?
 **Løsning: Bastian lager onboarding-guide (med Are-støtte)**
 
 **Innhold:**
-1. **Start her:** Les [CLAUDE.md](../CLAUDE.md) og [KONTEKST.md](../KONTEKST.md)
+1. **Start her:** Les [AGENT.md](../AGENT.md) og [KONTEKST.md](../KONTEKST.md)
 2. **Forståelse:** Les [Dokumenter/Prosjektmandat.md](Prosjektmandat.md) og [BESLUTNINGER.md](BESLUTNINGER.md)
 3. **Metodikk:** Last inn [Bakgrunn/Pakker/PAKKE-Kjernemodellen.md](../Bakgrunn/Pakker/PAKKE-Kjernemodellen.md)
 4. **Aktive oppgaver:** Sjekk [2DOS.md](../2DOS.md)
@@ -335,7 +335,7 @@ Hvordan sikre at Bastian kan drifte alene når Are-timene tar slutt?
 
 **Metodikk:**
 - [Bakgrunn/Pakker/PAKKE-Kontekstarkitektur.md](../Bakgrunn/Pakker/PAKKE-Kontekstarkitektur.md) - komplett metodikk
-- [CLAUDE.md](../CLAUDE.md) - rask onboarding for AI-assistenter
+- [AGENT.md](../AGENT.md) - rask onboarding for AI-assistenter
 
 **Analyse:**
 - [2025-01-08-Ryddeprosjekt-Bastian-tråd.md](../2025-01-08-Ryddeprosjekt-Bastian-tråd.md) - opprinnelig analyse

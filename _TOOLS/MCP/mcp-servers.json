@@ -36,11 +36,14 @@
     "sanity": {
       "command": "npx",
       "args": [
-        "mcp-remote",
-        "https://mcp.sanity.io",
-        "--transport",
-        "http-only"
+        "-y",
+        "@sanity/mcp-server"
       ],
+      "env": {
+        "SANITY_PROJECT_ID": "${SANITY_PROJECT_ID}",
+        "SANITY_DATASET": "${SANITY_DATASET}",
+        "SANITY_API_TOKEN": "${SANITY_API_TOKEN}"
+      },
       "description": "Sanity CMS - skjemaer, dokumenter, GROQ-spørringer og dokumentasjon"
     }
   },

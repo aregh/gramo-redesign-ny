@@ -238,7 +238,7 @@ Hvis en prototype har mange versjoner (v1, v2, v3, v4...):
 
 ## 🔗 Relaterte filer
 
-- **Skill:** `.claude/skills/rask-prototype/skill.md` - Genererer nye prototyper
+- **Skill:** `.agent/skills/rask-prototype/skill.md` - Genererer nye prototyper
 - **Dokumentasjon:** `KONTEKST.md`, `LOGG.md`, `2DOS.md`
 - **Analyse:** `Analyse/Statistikk-visualisering.md`, `Analyse/Metadata.md`
 

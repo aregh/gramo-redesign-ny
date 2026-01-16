@@ -28,13 +28,13 @@
 ### 2. Strukturendringer i prosjektet ✅
 
 **Nye mapper opprettet:**
-- `.claude/skills/pull/` - `/pull` kommando for Git
-- `.claude/skills/push/` - `/push` kommando for Git
+- `.agent/skills/pull/` - `/pull` kommando for Git
+- `.agent/skills/push/` - `/push` kommando for Git
 
 **Nye filer opprettet:**
 - [Dokumenter/Kontekstarkitektur-Plan.md](Dokumenter/Kontekstarkitektur-Plan.md) - Komplett plan Fase 1→3 (6,800+ ord)
-- `.claude/skills/pull/SKILL.md` - Skill for å hente endringer fra GitHub
-- `.claude/skills/push/SKILL.md` - Skill for å committe og pushe til GitHub
+- `.agent/skills/pull/SKILL.md` - Skill for å hente endringer fra GitHub
+- `.agent/skills/push/SKILL.md` - Skill for å committe og pushe til GitHub
 
 **Eksisterende mapper:**
 - `Dokumenter/Arkiv/` - Arkiverte filer med ÅÅMMDD-prefix
@@ -94,7 +94,7 @@ Hver bruker har sin egen oppstartssekvens:
 
 ---
 
-### 5. Nye Claude Code kommandoer ✅
+### 5. Nye Agenten kommandoer ✅
 
 #### `/pull` kommando
 
@@ -110,7 +110,7 @@ Hver bruker har sin egen oppstartssekvens:
 
 **Hvordan bruke:**
 ```
-Skriv i Claude Code: /pull
+Skriv i Agenten: /pull
 ```
 
 ---
@@ -129,16 +129,16 @@ Skriv i Claude Code: /pull
 
 **Hvordan bruke:**
 ```
-Skriv i Claude Code: /push
+Skriv i Agenten: /push
 ```
 
 **Eksempel:**
 ```
 Du: "/push"
-Claude: "Jeg ser at du har endret 3 filer. Hva er en god commit-melding?"
+Agent: "Jeg ser at du har endret 3 filer. Hva er en god commit-melding?"
 Du: "Oppdater LOGG med møtereferat"
-Claude: [Committer og pusher]
-Claude: "✅ Bastian Daae: Endringer pushet til GitHub med melding 'Oppdater LOGG med møtereferat (Bastian Daae)'"
+Agent: [Committer og pusher]
+Agent: "✅ Bastian Daae: Endringer pushet til GitHub med melding 'Oppdater LOGG med møtereferat (Bastian Daae)'"
 ```
 
 ---
@@ -198,7 +198,7 @@ Claude: "✅ Bastian Daae: Endringer pushet til GitHub med melding 'Oppdater LOG
 
 ### 3. Test nye kommandoer ⏭️ IKKE NØDVENDIG
 
-> **Merk:** `/pull` og `/push`-kommandoene var designet for Claude Code med sti-basert identifikasjon. Siden Antigravity automatisk får metadata om brukeren, er dette ikke nødvendig for deg.
+> **Merk:** `/pull` og `/push`-kommandoene var designet for Agenten med sti-basert identifikasjon. Siden Antigravity automatisk får metadata om brukeren, er dette ikke nødvendig for deg.
 
 ---
 

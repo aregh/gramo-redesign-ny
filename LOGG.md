@@ -4,6 +4,21 @@
 
 ---
 
+## 14. januar 2026
+
+### Standardisering av navnekonvensjoner
+*Ansvarlig: Bastian | Ettermiddag*
+
+- ✅ **Endret `.claude/` til `.agent/`**: Gjør ferdigheter og workflows uavhengig av modellnavn.
+- ✅ **Endret `CLAUDE.md` til `AGENT.md`**: Nytt hovedinngangspunkt for alle AI-agenter.
+- ✅ **Oppdaterte referanser**: Alle interne dokumenter peker nå på `AGENT.md` og `.agent/`.
+- ✅ **Bevarte systemstier**: `_TOOLS/MCP/install.js` beholder referanser til `Claude Desktop` (MacOS-applikasjon).
+- ✅ **Dokumentert**: `AGENT.md` inneholder nå eksplisitte regler for navnsetting.
+
+
+
+---
+
 ## 8. januar 2026
 
 ### Kontekstarkitektur-opprydding
@@ -55,9 +70,9 @@ Hver mappe får `_README.md` med sammendrag.
   - Git-konfigurasjon per bruker
   - Brukerbaserte arbeidsstier
   - `/pull` og `/push` kommandoer med automatisk brukeridentifikasjon
-- ✅ **Claude Code skills opprettet:**
-  - `.claude/skills/pull/SKILL.md` - Henter endringer fra GitHub
-  - `.claude/skills/push/SKILL.md` - Committer og pusher med brukeridentifikasjon
+- ✅ **Agenten skills opprettet:**
+  - `.agent/skills/pull/SKILL.md` - Henter endringer fra GitHub
+  - `.agent/skills/push/SKILL.md` - Committer og pusher med brukeridentifikasjon
 
 #### Instruksjoner til Bastian
 - ✅ **[TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oppstartsdokument opprettet
@@ -74,8 +89,6 @@ Hver mappe får `_README.md` med sammendrag.
 - Planlegge ny Innhold/-struktur (uke 3) - TODO, ikke ferdig forslag
 - Arkivere resterende utdaterte filer
 - Opprette manglende _README.md-filer
-
----
 
 ### Prioriteringsverksted med Kim (del 1) - Strategisk gjennombrudd
 *Deltakere: Kim, Are, Bastian, Rita | 09:00-12:30 | [Transkripsjon](Kommunikasjon/Transkripsjoner/2026-01-08_Prioriteringsverksted.md)*

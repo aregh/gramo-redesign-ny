@@ -10,7 +10,7 @@
 
 | Prinsipp | Score | Kommentar |
 |----------|-------|-----------|
-| On-demand Loading | ✅ God | CLAUDE.md er 35 linjer - lettvekts peker |
+| On-demand Loading | ✅ God | AGENT.md er 35 linjer - lettvekts peker |
 | Hub-and-Spoke | ✅ God | KONTEKST.md er hub med 104 linjer |
 | Lightweight Refs | ⚠️ Delvis | Noen duplikater mellom filer |
 | Session Briefs | ➖ N/A | Ikke vurderbart |
@@ -32,7 +32,7 @@
 **Prinsipp:** Last kun den konteksten du trenger for oppgaven.
 
 **Funn:**
-- CLAUDE.md er kun 35 linjer (under 100-grensen)
+- AGENT.md er kun 35 linjer (under 100-grensen)
 - Peker til KONTEKST.md, PAKKE-Gramo.md, FOLK.md
 - Pakker lastes ved behov, ikke alltid
 
@@ -110,7 +110,7 @@ LAG 1 (Modellagnostisk):
 ├── bakgrunn/            ✅ Referansemateriale
 └── design/              ✅ Designbrief
 
-LAG 2 (Claude Code):
+LAG 2 (Agenten):
 └── .ai/assistants/gramo.md  ✅ Claude-spesifikk
 ```
 

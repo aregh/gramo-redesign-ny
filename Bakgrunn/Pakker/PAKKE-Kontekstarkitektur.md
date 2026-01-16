@@ -113,7 +113,7 @@ Kontekstarkitektur bygger på 5 fundamentale konsept som saman dannar eit heilsk
 
 **Bruk:**
 ```
-Claude: Last inn PAKKE - Kjernemodellen.md
+Agent: Last inn PAKKE - Kjernemodellen.md
 → KI har no full forståing av metodikken
 → Kan bruke den i alle oppgåver utan å måtte forklare på nytt
 ```
@@ -142,7 +142,7 @@ ASSISTENT = Prosess som BRUKAR kunnskap (f.eks. Research-Kunder brukar Kjernemod
 
 **Bruk:**
 ```
-Claude: Research-Kunder DFØ
+Agent: Research-Kunder DFØ
 → Assistent søkjer relevante kjelder
 → Brukar PAKKE - Kjernemodellen
 → Genererer leadsdokument i riktig format
@@ -252,7 +252,7 @@ Produktteam vil implementere Kontekstarkitektur
 
 **Praktisk:**
 ```
-GAMMALT: 400+ linjer CLAUDE.md (alltid lasta)
+GAMMALT: 400+ linjer AGENT.md (alltid lasta)
 NYTT: 120-170 linjer kjernekontekst + on-demand pakker/assistentar
 ```
 
@@ -320,7 +320,7 @@ LAG 1: Konseptuelt (MODELLAGNOSTISK)
 └─ /Admin/_ASSISTENTAR/
 
 LAG 2: Implementering (MODELSPESIFIKK)
-├─ /.ai/assistants/ (Claude Code)
+├─ /.ai/assistants/ (Agenten)
 ├─ /chatgpt/gpts/ (ChatGPT)
 └─ /cursor/rules/ (Cursor)
 ```
@@ -415,11 +415,11 @@ APPAR:
 ### 4.1 Kvifor to lag?
 
 **Problem:**
-Når du bygger system i Claude Code, kva skjer når du vil bytte til Cursor? Eller til neste verktøy om 2 år?
+Når du bygger system i Agenten, kva skjer når du vil bytte til Cursor? Eller til neste verktøy om 2 år?
 
 **Tradisjonell tilnærming:**
 ```
-EVERYTHING in /.claude/
+EVERYTHING in /.agent/
 → Vendor lock-in
 → Kan ikkje migrere
 → Mister alt arbeid ved switch
@@ -479,20 +479,20 @@ Leadsdokument i `/Salg/lead_[FIRMA].md` med:
 ### 4.3 Lag 2: Implementering (Modelspesifikk)
 
 **Kva høyrer til Lag 2:**
-- **Claude Code-spesifikk:** /.ai/assistants/, /.ai/.claude/
+- **Agenten-spesifikk:** /.ai/assistants/, /.ai/.agent/
 - **ChatGPT-spesifikk:** /chatgpt/gpts/
 - **Cursor-spesifikk:** /cursor/rules/
 - **EVAL (implementering):** Korleis køyre eval i spesifikt verktøy
 
 **Plassering:**
 ```
-/.ai/                         (Alt Claude Code-spesifikt)
+/.ai/                         (Alt Agenten-spesifikt)
 ├─ assistants/
 │  ├─ salg/
-│  │  └─ research-kunder.md   (Implementering for Claude Code)
+│  │  └─ research-kunder.md   (Implementering for Agenten)
 │  └─ README.md
-├─ .claude/
-│  ├─ CLAUDE.md
+├─ .agent/
+│  ├─ AGENT.md
 │  └─ settings.local.json
 └─ tools/
    └─ mcp-config.md
@@ -506,18 +506,18 @@ Leadsdokument i `/Salg/lead_[FIRMA].md` med:
 
 **Eksempel:**
 ```markdown
-# Research-Kunder (Lag 2 - Claude Code Implementation)
+# Research-Kunder (Lag 2 - Agenten Implementation)
 
 **Implementert som:** Task agent med MCP-integrasjonar
 
-## Claude Code-spesifikk setup:
+## Agenten-spesifikk setup:
 \`\`\`
 Trigger: "Research-Kunder: [FIRMA]"
 Agent: general-purpose
 Tools: mcp__airtable, mcp__notion, mcp__google-drive, WebSearch
 \`\`\`
 
-## Workflow (Claude Code):
+## Workflow (Agenten):
 1. Task agent startar
 2. Søkjer parallelt: Airtable + Notion + Drive + Web
 3. Konsoliderer resultat
@@ -527,7 +527,7 @@ Tools: mcp__airtable, mcp__notion, mcp__google-drive, WebSearch
 
 ### 4.4 Migrasjon mellom verktøy
 
-**Scenario:** Du vil bytte frå Claude Code til Cursor
+**Scenario:** Du vil bytte frå Agenten til Cursor
 
 **Steg 1:** Lag 1 forblir uendra
 ```
@@ -964,7 +964,7 @@ Velg én oppgave og lag komplett mal med:
 Aktiv hukommelse for spesialiserte AI-agenter i løpende samtaler.
 
 **Eksempler:**
-- Claude Code Project-filer (CLAUDE.md)
+- Agenten Project-filer (AGENT.md)
 - Custom instructions i ChatGPT
 - System prompts i API-integrasjoner
 
@@ -1111,7 +1111,7 @@ Juster basert på hva som fungerte/ikke fungerte.
 ```
 /Kontekstarkitektur/
   /Kjerne/                 # Grunnleggende kontekst
-    - CLAUDE.md            # Hovedinstruksjoner
+    - AGENT.md            # Hovedinstruksjoner
     - Verdier.md           # Merkevare og verdier
     - Stil.md              # Språk og tone
   /Oppgaver/               # Oppgavespesifikk kontekst
@@ -1252,8 +1252,8 @@ Bruk Kjernemodellen som rammeverk for workshopen - den fungerer like godt for KI
 Selvstendig konsulent som trenger AI-assistent med full forretningskontekst.
 
 **Løsning:**
-Utviklet omfattende kontekstarkitektur i Claude Code:
-- Global CLAUDE.md (kjernekontekst)
+Utviklet omfattende kontekstarkitektur i Agenten:
+- Global AGENT.md (kjernekontekst)
 - Mappestruktur for ulike prosjekt
 - Kunnskapspakker for metodikk
 - Navigasjonskommandoer (`/prosjekt`, `/pakker`)
@@ -1305,7 +1305,7 @@ SaaS-selskap med stort volum kundehenvendelser, mange repetitive.
 
 ### 10.1 Plattformer for kontekstarkitektur
 
-**Claude Code (Anthropic):**
+**Agenten (Anthropic):**
 - ✅ Store kontekstvinduer (200k tokens)
 - ✅ Project-basert organisering
 - ✅ Filstruktur for kontekst

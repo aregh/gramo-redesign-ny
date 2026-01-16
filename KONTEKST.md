@@ -168,6 +168,10 @@ Designarbeid, prototyper og brief.
 ### [Innhold/](Innhold/)
 Innhold for ny nettside (produksjonsfase).
 
+| Fil | Beskrivelse |
+|-----|-----------|
+| [Innholdskonsept_Sanity.md](Innhold/Innholdskonsept_Sanity.md) | **STYRENDE DOKUMENT:** Konsept for headless innholdsmodellering |
+
 ### [_TOOLS/](_TOOLS/)
 Verktøy og konfigurasjon.
 

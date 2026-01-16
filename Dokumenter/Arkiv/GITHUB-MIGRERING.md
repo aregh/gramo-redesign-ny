@@ -78,7 +78,7 @@ node_modules/
 ```
 gramo-redesign/
 ├── README.md              # Prosjektintro
-├── CLAUDE.md              # AI-kontekst
+├── AGENT.md              # AI-kontekst
 ├── KONTEKST.md            # Prosjektoversikt
 ├── PROSJEKTPLAN.md        # Status og leveransar
 ├── ARBEIDSLOGG.md         # Dagleg logg
@@ -192,7 +192,7 @@ git merge feature/designbrief
 
 ## 7. MCP-oppsett i ny plassering
 
-### Claude Code
+### Agenten
 ```bash
 # Etter migrering, oppdater prosjektsti
 cd ~/Projects/gramo-redesign  # eller anna lokal plassering
@@ -211,7 +211,7 @@ Oppdater `mcp-config/mcp-servers.example.json` med riktige instruksjonar.
 - [ ] .gitignore på plass
 - [ ] Ingen sensitive data i repo
 - [ ] README.md oppdatert
-- [ ] CLAUDE.md fungerer for AI
+- [ ] AGENT.md fungerer for AI
 - [ ] Lenker mellom dokument fungerer
 - [ ] Teammedlemmar invitert
 - [ ] Lokal kopi på kvar maskin

@@ -193,7 +193,7 @@ fase: Fase 1
 **Bastian lager onboarding-guide (med Are-støtte)**
 
 **Innhold:**
-1. **Start her:** Les [CLAUDE.md](../CLAUDE.md) og [KONTEKST.md](../KONTEKST.md)
+1. **Start her:** Les [AGENT.md](../AGENT.md) og [KONTEKST.md](../KONTEKST.md)
 2. **Forståelse:** Les [Dokumenter/Prosjektmandat.md](Prosjektmandat.md) og [BESLUTNINGER.md](BESLUTNINGER.md)
 3. **Metodikk:** Last inn [Bakgrunn/Pakker/PAKKE-Kjernemodellen.md](../Bakgrunn/Pakker/PAKKE-Kjernemodellen.md)
 4. **Aktive oppgaver:** Sjekk [2DOS.md](../2DOS.md)
@@ -364,7 +364,7 @@ git push origin main
 
 ### Praktisk bruk i Fase 2
 
-**For Claude:**
+**For Agent:**
 
 1. **Hente brukerinnsikt fra Airtable:**
    ```
