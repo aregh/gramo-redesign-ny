@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrer utgivelse – Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-nav {
+            background: var(--gramo-blue);
+            padding: var(--space-sm) 0;
+        }
+        .dashboard-nav .container {
+            display: flex;
+            gap: var(--space-lg);
+        }
+        .dashboard-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--gramo-white);
+        }
+        .page-title {
+            padding: var(--space-lg) 0;
+            background: var(--gramo-dark);
+            color: var(--gramo-white);
+        }
+        .form-container {
+            max-width: 700px;
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-xl);
+        }
+        .form-section {
+            margin-bottom: var(--space-xl);
+        }
+        .form-section h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--gramo-gray-light);
+        }
+        .form-row {
+            margin-bottom: var(--space-md);
+        }
+        .form-row label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        .form-row .hint {
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+            margin-bottom: var(--space-xs);
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-row input:focus, .form-row select:focus {
+            outline: none;
+            border-color: var(--gramo-accent);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+        .contributor-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: var(--space-sm);
+            align-items: end;
+            margin-bottom: var(--space-sm);
+        }
+        .contributor-row button {
+            padding: var(--space-sm);
+            background: var(--gramo-light);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .add-btn {
+            background: var(--gramo-light);
+            border: 1px dashed var(--gramo-gray);
+            padding: var(--space-sm);
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            color: var(--gramo-text-light);
+        }
+        .add-btn:hover {
+            border-color: var(--gramo-accent);
+            color: var(--gramo-accent);
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--gramo-text-light);
+        }
+        .step.active {
+            color: var(--gramo-accent);
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--gramo-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .step.active .step-number {
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+        }
+        .form-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: space-between;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--gramo-gray-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Logg ut</a>
+        </div>
+    </nav>
+
+    <nav class="dashboard-nav">
+        <div class="container">
+            <a href="min-side-dashboard.html">Oversikt</a>
+            <a href="min-side-utbetalinger.html">Utbetalinger</a>
+            <a href="min-side-innspillinger.html">Mine innspillinger</a>
+            <a href="min-side-rettigheter.html">Rettigheter</a>
+            <a href="min-side-profil.html">Profil</a>
+        </div>
+    </nav>
+
+    <header class="page-title">
+        <div class="container">
+            <h1>Registrer utgivelse</h1>
+        </div>
+    </header>
+
+    <main style="background: var(--gramo-light); padding: var(--space-xl) 0;">
+        <div class="container">
+            <div class="form-container">
+                <!-- Steg-indikator -->
+                <div class="step-indicator">
+                    <div class="step active">
+                        <span class="step-number">1</span>
+                        <span>Innspilling</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span>Utøvere</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span>Bekreft</span>
+                    </div>
+                </div>
+
+                <!-- Steg 1: Innspillingsinfo -->
+                <div class="form-section">
+                    <h2>Om innspillingen</h2>
+
+                    <div class="form-row">
+                        <label for="title">Tittel *</label>
+                        <input type="text" id="title" placeholder="Låtens tittel">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="artist">Artist/utøver *</label>
+                        <input type="text" id="artist" placeholder="Hovedartist på utgivelsen">
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="isrc">ISRC-kode *</label>
+                            <p class="hint">Din registrantkode er NO-A1B</p>
+                            <input type="text" id="isrc" placeholder="NO-A1B-26-00001">
+                        </div>
+                        <div class="form-row">
+                            <label for="release-date">Utgivelsesdato</label>
+                            <input type="date" id="release-date">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="album">Album/utgivelse</label>
+                        <input type="text" id="album" placeholder="Hvilket album/EP tilhører låten?">
+                    </div>
+                </div>
+
+                <!-- Steg 2: Utøvere -->
+                <div class="form-section">
+                    <h2>Hvem spiller på innspillingen?</h2>
+                    <p style="color: var(--gramo-text-light); margin-bottom: var(--space-md);">
+                        Legg til alle som spiller eller synger på denne innspillingen.
+                        <a href="ressurser/rollekode.html" class="link-arrow">Les om rollekoder →</a>
+                    </p>
+
+                    <div class="contributor-row">
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <label>Navn</label>
+                            <input type="text" value="Kari Hansen" disabled>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <label>Rolle</label>
+                            <select>
+                                <option selected>A - Solist</option>
+                                <option>B - Bidragsyter</option>
+                                <option>C - Dirigent</option>
+                            </select>
+                        </div>
+                        <button disabled style="opacity: 0.5;">✕</button>
+                    </div>
+
+                    <div class="contributor-row">
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <input type="text" placeholder="Fullt navn">
+                        </div>
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <select>
+                                <option>A - Solist</option>
+                                <option>B - Bidragsyter</option>
+                                <option>C - Dirigent</option>
+                            </select>
+                        </div>
+                        <button>✕</button>
+                    </div>
+
+                    <button class="add-btn">+ Legg til utøver</button>
+                </div>
+
+                <!-- Produsent -->
+                <div class="form-section">
+                    <h2>Produsent/plateselskap</h2>
+
+                    <div class="form-row">
+                        <label for="producer">Hvem eier innspillingen?</label>
+                        <p class="hint">Dette er vanligvis plateselskapet eller deg selv</p>
+                        <select id="producer">
+                            <option>Meg selv (Kari Hansen)</option>
+                            <option>Mitt plateselskap</option>
+                            <option>Annet plateselskap</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Handlinger -->
+                <div class="form-actions">
+                    <a href="min-side-innspillinger.html" class="btn btn-secondary" style="border-color: var(--gramo-gray-light); color: var(--gramo-text);">
+                        Avbryt
+                    </a>
+                    <div>
+                        <button class="btn btn-secondary" style="border-color: var(--gramo-gray-light); color: var(--gramo-text); margin-right: var(--space-sm);">
+                            Lagre utkast
+                        </button>
+                        <button class="btn btn-primary">
+                            Fortsett →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

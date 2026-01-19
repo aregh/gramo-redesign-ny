@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utbetaling – Gramo</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="../statistikk.html">Statistikk</a></li>
+                <li><a href="../ressurser.html" style="opacity:1; border-bottom: 2px solid var(--gramo-accent);">Ressurser</a></li>
+                <li><a href="../om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="#" class="nav-cta">Min side</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Hjem</a>
+                <span>/</span>
+                <a href="../ressurser.html">Ressurser</a>
+                <span>/</span>
+                Utbetaling
+            </div>
+            <h1>Utbetaling</h1>
+            <p class="lead">
+                Slik beregner vi hva du får, og når pengene kommer.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <!-- KALKULATOR -->
+        <section class="content-section">
+            <div class="container">
+                <div class="info-card" style="max-width: 500px; background: var(--gramo-accent); color: var(--gramo-dark);">
+                    <h3 style="color: var(--gramo-dark);">Utbetalingskalkulator</h3>
+                    <p>
+                        Lurer du på hvor mye du kan få? Prøv kalkulatoren vår.
+                    </p>
+                    <a href="#" class="btn" style="background: var(--gramo-dark); color: var(--gramo-white); margin-top: var(--space-sm);">
+                        Åpne kalkulatoren
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- NÅR -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Når får du utbetaling?</h2>
+                <p>
+                    Gramo har to faste utbetalinger i året:
+                </p>
+
+                <div class="cards-grid" style="margin-top: var(--space-lg);">
+                    <div class="info-card">
+                        <h3>Hovedutbetaling</h3>
+                        <p><strong>Februar</strong></p>
+                        <p>For musikk spilt på radio og offentlige steder året før.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Sommerutbetaling</h3>
+                        <p><strong>Juni</strong></p>
+                        <p>Etterutbetaling og justeringer.</p>
+                    </div>
+                </div>
+
+                <p style="margin-top: var(--space-lg);">
+                    I tillegg kan det komme utbetalinger fra utlandet gjennom året.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIK BEREGNER VI -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Slik beregner vi utbetalingen</h2>
+                <p>
+                    Utbetalingen avhenger av tre ting:
+                </p>
+
+                <h3>1. Hvor mye låten har blitt spilt</h3>
+                <p>
+                    Vi måler i minutter. Jo mer spilletid, jo høyere utbetaling.
+                </p>
+
+                <h3>2. Din rolle på innspillingen</h3>
+                <p>
+                    Alle som spiller på en innspilling får en <strong>rollekode</strong>:
+                </p>
+                <ul>
+                    <li><strong>A:</strong> Solist, featured artist, fast bandmedlem (høyest poeng)</li>
+                    <li><strong>B:</strong> Orkestermedlem, kormedlem, innleid musiker, remixer</li>
+                    <li><strong>C:</strong> Dirigent, musikalsk leder (fast antall poeng)</li>
+                </ul>
+                <p>
+                    <a href="rollekode.html" class="link-arrow">Les mer om rollekoder →</a>
+                </p>
+
+                <h3>3. Hvilken kanal som spilte musikken</h3>
+                <p>
+                    Ulike radiokanaler har ulike satser. NRK P1 har for eksempel
+                    høyere sats enn en mindre lokalradio.
+                </p>
+
+                <div class="info-card" style="margin-top: var(--space-lg); max-width: 600px; background: var(--gramo-light);">
+                    <h3>Forenklet regnestykke</h3>
+                    <p style="font-family: monospace; font-size: 1.1rem;">
+                        Minutter × Poeng × Sats = Utbetaling
+                    </p>
+                    <p style="font-size: 0.9rem; color: var(--gramo-text-light); margin-top: var(--space-sm);">
+                        624 min × 12 poeng × 0,84 kr = 6 290 kr
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EKSEMPEL -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Eksempel: Band med fem medlemmer</h2>
+                <p>
+                    La oss si at låten din ble spilt 208 ganger på NRK P1 (3 min per spilling = 624 minutter).
+                </p>
+
+                <table class="data-table" style="margin-top: var(--space-lg); max-width: 700px;">
+                    <thead>
+                        <tr>
+                            <th>Rolle</th>
+                            <th>Antall</th>
+                            <th>Poeng</th>
+                            <th>Beregning</th>
+                            <th>Utbetaling</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bandmedlemmer (A)</td>
+                            <td>3</td>
+                            <td>12 pr. A</td>
+                            <td>624 × 12 × 0,84</td>
+                            <td>6 290 kr hver</td>
+                        </tr>
+                        <tr>
+                            <td>Bidragsytere (B)</td>
+                            <td>5</td>
+                            <td>2 pr. B</td>
+                            <td>624 × 2 × 0,84</td>
+                            <td>1 048 kr hver</td>
+                        </tr>
+                        <tr>
+                            <td>Dirigent (C)</td>
+                            <td>1</td>
+                            <td>5</td>
+                            <td>624 × 5 × 0,84</td>
+                            <td>2 621 kr</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="font-size: 0.85rem; color: var(--gramo-text-light); margin-top: var(--space-sm);">
+                    Satsene varierer fra år til år og kanal til kanal. Dette er et forenklet eksempel.
+                </p>
+            </div>
+        </section>
+
+        <!-- MVA OG SKATT -->
+        <section class="content-section">
+            <div class="container">
+                <h2>MVA og skatt</h2>
+
+                <h3>Skatt</h3>
+                <p>
+                    Utbetalingen fra Gramo er skattepliktig inntekt. Vi rapporterer
+                    til Skatteetaten, og du får årsoppgave fra oss i januar.
+                </p>
+
+                <h3>MVA</h3>
+                <p>
+                    Hvis du er MVA-registrert, skal du legge til MVA på utbetalingen.
+                    Du gjør dette ved å sende oss en faktura.
+                </p>
+                <p>
+                    <a href="#" class="link-arrow">Les mer om MVA på utbetalingen →</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- SJEKK UTBETALING -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Sjekk dine utbetalinger</h2>
+                <p>
+                    Logg inn på Min side for å se:
+                </p>
+                <ul>
+                    <li>Historiske utbetalinger</li>
+                    <li>Detaljer om hvilke innspillinger som ga utbetaling</li>
+                    <li>Kommende utbetalinger</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="margin-top: var(--space-md);">Gå til Min side</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Gramo</h4>
+                    <ul>
+                        <li><a href="../om-gramo.html">Om oss</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>For musikere</h4>
+                    <ul>
+                        <li><a href="#">Bli medlem</a></li>
+                        <li><a href="isrc.html">ISRC-koder</a></li>
+                        <li><a href="utbetaling.html">Utbetaling</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>Gramo<br>
+                    post@gramo.no</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">
+                    Gramo er godkjent av Kulturdepartementet til å forvalte vederlag
+                    for offentlig fremføring av innspilt musikk etter åndsverkloven § 21.
+                </p>
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

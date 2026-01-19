@@ -52,9 +52,9 @@ Dette gjelder:
 **Praksis:**
 1. **Løpende arbeid:** Git-historikk er tilstrekkelig
 2. **Fase-leveranser:** Arkiver nøkkeldokumenter til [Arkiv/](Arkiv/)
-   - Fase 1-levering (januar 2026)
-   - Fase 2-levering (mars 2026)
-   - Fase 3-levering (juni 2026)
+  - Fase 1-levering (januar 2026)
+  - Fase 2-levering (mars 2026)
+  - Fase 3-levering (juni 2026)
 3. **Navnekonvensjon:** `ÅÅMMDD-<original filnavn>`
 4. **Eksempel:** `Innholdsstrategi-gramo-no.md` → `Arkiv/251219-Innholdsstrategi-gramo-no.md`
 
@@ -65,7 +65,7 @@ Dette balanserer sporbarhet med praktisk håndterbarhet.
 ## Prosjektsammendrag
 
 | Egenskap | Verdi |
-|----------|-------|
+| --- | --- |
 | Klient | Gramo (kollektiv forvaltning av nærstående rettigheter) |
 | Prosjekt | Redesign av digitale kanaler |
 | Fase | **Overgang Fase 1 → Fase 2** (jan 2026) |
@@ -100,8 +100,8 @@ Gramo.no skal være en **"HUB for alt"** med to parallelle spor:
 ## Hurtiglenker
 
 ### Rot
-- [2DOS.md](2DOS.md) - Aktive oppgaver og neste steg
-- [LOGG.md](LOGG.md) - Kronologisk logg (nyeste først)
+- [2DOS.md](./2DOS.md) - Aktive oppgaver og neste steg
+- [LOGG.md](./LOGG.md) - Kronologisk logg (nyeste først)
 
 ---
 
@@ -111,18 +111,18 @@ Gramo.no skal være en **"HUB for alt"** med to parallelle spor:
 Om Gramo, strategi, folk og metodikk.
 
 | Fil | Beskrivelse |
-|-----|-----------|
-| [_BAKGRUNN.md](Bakgrunn/_BAKGRUNN.md) | Sammendrag |
-| [OmGramo.md](Bakgrunn/OmGramo.md) | Om Gramo, strategi, teknisk landskap |
-| [Folk.md](Bakgrunn/Folk.md) | Nøkkelpersoner og kontaktinfo |
-| [Strategi.md](Bakgrunn/Strategi.md) | Gramo strategi 2025-2027 |
+| --- | --- |
+| [_BAKGRUNN.md](./Bakgrunn/_BAKGRUNN.md) | Sammendrag |
+| [OmGramo.md](./Bakgrunn/OmGramo.md) | Om Gramo, strategi, teknisk landskap |
+| [Folk.md](./Bakgrunn/Folk.md) | Nøkkelpersoner og kontaktinfo |
+| [Strategi.md](./Bakgrunn/Strategi.md) | Gramo strategi 2025-2027 |
 | [Pakker/](Bakgrunn/Pakker/) | Metodikk (Kjernemodellen, Toppoppgaver, Kontekstarkitektur) |
 
 ### [Kommunikasjon/](Kommunikasjon/)
 Møter med kunden (Gramo), intervjuer og transkripsjoner. Interne teammøter ligger i `/Prosjekt/Gramo/Prosjektledelse/`.
 
 | Mappe | Innhold |
-|-------|---------|
+| --- | --- |
 | [Møter/](Kommunikasjon/Møter/) | Kundemøter og forberedelser |
 | [Intervjuer/](Kommunikasjon/Intervjuer/) | Brukerintervjuer |
 | [Transkripsjoner/](Kommunikasjon/Transkripsjoner/) | Råtranskripsjoner |
@@ -131,10 +131,10 @@ Møter med kunden (Gramo), intervjuer og transkripsjoner. Interne teammøter lig
 Prosjektdokumenter og formelle leveranser.
 
 | Fil | Beskrivelse |
-|-----|-----------|
-| [Prosjektmandat.md](Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
-| [2026-01-07-Tilbod.md](Dokumenter/2026-01-07-Tilbod.md) | Tilbud: 3 faser, 100 dagsverk |
-| [BESLUTNINGER.md](Dokumenter/BESLUTNINGER.md) | Logg over viktige beslutninger |
+| --- | --- |
+| [Prosjektmandat.md](./Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
+| [2026-01-07-Tilbod.md](./Dokumenter/2026-01-07-Tilbod.md) | Tilbud: 3 faser, 100 dagsverk |
+| [BESLUTNINGER.md](./Dokumenter/BESLUTNINGER.md) | Logg over viktige beslutninger |
 | [Revisjoner/](Dokumenter/Revisjoner/) | Tidligere versjoner |
 | [Arkiv/](Dokumenter/Arkiv/) | Arkiverte dokumenter |
 
@@ -142,12 +142,12 @@ Prosjektdokumenter og formelle leveranser.
 Analysearbeid og innsikt.
 
 | Fil | Beskrivelse |
-|-----|-----------|
-| [_ANALYSE.md](Analyse/_ANALYSE.md) | Sammendrag og mappestruktur |
-| [Innholdskartlegging.md](Analyse/Innholdskartlegging.md) | Kartlegging av eksisterende innhold |
+| --- | --- |
+| [_ANALYSE.md](./Analyse/_ANALYSE.md) | Sammendrag og mappestruktur |
+| [Innholdskartlegging.md](./Analyse/Innholdskartlegging.md) | Kartlegging av eksisterende innhold |
 
 | Mappe | Innhold |
-|-------|---------|
+| --- | --- |
 | [Brukerinnsikt/](Analyse/Brukerinnsikt/) | GEO-analyse, toppoppgaver, brukerundersøkelser |
 | [Brukerreiser/](Analyse/Brukerreiser/) | Kjerneflyt-ISRC, verdistrøm-ISRC |
 | [Teknisk/](Analyse/Teknisk/) | Teknisk landskap, metadata, statistikk-visualisering |
@@ -158,25 +158,25 @@ Analysearbeid og innsikt.
 Designarbeid, prototyper og brief.
 
 | Fil | Beskrivelse |
-|-----|-----------|
-| [Designbrief.md](Design/Designbrief.md) | Brief til designfasen |
+| --- | --- |
+| [Designbrief.md](./Design/Designbrief.md) | Brief til designfasen |
 
 | Mappe | Innhold |
-|-------|---------|
-| [Prototyper/](Design/Prototyper/) | 18 statistikk-konsepter (A-R) - se [README](Design/Prototyper/README.md) |
+| --- | --- |
+| [Prototyper/](Design/Prototyper/) | 18 statistikk-konsepter (A-R) - se [README.md](./Design/Prototyper/README.md) |
 
 ### [Innhold/](Innhold/)
 Innhold for ny nettside (produksjonsfase).
 
 | Fil | Beskrivelse |
-|-----|-----------|
-| [Innholdskonsept_Sanity.md](Innhold/Innholdskonsept_Sanity.md) | **STYRENDE DOKUMENT:** Konsept for headless innholdsmodellering |
+| --- | --- |
+| [Innholdskonsept_Sanity.md](./Innhold/Innholdskonsept_Sanity.md) | **STYRENDE DOKUMENT:** Konsept for headless innholdsmodellering |
 
 ### [_TOOLS/](_TOOLS/)
 Verktøy og konfigurasjon.
 
 | Mappe | Innhold |
-|-------|---------|
+| --- | --- |
 | [Eval/](_TOOLS/Eval/) | Evaluering og review |
 | [MCP/](_TOOLS/MCP/) | MCP-server konfigurasjon |
 
@@ -189,7 +189,7 @@ Verktøy og konfigurasjon.
 3. **Registrere rettighetskrav**
 4. **Finne veiledning/svar**
 
-→ Se [Analyse/Kjerneflyt-ISRC.md](Analyse/Kjerneflyt-ISRC.md)
+→ Se [Kjerneflyt-ISRC.md](./Analyse/Kjerneflyt-ISRC.md)
 
 ---
 
@@ -198,7 +198,7 @@ Verktøy og konfigurasjon.
 ### Internt (Gramo)
 
 | Rolle | Person | Type |
-|-------|--------|------|
+| --- | --- | --- |
 | Innhold og prosjektkoordinator | Bastian Daae | Intern (ubegrensede timer) |
 | Prosjekteier | Kim Skarning Andersen | Beslutningstaker |
 | Kontaktperson | Rita H. Mamelund | Koordinering |
@@ -206,14 +206,14 @@ Verktøy og konfigurasjon.
 ### Eksterne konsulenter (Kjernepar)
 
 | Rolle | Person | Omfang |
-|-------|--------|--------|
+| --- | --- | --- |
 | Prosjektleder og strategi | Are Halland | 15 dager (Fase 1) + budsjett Fase 2-3 |
 | Design og teknologi | Inge Fossland | 5 dager (Fase 1) + budsjett Fase 2-3 |
 | Innholdsproduksjon | Torstein Norendal | Fra Fase 2 |
 
 **Viktig:** Bastian driver daglig arbeid og kontekstarkitektur. Eksterne konsulenter bidrar innenfor tildelte dagsverk.
 
-→ Se [Bakgrunn/Folk.md](Bakgrunn/Folk.md) for komplett oversikt.
+→ Se [Folk.md](./Bakgrunn/Folk.md) for komplett oversikt.
 
 ---
 

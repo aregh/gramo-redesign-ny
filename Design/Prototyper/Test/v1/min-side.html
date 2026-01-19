@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .portal-placeholder {
+            max-width: 800px;
+            margin: var(--space-xxl) auto;
+            text-align: center;
+        }
+        .portal-box {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-xxl);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: var(--space-xl);
+        }
+        .portal-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+        }
+        .portal-box h1 {
+            margin-bottom: var(--space-md);
+        }
+        .portal-box p {
+            color: var(--gramo-text-light);
+            max-width: 500px;
+            margin: 0 auto var(--space-lg);
+        }
+        .apolon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        .login-btn {
+            display: inline-block;
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .login-btn:hover {
+            background: var(--gramo-accent-hover);
+        }
+        .help-section {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-xl);
+            text-align: left;
+        }
+        .help-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+        }
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-md);
+        }
+        .help-card {
+            background: var(--gramo-light);
+            padding: var(--space-md);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--gramo-text);
+            transition: all 0.2s;
+        }
+        .help-card:hover {
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+        }
+        .help-card h3 {
+            font-size: 1rem;
+            margin-bottom: var(--space-xs);
+        }
+        .help-card p {
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+            margin: 0;
+        }
+        .help-card:hover p {
+            color: var(--gramo-dark);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Min side</a>
+        </div>
+    </nav>
+
+    <main style="background: var(--gramo-light); min-height: 80vh; padding: var(--space-xl) 0;">
+        <div class="container">
+            <div class="portal-placeholder">
+                <!-- Portal-innlogging -->
+                <div class="portal-box">
+                    <div class="portal-icon">🔐</div>
+                    <span class="apolon-badge">Apolon Webportal</span>
+                    <h1>Min side</h1>
+                    <p>
+                        Logg inn for å se dine utbetalinger, registrere innspillinger
+                        og administrere rettighetene dine.
+                    </p>
+                    <a href="https://minside.gramo.no" class="login-btn" target="_blank">
+                        Logg inn med BankID
+                    </a>
+                    <p style="font-size: 0.85rem; margin-top: var(--space-lg);">
+                        <a href="bli-medlem.html" style="color: var(--gramo-accent);">Ikke medlem ennå? Bli medlem gratis →</a>
+                    </p>
+                </div>
+
+                <!-- Hjelpetekster -->
+                <div class="help-section">
+                    <h2>Hjelp til Min side</h2>
+                    <div class="help-grid">
+                        <a href="ressurser/isrc.html" class="help-card">
+                            <h3>🎵 Registrere utgivelse</h3>
+                            <p>Slik legger du inn nye innspillinger med ISRC-kode</p>
+                        </a>
+                        <a href="ressurser/rettigheter.html" class="help-card">
+                            <h3>📝 Melde rettigheter</h3>
+                            <p>Registrer hvem som spiller på låten</p>
+                        </a>
+                        <a href="ressurser/utbetaling.html" class="help-card">
+                            <h3>💰 Forstå utbetalingen</h3>
+                            <p>Slik beregner vi hva du får</p>
+                        </a>
+                        <a href="ressurser/rollekode.html" class="help-card">
+                            <h3>🎸 Rollekoder A, B, C</h3>
+                            <p>Hva betyr de ulike rollekodene?</p>
+                        </a>
+                        <a href="hjelp-minside-profil.html" class="help-card">
+                            <h3>👤 Oppdatere profil</h3>
+                            <p>Endre kontonummer, e-post og innstillinger</p>
+                        </a>
+                        <a href="hjelp-minside-skatt.html" class="help-card">
+                            <h3>📋 Skatt og årsoppgave</h3>
+                            <p>Finn årsoppgaven og forstå skattetrekket</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kontakt -->
+                <div style="margin-top: var(--space-xl); text-align: center;">
+                    <p style="color: var(--gramo-text-light);">
+                        Trenger du hjelp? <a href="kontakt.html" style="color: var(--gramo-accent);">Kontakt oss</a>
+                        eller ring 22 00 56 50 (hverdager 09–15)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRC-koder – Gramo</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="../statistikk.html">Statistikk</a></li>
+                <li><a href="../ressurser.html" style="opacity:1; border-bottom: 2px solid var(--gramo-accent);">Ressurser</a></li>
+                <li><a href="../om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="#" class="nav-cta">Min side</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Hjem</a>
+                <span>/</span>
+                <a href="../ressurser.html">Ressurser</a>
+                <span>/</span>
+                ISRC
+            </div>
+            <h1>ISRC-koder</h1>
+            <p class="lead">
+                ISRC er den unike koden som identifiserer hver enkelt innspilling.
+                Uten ISRC kan du gå glipp av penger.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <!-- KORT FORKLART -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Hva er ISRC?</h2>
+                <p>
+                    ISRC (International Standard Recording Code) er en unik identifiseringskode
+                    for lydopptak og musikkvideoopptak. Koden gjør det lettere å følge med på
+                    hvor og når musikken din blir spilt.
+                </p>
+                <p>
+                    Tenk på det som et personnummer for innspillingen din. Hver gang
+                    låten spilles på radio, kan vi koble spillingen til riktig innspilling
+                    – og dermed til deg som rettighetshaver.
+                </p>
+
+                <div class="info-card" style="margin-top: var(--space-lg); max-width: 500px; background: var(--gramo-light);">
+                    <h3>Eksempel på ISRC-kode</h3>
+                    <p style="font-family: monospace; font-size: 1.5rem; letter-spacing: 0.1em;">
+                        NO-A1B-24-00001
+                    </p>
+                    <p style="font-size: 0.85rem; color: var(--gramo-text-light);">
+                        NO = Land (Norge)<br>
+                        A1B = Registrantkode (din unike kode)<br>
+                        24 = År (2024)<br>
+                        00001 = Løpenummer
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HVORFOR -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Hvorfor trenger du ISRC?</h2>
+                <ul>
+                    <li><strong>For å få betalt:</strong> Uten ISRC kan vi ikke koble spilledata til innspillingen din</li>
+                    <li><strong>For digital distribusjon:</strong> Spotify, Apple Music og andre tjenester krever ISRC</li>
+                    <li><strong>For å spore bruken:</strong> Se hvor og hvor mye musikken din spilles</li>
+                    <li><strong>For å unngå forvekslinger:</strong> Skiller din versjon fra andre versjoner av samme låt</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIK FÅR DU -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Slik får du ISRC-kode</h2>
+
+                <h3>Alternativ 1: Få kode fra distributøren din</h3>
+                <p>
+                    Hvis du bruker en digital distributør (DistroKid, TuneCore, CD Baby osv.),
+                    tildeler de ofte ISRC-kode automatisk når du laster opp musikken.
+                </p>
+
+                <h3>Alternativ 2: Få registrantkode fra Gramo</h3>
+                <p>
+                    Du kan få din egen registrantkode fra Gramo. Da kan du selv generere
+                    ISRC-koder for alle innspillingene dine.
+                </p>
+                <p>
+                    <strong>Du trenger ikke være medlem i Gramo for å få registrantkode.</strong>
+                </p>
+
+                <a href="#" class="btn btn-primary" style="margin-top: var(--space-md);">Søk om registrantkode</a>
+
+                <h3>Alternativ 3: Plateselskapet ditt</h3>
+                <p>
+                    Hvis du har avtale med et plateselskap, er det ofte de som tildeler ISRC.
+                    Sjekk med plateselskapet ditt hva som gjelder for deg.
+                </p>
+            </div>
+        </section>
+
+        <!-- VIKTIG Å VITE -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Viktig å vite</h2>
+
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>Én ISRC per innspilling</h3>
+                        <p>
+                            Hver unike innspilling skal ha én ISRC-kode. Hvis du mikser låten på nytt
+                            eller lager en remiks, skal den nye versjonen ha ny ISRC.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>ISRC følger innspillingen</h3>
+                        <p>
+                            Koden følger innspillingen, ikke utgivelsen. Hvis samme innspilling
+                            gis ut på flere album, brukes samme ISRC.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Ikke gjenbruk koder</h3>
+                        <p>
+                            ISRC-koder skal aldri gjenbrukes. Har du brukt en kode, er den
+                            permanent knyttet til den innspillingen.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Hvem tildeler koden?</h3>
+                        <p>
+                            Den som «eier» innspillingen (mastereier) er ansvarlig for ISRC.
+                            Dette er ofte plateselskapet, men kan også være artisten selv.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REGISTRERE UTGIVELSE -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Neste steg: Registrer utgivelsen</h2>
+                <p>
+                    Når du har ISRC-kode, kan du registrere utgivelsen i Gramos system
+                    via Min side. Da sikrer du at vi har riktig informasjon om hvem
+                    som spiller på innspillingen.
+                </p>
+                <a href="#" class="btn btn-primary">Gå til Min side</a>
+                <a href="#" class="link-arrow" style="margin-left: var(--space-md);">Les mer om å registrere utgivelser →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Gramo</h4>
+                    <ul>
+                        <li><a href="../om-gramo.html">Om oss</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>For musikere</h4>
+                    <ul>
+                        <li><a href="#">Bli medlem</a></li>
+                        <li><a href="isrc.html">ISRC-koder</a></li>
+                        <li><a href="utbetaling.html">Utbetaling</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>Gramo<br>
+                    post@gramo.no</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">
+                    Gramo er godkjent av Kulturdepartementet til å forvalte vederlag
+                    for offentlig fremføring av innspilt musikk etter åndsverkloven § 21.
+                </p>
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

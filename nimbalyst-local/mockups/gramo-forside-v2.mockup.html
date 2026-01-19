@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramo.no - Forside Redesign v2 (Strategi-forankret)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            background: #1a1a2e;
+            padding: 0 48px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #4ecdc4;
+            color: #1a1a2e;
+        }
+
+        .btn-primary:hover {
+            background: #5fd8cf;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn-dark {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background: #2a2a4e;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1a1a2e;
+            border: 2px solid #1a1a2e;
+        }
+
+        .btn-outline:hover {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+
+        /* ============================================
+           HERO - Spor 1: Merkevare + Historiefortelling
+           ============================================ */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%);
+            padding: 80px 48px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(78, 205, 196, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 560px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(78, 205, 196, 0.15);
+            color: #4ecdc4;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Hero stat teaser (Spor 1 - Historiefortelling) */
+        .hero-stat-teaser {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .stat-teaser-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-teaser-headline {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .stat-teaser-highlight {
+            color: #4ecdc4;
+        }
+
+        .stat-teaser-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-mini {
+            text-align: center;
+        }
+
+        .stat-mini-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .stat-mini-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        .stat-teaser-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4ecdc4;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .stat-teaser-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           TOPPOPPGAVER - Spor 2
+           "Folk finner, forstår og får til"
+           ============================================ */
+        .tasks {
+            background: #f8f9fa;
+            padding: 80px 48px;
+        }
+
+        .tasks-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4ecdc4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+
+        .task-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            border-color: #4ecdc4;
+        }
+
+        .task-card.featured {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%);
+            color: white;
+        }
+
+        .task-card.featured .task-title,
+        .task-card.featured .task-desc {
+            color: white;
+        }
+
+        .task-card.featured .task-desc {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .task-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #4ecdc4 0%, #3db3ab 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .task-card.featured .task-icon {
+            background: rgba(78, 205, 196, 0.2);
+        }
+
+        .task-priority {
+            font-size: 11px;
+            font-weight: 600;
+            color: #4ecdc4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .task-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .task-arrow {
+            margin-top: 16px;
+            color: #4ecdc4;
+            font-size: 20px;
+        }
+
+        /* ============================================
+           STATISTIKK - Spor 1: Historiefortelling med data
+           ============================================ */
+        .stats {
+            background: #1a1a2e;
+            padding: 100px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 190, 11, 0.1) 0%, transparent 70%);
+        }
+
+        .stats-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .stats-header .section-label {
+            color: #4ecdc4;
+        }
+
+        .stats-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .stats-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .stat-card:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .stat-number {
+            font-size: 44px;
+            font-weight: 800;
+            color: #4ecdc4;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            color: #4ecdc4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stats-cta {
+            text-align: center;
+        }
+
+        /* ============================================
+           WORLDWIDE MEMBERS - Strategisk mål
+           ============================================ */
+        .worldwide {
+            background: linear-gradient(135deg, #4ecdc4 0%, #3db3ab 100%);
+            padding: 80px 48px;
+        }
+
+        .worldwide-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .worldwide-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+        }
+
+        .worldwide-content p {
+            font-size: 17px;
+            color: rgba(26, 26, 46, 0.8);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .worldwide-stats {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .worldwide-stat {
+            text-align: center;
+        }
+
+        .worldwide-stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .worldwide-stat-label {
+            font-size: 13px;
+            color: rgba(26, 26, 46, 0.7);
+        }
+
+        .worldwide-map {
+            background: rgba(26, 26, 46, 0.1);
+            border-radius: 16px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(26, 26, 46, 0.4);
+            font-size: 14px;
+        }
+
+        /* ============================================
+           NYHETER
+           ============================================ */
+        .news {
+            padding: 80px 48px;
+            background: white;
+        }
+
+        .news-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+
+        .news-image {
+            height: 180px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #3a3a5e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .news-image-placeholder {
+            color: rgba(255,255,255,0.3);
+            font-size: 14px;
+        }
+
+        .news-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #4ecdc4;
+            color: #1a1a2e;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .news-body {
+            padding: 24px;
+        }
+
+        .news-date {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           FAQ TEASER
+           ============================================ */
+        .faq-teaser {
+            background: #f8f9fa;
+            padding: 64px 48px;
+        }
+
+        .faq-teaser-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .faq-teaser h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .faq-teaser p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .faq-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .faq-link {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #1a1a2e;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .faq-link:hover {
+            border-color: #4ecdc4;
+            background: #f0fffe;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: #1a1a2e;
+            padding: 64px 48px 32px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            color: white;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .footer-heading {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            display: block;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-badge {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ============================================
+           ANNOTATIONS / MARKERS
+           ============================================ */
+        .strategy-marker {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 190, 11, 0.9);
+            color: #1a1a2e;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">gramo</div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Hjem</a>
+                <a href="#" class="nav-link">ISRC</a>
+                <a href="#" class="nav-link">Medlemskap</a>
+                <a href="#" class="nav-link">Statistikk</a>
+                <a href="#" class="nav-link">Om Gramo</a>
+                <a href="#" class="nav-link">Hjelp</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn btn-secondary">Logg inn</a>
+                <a href="#" class="btn btn-primary">Bli medlem</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO - Spor 1 (Merkevare) + Spor 2 (Toppoppgaver via CTA) -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🎵</span>
+                    <span>14 000 medlemmer • 250 mill. kr årlig</span>
+                </div>
+                <h1 class="hero-title">Kilde til et rikt musikkliv</h1>
+                <p class="hero-subtitle">Gramo jobber for at musikere, artister og plateselskap får betalt når innspilt musikk blir brukt på radio, i butikker, kafeer, treningssentre og lignende. Vi er bindeleddet – så du slipper.</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary btn-large">Trenger jeg ISRC-kode?</a>
+                    <a href="#" class="btn btn-secondary btn-large">Logg inn på Mine sider</a>
+                </div>
+            </div>
+            <div class="hero-stat-teaser">
+                <div class="stat-teaser-label">Fra Gramobarometeret 2024</div>
+                <div class="stat-teaser-headline">
+                    <span class="stat-teaser-highlight">654 timer</span> med «Josefin» (Delara) på norsk radio i fjor
+                </div>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 8px;">Det tilsvarer 27 døgn non-stop musikk</p>
+                <div class="stat-teaser-details">
+                    <div class="stat-mini">
+                        <div class="stat-mini-number">39,3%</div>
+                        <div class="stat-mini-label">Norsk musikk på radio</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-number">1 690</div>
+                        <div class="stat-mini-label">Timer med Kygo</div>
+                    </div>
+                </div>
+                <a href="#" class="stat-teaser-link">
+                    Utforsk Gramobarometeret →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOPPOPPGAVER - Spor 2 (fra Skyra-undersøkelsen: 919 respondenter) -->
+    <section class="tasks">
+        <div class="tasks-inner">
+            <div class="section-header">
+                <div class="section-label">Folk finner, forstår og får til</div>
+                <h2 class="section-title">Fire ting du kanskje lurer på</h2>
+                <p class="section-subtitle">70% av våre brukere er musikere og artister. Her er det de oftest trenger hjelp med.</p>
+            </div>
+            <div class="task-grid">
+                <a href="#" class="task-card featured">
+                    <div class="task-icon">🎵</div>
+                    <div class="task-priority">17% av alle oppgaver</div>
+                    <div class="task-title">Trenger jeg ISRC-kode?</div>
+                    <div class="task-desc">Ja, alle innspillinger som gis ut i Norge skal ha ISRC. Uten den kan vi ikke vite at det er din musikk som spiller – og betale deg.</div>
+                    <div class="task-arrow">Lag din ISRC-kode →</div>
+                </a>
+                <a href="#" class="task-card">
+                    <div class="task-icon">💰</div>
+                    <div class="task-title">Hva får jeg utbetalt?</div>
+                    <div class="task-desc">Se oversikt over dine vederlag, utbetalingskalender og historikk. Neste utbetaling: april 2026.</div>
+                    <div class="task-arrow">Se mine utbetalinger →</div>
+                </a>
+                <a href="#" class="task-card">
+                    <div class="task-icon">📋</div>
+                    <div class="task-title">Registrer rettighetskrav</div>
+                    <div class="task-desc">Har du medvirket på et lydopptak? Registrer kravet ditt så vi kan fordele vederlaget riktig.</div>
+                    <div class="task-arrow">Meld krav →</div>
+                </a>
+                <a href="#" class="task-card">
+                    <div class="task-icon">🌍</div>
+                    <div class="task-title">Tjen på musikken din – verden rundt</div>
+                    <div class="task-desc">Med worldwide-medlemskap kan Gramo kreve inn for deg fra 52 land. Finland henter 14 mill./år – vi bare 7 mill.</div>
+                    <div class="task-arrow">Les om worldwide →</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATISTIKK - Spor 1: Historiefortelling med data (fra Gramobarometeret 2024) -->
+    <section class="stats">
+        <div class="stats-inner">
+            <div class="stats-header">
+                <div class="section-label">Gramobarometeret 2024</div>
+                <h2 class="stats-title">Hvem får spilletid på norsk radio?</h2>
+                <p class="stats-subtitle">Vi analyserer all musikk på norsk radio. Her er nøkkeltallene fra fjoråret.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">39,3%</div>
+                    <div class="stat-label">Norsk musikk på radio</div>
+                    <div class="stat-change">NRK P1/P3: over 50%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1 731</div>
+                    <div class="stat-label">Timer David Guetta</div>
+                    <div class="stat-change">= 72 døgn non-stop</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5/10</div>
+                    <div class="stat-label">Topp 10 norske er kvinner</div>
+                    <div class="stat-change">50% kjønnsbalanse</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">250M</div>
+                    <div class="stat-label">Kroner innkrevd årlig</div>
+                    <div class="stat-change">14 000 medlemmer</div>
+                </div>
+            </div>
+            <div class="stats-cta">
+                <a href="#" class="btn btn-primary btn-large">Se hele Gramobarometeret</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORLDWIDE - Strategisk mål (7M → 14M) -->
+    <section class="worldwide">
+        <div class="worldwide-inner">
+            <div class="worldwide-content">
+                <h2>Norsk musikk på verdensscenen</h2>
+                <p>Kygo spilles 1 690 timer på norsk radio – men musikken hans spilles også i Sverige, USA, UK og 49 andre land. Med worldwide-medlemskap kan Gramo kreve inn for deg fra hele verden.</p>
+                <div class="worldwide-stats">
+                    <div class="worldwide-stat">
+                        <div class="worldwide-stat-number">7M</div>
+                        <div class="worldwide-stat-label">Gramo i dag fra utlandet</div>
+                    </div>
+                    <div class="worldwide-stat">
+                        <div class="worldwide-stat-number">14M</div>
+                        <div class="worldwide-stat-label">Finland fra utlandet</div>
+                    </div>
+                    <div class="worldwide-stat">
+                        <div class="worldwide-stat-number">52</div>
+                        <div class="worldwide-stat-label">Land med avtaler</div>
+                    </div>
+                </div>
+                <p style="font-size: 14px; color: rgba(26,26,46,0.7); margin-bottom: 24px;">Norsk musikk spilles sannsynligvis mer internasjonalt enn finsk. La oss doble inntekten – sammen.</p>
+                <a href="#" class="btn btn-dark btn-large">Oppgrader til worldwide-medlemskap</a>
+            </div>
+            <div class="worldwide-map">
+                [Interaktivt kart: 52 land med Gramo-avtaler]<br><br>
+                <span style="font-size: 12px;">«Kygo som worldwide-medlem» – vår visjon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NYHETER -->
+    <section class="news">
+        <div class="news-inner">
+            <div class="news-header">
+                <div>
+                    <div class="section-label">Aktuelt</div>
+                    <h2 class="section-title">Siste nytt fra Gramo</h2>
+                </div>
+                <a href="#" class="btn btn-outline">Se alle nyheter</a>
+            </div>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image">
+                        <span class="news-image-placeholder">Bilde</span>
+                        <span class="news-tag">Statistikk</span>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-date">15. januar 2026</div>
+                        <h3 class="news-title">Gramobarometeret 2025: Norsk musikk holder stand</h3>
+                        <p class="news-excerpt">35% av all musikk på norsk radio er norskprodusert. Se de fullstendige tallene.</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <div class="news-image">
+                        <span class="news-image-placeholder">Bilde</span>
+                        <span class="news-tag">ISRC</span>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-date">10. januar 2026</div>
+                        <h3 class="news-title">Ny ISRC-portal: Enklere registrering</h3>
+                        <p class="news-excerpt">Vi har lansert en helt ny løsning for å registrere ISRC-koder for dine utgivelser.</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <div class="news-image">
+                        <span class="news-image-placeholder">Bilde</span>
+                        <span class="news-tag">Årsrapport</span>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-date">5. januar 2026</div>
+                        <h3 class="news-title">Årsrapport 2025 er klar</h3>
+                        <p class="news-excerpt">Les om hvordan vi forvaltet 287 millioner kroner for norske artister og produsenter.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ TEASER - Spor 2: Finne veiledning (35% finner ikke det de leter etter) -->
+    <section class="faq-teaser">
+        <div class="faq-teaser-inner">
+            <h2>Vanlige spørsmål</h2>
+            <p>Fra brukerundersøkelsen vår vet vi at dette er det folk oftest lurer på:</p>
+            <div class="faq-links">
+                <a href="#" class="faq-link">Hva er forskjellen på TONO og Gramo?</a>
+                <a href="#" class="faq-link">Trenger jeg ISRC når jeg legger ut musikk første gang?</a>
+                <a href="#" class="faq-link">Hvor stor/liten må man være for å ha ISRC?</a>
+                <a href="#" class="faq-link">Når kommer neste utbetaling?</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">gramo</div>
+                    <p class="footer-desc">Gramo jobber for at musikere, artister og plateselskap får betalt når innspilt musikk blir brukt. Etablert 7. juni 1989.</p>
+                </div>
+                <div>
+                    <div class="footer-heading">Medlemskap</div>
+                    <a href="#" class="footer-link">Bli medlem</a>
+                    <a href="#" class="footer-link">Logg inn</a>
+                    <a href="#" class="footer-link">Mine sider</a>
+                    <a href="#" class="footer-link">Worldwide</a>
+                </div>
+                <div>
+                    <div class="footer-heading">Tjenester</div>
+                    <a href="#" class="footer-link">ISRC-registrering</a>
+                    <a href="#" class="footer-link">Utbetalinger</a>
+                    <a href="#" class="footer-link">Rettighetskrav</a>
+                    <a href="#" class="footer-link">Statistikk</a>
+                </div>
+                <div>
+                    <div class="footer-heading">Om Gramo</div>
+                    <a href="#" class="footer-link">Om oss</a>
+                    <a href="#" class="footer-link">Styret</a>
+                    <a href="#" class="footer-link">Årsrapporter</a>
+                    <a href="#" class="footer-link">Karriere</a>
+                </div>
+                <div>
+                    <div class="footer-heading">Kontakt</div>
+                    <a href="#" class="footer-link">post@gramo.no</a>
+                    <a href="#" class="footer-link">22 02 06 80</a>
+                    <a href="#" class="footer-link">Besøksadresse</a>
+                    <a href="#" class="footer-link">Personvern</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">© 2026 Gramo. Alle rettigheter reservert.</div>
+                <div class="footer-badge">Godkjent av Kultur- og likestillingsdepartementet</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-nav {
+            background: var(--gramo-blue);
+            padding: var(--space-sm) 0;
+        }
+        .dashboard-nav .container {
+            display: flex;
+            gap: var(--space-lg);
+        }
+        .dashboard-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--gramo-white);
+        }
+        .user-header {
+            background: var(--gramo-dark);
+            color: var(--gramo-white);
+            padding: var(--space-lg) 0;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--gramo-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gramo-dark);
+        }
+        .user-details h1 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+        .user-details p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+        .dashboard-card {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .dashboard-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .amount-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gramo-accent);
+        }
+        .amount-label {
+            font-size: 0.9rem;
+            color: var(--gramo-text-light);
+        }
+        .recording-list {
+            list-style: none;
+        }
+        .recording-item {
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--gramo-gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .recording-item:last-child {
+            border-bottom: none;
+        }
+        .recording-title {
+            font-weight: 500;
+        }
+        .recording-artist {
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+        }
+        .recording-amount {
+            font-weight: 600;
+            color: var(--gramo-accent);
+        }
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+        }
+        .quick-action {
+            background: var(--gramo-light);
+            padding: var(--space-md);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--gramo-text);
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .quick-action:hover {
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+        }
+        .quick-action span {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+        .notification-badge {
+            background: #ef4444;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: var(--space-xs);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-ok {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Logg ut</a>
+        </div>
+    </nav>
+
+    <nav class="dashboard-nav">
+        <div class="container">
+            <a href="min-side-dashboard.html" class="active">Oversikt</a>
+            <a href="min-side-utbetalinger.html">Utbetalinger</a>
+            <a href="min-side-innspillinger.html">Mine innspillinger</a>
+            <a href="min-side-rettigheter.html">Rettigheter</a>
+            <a href="min-side-profil.html">Profil</a>
+        </div>
+    </nav>
+
+    <header class="user-header">
+        <div class="container">
+            <div class="user-info">
+                <div class="user-avatar">KH</div>
+                <div class="user-details">
+                    <h1>Kari Hansen</h1>
+                    <p>Medlem siden 2019 · Artist/musiker</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main style="background: var(--gramo-light); padding: var(--space-xl) 0;">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div>
+                    <!-- Siste utbetaling -->
+                    <div class="dashboard-card" style="margin-bottom: var(--space-lg);">
+                        <h2>💰 Siste utbetaling</h2>
+                        <div class="amount-display">12 847 kr</div>
+                        <p class="amount-label">Hovedutbetaling februar 2025</p>
+                        <a href="min-side-utbetalinger.html" class="link-arrow" style="display: inline-block; margin-top: var(--space-md);">Se alle utbetalinger →</a>
+                    </div>
+
+                    <!-- Topp innspillinger -->
+                    <div class="dashboard-card">
+                        <h2>🎵 Dine mest spilte innspillinger</h2>
+                        <ul class="recording-list">
+                            <li class="recording-item">
+                                <div>
+                                    <div class="recording-title">Sommernatt</div>
+                                    <div class="recording-artist">Kari Hansen</div>
+                                </div>
+                                <div class="recording-amount">4 230 kr</div>
+                            </li>
+                            <li class="recording-item">
+                                <div>
+                                    <div class="recording-title">Vinterdrøm</div>
+                                    <div class="recording-artist">Kari Hansen feat. Per</div>
+                                </div>
+                                <div class="recording-amount">3 102 kr</div>
+                            </li>
+                            <li class="recording-item">
+                                <div>
+                                    <div class="recording-title">Høstregn</div>
+                                    <div class="recording-artist">Kari Hansen</div>
+                                </div>
+                                <div class="recording-amount">2 845 kr</div>
+                            </li>
+                            <li class="recording-item">
+                                <div>
+                                    <div class="recording-title">Vårsol</div>
+                                    <div class="recording-artist">Kari Hansen</div>
+                                </div>
+                                <div class="recording-amount">1 670 kr</div>
+                            </li>
+                        </ul>
+                        <a href="min-side-innspillinger.html" class="link-arrow" style="display: inline-block; margin-top: var(--space-md);">Se alle innspillinger →</a>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- Hurtighandlinger -->
+                    <div class="dashboard-card" style="margin-bottom: var(--space-lg);">
+                        <h2>⚡ Hurtighandlinger</h2>
+                        <div class="quick-actions">
+                            <a href="min-side-registrer.html" class="quick-action">
+                                <span>➕</span>
+                                Registrer utgivelse
+                            </a>
+                            <a href="min-side-rettigheter.html" class="quick-action">
+                                <span>📝</span>
+                                Meld rettigheter
+                            </a>
+                            <a href="min-side-profil.html" class="quick-action">
+                                <span>👤</span>
+                                Oppdater profil
+                            </a>
+                            <a href="ressurser/isrc.html" class="quick-action">
+                                <span>🎵</span>
+                                ISRC-koder
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="dashboard-card" style="margin-bottom: var(--space-lg);">
+                        <h2>📋 Din status</h2>
+                        <ul style="list-style: none;">
+                            <li style="padding: var(--space-xs) 0; display: flex; justify-content: space-between;">
+                                <span>Kontonummer</span>
+                                <span class="status-badge status-ok">✓ Registrert</span>
+                            </li>
+                            <li style="padding: var(--space-xs) 0; display: flex; justify-content: space-between;">
+                                <span>Skattekort</span>
+                                <span class="status-badge status-ok">✓ Oppdatert</span>
+                            </li>
+                            <li style="padding: var(--space-xs) 0; display: flex; justify-content: space-between;">
+                                <span>MVA-registrert</span>
+                                <span class="status-badge status-pending">Ikke reg.</span>
+                            </li>
+                        </ul>
+                        <a href="min-side-profil.html" class="link-arrow" style="display: inline-block; margin-top: var(--space-sm);">Gå til profil →</a>
+                    </div>
+
+                    <!-- Varsler -->
+                    <div class="dashboard-card">
+                        <h2>🔔 Varsler <span class="notification-badge">2</span></h2>
+                        <ul style="list-style: none;">
+                            <li style="padding: var(--space-sm) 0; border-bottom: 1px solid var(--gramo-gray-light);">
+                                <strong>Hovedutbetaling 2025</strong>
+                                <p style="font-size: 0.85rem; color: var(--gramo-text-light); margin-top: 4px;">
+                                    Utbetalingen for 2024 kommer i februar.
+                                </p>
+                            </li>
+                            <li style="padding: var(--space-sm) 0;">
+                                <strong>Manglende rettigheter</strong>
+                                <p style="font-size: 0.85rem; color: var(--gramo-text-light); margin-top: 4px;">
+                                    2 innspillinger mangler rolleinformasjon.
+                                </p>
+                                <a href="min-side-rettigheter.html" class="link-arrow" style="font-size: 0.85rem;">Fiks nå →</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

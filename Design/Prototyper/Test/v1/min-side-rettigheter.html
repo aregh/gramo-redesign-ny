@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rettigheter – Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-nav {
+            background: var(--gramo-blue);
+            padding: var(--space-sm) 0;
+        }
+        .dashboard-nav .container {
+            display: flex;
+            gap: var(--space-lg);
+        }
+        .dashboard-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--gramo-white);
+        }
+        .page-title {
+            padding: var(--space-lg) 0;
+            background: var(--gramo-dark);
+            color: var(--gramo-white);
+        }
+        .alert-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        .alert-box h3 {
+            color: #92400e;
+            margin-bottom: var(--space-sm);
+        }
+        .claim-card {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        .claim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-md);
+        }
+        .claim-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-needs-action {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .claim-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--gramo-gray-light);
+        }
+        .claim-detail label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--gramo-text-light);
+            margin-bottom: 4px;
+        }
+        .tab-nav {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        .tab-nav a {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--gramo-white);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--gramo-text);
+            font-weight: 500;
+        }
+        .tab-nav a.active {
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Logg ut</a>
+        </div>
+    </nav>
+
+    <nav class="dashboard-nav">
+        <div class="container">
+            <a href="min-side-dashboard.html">Oversikt</a>
+            <a href="min-side-utbetalinger.html">Utbetalinger</a>
+            <a href="min-side-innspillinger.html">Mine innspillinger</a>
+            <a href="min-side-rettigheter.html" class="active">Rettigheter</a>
+            <a href="min-side-profil.html">Profil</a>
+        </div>
+    </nav>
+
+    <header class="page-title">
+        <div class="container">
+            <h1>Rettigheter</h1>
+        </div>
+    </header>
+
+    <main style="background: var(--gramo-light); padding: var(--space-xl) 0;">
+        <div class="container">
+            <!-- Varsel -->
+            <div class="alert-box">
+                <h3>⚠️ 2 innspillinger trenger oppmerksomhet</h3>
+                <p>Noen av dine innspillinger mangler rolleinformasjon. Fyll ut for å sikre riktig utbetaling.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tab-nav">
+                <a href="#" class="active">Trenger handling (2)</a>
+                <a href="#">Under behandling (1)</a>
+                <a href="#">Godkjente (12)</a>
+            </div>
+
+            <!-- Krav som trenger handling -->
+            <div class="claim-card">
+                <div class="claim-header">
+                    <div>
+                        <h3 style="margin-bottom: var(--space-xs);">Midnattsol</h3>
+                        <p style="color: var(--gramo-text-light); font-size: 0.9rem;">
+                            ISRC: NO-A1B-24-00005 · Kari Hansen
+                        </p>
+                    </div>
+                    <span class="claim-status status-needs-action">Mangler info</span>
+                </div>
+                <p style="color: var(--gramo-text-light);">
+                    Denne innspillingen mangler informasjon om hvem andre som spiller på låten.
+                    Vi trenger rollekoder for alle utøvere.
+                </p>
+                <div class="claim-details">
+                    <div>
+                        <label>Innmeldt</label>
+                        <span>10. jan 2026</span>
+                    </div>
+                    <div>
+                        <label>Frist</label>
+                        <span style="color: #dc2626; font-weight: 600;">1. feb 2026</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary" style="margin-top: var(--space-md);">Fyll ut informasjon</a>
+            </div>
+
+            <div class="claim-card">
+                <div class="claim-header">
+                    <div>
+                        <h3 style="margin-bottom: var(--space-xs);">Stjernenatt</h3>
+                        <p style="color: var(--gramo-text-light); font-size: 0.9rem;">
+                            ISRC: NO-A1B-24-00006 · Kari Hansen feat. Ole
+                        </p>
+                    </div>
+                    <span class="claim-status status-needs-action">Mangler info</span>
+                </div>
+                <p style="color: var(--gramo-text-light);">
+                    Vi mangler bekreftelse på at «Ole» godkjenner rollekoden sin.
+                </p>
+                <div class="claim-details">
+                    <div>
+                        <label>Innmeldt</label>
+                        <span>8. jan 2026</span>
+                    </div>
+                    <div>
+                        <label>Venter på</label>
+                        <span>Ole Olsen</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-secondary" style="margin-top: var(--space-md); border-color: var(--gramo-gray-light); color: var(--gramo-text);">Send påminnelse</a>
+            </div>
+
+            <!-- Info -->
+            <div style="margin-top: var(--space-xl); background: var(--gramo-white); padding: var(--space-lg); border-radius: 8px;">
+                <h2 style="font-size: 1.1rem; margin-bottom: var(--space-md);">Slik fungerer rettighetskrav</h2>
+                <ol style="padding-left: var(--space-lg); color: var(--gramo-text-light);">
+                    <li style="margin-bottom: var(--space-sm);">Du melder inn hvem som spiller på innspillingen</li>
+                    <li style="margin-bottom: var(--space-sm);">Alle utøvere får varsel og må godkjenne sin rolle</li>
+                    <li style="margin-bottom: var(--space-sm);">Når alle har godkjent, registreres rettighetene</li>
+                    <li>Utbetaling skjer ved neste utbetalingsrunde</li>
+                </ol>
+                <a href="ressurser/rollekode.html" class="link-arrow" style="display: inline-block; margin-top: var(--space-md);">Les mer om rollekoder →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

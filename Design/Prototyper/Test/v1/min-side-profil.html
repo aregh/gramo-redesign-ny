@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil – Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-nav {
+            background: var(--gramo-blue);
+            padding: var(--space-sm) 0;
+        }
+        .dashboard-nav .container {
+            display: flex;
+            gap: var(--space-lg);
+        }
+        .dashboard-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--gramo-white);
+        }
+        .page-title {
+            padding: var(--space-lg) 0;
+            background: var(--gramo-dark);
+            color: var(--gramo-white);
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+        .profile-card {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-lg);
+        }
+        .profile-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--gramo-gray-light);
+        }
+        .form-row {
+            margin-bottom: var(--space-md);
+        }
+        .form-row label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+            margin-bottom: var(--space-xs);
+        }
+        .form-row input, .form-row select {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-row input:disabled {
+            background: var(--gramo-light);
+        }
+        .value-display {
+            padding: var(--space-sm);
+            background: var(--gramo-light);
+            border-radius: 4px;
+        }
+        .edit-link {
+            font-size: 0.85rem;
+            color: var(--gramo-accent);
+            text-decoration: none;
+            float: right;
+        }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) 0;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .status-dot.green { background: #22c55e; }
+        .status-dot.yellow { background: #f59e0b; }
+        .status-dot.red { background: #ef4444; }
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Logg ut</a>
+        </div>
+    </nav>
+
+    <nav class="dashboard-nav">
+        <div class="container">
+            <a href="min-side-dashboard.html">Oversikt</a>
+            <a href="min-side-utbetalinger.html">Utbetalinger</a>
+            <a href="min-side-innspillinger.html">Mine innspillinger</a>
+            <a href="min-side-rettigheter.html">Rettigheter</a>
+            <a href="min-side-profil.html" class="active">Profil</a>
+        </div>
+    </nav>
+
+    <header class="page-title">
+        <div class="container">
+            <h1>Min profil</h1>
+        </div>
+    </header>
+
+    <main style="background: var(--gramo-light); padding: var(--space-xl) 0;">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Personlig info -->
+                <div class="profile-card">
+                    <h2>Personlig informasjon <a href="#" class="edit-link">Rediger</a></h2>
+
+                    <div class="form-row">
+                        <label>Navn</label>
+                        <div class="value-display">Kari Hansen</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Fødselsnummer</label>
+                        <div class="value-display">010185 *****</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>E-post</label>
+                        <div class="value-display">kari@musikk.no</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Telefon</label>
+                        <div class="value-display">+47 912 34 567</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Adresse</label>
+                        <div class="value-display">Musikerveien 1, 0123 Oslo</div>
+                    </div>
+                </div>
+
+                <!-- Medlemsinfo -->
+                <div class="profile-card">
+                    <h2>Medlemsinformasjon</h2>
+
+                    <div class="form-row">
+                        <label>Medlemsnummer</label>
+                        <div class="value-display">GR-2019-12345</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Medlem siden</label>
+                        <div class="value-display">15. mars 2019</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Medlemstype</label>
+                        <div class="value-display">Artist/musiker</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Registrantkode (ISRC)</label>
+                        <div class="value-display" style="font-family: monospace;">NO-A1B</div>
+                    </div>
+                </div>
+
+                <!-- Utbetalingsinfo -->
+                <div class="profile-card">
+                    <h2>Utbetalingsinformasjon <a href="#" class="edit-link">Rediger</a></h2>
+
+                    <div class="form-row">
+                        <label>Kontonummer</label>
+                        <div class="value-display">1234 56 78901</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>MVA-registrert</label>
+                        <div class="value-display">Nei</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Skattekort</label>
+                        <div class="status-indicator">
+                            <span class="status-dot green"></span>
+                            <span>Hentet fra Skatteetaten</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="profile-card">
+                    <h2>Kontostatus</h2>
+
+                    <div class="status-indicator">
+                        <span class="status-dot green"></span>
+                        <span>Kontonummer registrert</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <span class="status-dot green"></span>
+                        <span>E-post bekreftet</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <span class="status-dot green"></span>
+                        <span>Skattekort oppdatert</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <span class="status-dot yellow"></span>
+                        <span>Ikke MVA-registrert</span>
+                    </div>
+
+                    <p style="margin-top: var(--space-lg); font-size: 0.85rem; color: var(--gramo-text-light);">
+                        <strong>Tips:</strong> Hvis du er MVA-registrert kan du få MVA på utbetalingen.
+                        <a href="ressurser/utbetaling.html" class="link-arrow">Les mer →</a>
+                    </p>
+                </div>
+
+                <!-- Innlogging -->
+                <div class="profile-card">
+                    <h2>Innlogging og sikkerhet</h2>
+
+                    <div class="form-row">
+                        <label>Innloggingsmetode</label>
+                        <div class="value-display">BankID</div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Sist innlogget</label>
+                        <div class="value-display">16. januar 2026 kl. 14:32</div>
+                    </div>
+
+                    <a href="#" class="btn btn-secondary" style="margin-top: var(--space-md); display: inline-block; border-color: var(--gramo-gray-light); color: var(--gramo-text);">
+                        Se innloggingshistorikk
+                    </a>
+                </div>
+
+                <!-- Kommunikasjon -->
+                <div class="profile-card">
+                    <h2>Kommunikasjon <a href="#" class="edit-link">Rediger</a></h2>
+
+                    <div class="status-indicator">
+                        <input type="checkbox" checked>
+                        <span>E-post om utbetalinger</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <input type="checkbox" checked>
+                        <span>Nyhetsbrev</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <input type="checkbox">
+                        <span>SMS-varsler</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

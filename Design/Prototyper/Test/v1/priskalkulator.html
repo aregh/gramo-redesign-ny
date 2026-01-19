@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priskalkulator – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .calculator-container {
+            max-width: 600px;
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-xl);
+            margin-top: var(--space-lg);
+        }
+        .form-row {
+            margin-bottom: var(--space-lg);
+        }
+        .form-row label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        .form-row select, .form-row input {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .result-box {
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            text-align: center;
+            margin-top: var(--space-xl);
+        }
+        .result-box .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .result-box .note {
+            font-size: 0.9rem;
+            margin-top: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta">Min side</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Hjem</a>
+                <span>/</span>
+                <a href="for-bedrifter.html">For bedrifter</a>
+                <span>/</span>
+                Priskalkulator
+            </div>
+            <h1>Priskalkulator</h1>
+            <p class="lead">
+                Se hva det koster å spille musikk i din bedrift.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <div class="calculator-container">
+                    <div class="form-row">
+                        <label for="business-type">Hva slags bedrift driver du?</label>
+                        <select id="business-type">
+                            <option value="">Velg type bedrift</option>
+                            <option value="cafe">Kafe/restaurant</option>
+                            <option value="gym">Treningssenter</option>
+                            <option value="hairdresser">Frisør</option>
+                            <option value="shop">Butikk</option>
+                            <option value="hotel">Hotell</option>
+                            <option value="office">Kontor</option>
+                            <option value="other">Annet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="size">Antall sitteplasser / medlemmer / ansatte</label>
+                        <input type="number" id="size" placeholder="F.eks. 50">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="music-type">Hvordan spiller dere musikk?</label>
+                        <select id="music-type">
+                            <option value="">Velg type musikkbruk</option>
+                            <option value="background">Bakgrunnsmusikk (radio, streaming)</option>
+                            <option value="tv">Kun TV</option>
+                            <option value="live">Bakgrunnsmusikk + live-arrangement</option>
+                        </select>
+                    </div>
+
+                    <div class="result-box">
+                        <p style="margin-bottom: var(--space-sm);">Estimert årspris:</p>
+                        <div class="price">2 490 kr</div>
+                        <p class="note">
+                            Dette er et estimat. Faktisk pris kan variere.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: var(--space-xl);">
+                        <a href="for-bedrifter.html" class="btn btn-primary">Bestill avtale</a>
+                        <a href="kontakt.html" class="link-arrow" style="margin-left: var(--space-md);">
+                            Kontakt oss for eksakt pris →
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-xxl);">
+                    <h2>Husk TONO</h2>
+                    <p>
+                        Gramo dekker rettighetene til artister og plateselskap.
+                        Du trenger også avtale med <a href="https://www.tono.no" target="_blank">TONO</a>
+                        for å dekke komponister og tekstforfattere.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

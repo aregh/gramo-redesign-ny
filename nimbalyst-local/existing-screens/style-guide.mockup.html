@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramo Stilguide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #1a1a2e;
+            border-bottom: 3px solid #1a1a2e;
+            padding-bottom: 16px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1a1a2e;
+        }
+
+        /* Color Palette */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .color-swatch {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .color-preview {
+            height: 80px;
+        }
+
+        .color-info {
+            padding: 12px;
+            background: white;
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .color-hex {
+            font-size: 12px;
+            color: #666;
+            font-family: monospace;
+        }
+
+        /* Typography */
+        .type-sample {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .type-sample:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .type-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+
+        .h1-sample { font-size: 48px; font-weight: 700; line-height: 1.2; }
+        .h2-sample { font-size: 36px; font-weight: 600; line-height: 1.3; }
+        .h3-sample { font-size: 28px; font-weight: 600; line-height: 1.4; }
+        .h4-sample { font-size: 20px; font-weight: 600; line-height: 1.4; }
+        .body-sample { font-size: 16px; font-weight: 400; line-height: 1.6; }
+        .small-sample { font-size: 14px; font-weight: 400; line-height: 1.5; color: #666; }
+
+        /* Buttons */
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2a2a4e;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #1a1a2e;
+            border: 2px solid #1a1a2e;
+        }
+
+        .btn-secondary:hover {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .btn-accent {
+            background: #4ecdc4;
+            color: #1a1a2e;
+        }
+
+        .btn-accent:hover {
+            background: #3dbdb4;
+        }
+
+        .btn-white {
+            background: white;
+            color: #1a1a2e;
+        }
+
+        .btn-white:hover {
+            background: #f0f0f0;
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .form-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1a1a2e;
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .card-image {
+            height: 160px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #3a3a5e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-date {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .card-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .nav-demo {
+            background: #1a1a2e;
+            padding: 20px 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+        }
+
+        /* Spacing Scale */
+        .spacing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .spacing-item {
+            text-align: center;
+        }
+
+        .spacing-box {
+            background: #4ecdc4;
+            margin-bottom: 8px;
+        }
+
+        .spacing-label {
+            font-size: 12px;
+            font-family: monospace;
+            color: #666;
+        }
+
+        /* Decorative Elements */
+        .decorative-demo {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .shape-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a8a0 100%);
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid #ffbe0b;
+        }
+
+        .shape-star {
+            font-size: 48px;
+            color: #ffbe0b;
+        }
+
+        .shape-dot-pattern {
+            display: grid;
+            grid-template-columns: repeat(4, 8px);
+            gap: 8px;
+        }
+
+        .shape-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #1a1a2e;
+            opacity: 0.3;
+        }
+
+        /* Footer Demo */
+        .footer-demo {
+            background: #1a1a2e;
+            padding: 40px 32px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 32px;
+        }
+
+        .footer-heading {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .footer-link {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gramo Stilguide</h1>
+
+        <!-- Color Palette -->
+        <div class="section">
+            <h2 class="section-title">Fargepalett</h2>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #1a1a2e;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primær Mørkeblå</div>
+                        <div class="color-hex">#1a1a2e</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #2a2a4e;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Sekundær Blå</div>
+                        <div class="color-hex">#2a2a4e</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #4ecdc4;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Accent Cyan</div>
+                        <div class="color-hex">#4ecdc4</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #ffbe0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Accent Gul</div>
+                        <div class="color-hex">#ffbe0b</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #ffffff; border: 1px solid #eee;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Hvit</div>
+                        <div class="color-hex">#ffffff</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #f5f5f5;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Lys Grå Bakgrunn</div>
+                        <div class="color-hex">#f5f5f5</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #666666;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Tekst Sekundær</div>
+                        <div class="color-hex">#666666</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #888888;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Tekst Muted</div>
+                        <div class="color-hex">#888888</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="section">
+            <h2 class="section-title">Typografi</h2>
+            <div class="type-sample">
+                <div class="type-label">H1 - 48px / Bold / 1.2 line-height</div>
+                <div class="h1-sample">Gramo forvalter rettigheter</div>
+            </div>
+            <div class="type-sample">
+                <div class="type-label">H2 - 36px / Semibold / 1.3 line-height</div>
+                <div class="h2-sample">Siste nytt fra Gramo</div>
+            </div>
+            <div class="type-sample">
+                <div class="type-label">H3 - 28px / Semibold / 1.4 line-height</div>
+                <div class="h3-sample">Bli medlem i dag</div>
+            </div>
+            <div class="type-sample">
+                <div class="type-label">H4 - 20px / Semibold / 1.4 line-height</div>
+                <div class="h4-sample">Opprett ISRC-koder enkelt</div>
+            </div>
+            <div class="type-sample">
+                <div class="type-label">Body - 16px / Regular / 1.6 line-height</div>
+                <div class="body-sample">Gramo er en kollektiv forvaltningsorganisasjon som forvalter utøvere og produsenters rettigheter til lydopptak. Vi sikrer at artister og plateselskaper får betalt når musikken deres spilles offentlig.</div>
+            </div>
+            <div class="type-sample">
+                <div class="type-label">Small - 14px / Regular / 1.5 line-height</div>
+                <div class="small-sample">Publisert 15. januar 2026 • 3 min lesing</div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="section">
+            <h2 class="section-title">Knapper</h2>
+            <div class="button-row">
+                <button class="btn btn-primary">Primær knapp</button>
+                <button class="btn btn-secondary">Sekundær knapp</button>
+                <button class="btn btn-accent">Accent knapp</button>
+            </div>
+            <div class="button-row">
+                <button class="btn btn-primary btn-small">Liten primær</button>
+                <button class="btn btn-secondary btn-small">Liten sekundær</button>
+            </div>
+            <div style="background: #1a1a2e; padding: 24px; border-radius: 8px; margin-top: 16px;">
+                <div class="button-row" style="margin-bottom: 0;">
+                    <button class="btn btn-white">Hvit knapp</button>
+                    <button class="btn btn-accent">Accent på mørk</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Elements -->
+        <div class="section">
+            <h2 class="section-title">Skjemaelementer</h2>
+            <div class="form-group">
+                <label class="form-label">E-postadresse</label>
+                <input type="email" class="form-input" placeholder="din@epost.no">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Søk</label>
+                <input type="text" class="form-input" placeholder="Søk etter artist, album eller ISRC...">
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="section">
+            <h2 class="section-title">Navigasjon</h2>
+            <div class="nav-demo">
+                <div class="nav-logo">gramo</div>
+                <nav class="nav-links">
+                    <a href="#" class="nav-link">Hjem</a>
+                    <a href="#" class="nav-link">Medlemskap</a>
+                    <a href="#" class="nav-link">ISRC</a>
+                    <a href="#" class="nav-link">Om Gramo</a>
+                    <a href="#" class="nav-link">Kontakt</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="section">
+            <h2 class="section-title">Kort (Cards)</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-image">Bilde</div>
+                    <div class="card-body">
+                        <div class="card-date">15. januar 2026</div>
+                        <div class="card-title">Nye satser for 2026</div>
+                        <div class="card-excerpt">Gramo har fastsatt nye vederlagssatser for offentlig fremføring av musikk.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image">Bilde</div>
+                    <div class="card-body">
+                        <div class="card-date">10. januar 2026</div>
+                        <div class="card-title">ISRC-registrering forenklet</div>
+                        <div class="card-excerpt">Vi har lansert en ny og forbedret løsning for ISRC-registrering.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image">Bilde</div>
+                    <div class="card-body">
+                        <div class="card-date">5. januar 2026</div>
+                        <div class="card-title">Årsrapport 2025</div>
+                        <div class="card-excerpt">Les vår årsrapport og se hvordan vi forvaltet rettighetene i 2025.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spacing -->
+        <div class="section">
+            <h2 class="section-title">Spacing Scale</h2>
+            <div class="spacing-grid">
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 8px; height: 8px;"></div>
+                    <div class="spacing-label">8px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 16px; height: 16px;"></div>
+                    <div class="spacing-label">16px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 24px; height: 24px;"></div>
+                    <div class="spacing-label">24px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 32px; height: 32px;"></div>
+                    <div class="spacing-label">32px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 48px; height: 48px;"></div>
+                    <div class="spacing-label">48px</div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 64px; height: 64px;"></div>
+                    <div class="spacing-label">64px</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="section">
+            <h2 class="section-title">Dekorative elementer</h2>
+            <div class="decorative-demo">
+                <div class="shape-circle"></div>
+                <div class="shape-triangle"></div>
+                <div class="shape-star">★</div>
+                <div class="shape-dot-pattern">
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                    <div class="shape-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section">
+            <h2 class="section-title">Footer</h2>
+            <div class="footer-demo">
+                <div class="footer-grid">
+                    <div>
+                        <div class="footer-heading">Medlemskap</div>
+                        <a href="#" class="footer-link">Bli medlem</a>
+                        <a href="#" class="footer-link">Logg inn</a>
+                        <a href="#" class="footer-link">Mine sider</a>
+                    </div>
+                    <div>
+                        <div class="footer-heading">Tjenester</div>
+                        <a href="#" class="footer-link">ISRC</a>
+                        <a href="#" class="footer-link">Rapportering</a>
+                        <a href="#" class="footer-link">Vederlag</a>
+                    </div>
+                    <div>
+                        <div class="footer-heading">Om Gramo</div>
+                        <a href="#" class="footer-link">Om oss</a>
+                        <a href="#" class="footer-link">Kontakt</a>
+                        <a href="#" class="footer-link">Karriere</a>
+                    </div>
+                    <div>
+                        <div class="footer-heading">Kontakt</div>
+                        <a href="#" class="footer-link">post@gramo.no</a>
+                        <a href="#" class="footer-link">22 XX XX XX</a>
+                        <a href="#" class="footer-link">Oslo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

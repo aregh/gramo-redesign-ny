@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rollekoder – Gramo</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="../statistikk.html">Statistikk</a></li>
+                <li><a href="../ressurser.html" style="opacity:1; border-bottom: 2px solid var(--gramo-accent);">Ressurser</a></li>
+                <li><a href="../om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="#" class="nav-cta">Min side</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Hjem</a>
+                <span>/</span>
+                <a href="../ressurser.html">Ressurser</a>
+                <span>/</span>
+                Rollekoder
+            </div>
+            <h1>Rollekoder</h1>
+            <p class="lead">
+                A, B eller C? Din rolle på innspillingen bestemmer hvor mange poeng du får.
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <!-- FORKLARING -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Hva er rollekode?</h2>
+                <p>
+                    Når flere musikere spiller på samme innspilling, må pengene fordeles.
+                    Rollekoden bestemmer hvor stor andel hver enkelt får.
+                </p>
+                <p>
+                    Det finnes tre rollekoder: <strong>A</strong>, <strong>B</strong> og <strong>C</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- ROLLEKODE A -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Rollekode A – Hovedutøvere</h2>
+                <p>
+                    Du får rollekode A hvis du er:
+                </p>
+                <ul>
+                    <li>Solist eller soloartist</li>
+                    <li>Featured artist</li>
+                    <li>Fast medlem i et band</li>
+                </ul>
+                <p>
+                    A-er får flest poeng, men poengsummen synker jo flere A-er det er på låten.
+                </p>
+
+                <table class="data-table" style="margin-top: var(--space-lg); max-width: 400px;">
+                    <thead>
+                        <tr>
+                            <th>Antall A på låten</th>
+                            <th>Poeng per A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>16</td></tr>
+                        <tr><td>2</td><td>14</td></tr>
+                        <tr><td>3</td><td>12</td></tr>
+                        <tr><td>4</td><td>10</td></tr>
+                        <tr><td>5</td><td>8</td></tr>
+                        <tr><td>6</td><td>6</td></tr>
+                        <tr><td>7</td><td>4</td></tr>
+                        <tr><td>8</td><td>2</td></tr>
+                        <tr><td>9+</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ROLLEKODE B -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Rollekode B – Bidragsytere</h2>
+                <p>
+                    Du får rollekode B hvis du er:
+                </p>
+                <ul>
+                    <li>Orkestermedlem</li>
+                    <li>Kormedlem</li>
+                    <li>Musiker som ikke er fast medlem i bandet</li>
+                    <li>Remixer</li>
+                </ul>
+                <p>
+                    B-er får færre poeng enn A-er. Poengene avhenger av totalt antall A-er og B-er på låten.
+                </p>
+
+                <table class="data-table" style="margin-top: var(--space-lg); max-width: 400px;">
+                    <thead>
+                        <tr>
+                            <th>Antall A+B på låten</th>
+                            <th>Poeng per B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>–</td></tr>
+                        <tr><td>2</td><td>8</td></tr>
+                        <tr><td>3</td><td>8</td></tr>
+                        <tr><td>4</td><td>8</td></tr>
+                        <tr><td>5</td><td>8</td></tr>
+                        <tr><td>6</td><td>6</td></tr>
+                        <tr><td>7</td><td>4</td></tr>
+                        <tr><td>8</td><td>2</td></tr>
+                        <tr><td>9+</td><td>1</td></tr>
+                    </tbody>
+                </table>
+
+                <p style="font-size: 0.85rem; color: var(--gramo-text-light); margin-top: var(--space-sm);">
+                    Merk: Hvis kun én person spiller på låten, har denne alltid rollekode A.
+                </p>
+            </div>
+        </section>
+
+        <!-- ROLLEKODE C -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Rollekode C – Dirigent/musikalsk leder</h2>
+                <p>
+                    Du får rollekode C hvis du er:
+                </p>
+                <ul>
+                    <li>Dirigent</li>
+                    <li>Musikalsk leder</li>
+                </ul>
+                <p>
+                    C-er får alltid <strong>5 poeng</strong>, uavhengig av hvor mange andre som spiller på låten.
+                </p>
+                <p>
+                    Hvis det er flere med rollekode C på samme låt, deles de 5 poengene mellom dem.
+                </p>
+            </div>
+        </section>
+
+        <!-- EKSEMPEL -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Eksempel: Et band med innleide musikere</h2>
+                <p>
+                    En låt har følgende besetning:
+                </p>
+
+                <table class="data-table" style="margin-top: var(--space-lg); max-width: 600px;">
+                    <thead>
+                        <tr>
+                            <th>Rolle</th>
+                            <th>Antall</th>
+                            <th>Rollekode</th>
+                            <th>Poeng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bandmedlemmer</td>
+                            <td>3</td>
+                            <td>A</td>
+                            <td>12 poeng hver</td>
+                        </tr>
+                        <tr>
+                            <td>Innleide musikere</td>
+                            <td>5</td>
+                            <td>B</td>
+                            <td>2 poeng hver</td>
+                        </tr>
+                        <tr>
+                            <td>Dirigent</td>
+                            <td>1</td>
+                            <td>C</td>
+                            <td>5 poeng</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: var(--space-md);">
+                    Totalt 9 utøvere (3 A + 5 B + 1 C). Med så mange utøvere får B-ene
+                    1 poeng hver (se tabellen over).
+                </p>
+            </div>
+        </section>
+
+        <!-- REGISTRER ROLLE -->
+        <section class="content-section">
+            <div class="container">
+                <h2>Registrer din rolle</h2>
+                <p>
+                    For at du skal få riktig utbetaling, må rollene på innspillingen
+                    være riktig registrert. Dette gjør du på Min side.
+                </p>
+                <a href="#" class="btn btn-primary">Gå til Min side</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Gramo</h4>
+                    <ul>
+                        <li><a href="../om-gramo.html">Om oss</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>For musikere</h4>
+                    <ul>
+                        <li><a href="#">Bli medlem</a></li>
+                        <li><a href="isrc.html">ISRC-koder</a></li>
+                        <li><a href="utbetaling.html">Utbetaling</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>Gramo<br>
+                    post@gramo.no</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">
+                    Gramo er godkjent av Kulturdepartementet til å forvalte vederlag
+                    for offentlig fremføring av innspilt musikk etter åndsverkloven § 21.
+                </p>
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

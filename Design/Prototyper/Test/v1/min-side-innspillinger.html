@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mine innspillinger – Min side – Gramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-nav {
+            background: var(--gramo-blue);
+            padding: var(--space-sm) 0;
+        }
+        .dashboard-nav .container {
+            display: flex;
+            gap: var(--space-lg);
+        }
+        .dashboard-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .dashboard-nav a:hover,
+        .dashboard-nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--gramo-white);
+        }
+        .page-title {
+            padding: var(--space-lg) 0;
+            background: var(--gramo-dark);
+            color: var(--gramo-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-title .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .recording-card {
+            background: var(--gramo-white);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-lg);
+            align-items: start;
+        }
+        .recording-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-xs);
+        }
+        .recording-meta {
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+        }
+        .recording-meta span {
+            margin-right: var(--space-md);
+        }
+        .recording-stats {
+            text-align: right;
+        }
+        .recording-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gramo-accent);
+        }
+        .recording-plays {
+            font-size: 0.85rem;
+            color: var(--gramo-text-light);
+        }
+        .isrc-code {
+            font-family: monospace;
+            background: var(--gramo-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--gramo-accent);
+            color: var(--gramo-dark);
+        }
+        .filter-bar {
+            background: var(--gramo-white);
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-bottom: var(--space-lg);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+        .filter-bar input {
+            flex: 1;
+            padding: var(--space-sm);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+        }
+        .filter-bar select {
+            padding: var(--space-sm);
+            border: 1px solid var(--gramo-gray-light);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-banner">
+        <strong>PROTOTYPE v1</strong> – Gramo.no Redesign – Januar 2026
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GRAMO</a>
+            <ul class="nav-links">
+                <li><a href="statistikk.html">Statistikk</a></li>
+                <li><a href="ressurser.html">Ressurser</a></li>
+                <li><a href="om-gramo.html">Om Gramo</a></li>
+            </ul>
+            <a href="min-side.html" class="nav-cta" style="background: var(--gramo-white); color: var(--gramo-dark);">Logg ut</a>
+        </div>
+    </nav>
+
+    <nav class="dashboard-nav">
+        <div class="container">
+            <a href="min-side-dashboard.html">Oversikt</a>
+            <a href="min-side-utbetalinger.html">Utbetalinger</a>
+            <a href="min-side-innspillinger.html" class="active">Mine innspillinger</a>
+            <a href="min-side-rettigheter.html">Rettigheter</a>
+            <a href="min-side-profil.html">Profil</a>
+        </div>
+    </nav>
+
+    <header class="page-title">
+        <div class="container">
+            <h1>Mine innspillinger</h1>
+            <a href="min-side-registrer.html" class="btn btn-primary">+ Registrer utgivelse</a>
+        </div>
+    </header>
+
+    <main style="background: var(--gramo-light); padding: var(--space-xl) 0;">
+        <div class="container">
+            <!-- Filter -->
+            <div class="filter-bar">
+                <input type="text" placeholder="Søk etter tittel, artist eller ISRC...">
+                <select>
+                    <option>Alle år</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                </select>
+                <select>
+                    <option>Sorter: Mest spilt</option>
+                    <option>Sorter: Nyeste</option>
+                    <option>Sorter: A-Å</option>
+                </select>
+            </div>
+
+            <!-- Innspillinger -->
+            <div class="recording-card">
+                <div class="recording-info">
+                    <h3>Sommernatt</h3>
+                    <div class="recording-meta">
+                        <span>Kari Hansen</span>
+                        <span class="isrc-code">NO-A1B-21-00001</span>
+                        <span class="role-badge">Rolle A</span>
+                    </div>
+                    <p style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--gramo-text-light);">
+                        Utgitt: 15. juni 2021 · Album: Årstider
+                    </p>
+                </div>
+                <div class="recording-stats">
+                    <div class="recording-amount">4 230 kr</div>
+                    <div class="recording-plays">1 247 min spilt i 2024</div>
+                </div>
+            </div>
+
+            <div class="recording-card">
+                <div class="recording-info">
+                    <h3>Vinterdrøm</h3>
+                    <div class="recording-meta">
+                        <span>Kari Hansen feat. Per</span>
+                        <span class="isrc-code">NO-A1B-22-00003</span>
+                        <span class="role-badge">Rolle A</span>
+                    </div>
+                    <p style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--gramo-text-light);">
+                        Utgitt: 1. desember 2022 · Singel
+                    </p>
+                </div>
+                <div class="recording-stats">
+                    <div class="recording-amount">3 102 kr</div>
+                    <div class="recording-plays">892 min spilt i 2024</div>
+                </div>
+            </div>
+
+            <div class="recording-card">
+                <div class="recording-info">
+                    <h3>Høstregn</h3>
+                    <div class="recording-meta">
+                        <span>Kari Hansen</span>
+                        <span class="isrc-code">NO-A1B-21-00002</span>
+                        <span class="role-badge">Rolle A</span>
+                    </div>
+                    <p style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--gramo-text-light);">
+                        Utgitt: 15. september 2021 · Album: Årstider
+                    </p>
+                </div>
+                <div class="recording-stats">
+                    <div class="recording-amount">2 845 kr</div>
+                    <div class="recording-plays">756 min spilt i 2024</div>
+                </div>
+            </div>
+
+            <div class="recording-card">
+                <div class="recording-info">
+                    <h3>Vårsol</h3>
+                    <div class="recording-meta">
+                        <span>Kari Hansen</span>
+                        <span class="isrc-code">NO-A1B-21-00003</span>
+                        <span class="role-badge">Rolle A</span>
+                    </div>
+                    <p style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--gramo-text-light);">
+                        Utgitt: 1. april 2021 · Album: Årstider
+                    </p>
+                </div>
+                <div class="recording-stats">
+                    <div class="recording-amount">1 670 kr</div>
+                    <div class="recording-plays">445 min spilt i 2024</div>
+                </div>
+            </div>
+
+            <div class="recording-card">
+                <div class="recording-info">
+                    <h3>Nattevakt</h3>
+                    <div class="recording-meta">
+                        <span>Bandet feat. Kari Hansen</span>
+                        <span class="isrc-code">NO-X2Y-23-00045</span>
+                        <span class="role-badge" style="background: var(--gramo-gray-light); color: var(--gramo-text);">Rolle B</span>
+                    </div>
+                    <p style="margin-top: var(--space-sm); font-size: 0.9rem; color: var(--gramo-text-light);">
+                        Utgitt: 10. mars 2023 · Gjestevokal
+                    </p>
+                </div>
+                <div class="recording-stats">
+                    <div class="recording-amount">1 000 kr</div>
+                    <div class="recording-plays">312 min spilt i 2024</div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div style="text-align: center; margin-top: var(--space-xl);">
+                <span style="color: var(--gramo-text-light);">Viser 5 av 12 innspillinger</span>
+                <a href="#" class="btn btn-secondary" style="margin-left: var(--space-md); border-color: var(--gramo-gray-light); color: var(--gramo-text);">Last flere</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Gramo</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

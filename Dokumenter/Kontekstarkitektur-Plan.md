@@ -346,6 +346,7 @@ git push origin main
 | **Nytt struktur** | Foreslått IA for nye sider | Input til IA-arbeid |
 | **Intercom Henvendelser** | Supporthenvendelser | Identifisere pain points |
 | **Medlemsundersøkelse** | Brukerinnsikt fra 2023 | Analyse |
+| **Språkundersøkelse** | A/B-test språkvalg forside | Input til språkstrategi-workshop (se [Brukerundersokelse-sprakvalg.md](Stil%20og%20tone/Brukerundersokelse-sprakvalg.md)) |
 
 ### Single Source of Truth (SSoT)-strategi
 
