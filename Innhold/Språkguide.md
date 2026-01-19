@@ -89,7 +89,7 @@ Vær forsiktig med bruk av fremmedord samt engelske ord og uttrykk. Unntaket er 
 
 ### Ressurser
 
-- [Klarspråkstandarden ISO 24495-1:2023](https://www.standard.no/no/Nettbutikk/produktkatalogen/Produktpresentasjon/?ProductID=1453639)
+- Klarspråkstandarden NS-ISO 24495-1:2023: [Internt dokument](NS-ISO-24495-1-2023-Klarspråk.md) | [Kjøp fra Standard Norge](https://www.standard.no/no/Nettbutikk/produktkatalogen/Produktpresentasjon/?ProductID=1437818)
 - [Klart språk i digitale tjenester (Digdir)](https://www.digdir.no/digitale-felleslosninger/klart-sprak-i-digitale-tjenester/2481)
 - [DIFIs e-læringskurs i klarspråk](https://www.sprakradet.no/klarsprak/kurs/)
 
