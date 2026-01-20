@@ -107,7 +107,7 @@ Ikke all tekst trenger samme presisjonsnivå. Brukeren beveger seg fra enkelt ti
 
 | Nivå | Kontekst | Språk | Godkjenning | Juridisk risiko |
 | --- | --- | --- | --- | --- |
-| **1. Inngangsport** | Forside, kampanjer, SoMe, faktabokser | Hverdagsspråk | Kommunikasjon | Lav – disclaimer |
+| **1. Inngangsport** | Forside, kampanjer, SoMe | Hverdagsspråk | Kommunikasjon | Lav – disclaimer |
 | **2. Forklaring** | Artikler, FAQ, Om Gramo, veiledning | Forklart fagspråk | Komm + faglig | Medium |
 | **3. Rettslig fundament** | Vilkår, vedtekter, avtaler, definisjoner | Juridisk presist | Juridisk påkrevd | Høy – bindende |
 

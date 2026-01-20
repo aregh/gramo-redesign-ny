@@ -7,8 +7,8 @@
 ## Hoveddokumenter
 
 | Fil | Beskrivelse | Status |
-|-----|-----------|--------|
-| [Prosjektmandat-2026-01-14.md](Prosjektmandat-2026-01-14.md) | Formelt mandat for prosjektet | Endelig versjon (14. jan) |
+| --- | --- | --- |
+| [Prosjektmandat-2026-01-14.md](./Prosjektmandat-2026-01-14.md) | Formelt mandat for prosjektet | Endelig versjon (14. jan) |
 
 
 ---

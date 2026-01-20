@@ -27,7 +27,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ### Risikonivåer
 
 | Risiko | Teksttype | Konsekvens ved feil | Kvalitetssikring |
-|--------|-----------|---------------------|------------------|
+| --- | --- | --- | --- |
 | **HØY** | Vedtekter, avtaler, formelle brev, klagebehandling | Kan brukes i rettssak, økonomisk tap, ugyldig vedtak | Juridisk godkjenning påkrevd |
 | **MEDIUM** | FAQ om rettigheter, vederlagsinfo, fordelingsregler | Feil forventninger, klager, merarbeid | Faglig gjennomgang |
 | **LAV** | Forside, kampanjer, SoMe, generell intro | Begrenset - henviser til presise kilder | Kommunikasjon kan godkjenne |
@@ -56,7 +56,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ### Konsekvenser ved ulike feil
 
 | Feiltype | Eksempel | Potensiell konsekvens |
-|----------|----------|----------------------|
+| --- | --- | --- |
 | **Feil om rettighetsgrunnlag** | "Alle som spiller musikk har krav på penger" | Uberettigede forventninger, klager, evt. erstatningskrav |
 | **Feil om vederlagsberegning** | "Du får X kr per avspilling" | Økonomiske krav, tap av tillit |
 | **Feil om vernetid** | "Lydopptak fra 1960 er ikke vernet" | Feilaktig avvisning av krav |
@@ -79,8 +79,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Lydopptak
 
-| | |
-|-|-|
 | **Juridisk term** | Lydopptak |
 | **Lovhenvisning** | Åndsverkloven § 20-21 |
 | **Definisjon** | Innspilt lyd som kan gjengis |
@@ -94,8 +92,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Vederlag
 
-| | |
-|-|-|
 | **Juridisk term** | Vederlag |
 | **Lovhenvisning** | Åndsverkloven § 21 |
 | **Definisjon** | Lovbestemt godtgjørelse for bruk av lydopptak |
@@ -109,8 +105,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Utøvende kunstner
 
-| | |
-|-|-|
 | **Juridisk term** | Utøvende kunstner |
 | **Lovhenvisning** | Åndsverkloven § 16 |
 | **Definisjon** | Den som fremfører et verk eller uttrykk |
@@ -124,8 +118,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Produsent (av lydopptak)
 
-| | |
-|-|-|
 | **Juridisk term** | Produsent av lydopptak |
 | **Lovhenvisning** | Åndsverkloven § 20 |
 | **Definisjon** | Den som har tilrettelagt for og bekostet innspillingen |
@@ -139,8 +131,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Rettighetshaver
 
-| | |
-|-|-|
 | **Juridisk term** | Rettighetshaver |
 | **Definisjon** | Person eller selskap med rettigheter til lydopptak |
 | **Nivå 1** | "du", "artist", "den som har spilt inn" |
@@ -152,8 +142,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Offentlig fremføring
 
-| | |
-|-|-|
 | **Juridisk term** | Offentlig fremføring |
 | **Lovhenvisning** | Åndsverkloven § 3 |
 | **Definisjon** | Avspilling av lydopptak utenfor det private område |
@@ -167,8 +155,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Overføring til allmennheten
 
-| | |
-|-|-|
 | **Juridisk term** | Overføring til allmennheten |
 | **Lovhenvisning** | Åndsverkloven § 3 |
 | **Definisjon** | Tilgjengeliggjøring via kringkasting eller on-demand |
@@ -182,8 +168,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Kollektiv forvaltning
 
-| | |
-|-|-|
 | **Juridisk term** | Kollektiv forvaltning |
 | **Lovhenvisning** | Lov om kollektiv forvaltning (CRM) |
 | **Definisjon** | Felles innkreving og fordeling av vederlag |
@@ -196,8 +180,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### ISRC
 
-| | |
-|-|-|
 | **Juridisk term** | ISRC (International Standard Recording Code) |
 | **Definisjon** | Unik identifikator for hvert lydopptak |
 | **Nivå 1** | "ISRC-kode", "innspillingens ID" |
@@ -210,8 +192,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Vernetid
 
-| | |
-|-|-|
 | **Juridisk term** | Vernetid |
 | **Lovhenvisning** | Åndsverkloven § 24 |
 | **Definisjon** | Periode der lydopptak er beskyttet |
@@ -225,8 +205,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Fordelingsreglement
 
-| | |
-|-|-|
 | **Juridisk term** | Fordelingsreglement |
 | **Definisjon** | Regler for hvordan vederlag fordeles mellom rettighetshavere |
 | **Nivå 1** | "hvordan vi fordeler" |
@@ -238,8 +216,6 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 
 ### Medlemskap
 
-| | |
-|-|-|
 | **Juridisk term** | Medlemskap |
 | **Definisjon** | Organisasjonsdemokratisk tilknytning med stemmerett |
 | **Nivå 1** | "bli medlem" |
@@ -254,7 +230,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ### Gramo vs. TONO
 
 | Gramo | TONO |
-|-------|------|
+| --- | --- |
 | Lydopptak (innspillingen) | Musikkverk (komposisjonen) |
 | Utøvende kunstner (den som spiller) | Komponist/tekstforfatter (den som skrev) |
 | Produsent av lydopptak | Musikkforlag |
@@ -270,7 +246,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ### Vederlag vs. betaling vs. utbetaling
 
 | Begrep | Betydning | Bruk | Risiko |
-|--------|-----------|------|--------|
+| --- | --- | --- | --- |
 | Vederlag | Lovbestemt godtgjørelse | Juridisk korrekt term | Lav |
 | Betaling | Generell overføring av penger | Unngå - for vagt | Medium |
 | Utbetaling | Praktisk overføring fra Gramo | OK i kontekst av prosess | Lav |
@@ -281,7 +257,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ### Medlemskap vs. registrering
 
 | Begrep | Betydning | Risiko |
-|--------|-----------|--------|
+| --- | --- | --- |
 | Medlemskap | Organisasjonsdemokratisk tilknytning (stemmerett) | Medium |
 | Registrering | Oppføring i database for utbetaling | Lav |
 
@@ -295,7 +271,7 @@ Ikke all tekst trenger samme presisjonsnivå. Risikoen avhenger av:
 ## Formuleringer å unngå
 
 | Unngå | Fordi | Bruk heller | Risiko |
-|-------|-------|-------------|--------|
+| --- | --- | --- | --- |
 | "Royalty" | Gjelder avtalebasert, ikke lovbestemt | "Vederlag" | Medium |
 | "Lisens" | Gramo gir ikke lisenser, bare forvalter | "Vederlagsordning" | Høy |
 | "Betaling for musikk" | For vagt, kan forveksles med kjøp | "Vederlag for bruk" | Medium |
