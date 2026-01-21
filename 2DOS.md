@@ -4,91 +4,53 @@
 
 ---
 
-## Status Fase 1 - Forprosjekt
+## Denne uken (uke 4, 2026) - FASE 2 FORBEREDELSE
 
-**Budsjett:** 30 dagsverk (555 000 kr)
-
-| Ressurs | November | Desember | Januar (uke 2) | Totalt |
-|---------|----------|----------|----------------|--------|
-| Are | 5 dager ✅ | 10 dager ✅ | **3 dager** | 15/15 |
-| Bastian | - | 7 dager ✅ | **3 dager** | 10/10 |
-| Inge | 3 dager ✅ | 2 dager ✅ | - | 5/5 |
-| **Sum** | 8 ✅ | 19 ✅ | **6** | **30** |
-
-**Status:** Siste 3 arbeidsdager av Fase 1 (tirsdag, torsdag, fredag i uke 2)
-
----
-
-## Denne uken (uke 2, 2026) - FASE 1 FERDIGSTILLELSE
-
-### ✅ Fullført i desember
+### ✅ Fullført i Fase 1 (november - januar)
 - [x] Innholdsstrategi v2.0 (19.12.2025)
 - [x] 17 prototyper for statistikkvisning (konsept A-Q)
 - [x] GEO-analyse med ISRC som #1 toppoppgave
 - [x] Apollon-avklaring med Kim
 - [x] Prosjektmandat revidert (06.01.2026)
 - [x] Tilbud oppdatert (06.01.2026) - 3 faser, 100 dagsverk
+- [x] Prioriteringsverksted dag 1 (8. januar) - To-spor-strategien etablert
+- [x] Prioriteringsverksted dag 2 (15. januar) - Forankring med Toril og Deb
+- [x] SpråkGPT-arbeidsmøte med Øystein (20. januar) - To-lags modellen for kommunikasjon
+- [x] Kontekstarkitektur-opprydding og Git-rutiner
+- [x] Navnekonvensjoner standardisert (.claude → .agent, CLAUDE.md → AGENT.md)
 
-### ✅ Tirsdag 7. januar (Are + Bastian)
-- [x] Oppdatere KONTEKST.md og git commit/push
-- [x] **Rydde opp i /Gramo_kontekstarkitektur/** ✅ Fullført 8. januar
-  - README.md oppdatert med Fase 1 status
-  - Arkivert duplikater (Prosjektmandat, Prototype-statistikk)
-  - Slettet .DS_Store-filer
-  - CONTRIBUTING.md omskrevet til bokmål med Git-rutiner per bruker
-  - Kontekstarkitektur-Plan.md opprettet (sammenslagning av Fase 1+2 planer)
-  - MCP-integrasjon verifisert (Airtable + Notion)
-  - **Brukeridentifikasjon implementert** (KONTEKST.md)
-  - **Agenten skills opprettet** (`/pull` og `/push`)
+### 🔄 Pågående oppgaver
 - [ ] **IA og innholdsoversikt inn i Airtable** - prioritert og strukturert
-- [x] **Oppsett av GPT/Skills** - for kontekstarkitektur ✅ `/pull` og `/push` skills
 - [ ] **Rekruttere til brukerintervjuer** - 10-15 stasjoner/produsenter (Doodle)
-
-### ✅ Bastians første steg - FULLFØRT (12. januar)
-
-**📄 Se [TIL-BASTIAN.md](TIL-BASTIAN.md) for fullstendig guide**
-
-- [x] **Les [TIL-BASTIAN.md](TIL-BASTIAN.md)** - Komplett oversikt over alle endringer
-- [x] **Git-identitet verifisert** - `Bastian` / `bastian.daae@gramo.no`
-- [x] **Sti lagt inn** i KONTEKST.md og CONTRIBUTING.md
-- [x] ~~Test `/pull` og `/push` kommandoer~~ - Ikke nødvendig for Antigravity
-
-### ✅ Torsdag 8. januar (DAG 1)
-- [x] **Prioriteringsverksted med Kim (del 1)** - FULLFØRT
-  - To-spor-strategien etablert
-  - Worldwide-medlemskap som inntektsmål
-  - Målgrupper prioritert
-  - Målbare effektmål definert
-
-### 🔄 Fredag 10. januar (DAG 2 - Inge deltar)
-- [ ] **Prioriteringsverksted med Kim (del 2)** - statistikk og prototyper
-- [ ] **Diskutere prototyper** med Inge og Kim
-- [ ] **Finne landingsstruktur** for nye nettsider
+- [ ] **Begrepsoversikt ferdigstilles** - nivå 1-2-3 modellen (Bastian + Are)
+- [ ] **Lage innholdsgenerator** (Are) - verktøy for konsistent innholdsproduksjon
 
 ---
 
-## Nye oppgaver fra prioriteringsverksted (8. januar)
+## Nye oppgaver fra prioriteringsverkstedene (8. + 15. januar)
 
 ### 🔴 Kritiske oppgaver
-- [ ] **Møte med styringsgruppen** (Are setter opp)
-  - Deltakere: Deb, Torbjørn (+ Kim, Rita, Are)
-  - Agenda: Presentere to-spor-strategien, mandat, forankring
-  - Formål: Sikre forankring i ledergruppen
+- [x] **Møte med Øystein** (juridisk innhold) ✅ Gjennomført 20. januar
+  - To-lags modellen etablert (Sannhet + Dialog)
+  - JustGPT demonstrert - kan integreres med SpråkGPT
+  - Begrepsoversikt påbegynt (nivå 1-2-3)
 
-- [ ] **Møte med Øystein** (juridisk innhold)
-  - Vise frem GPT-løsninger for kvalitetssikring
-  - Diskutere hvordan nettsiden kan redusere 3. linje-henvendelser
-  - Avklare juridisk korrekt innhold
+- [ ] **Oppfølgingsmøte med Toril** (medlemsavdelingen)
+  - Toril er premissleverandør for spor 2
+  - Gjennomgang av prosjektmandat
+  - Definere hvem, når og på hva
 
-- [ ] **Definere tone of voice**
+- [ ] **Definere tone of voice / språkprofil**
   - Må på plass før innholdsproduksjon starter
-  - Workshop med kommunikasjonsavdeling?
+  - Koble SpråkGPT til ISO 24495-1:2023 (klarspråk)
+  - Ferdigstille begrepsoversikt
 
 ### 🟡 Viktige oppgaver
 - [ ] **Baseline-målinger** (Morten)
   - Kategorisere henvendelser etter toppoppgaver
   - Måle tid brukt på ulike henvendelsestyper
   - Spesielt: Henvendelser til Øystein (3. linje)
+  - Differensiere mellom åpne sider og innlogget område
 
 - [ ] **Worldwide-medlemskap: Konsept og innhold**
   - Interaktivt kart over internasjonale avtaler
@@ -99,6 +61,10 @@
   - Workshop med Toril, Morten, Julia
   - Gå gjennom toppoppgaver fra deres perspektiv
   - Identifisere "quick wins" for nettsiden
+
+- [ ] **Koble SpråkGPT og JustGPT teknisk**
+  - Begge må validere mot felles grunnstandard
+  - Utredes i Fase 2
 
 ---
 
@@ -124,7 +90,7 @@
 
 **Medlemsportal-funksjoner (fra BiConcepts):**
 | Funksjon | Beskrivelse |
-|----------|------------|
+| --- | --- |
 | Mine innspillinger | Liste over innspillinger der medlem er i besetning |
 | Min bruk | Spillinger gruppert på år/kanal/innspilling |
 | Mine avspilte innspillinger | Innspillinger med fordelingsbeløp |
@@ -139,7 +105,7 @@
 
 **Prosjektorganisering:**
 | Rolle | Person |
-|-------|--------|
+| --- | --- |
 | Prosjekteier | Kim |
 | Systemeier | Torill |
 | Prosjektleder | Morten |
@@ -151,7 +117,7 @@
 ## Tidligere avklaringer (4. des)
 
 | Tema | Status |
-|------|--------|
+| --- | --- |
 | Kim er hovedkontakt | ✅ |
 | Apollon-mandat mottatt | ✅ |
 | Layoutfase = mapping | ✅ |
@@ -163,14 +129,14 @@
 
 ## Aktiviteter (fra tilbud)
 
-- [ ] Innholdskartlegging og -analyse
-- [ ] Datainnsamling (web, SEO, GEO, etc)
+- [x] Innholdskartlegging og -analyse
+- [x] Datainnsamling (web, SEO, GEO, etc)
 - [x] Kartlegging av interne nøkkelpersoner
-- [ ] Merkevareanalyse
-- [ ] Teknologisk analyse
-- [ ] Prioriteringsverksted
-- [ ] Arbeidsmøte merkevare/design
-- [ ] Konseptutvikling for merkevare/design
+- [x] Merkevareanalyse
+- [x] Teknologisk analyse
+- [x] Prioriteringsverksted
+- [x] Arbeidsmøte merkevare/design
+- [x] Konseptutvikling for merkevare/design
 
 ---
 
@@ -195,7 +161,7 @@
 ## Interessenter å involvere
 
 | Person | Rolle | Tilnærming |
-|--------|-------|------------|
+| --- | --- | --- |
 | **Torill** | Medlemsavd. | Intervju først (pre-wiring) |
 | **Julia** | ? | Inviter til prioriteringsverksted |
 | **Kristoffer** | Medlemsavd. | Vurder til verksted |
@@ -239,7 +205,7 @@
 **Må avklares med Ståle:**
 
 | Spørsmål | Hvorfor viktig |
-|----------|---------------|
+| --- | --- |
 | Finnes det et API for spillingsdata? | Kan vi bygge dynamisk statistikk? |
 | Hva aggregeringsnivå finnes? | Per låt? Per artist? Per kanal? Per dag/uke/år? |
 | Hvor langt tilbake går data? | Kan vi vise trender over tid? |
@@ -255,7 +221,7 @@
 
 **Metadata vi trenger (for å berike visning):**
 | Felt | Har vi? | Kilde |
-|------|---------|--------|
+| --- | --- | --- |
 | ISRC | Ja | Echo |
 | Tittel + artist | Ja | Echo |
 | Varighet | Ja | Echo |
@@ -280,7 +246,7 @@
 ## Hypoteser
 
 | # | Hypotese | Status |
-|---|----------|--------|
+| --- | --- | --- |
 | H1 | ISRC on-the-fly registrering | 🔄 Under utforsking |
 | H2 | Repertoar som omdømmebygger | ✅ Bekreftet |
 | H3 | Verdistrøm-analyse for org | ⏳ Ikke startet |
@@ -289,4 +255,4 @@
 
 ---
 
-*Sist oppdatert: 7. januar 2026*
+*Sist oppdatert: 21. januar 2026*

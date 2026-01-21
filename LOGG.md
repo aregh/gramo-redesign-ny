@@ -4,6 +4,74 @@
 
 ---
 
+## 20. januar 2026
+
+### SpråkGPT-arbeidsmøte med Øystein
+*Deltakere: Are, Rita, Bastian, Øystein, Kim | 09:00-11:30 | [Referat](Kommunikasjon/Møter/2026-01-20_SpråkGPT-arbeidsmøte.md)*
+
+#### To-lags modellen for kommunikasjon etablert
+
+**Arkitekturprinsipp: Sannhet + Dialog**
+- **Lag 1 (Sannhet):** Juridiske fakta - uforanderlig, sentralisert, må være korrekt ALLTID
+- **Lag 2 (Dialog):** Fleksibelt, personlig, tilpasset målgruppe/kanal
+
+**Tre-nivå modell for språkbruk:**
+| Nivå | Beskrivelse | Risiko | Eksempel |
+|------|-------------|--------|----------|
+| Nivå 1 | Hverdagsspråk, inngangsporter | Lav | "Få betalt for musikken din" |
+| Nivå 2 | Forklarende, kontekstuelt | Middels | "Vederlag (betaling) for..." |
+| Nivå 3 | Juridisk presist, formelt | Ingen | "Jf. åndsverkloven §21..." |
+
+#### Øysteins JustGPT demonstrert
+- Lukkede datasett (lovtekst, lovkommentarer, interne retningslinjer)
+- Kan oppdateres umiddelbart ved lovendringer
+- Kvalitetssikret output - brukt til arvesaker og TONO
+- Modell-agnostisk - kan eksporteres til ulike AI-modeller
+
+#### Oppgaver avtalt
+- [ ] Begrepsoversikt - første utkast (Bastian + Are)
+- [ ] Koble SpråkGPT til ISO 24495-1:2023 (Are)
+- [ ] Demonstrere JustGPT-integrasjon (Øystein)
+- [ ] Teste nivåmodellen på eksisterende tekster (Rita)
+
+---
+
+## 15. januar 2026
+
+### Prioriteringsverksted dag 2 - Forankring med styringsgruppen
+*Deltakere: Are, Rita, Bastian, Kim, Toril, Deb | 09:00-12:00 | [Referat](Kommunikasjon/Møter/2026-01-15_Prioriteringsverksted_Dag2_Referat.md)*
+
+#### Begrepsavklaring etablert
+| Begrep | Definisjon |
+|--------|-----------|
+| **Apollon** | Kjernesystemet (ERP-lignende) - brukes internt |
+| **Webportal** | Innloggede sider for brukere (det som vender ut) |
+| **Gramo.no** | Åpne nettsider (informasjon, ikke innlogget) |
+| **Mitt Gramo** | Foreslått navn for "min side" |
+
+#### To-spor-strategien bekreftet
+- **Spor 1:** Omdømme og merkevare (eierskap: Kim/kommunikasjon)
+- **Spor 2:** Effektivitet og kundetilfredshet (eierskap: Toril/medlem)
+- **Felles suksesskriterium:** "Folk finner, forstår og får til"
+
+#### Involvering av medlemsavdelingen
+- Toril er premissleverandør for spor 2
+- Prosjektet må forankre med henne før workshops
+- Hele medlemsavdelingen må involveres, ikke bare enkeltpersoner
+
+#### Spilletidsstatistikk - prototyper vist
+- Ca. 20 prototyper demonstrert
+- Strategisk verdi: "Hvis noen lurer på radiostatistikk i Norge, skal det være naturlig å kontakte Gramo"
+- Samarbeidsmulighet med Tono nevnt (samme NRK-rapporter)
+
+#### Beslutninger
+1. Apollon = internt system, Webportal = innlogget brukerflate, Gramo.no = åpne sider
+2. Toril er premissleverandør for spor 2
+3. Språkprofil-arbeid pågår, møte med Øystein planlegges
+4. Målinger skal forbedres med differensiering mellom åpne/innloggede sider
+
+---
+
 ## 14. januar 2026
 
 ### Standardisering av navnekonvensjoner

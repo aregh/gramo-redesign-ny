@@ -43,39 +43,12 @@ I oppstartsfasen var det usikkerhet om hvor mye Gramo.no-prosjektet skulle invol
 - Medlemsportal-funksjonalitet (registrering, innspillinger, utbetalinger) håndteres i Apollon
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (5. desember 2025)
-- [2DOS.md](../2DOS.md) (Apollon-bakgrunn)
-- [Prosjektmandat.md](Prosjektmandat.md) (revidert 6. januar)
-
----
-
-### [4. desember 2025] - ISRC-registrering er toppoppgave #1
-
-**Besluttet av:** Are Halland (basert på GEO-analyse)
-
+- [LOGG.md](./../LOGG.md) (5. desember 2025)
+- [2DOS.md](./../2DOS.md) (Apollon-bakgrunn)
+- [Prosjektmandat.md](./Prosjektmandat.md) (revidert 6. januar)
 **Kontekst:**
-Analyse av søkeord, brukerreiser og forretningsverdi viste at ISRC-registrering er den mest kritiske brukeroppgaven for Gramo.
-
-**Beslutning:**
-ISRC-registrering prioriteres som **toppoppgave #1** for gramo.no redesign.
-
 **Rasjonale:**
-- **Høyt søkevolum:** "ISRC-kode" er et av de mest søkte begrepene
-- **Forretningskritisk:** Uten ISRC kan ikke artister få utbetalinger
-- **Kompleks brukerreise:** Dagens løsning er tungvint og fører til frustrasjon
-- **Differensiator:** Forbedret ISRC-registrering kan redusere supporthenvendelser og øke medlemstilfredshet
-
 **Konsekvens:**
-- Kjerneflyt-ISRC.md ble utviklet (detaljert brukerreise)
-- Verdistrøm-ISRC.md ble utviklet (business case)
-- Informasjonsarkitektur skal optimaliseres for ISRC-registrering
-- Innholdsproduksjon skal prioritere ISRC-veiledning
-
-**Lenker:**
-- [Analyse/GEO-analyse.md](../Analyse/GEO-analyse.md)
-- [Analyse/Kjerneflyt-ISRC.md](../Analyse/Kjerneflyt-ISRC.md)
-- [Analyse/Verdistrøm-ISRC.md](../Analyse/Verdistrøm-ISRC.md)
-- [Analyse/Toppoppgaver.md](../Analyse/Toppoppgaver.md)
 
 ---
 
@@ -103,8 +76,8 @@ Mulig å kombinere datakilder med **tydelig kildehenvisning**.
 **Status:** ⚠️ Ikke endelig besluttet - krever videre avklaring
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (9. desember 2025)
-- [Analyse/Statistikk-visualisering.md](../Analyse/Statistikk-visualisering.md)
+- [LOGG.md](./../LOGG.md) (9. desember 2025)
+- [Statistikk-visualisering.md](./../Analyse/Statistikk-visualisering.md)
 
 ---
 
@@ -129,8 +102,8 @@ Prosjektmandatet ble revidert for å tydeligere avgrense mot Apollon.
 - Klargjør forventninger til leveranser
 
 **Lenker:**
-- [Prosjektmandat.md](Prosjektmandat.md)
-- [Prosjektmandat-2026-01-06-Are.md](Prosjektmandat-2026-01-06-Are.md) (revidert versjon)
+- [Prosjektmandat.md](./Prosjektmandat.md)
+- [Prosjektmandat-2026-01-06-Are.md](./Prosjektmandat-2026-01-06-Are.md) (revidert versjon)
 
 ---
 
@@ -159,7 +132,7 @@ Nytt tilbud med:
 - Team utvides med Torstein (innholdsproduksjon)
 
 **Lenker:**
-- [2026-01-07-Tilbod.md](2026-01-07-Tilbod.md)
+- [2026-01-07-Tilbod.md](./2026-01-07-Tilbod.md)
 
 ---
 
@@ -197,7 +170,7 @@ Gramo.no skal bygges etter en **to-spor-strategi**:
 **Status:** ✅ Endelig
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (8. januar 2026)
+- [LOGG.md](./../LOGG.md) (8. januar 2026)
 - [Miro-board: Strategisk rammeverk](https://miro.com/app/board/...)
 
 ---
@@ -233,7 +206,7 @@ Gramo har kun 7 mill. kr i inntekt fra utlandet, mens Finland har 14 mill. kr. N
 - Sekundært mål: Økt inntekt fra utlandet (fra 7 mill. kr)
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (8. januar 2026)
+- [LOGG.md](./../LOGG.md) (8. januar 2026)
 
 ---
 
@@ -261,7 +234,7 @@ Dekker både transparens/klarhet (Spor 1) og effektivitet (Spor 2).
 **Status:** ✅ Endelig
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (8. januar 2026)
+- [LOGG.md](./../LOGG.md) (8. januar 2026)
 
 ---
 
@@ -294,7 +267,7 @@ Dekker både transparens/klarhet (Spor 1) og effektivitet (Spor 2).
 - Målsetting: Y% reduksjon innen desember 2026
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (8. januar 2026)
+- [LOGG.md](./../LOGG.md) (8. januar 2026)
 
 ---
 
@@ -324,8 +297,8 @@ ISRC-registrering er en **viktig brukeroppgave**, men har **begrenset strategisk
 **Status:** ✅ Endelig
 
 **Lenker:**
-- [LOGG.md](../LOGG.md) (8. januar 2026)
-- [Analyse/Brukerreiser/Kjerneflyt-ISRC.md](../Analyse/Brukerreiser/Kjerneflyt-ISRC.md)
+- [LOGG.md](./../LOGG.md) (8. januar 2026)
+- [Kjerneflyt-ISRC.md](./../Analyse/Brukerreiser/Kjerneflyt-ISRC.md)
 
 ---
 
