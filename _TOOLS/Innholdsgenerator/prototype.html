@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innholdsgenerator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #1a1a2e;
+      --bg-panel: #16213e;
+      --bg-input: #0f0f23;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a0a0a0;
+      --accent: #4f8cff;
+      --accent-hover: #3a7bef;
+      --border: #2a2a4a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .context-bar {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .context-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .context-item label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .context-item input {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      color: var(--text-primary);
+      font-size: 13px;
+      width: 180px;
+    }
+
+    .context-item input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Main layout */
+    main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Editor panel (venstre) */
+    .editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+    }
+
+    .editor-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .editor-header h2 {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .editor-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab {
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .editor-content {
+      flex: 1;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    #text-editor {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 15px;
+      line-height: 1.7;
+      resize: none;
+      font-family: inherit;
+    }
+
+    #text-editor:focus {
+      outline: none;
+    }
+
+    /* Chat panel (høyre) */
+    .chat-panel {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-panel);
+    }
+
+    .chat-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h2 {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .mode-selector {
+      display: flex;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .mode-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 90%;
+    }
+
+    .message.user {
+      background: var(--accent);
+      color: white;
+      align-self: flex-end;
+    }
+
+    .message.ai {
+      background: var(--bg-input);
+      color: var(--text-primary);
+      align-self: flex-start;
+    }
+
+    .message.system {
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-align: center;
+      align-self: center;
+    }
+
+    .quick-actions {
+      padding: 8px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid var(--border);
+    }
+
+    .quick-btn {
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .chat-input-area {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+
+    #chat-input {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-size: 14px;
+      resize: none;
+      height: 44px;
+    }
+
+    #chat-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .send-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      width: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .send-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .send-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header med kontekst -->
+  <header>
+    <h1>Innholdsgenerator</h1>
+    <div class="context-bar">
+      <div class="context-item">
+        <label>Målgruppe</label>
+        <input type="text" placeholder="Hvem leser dette?">
+      </div>
+      <div class="context-item">
+        <label>Oppgave</label>
+        <input type="text" placeholder="Hva skal de gjøre?">
+      </div>
+      <div class="context-item">
+        <label>Mål</label>
+        <input type="text" placeholder="Hva skal teksten oppnå?">
+      </div>
+      <div class="context-item">
+        <label>CTA</label>
+        <input type="text" placeholder="Ønsket handling">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Venstre: Editor -->
+    <div class="editor-panel">
+      <div class="editor-header">
+        <h2>Tekst</h2>
+        <div class="editor-tabs">
+          <button class="tab active">Utkast</button>
+          <button class="tab">Original</button>
+          <button class="tab">Diff</button>
+        </div>
+      </div>
+      <div class="editor-content">
+        <textarea id="text-editor" placeholder="Skriv eller lim inn tekst her..."></textarea>
+      </div>
+    </div>
+
+    <!-- Høyre: Chat/kommandoer -->
+    <div class="chat-panel">
+      <div class="chat-header">
+        <h2>Assistent</h2>
+        <div class="mode-selector">
+          <button class="mode-btn active">Generell</button>
+          <button class="mode-btn">SpråkGPT</button>
+          <button class="mode-btn">JusGPT</button>
+        </div>
+      </div>
+
+      <div class="chat-messages">
+        <div class="message system">Velg en modus og beskriv hva du vil gjøre med teksten</div>
+        <div class="message ai">Hei! Jeg kan hjelpe deg med å forbedre teksten. Prøv en av hurtigkommandoene under, eller beskriv hva du vil endre.</div>
+      </div>
+
+      <div class="quick-actions">
+        <button class="quick-btn">Gjør kortere</button>
+        <button class="quick-btn">Gjør lengre</button>
+        <button class="quick-btn">Enklere språk</button>
+        <button class="quick-btn">Mer formelt</button>
+        <button class="quick-btn">Sjekk fakta</button>
+        <button class="quick-btn">Legg til CTA</button>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-input-wrapper">
+          <textarea id="chat-input" placeholder="Beskriv endringen du vil gjøre..."></textarea>
+          <button class="send-btn">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Enkel interaktivitet for prototypen
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.quick-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const messages = document.querySelector('.chat-messages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.textContent = btn.textContent;
+        messages.appendChild(userMsg);
+
+        setTimeout(() => {
+          const aiMsg = document.createElement('div');
+          aiMsg.className = 'message ai';
+          aiMsg.textContent = 'Jeg jobber med å ' + btn.textContent.toLowerCase() + '...';
+          messages.appendChild(aiMsg);
+          messages.scrollTop = messages.scrollHeight;
+        }, 500);
+      });
+    });
+
+    // Send melding
+    document.querySelector('.send-btn').addEventListener('click', () => {
+      const input = document.getElementById('chat-input');
+      if (input.value.trim()) {
+        const messages = document.querySelector('.chat-messages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.textContent = input.value;
+        messages.appendChild(userMsg);
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>

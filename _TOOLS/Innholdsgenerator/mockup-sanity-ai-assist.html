@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup: Sanity AI Assist - Gramo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #101112;
+      color: #e4e8ed;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: #1a1d20;
+      border-bottom: 1px solid #2a2e33;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      background: #4ade80;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #101112;
+    }
+
+    .project-name {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .topbar-tabs {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .topbar-tab {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+
+    .topbar-tab.active {
+      background: #2a2e33;
+      color: #e4e8ed;
+    }
+
+    /* Main layout */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 200px;
+      background: #14171a;
+      border-right: 1px solid #2a2e33;
+      padding: 12px 0;
+    }
+
+    .sidebar-item {
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+
+    .sidebar-item:hover {
+      background: #1a1d20;
+    }
+
+    .sidebar-item.active {
+      background: #2563eb20;
+      color: #60a5fa;
+    }
+
+    .sidebar-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+    }
+
+    /* Document list */
+    .doc-list {
+      width: 280px;
+      background: #14171a;
+      border-right: 1px solid #2a2e33;
+    }
+
+    .doc-list-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2a2e33;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-list-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .doc-item {
+      padding: 10px 16px;
+      border-bottom: 1px solid #1a1d20;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doc-item:hover {
+      background: #1a1d20;
+    }
+
+    .doc-item.active {
+      background: #2563eb;
+    }
+
+    .doc-icon {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .doc-info {
+      flex: 1;
+    }
+
+    .doc-name {
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .doc-path {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .doc-status {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+
+    /* Editor panel */
+    .editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #101112;
+    }
+
+    .editor-header {
+      padding: 12px 24px;
+      border-bottom: 1px solid #2a2e33;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .editor-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .editor-tab {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+
+    .editor-tab.active {
+      background: #4ade80;
+      color: #101112;
+    }
+
+    .editor-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .editor-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    /* Field group */
+    .field-group {
+      margin-bottom: 24px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-input {
+      background: #1a1d20;
+      border: 1px solid #2a2e33;
+      border-radius: 4px;
+      padding: 10px 12px;
+      color: #e4e8ed;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    /* Rich text editor */
+    .rich-text-wrapper {
+      position: relative;
+    }
+
+    .rich-text-toolbar {
+      background: #1a1d20;
+      border: 1px solid #2a2e33;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      padding: 8px 12px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .toolbar-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .toolbar-btn:hover {
+      background: #2a2e33;
+      color: #e4e8ed;
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 20px;
+      background: #2a2e33;
+      margin: 0 4px;
+    }
+
+    .rich-text-content {
+      background: #1a1d20;
+      border: 1px solid #2a2e33;
+      border-radius: 0 0 4px 4px;
+      padding: 16px;
+      min-height: 200px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .rich-text-content h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .rich-text-content p {
+      margin-bottom: 12px;
+      color: #c9d1d9;
+    }
+
+    .rich-text-content a {
+      color: #60a5fa;
+    }
+
+    .callout {
+      background: #1e3a5f;
+      border-left: 3px solid #3b82f6;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .callout-icon {
+      font-size: 16px;
+    }
+
+    /* AI Assist button - THE KEY FEATURE */
+    .ai-assist-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .ai-assist-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .ai-icon {
+      font-size: 14px;
+    }
+
+    /* AI Dropdown menu */
+    .ai-dropdown {
+      position: absolute;
+      top: 44px;
+      right: 12px;
+      background: #1a1d20;
+      border: 1px solid #2a2e33;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      width: 280px;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .ai-dropdown-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2a2e33;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #6b7280;
+      letter-spacing: 0.5px;
+    }
+
+    .ai-dropdown-section {
+      padding: 8px 0;
+      border-bottom: 1px solid #2a2e33;
+    }
+
+    .ai-dropdown-section:last-child {
+      border-bottom: none;
+    }
+
+    .ai-dropdown-section-title {
+      padding: 8px 16px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #6b7280;
+      letter-spacing: 0.5px;
+    }
+
+    .ai-option {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .ai-option:hover {
+      background: #2a2e33;
+    }
+
+    .ai-option-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .ai-option-icon.sprak {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .ai-option-icon.jus {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    .ai-option-icon.general {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    }
+
+    .ai-option-info {
+      flex: 1;
+    }
+
+    .ai-option-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .ai-option-desc {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .ai-option-arrow {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    /* Processing state */
+    .ai-processing {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(16, 17, 18, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .ai-processing-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #2a2e33;
+      border-top-color: #8b5cf6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .ai-processing-text {
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    /* Publish button */
+    .publish-btn {
+      background: #2563eb;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Status badge */
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .status-badge.published {
+      background: #065f4620;
+      color: #4ade80;
+    }
+
+    .status-badge.draft {
+      background: #f59e0b20;
+      color: #fbbf24;
+    }
+
+    /* Annotation showing changes */
+    .annotation {
+      position: absolute;
+      left: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ef4444;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .annotation::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent;
+      border-left-color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="logo">G</div>
+    <div class="project-name">Gramo <span style="color: #6b7280; margin-left: 4px;">▾</span></div>
+    <div class="topbar-tabs">
+      <div class="topbar-tab active">Structure</div>
+      <div class="topbar-tab">Media</div>
+      <div class="topbar-tab">Vision</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-item">📰 Nyheter</div>
+      <div class="sidebar-item active">📄 Innhold</div>
+      <div class="sidebar-item">📝 Artikler</div>
+      <div class="sidebar-item">❓ FAQ</div>
+      <div class="sidebar-item">📖 Ordliste</div>
+      <div class="sidebar-item">⭐ Spesialer</div>
+      <div class="sidebar-item">📊 Statistikk</div>
+      <div class="sidebar-item">👥 Personer</div>
+    </div>
+
+    <!-- Document list -->
+    <div class="doc-list">
+      <div class="doc-list-header">
+        <span class="doc-list-title">Side</span>
+        <span style="color: #6b7280;">+</span>
+      </div>
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">_Dokumentasjon</div>
+          <div class="doc-path">no/docs</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+      <div class="doc-item active">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">Utbetaling</div>
+          <div class="doc-path">no/utbetaling</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">Bli medlem</div>
+          <div class="doc-path">no/medlem</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">Års- og åpenhetsrapport</div>
+          <div class="doc-path">no/rapport</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">Forvaltningsavtale</div>
+          <div class="doc-path">no/forvaltningsavtale</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+      <div class="doc-item">
+        <span class="doc-icon">📄</span>
+        <div class="doc-info">
+          <div class="doc-name">Personvern</div>
+          <div class="doc-path">no/personvern</div>
+        </div>
+        <div class="doc-status"></div>
+      </div>
+    </div>
+
+    <!-- Editor panel -->
+    <div class="editor-panel">
+      <div class="editor-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="status-badge published">● Published</span>
+          <span class="status-badge draft">● Draft</span>
+        </div>
+        <div class="editor-tabs">
+          <div class="editor-tab active">Innhold</div>
+          <div class="editor-tab">Kortversjon</div>
+          <div class="editor-tab">Metadata</div>
+          <div class="editor-tab">All fields</div>
+        </div>
+        <button class="publish-btn">↑ Publish</button>
+      </div>
+
+      <div class="editor-content">
+        <h1 class="page-title">Utbetaling</h1>
+
+        <div class="field-group">
+          <div class="field-label">Sidetittel</div>
+          <input type="text" class="field-input" value="Utbetaling">
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">
+            Innhold
+            <span style="font-weight: normal; color: #6b7280;">Alt innhold, inkludert tittel, bilder og tekst.</span>
+          </div>
+
+          <div class="rich-text-wrapper">
+            <div class="rich-text-toolbar">
+              <select style="background: transparent; border: 1px solid #2a2e33; color: #9ca3af; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+                <option>No style</option>
+              </select>
+              <div class="toolbar-divider"></div>
+              <button class="toolbar-btn"><b>B</b></button>
+              <button class="toolbar-btn"><i>I</i></button>
+              <button class="toolbar-btn"><s>S</s></button>
+              <div class="toolbar-divider"></div>
+              <button class="toolbar-btn">≡</button>
+              <button class="toolbar-btn">•</button>
+              <div class="toolbar-divider"></div>
+              <button class="toolbar-btn">📷</button>
+              <button class="toolbar-btn">🔗</button>
+            </div>
+
+            <!-- AI Assist Button -->
+            <button class="ai-assist-btn" onclick="toggleDropdown()">
+              <span class="ai-icon">✨</span>
+              AI Assist
+            </button>
+
+            <!-- AI Dropdown Menu -->
+            <div class="ai-dropdown" id="aiDropdown" style="display: none;">
+              <div class="ai-dropdown-header">Kvalitetskontroll</div>
+
+              <div class="ai-dropdown-section">
+                <div class="ai-option" onclick="runSprakGPT()">
+                  <div class="ai-option-icon sprak">📝</div>
+                  <div class="ai-option-info">
+                    <div class="ai-option-name">SpråkGPT</div>
+                    <div class="ai-option-desc">Klarspråk, tone, lesbarhet</div>
+                  </div>
+                  <span class="ai-option-arrow">→</span>
+                </div>
+
+                <div class="ai-option" onclick="runJusGPT()">
+                  <div class="ai-option-icon jus">⚖️</div>
+                  <div class="ai-option-info">
+                    <div class="ai-option-name">JusGPT</div>
+                    <div class="ai-option-desc">Opphavsrett, ansvar, forbehold</div>
+                  </div>
+                  <span class="ai-option-arrow">→</span>
+                </div>
+              </div>
+
+              <div class="ai-dropdown-section">
+                <div class="ai-dropdown-section-title">Hurtigkommandoer</div>
+                <div class="ai-option">
+                  <div class="ai-option-icon general">✂️</div>
+                  <div class="ai-option-info">
+                    <div class="ai-option-name">Gjør kortere</div>
+                    <div class="ai-option-desc">Behold essensen, kutt fyllord</div>
+                  </div>
+                </div>
+                <div class="ai-option">
+                  <div class="ai-option-icon general">📖</div>
+                  <div class="ai-option-info">
+                    <div class="ai-option-name">Enklere språk</div>
+                    <div class="ai-option-desc">Lesenivå ungdomsskole</div>
+                  </div>
+                </div>
+                <div class="ai-option">
+                  <div class="ai-option-icon general">🌍</div>
+                  <div class="ai-option-info">
+                    <div class="ai-option-name">Oversett til engelsk</div>
+                    <div class="ai-option-desc">Profesjonell oversettelse</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rich-text-content" id="richTextContent">
+              <h2>Utbetaling</h2>
+              <p>Hvor mye du kan få utbetalt kommer blant annet an på hvor ofte dine innspillinger blir spilt på radio, på butikken, kaféen, treningssenteret eller liknende.</p>
+              <p><a href="#">Gå til utbetalingskalkulatoren</a></p>
+              <div class="callout">
+                <span class="callout-icon">💡</span>
+                <span>Du får utbetalt penger inntil tre år etter at musikken har blitt spilt.</span>
+              </div>
+            </div>
+
+            <!-- Processing overlay (hidden by default) -->
+            <div class="ai-processing" id="aiProcessing" style="display: none;">
+              <div class="ai-processing-spinner"></div>
+              <div class="ai-processing-text" id="processingText">Kjører SpråkGPT...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">FAQ <span style="font-weight: normal; color: #6b7280;">Relaterte spørsmål og svar.</span></div>
+          <div style="background: #1a1d20; border: 1px solid #2a2e33; border-radius: 4px; padding: 24px; text-align: center; color: #6b7280;">
+            No items
+            <br><br>
+            <button style="background: transparent; border: 1px solid #2a2e33; color: #9ca3af; padding: 8px 16px; border-radius: 4px; cursor: pointer;">+ Add item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById('aiDropdown');
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function runSprakGPT() {
+      document.getElementById('aiDropdown').style.display = 'none';
+      document.getElementById('processingText').textContent = 'Kjører SpråkGPT...';
+      document.getElementById('aiProcessing').style.display = 'flex';
+
+      setTimeout(() => {
+        document.getElementById('aiProcessing').style.display = 'none';
+        document.getElementById('richTextContent').innerHTML = `
+          <h2>Utbetaling</h2>
+          <p>Du kan få utbetalt vederlag basert på hvor ofte musikken din spilles offentlig – på radio, i butikker, på treningssentre og andre steder.</p>
+          <p><a href="#">Beregn hvor mye du kan få →</a></p>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <span>Du kan få utbetaling i opptil tre år etter at musikken ble spilt.</span>
+          </div>
+          <p style="font-size: 12px; color: #4ade80; margin-top: 16px;">✓ SpråkGPT: Forenklet setningsstruktur, fjernet fyllord, tydeliggjort CTA</p>
+        `;
+      }, 2000);
+    }
+
+    function runJusGPT() {
+      document.getElementById('aiDropdown').style.display = 'none';
+      document.getElementById('processingText').textContent = 'Kjører JusGPT...';
+      document.getElementById('aiProcessing').style.display = 'flex';
+
+      setTimeout(() => {
+        document.getElementById('aiProcessing').style.display = 'none';
+        document.getElementById('richTextContent').innerHTML = `
+          <h2>Utbetaling</h2>
+          <p>Hvor mye du kan få utbetalt kommer blant annet an på hvor ofte dine innspillinger blir spilt på radio, på butikken, kaféen, treningssenteret eller liknende.</p>
+          <p><a href="#">Gå til utbetalingskalkulatoren</a></p>
+          <div class="callout">
+            <span class="callout-icon">💡</span>
+            <span>Du får utbetalt penger inntil tre år etter at musikken har blitt spilt.</span>
+          </div>
+          <div style="background: #f59e0b20; border: 1px solid #f59e0b40; border-radius: 4px; padding: 12px 16px; margin-top: 16px;">
+            <p style="font-size: 13px; color: #fbbf24; margin: 0 0 8px 0; font-weight: 500;">⚠️ JusGPT: 2 merknader</p>
+            <ul style="font-size: 12px; color: #d4a574; margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 4px;"><strong>Treårsregelen:</strong> Vurder å lenke til åndsverkloven § 56 som hjemmel</li>
+              <li><strong>Utbetalingskalkulator:</strong> Legg til forbehold om at beregningen er veiledende</li>
+            </ul>
+          </div>
+        `;
+      }, 2000);
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.ai-assist-btn') && !e.target.closest('.ai-dropdown')) {
+        document.getElementById('aiDropdown').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

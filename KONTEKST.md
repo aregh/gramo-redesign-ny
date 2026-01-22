@@ -133,7 +133,7 @@ Prosjektdokumenter og formelle leveranser.
 | Fil | Beskrivelse |
 | --- | --- |
 | [Prosjektmandat.md](./Dokumenter/Prosjektmandat.md) | Formelt prosjektmandat |
-| [2026-01-07-Tilbod.md](./Dokumenter/2026-01-07-Tilbod.md) | Tilbud: 3 faser, 100 dagsverk |
+| [Tilbod%20260122%20Gramo%20redesign%20-%20endeleg%20og%20akseptert.pdf](./Dokumenter/Tilbod%20260122%20Gramo%20redesign%20-%20endeleg%20og%20akseptert.pdf) | Tilbud: 3 faser, 104 dagsverk (godkjent) |
 | [BESLUTNINGER.md](./Dokumenter/BESLUTNINGER.md) | Logg over viktige beslutninger |
 | [Revisjoner/](Dokumenter/Revisjoner/) | Tidligere versjoner |
 | [Arkiv/](Dokumenter/Arkiv/) | Arkiverte dokumenter |
@@ -224,5 +224,5 @@ Verktøy og konfigurasjon.
 
 ---
 
-*Sist oppdatert: 8. januar 2026*
+*Sist oppdatert: 22. januar 2026*
 
