@@ -174,9 +174,9 @@ Informer brukeren om:
 2. Ser "statistikk-storytelling-v1"
 3. Skriver stikkord i input: "med fokus på geografi"
 4. Klikker "Lag v2" → kopierer til clipboard
-5. Limer inn i Claude: /rask-prototype statistikk-storytelling med fokus på geografi
+5. Limer inn i chat: /rask-prototype statistikk-storytelling med fokus på geografi
 6. Skillen genererer v2 automatisk
-7. Bruker oppdaterer index.html manuelt (eller lar Claude gjøre det)
+7. Bruker oppdaterer index.html manuelt (eller lar agenten gjøre det)
 ```
 
 ### Ny prototype

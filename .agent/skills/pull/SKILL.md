@@ -56,5 +56,5 @@ Bruk denne skill når brukeren:
 
 ```
 Bruker: "Hent siste endringer"
-Claude: "✅ Are Halland: Hentet siste endringer fra GitHub. 3 filer oppdatert."
+Agent: "✅ Are Halland: Hentet siste endringer fra GitHub. 3 filer oppdatert."
 ```
