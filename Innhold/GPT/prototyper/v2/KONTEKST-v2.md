@@ -1,4 +1,4 @@
-# GPT-prototyper v1
+# GPT-prototyper v2
 
 > SpråkGPT og JussGPT for Gramo – modelluavhengig kontekstarkitektur
 
@@ -11,7 +11,7 @@ Prototype for to parallelle AI-assistentar:
 | Assistent | Fokus | Fil |
 | --- | --- | --- |
 | **SpråkGPT** | Klarspråk, nivåtilpassing, konsistens | `KONTEKST-SpråkGPT.md` |
-| **JussGPT** | Juridisk korrektheit, risikovurdering | `KONTEKST-JussGPT.md` |
+| **JussGPT v2** | Juridisk korrektheit med eksplisitt datagrunnlag og kildehenvisninger | `KONTEKST-JussGPT.md` |
 
 ---
 
@@ -46,19 +46,19 @@ Prototype for to parallelle AI-assistentar:
 
 **SpråkGPT-analyse:**
 ```
-Les Innhold/Prototyper/GPT/v1/KONTEKST-SpråkGPT.md og analyser denne teksten:
+Les Innhold/GPT/prototyper/v2/KONTEKST-SpråkGPT.md og analyser denne teksten:
 [lim inn tekst]
 ```
 
-**JussGPT-vurdering:**
+**JussGPT v2-vurdering:**
 ```
-Les Innhold/Prototyper/GPT/v1/KONTEKST-JussGPT.md og vurder juridisk risiko:
+Les Innhold/GPT/prototyper/v2/KONTEKST-JussGPT.md og vurder juridisk risiko:
 [lim inn tekst]
 ```
 
 **Kombinert:**
 ```
-Les KONTEKST-SpråkGPT.md og KONTEKST-JussGPT.md i Innhold/Prototyper/GPT/v1/.
+Les KONTEKST-SpråkGPT.md og KONTEKST-JussGPT.md i Innhold/GPT/prototyper/v2/.
 Analyser denne teksten med begge perspektiv:
 [lim inn tekst]
 ```
@@ -84,12 +84,26 @@ Prototypen byggjer på:
 
 ---
 
+## Nytt i v2
+
+1. **Eksplisitt juridisk datagrunnlag** (`Datasett_Juss-GPT.md`)
+2. **Lokale lovtekster** i `Bakgrunn/Juridisk/`
+3. **Tvunget kildehenvisning** i alle juridiske vurderinger
+4. **Strengere regler** mot å "dikte" juridisk informasjon
+5. **Tydelig skille** mellom juridisk rett og praktisk utbetaling
+6. **Komplett terminologiseksjon** fra jurister
+
+Se `ENDRINGSLOGG_v1_til_v2.md` for detaljer.
+
+---
+
 ## Status
 
 | Komponent | Status | Neste steg |
 | --- | --- | --- |
 | SpråkGPT kontekst | ✅ Ferdig | Testing |
-| JussGPT kontekst | ✅ Ferdig | Utvid med Øystein sitt datasett |
+| JussGPT v2 kontekst | ✅ Ferdig | Grundig testing |
+| Datasett_Juss-GPT.md | ✅ Ferdig | Utvid med vedtekter/fordelingsreglement |
 | Testtekstar | ✅ Ferdig | Køyr testar |
 | Sanity-integrasjon | ⏳ Planlagt | Etter validering |
 
@@ -97,13 +111,13 @@ Prototypen byggjer på:
 
 ## TODO
 
-- [ ] Test SpråkGPT på testtekstar
-- [ ] Test JussGPT på testtekstar
-- [ ] Få tilgang til Øystein sitt "golden standard"-datasett
+- [ ] Test JussGPT v2 på testtekstar
+- [ ] Sammenlign v1 vs v2 resultater
+- [ ] Utvid Datasett med vedtekter og fordelingsreglement
 - [ ] Integrer med Sanity AI Assist
 - [ ] Workshop med Kim/Øystein/Rita
 
 ---
 
-*Versjon 1.0 – 22. januar 2026*
+*Versjon 2.0 – 29. januar 2026*
 *Prosjekt: Gramo kontekstarkitektur*
