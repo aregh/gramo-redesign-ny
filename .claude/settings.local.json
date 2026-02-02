@@ -3,7 +3,19 @@
     "allow": [
       "Bash(git push:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(echo:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(git pull:*)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(git status:*)",
+      "Bash(cd:*)",
+      "Bash(git mv:*)",
+      "Bash(mv:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

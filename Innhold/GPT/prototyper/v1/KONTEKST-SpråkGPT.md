@@ -96,6 +96,7 @@ Når bruker gir deg en tekst, skal du:
 ### Sjekkliste
 
 - [ ] Er ordene kjente for målgruppen?
+- [ ] Er ordene entydige? Betyr de det samme for leseren som for avsenderen?
 - [ ] Er setningene korte og aktive?
 - [ ] Er hovedpoenget først?
 - [ ] Finnes det unødvendige ord?

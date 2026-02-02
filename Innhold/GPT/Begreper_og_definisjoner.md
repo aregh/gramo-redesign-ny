@@ -40,17 +40,37 @@ Vederlag er *ikke* en avgift eller skatt – det er kompensasjon for bruk av noe
 
 ## Rettighetshavere
 
+### To rettighetstyper
+
+Gramo forvalter vederlag for to rettighetstyper:
+
+**1. Produsentrettigheter**
+Rettigheter til den som tilrettelegger og bærer omkostningene med produksjonen av opptaket (jf. HR-2023-2282-A). Ofte plateselskapet, men kan også være artisten selv ved selvutgivelse.
+
+**2. Utøvende kunstner-rettigheter**
+Rettigheter til de som fremfører musikken – synger, spiller, dirigerer eller er musikalsk leder på innspillingen (jf. åndsverkloven § 1).
+
+**Viktig:** Mange rettighetshavere har begge rettighetstyper. Eksempel: En artist som tilrettelegger og bekoster egen innspilling (produsent) og synger på den (utøvende kunstner), får vederlag for begge rettighetstyper.
+
+**Folkelig forklaring:** Gramo deler vederlaget 50/50 mellom de som ga ut musikken (produsent) og de som spilte/sang (utøvende kunstnere).
+
+*Kilde: Åndsverkloven §§ 16, 20, 21; Gramos fordelingsreglement.*
+
 ### Produsent
 
 I *juridisk forstand* (etter åndsverkloven § 20) er en produsent av lydopptak:
 
 > **«[D]en som forestår, i betydningen tilrettelegger og bærer omkostningene med, produksjonen av opptakene.»**
 
-Dette innebærer at for å ha produsentrettigheter til et lydopptak, må man ha initiert og finansiert innspillingen. Det er ikke tilstrekkelig å kun ha en teknisk eller kunstnerisk rolle under selve opptaket (f.eks. som studioprodusent eller musiker), dersom prosjektet som helhet er initiert og betalt av noen andre (f.eks. et plateselskap).
+Dette innebærer at for å ha produsentrettigheter til et lydopptak, må man ha tilrettelagt og bekostet innspillingen. Det er ikke tilstrekkelig å kun ha en teknisk eller kunstnerisk rolle under selve opptaket (f.eks. som studioprodusent eller musiker), dersom prosjektet som helhet er tilrettelagt og betalt av noen andre (f.eks. et plateselskap).
 
-**Viktig:** «Produsent» i Gramo-sammenheng er *ikke* det samme som «studioprodusent» eller «musikkprodusent». Det handler om hvem som initierte og finansierte innspillingen, ikke hvem som satt bak miksepulten.
+**Viktig:** «Produsent» i Gramo-sammenheng er *ikke* det samme som «studioprodusent» eller «musikkprodusent». Det handler om hvem som tilrettela og bekostet innspillingen, ikke hvem som satt bak miksepulten.
 
-**Unngå:** «Produsent» alene uten forklaring, «den som mikser», «studioprodusent».
+**Folkelig forklaring:** Den som har masterrettighetene til innspillingen. Ofte plateselskapet, eller deg selv hvis du gir ut egen musikk.
+
+**Unngå:** «Produsent» alene uten forklaring på nivå 1-2, «den som mikser», «studioprodusent», «mastereier» (man eier ikke immaterielle rettigheter, man innehar dem).
+
+**Eksempel (Moa):** Moa tilrettelegger og bærer omkostningene med produksjonen av opptaket (produsent) og synger (utøvende kunstner). Hun får vederlag for begge rettighetstyper.
 
 *Kilde: Høyesteretts dom 5. desember 2023, HR-2023-2282-A; Åndsverkloven § 20.*
 
@@ -100,9 +120,12 @@ Arvinger trer inn i rettighetshavers rettigheter og kan motta vederlag så lenge
 
 ### Offentlig fremføring
 
-Avspilling av lydopptak der publikum kan høre det – i butikker, restauranter, treningssentre, venteværelser, hoteller og lignende.
+Avspilling av lydopptak der publikum kan høre det – i butikker, kaféer, treningssentre, restauranter, hoteller og lignende.
 
 Når lydopptak spilles slik at andre enn dem i en privat krets kan høre det, utløser det vederlagsplikt. Ansatte i en butikk regnes som «offentlighet» – det er ikke «privat» bare fordi kundene kommer og går.
+
+**Primære eksempler:** Butikker, kaféer, treningssentre
+**Sekundære eksempler:** Hoteller, restauranter
 
 **Viktig:** On-demand strømming (Spotify, Apple Music etc.) regnes *ikke* som offentlig fremføring og faller utenfor Gramos mandat.
 
@@ -120,15 +143,25 @@ Dette er Gramos største inntektskilde. Når NRK eller andre radiokanaler spille
 
 ### On-demand / Interaktiv tilgjengeliggjøring
 
-Tilgjengeliggjøring der brukeren selv velger tid og sted – Spotify, Apple Music, Tidal og lignende strømmetjenester.
+Tilgjengeliggjøring der brukeren selv velger tid og sted for å høre musikken – Spotify, Apple Music, Tidal og lignende strømmetjenester.
 
 > **Viktig: On-demand-tjenester faller UTENFOR Gramos mandat.**
 
-Mange tror Gramo håndterer Spotify-inntekter. Det gjør vi ikke. Inntekter fra strømmetjenester håndteres av plateselskapet eller distributøren din.
+**To vanlige misforståelser:**
+
+**1. "Dekker Gramo strømmetjenester?"**
+Nei, Gramo dekker kun:
+- Lineær overføring til allmennheten (radio, TV, webradio)
+- Offentlig fremføring (butikker, kaféer, treningssentre)
+
+**2. "Får jeg penger fra Gramo for Spotify-streams?"**
+Nei, ikke fra Gramo. Men du kan få betalt fra:
+- TONO (hvis du skrev musikken)
+- Plateselskap/distributør (hvis du er artist)
 
 **Unngå:** «Gramo-inntekter fra Spotify» (feil), «strømmevederlag fra Gramo» (feil).
 
-*Kilde: Åndsverkloven § 16 bokstav c, § 21 (unntaket).*
+*Kilde: Åndsverkloven § 16 bokstav c, § 21 (unntaket); § 21 første ledd (godkjenningen gjelder ikke for lydopptak som overføres på en slik måte at den enkelte selv kan velge tid og sted for tilgang til lydopptaket).*
 
 ---
 
